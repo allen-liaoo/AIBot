@@ -2,9 +2,9 @@
 A discord bot made in JDA by AlienIdeology (or Ayy™). <br />
 Defualt Prefix: `=`<br />
 
-Discord Bots Link: https://bots.discord.pw/bots/294327785512763392 <br />
-Invite Link Without Permissions: https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=0 <br />
-Discord Support Server: https://discord.gg/EABc8Kc
+[Discord Bots Link](https://bots.discord.pw/bots/294327785512763392) <br />
+[Invite Link Without Permissions](https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=0) <br />
+[Discord Support Server](https://discord.gg/EABc8Kc)
 
 ## Command List
 __**Information Commands**__ <br />
