@@ -28,7 +28,7 @@ unban (ub) - Unban member(s) by ID. <br />
 __**Miscellaneous Commands**__ <br />
 number (n) - Generate random numbers, roll a dice, or flip a coin. * <br />
 &nbsp;&nbsp;*num random (n r)* - Generate random numbers. <br />
-&nbsp;&nbsp;*num count (n ct)* - Count numbers. <br />
+&nbsp;&nbsp;*num count (n c)* - Count numbers. <br />
 &nbsp;&nbsp;*num roll* - Roll the dice. <br />
 &nbsp;&nbsp;*num coinflip (n cf)* - Flip a coin. <br />
 math (m) - Let the bot to solve a math operation for you. * <br />
