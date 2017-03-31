@@ -5,7 +5,6 @@
  */
 package Command;
 
-import static Command.NumberCommand.HELP;
 import Config.Info;
 import Config.Prefix;
 import Main.*;
@@ -16,7 +15,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
- * @author liaoyilin
+ * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class EightBallCommand implements Command{
     public final static String HELP = "Ask the Magic 8Ball a question!\n"
