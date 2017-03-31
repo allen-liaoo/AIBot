@@ -38,7 +38,7 @@ search - Search Google, Wikipedia, Urban Dictionary, Github, and custom sites. *
 &nbsp;&nbsp;*urban* - Search Urban Dictionary. <br />
 &nbsp;&nbsp;*github (git)* - Search Github. <br />
 8ball - Ask the magic 8ball a question. * <br />
-face - ( ͡° ͜ʖ ͡°) * <br />
+face - Lenny * <br />
 image - Search images from Imgur, Giphy, and KnowYourMeme. * <br />
 &nbsp;&nbsp;*imgur* - Search from Imgur. <br />
 &nbsp;&nbsp;*gif* - Search from Giphy. <br />
