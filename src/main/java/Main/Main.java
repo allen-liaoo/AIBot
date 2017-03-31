@@ -24,7 +24,7 @@ import javax.security.auth.login.LoginException;
 
 /**
  *
- * @author liaoyilin
+ * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class Main {
 
