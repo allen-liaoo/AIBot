@@ -16,6 +16,7 @@ channelinfo (ci) - Get channel info (Text/Voice Channel). <br />
 userinfo (ui) - Get user info. * <br />
 prefix - Set the server prefix. (Under Development) <br />
 ping - Pong. * about - Bot description. * <br />
+**about** - Bot description. * <br />
 support - Related servers and bots. * <br />
 
 __**Moderation Commands**__ <br />
