@@ -16,7 +16,7 @@ channelinfo (ci) - Get channel info (Text/Voice Channel). <br />
 userinfo (ui) - Get user info. * <br />
 prefix - Set the server prefix. (Under Development) <br />
 ping - Pong. * about - Bot description. * <br />
-**about** - Bot description. * <br />
+about - Bot description. * <br />
 support - Related servers and bots. * <br />
 
 __**Moderation Commands**__ <br />
@@ -56,3 +56,10 @@ source - Get the source code of a command class. * <br />
 __**Note:**__ <br />
 Adding the command/module name after help will show the command/module usage. <br />
 \* - Available directly from Private Message. (Private Channel) <br />
+
+## Libraries
+1. JDK https://github.com/DV8FromTheWorld/JDA <br />
+2. Lavaplayer https://github.com/sedmelluq/lavaplayer/blob/master/README.md <br />
+3. Emoji Java https://github.com/vdurmont/emoji-java <br />
+4. Exp4j http://www.objecthunter.net/exp4j/ <br />
+5. Yahoo Weather Java API https://github.com/fedy2/yahoo-weather-java-api <br />
