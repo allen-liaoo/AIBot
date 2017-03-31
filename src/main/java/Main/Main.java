@@ -115,6 +115,8 @@ public class Main {
         commands.put("8ball", new EightBallCommand());
         commands.put("face", new FaceCommand());
         commands.put("f", new FaceCommand());
+        commands.put("tictactoe", new TicTacToeCommand());
+        commands.put("ttt", new TicTacToeCommand());
         
         // Music Commands
         commands.put("join", new JoinCommand());

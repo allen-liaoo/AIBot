@@ -44,7 +44,7 @@ public class FaceCommand implements Command{
     @Override
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
-        embed.setTitle("Utility Module", null);
+        embed.setTitle("Miscellaneous Module", null);
         embed.addField("Number -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Info.I_help);
         embed.setTimestamp(Instant.now());

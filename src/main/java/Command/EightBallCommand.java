@@ -30,8 +30,8 @@ public class EightBallCommand implements Command{
     @Override
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
-        embed.setTitle("Fun Module", null);
-        embed.addField("8Ball -Help", HELP, true);
+        embed.setTitle("Miscellaneous Module", null);
+        embed.addField("EightBall -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Info.I_help);
         embed.setTimestamp(Instant.now());
 

@@ -34,26 +34,25 @@ public class CommandModules {
                                     + "**number (n)** - Generate random numbers, roll a dice, or flip a coin. *\n";
     
     public final static String HELP_MISS_NUM = "*num random (n r)* - Generate random numbers.\n"
-                                    + "*num count (n ct)* - Count numbers.\n"
+                                    + "*num count (n c)* - Count numbers.\n"
                                     + "*num roll* - Roll the dice.\n"
                                     + "*num coinflip (n cf)* - Flip a coin.\n";
     
     public final static String HELP_MISS2 = "**math (m)** - Let the bot to solve a math operation for you. *\n"
                                     + "**weather (w)** - Get the weather. *\n"
-                                    + "**search** - Search Google, Wikipedia, Urban Dictionary, Github, and custom sites. *\n";
-    
-    public final static String HELP_MISS_SEARCH = "*google (g)* - Search via Google Search Engine.\n"
-                                     + "*wiki* - Search Wikipedia.\n"
-                                     + "*urban* - Search Urban Dictionary.\n"
-                                     + "*github (git)* - Search Github.\n";
-    
-    public final static String HELP_MISS3 = "**8ball** - Ask the magic 8ball a question. *\n"
+                                    + "***search*** - Search Google, Wikipedia, Urban Dictionary, Github, and custom sites. *\n"
+                                    + "   *google (g)* - Search via Google Search Engine.\n"
+                                    + "   *wiki* - Search Wikipedia.\n"
+                                    + "   *urban* - Search Urban Dictionary.\n"
+                                    + "   *github (git)* - Search Github.\n"
+                                    + "***image*** - Search images from Imgur, Giphy, and KnowYourMeme. *\n"
+                                    + "   *imgur* - Search from Imgur.\n"
+                                    + "   *gif* - Search from Giphy.\n"
+                                    + "   *meme* - Search from KnowYourMeme.\n"
+                                    + "**8ball** - Ask the magic 8ball a question. *\n"
                                     + "**face** - ( ͡° ͜ʖ ͡°) *\n"
-                                    + "**image** - Search images from Imgur, Giphy, and KnowYourMeme. *\n";
-    
-    public final static String HELP_MISS_IMAGE = "*imgur* - Search from Imgur.\n"
-                                    + "*gif* - Search from Giphy.\n"
-                                    + "*meme* - Search from KnowYourMeme.\n";
+                                    + "***game*** - Play a game. *\n"
+                                    + "   **tictactoe (ttt)** - Play a Tic Tac Toe Game XO!!\n";
     
     public final static String HELP_MUSIC = "__**Music Commands**__\n"
                                     + "**join (j)** - Add bot to a voice channel.\n"

@@ -26,16 +26,14 @@ public class HelpCommand implements Command {
     public final static String HELP = "This command is for getting this bot's commands.\n"
                                + "Command Usage: `" + Prefix.getDefaultPrefix() + "help` or `" + Prefix.getDefaultPrefix() + "h`\n"
                                + "Parameter: `-h | -dm | Command/Module Name  | -m | null`\n"
-                               + "MarkDown Type: __**Module**__, **command**, **(alter command)**, *sub command*, ~~Under Development~~";
+                               + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
     
     public final static String HELP_TEXT = "List of commands for this bot:\n"
                                     + CommandModules.HELP_INFO
                                     + CommandModules.HELP_MOD
                                     + CommandModules.HELP_MISS
                                     + CommandModules.HELP_MISS2
-                                    + CommandModules.HELP_MISS3
                                     + CommandModules.HELP_MUSIC
-                                    + CommandModules.HELP_MISS3
                                     + CommandModules.HELP_NOTE;
     
     public final static String HELP_TEXT_M = "List of commands for this bot **(More)**:\n"
@@ -44,9 +42,6 @@ public class HelpCommand implements Command {
                                     + CommandModules.HELP_MISS
                                     + CommandModules.HELP_MISS_NUM
                                     + CommandModules.HELP_MISS2
-                                    + CommandModules.HELP_MISS_SEARCH
-                                    + CommandModules.HELP_MISS3
-                                    + CommandModules.HELP_MISS_IMAGE
                                     + CommandModules.HELP_MUSIC
                                     + CommandModules.HELP_RESTRICT
                                     + CommandModules.HELP_NOTE;
@@ -179,10 +174,7 @@ public class HelpCommand implements Command {
                 case "mis":
                     cmdhelp = CommandModules.HELP_MISS
                     + CommandModules.HELP_MISS_NUM
-                    + CommandModules.HELP_MISS2
-                    + CommandModules.HELP_MISS_SEARCH
-                    + CommandModules.HELP_MISS3
-                    + CommandModules.HELP_MISS_IMAGE;
+                    + CommandModules.HELP_MISS2;
                     isMod = true;
                     break;
                 case "number":
@@ -208,17 +200,17 @@ public class HelpCommand implements Command {
                 case "git":
                     cmdhelp = SearchCommand.HELP;
                     break;
-                case "8ball": cmdhelp = EightBallCommand.HELP;
-                    break;
-                case "face": 
-                case "f": 
-                    cmdhelp = FaceCommand.HELP;
-                    break;
                 case "image":
                 case "imgur":
                 case "gif":
                 case "meme":
                     cmdhelp = ImageCommand.HELP;
+                    break;
+                case "8ball": cmdhelp = EightBallCommand.HELP;
+                    break;
+                case "face": 
+                case "f": 
+                    cmdhelp = FaceCommand.HELP;
                     break;
                     
                 //Music Commands
