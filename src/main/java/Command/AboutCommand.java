@@ -29,7 +29,8 @@ public class AboutCommand implements Command{
                                     + "**Developer:** Ayy™#3103\n"
                                     + "**Version:** 0.0.7\n"
                                     + "**Annoucement:** Working on Music Module~~\n"
-                                    + "**Latest Changes:** ImageCommand done.\n";
+                                    + "**Latest Changes:** ImageCommand done.\n"
+                                    + "**Github Link:** https://github.com/AlienIdeology/AIBot";
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embeddes = new EmbedBuilder();
     
