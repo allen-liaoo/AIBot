@@ -59,7 +59,7 @@ Adding the command/module name after help will show the command/module usage. <b
 
 ## Libraries
 1. JDK https://github.com/DV8FromTheWorld/JDA <br />
-2. Lavaplayer https://github.com/sedmelluq/lavaplayer/blob/master/README.md <br />
+2. Lavaplayer https://github.com/sedmelluq/lavaplayer <br />
 3. Emoji Java https://github.com/vdurmont/emoji-java <br />
 4. Exp4j http://www.objecthunter.net/exp4j/ <br />
 5. Yahoo Weather Java API https://github.com/fedy2/yahoo-weather-java-api <br />
