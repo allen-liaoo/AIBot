@@ -7,7 +7,6 @@ package Command;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
-import Command.*;
 import Config.*;
 import Main.*;
 import java.awt.Color;
@@ -20,7 +19,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
- * @author liaoyilin
+ * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class HelpCommand implements Command {
     
