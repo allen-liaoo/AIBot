@@ -66,5 +66,5 @@ public class CommandModules {
     
     public final static String HELP_NOTE = "__**Note:**__\n"
                                     + "Adding the command/module name after `help` will show the command/module usage.\n"
-                                    + "* - Available directly from Drivate Message. (Private Channel)";
+                                    + "* - Available directly from Private Message. (Private Channel)";
 }
