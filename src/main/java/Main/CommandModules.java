@@ -51,7 +51,7 @@ public class CommandModules {
                                     + "   *meme* - Search from KnowYourMeme.\n"
                                     + "**8ball** - Ask the magic 8ball a question. *\n"
                                     + "**face** - ( ͡° ͜ʖ ͡°) *\n"
-                                    + "***game*** - Play a game. *\n"
+                                    + "***game*** - Play a game. \n"
                                     + "   **tictactoe (ttt)** - Play a Tic Tac Toe Game XO!!\n";
     
     public final static String HELP_MUSIC = "__**Music Commands**__\n"
