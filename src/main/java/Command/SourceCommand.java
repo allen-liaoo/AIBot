@@ -32,7 +32,8 @@ public class SourceCommand implements Command{
                                     + "Class Name: Return the whole file.\n"
                                     + "Class Name [from] [to]: Return the codes from line `[from]` to `[to]`.";
     private final EmbedBuilder embed = new EmbedBuilder();
-    private static int count = 0, fromOrig = 0, from = 0, to = 0;
+    private static int count = 1, fromOrig = 0, from = 0, to = 0;
+    private FileInputStream fstream;
     
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
@@ -69,38 +70,49 @@ public class SourceCommand implements Command{
             else
             {
                 try{
-                    String output = "";
-                    args[0] = args[0].substring(0, 1).toUpperCase() + args[0].substring(1);
+                    String output = "", folder = "", file = "";
                     
                     //Check and assign line numbers
                     if(args.length == 3)
                     {
+                        folder = "Command";
+                        file = args[0].substring(0, 1).toUpperCase() + args[0].substring(1) + "Command.java";
+                        
                         fromOrig = Integer.parseInt(args[1]);
                         to = Integer.parseInt(args[2]);
-                        
-                        //Check if fromOrig and to are negative.
-                        if(fromOrig < 0)
-                            fromOrig *= -1;
-                        if(to < 0)
-                            to *= -1;
-                        
-                        //Reverse the value if fromOrig is more than to.
-                        if(fromOrig > to)
-                        {
-                            int temp = to;
-                            to = fromOrig;
-                            fromOrig = temp;
-                        }
-                        
-                        from = fromOrig;
                     }
+                    else if(args.length == 4)
+                    {
+                        folder = args[0].substring(0, 1).toUpperCase() + args[0].substring(1);
+                        file = args[1].substring(0, 1).toUpperCase() + args[1].substring(1) + ".java";
+                        
+                        fromOrig = Integer.parseInt(args[2]);
+                        to = Integer.parseInt(args[3]);
+                    }
+                        
+                    //Check if fromOrig and to are negative.
+                    if(fromOrig < 0)
+                        fromOrig *= -1;
+                    if(to < 0)
+                        to *= -1;
+
+                    //Reverse the value if fromOrig is more than to.
+                    if(fromOrig > to)
+                    {
+                        int temp = to;
+                        to = fromOrig;
+                        fromOrig = temp;
+                    }
+
+                    from = fromOrig;
+                    
                             
                     //Read File
-                    FileInputStream fstream = new FileInputStream("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Command/" + args[0] + "Command.java");
+                    fstream = new FileInputStream("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/" + folder +"/" + file);
                     BufferedReader br = new BufferedReader(new InputStreamReader(fstream));  
 
                     String s;  
-                    if(args.length == 3)
+                    if(args.length == 3 || args.length == 4)
                     {
                         while((s = br.readLine() ) != null)
                         {
@@ -137,7 +149,7 @@ public class SourceCommand implements Command{
                     //Success Message
                     if(e.getChannelType() != e.getChannelType().PRIVATE)
                     {
-                        e.getChannel().sendMessage(Emoji.E_success + " This is the source code of `" + args[0] + "Command.java`: \n").queue();   
+                        e.getChannel().sendMessage(Emoji.E_success + " This is the source code of `" + folder + "/" + file + "`\n").queue();   
                         if(args.length == 3) e.getChannel().sendMessage("Fom line `" + fromOrig + " to " + to + "`.").queue();   
                     }
                     
