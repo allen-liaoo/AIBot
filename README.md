@@ -38,12 +38,14 @@ search - Search Google, Wikipedia, Urban Dictionary, Github, and custom sites. *
 &nbsp;&nbsp;*wiki* - Search Wikipedia. <br />
 &nbsp;&nbsp;*urban* - Search Urban Dictionary. <br />
 &nbsp;&nbsp;*github (git)* - Search Github. <br />
-8ball - Ask the magic 8ball a question. * <br />
-face - Lenny * <br />
 image - Search images from Imgur, Giphy, and KnowYourMeme. * <br />
 &nbsp;&nbsp;*imgur* - Search from Imgur. <br />
 &nbsp;&nbsp;*gif* - Search from Giphy. <br />
 &nbsp;&nbsp;*meme* - Search from KnowYourMeme. <br />
+8ball - Ask the magic 8ball a question. * <br />
+face - Lenny * <br />
+game - Play a game. <br />
+&nbsp;&nbsp;*tictactoe (ttt)* - Play a Tic Tac Toe Game XO!! <br />
 
 __**Music Commands**__ <br />
 join (j) - Add bot to a voice channel. <br />
