@@ -39,6 +39,7 @@ public class CommandModules {
                                     + "*num coinflip (n cf)* - Flip a coin.\n";
     
     public final static String HELP_MISS2 = "**math (m)** - Let the bot to solve a math operation for you. *\n"
+                                    + "**say** - Let the bot say something for you. Support Embed Message. *\n"
                                     + "**weather (w)** - Get the weather. *\n"
                                     + "***search*** - Search Google, Wikipedia, Urban Dictionary, Github, and custom sites. *\n"
                                     + "   *google (g)* - Search via Google Search Engine.\n"

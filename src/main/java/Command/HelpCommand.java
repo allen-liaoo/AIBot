@@ -187,6 +187,9 @@ public class HelpCommand implements Command {
                 case "m":
                     cmdhelp = MathCommand.HELP;
                     break;
+                case "say":
+                    cmdhelp = SayCommand.HELP;
+                    break;
                 case "weather":
                 case "w":
                     cmdhelp = WeatherCommand.HELP;

@@ -94,6 +94,8 @@ public class Main {
         commands.put("calc", new MathCommand());
         commands.put("m", new MathCommand());
         
+        commands.put("say", new SayCommand());
+        
         commands.put("weather", new WeatherCommand());
         commands.put("w", new WeatherCommand());
         
