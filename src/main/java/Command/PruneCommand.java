@@ -87,17 +87,11 @@ public class PruneCommand implements Command{
             try {
                 Thread.sleep(1000);
                 //Only show this message when 100 > msgs > 0.
-                if(msgs < 100 && msgs > 0) e.getChannel().sendMessage(Emoji.E_success + " `" + args[0] + "` messages deleted.").queue();
-                Thread.sleep(2000);
+                if(msgs < 100 && msgs > 0) e.getChannel().sendMessage(Emoji.E_success + " `" + args[0] + "` messages deleted.").complete().delete().complete();
+                //Thread.sleep(2000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(PruneCommand.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            //Delete one latest message. (For error and success messages.)
-            e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
-            {
-                msg2.delete().queue();
-            }));
         }
     }
 
