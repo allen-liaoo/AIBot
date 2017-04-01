@@ -5,12 +5,10 @@
  */
 package Command;
 
-import static Command.InfoBotCommand.HELP;
 import Config.Emoji;
 import Config.Info;
 import Config.Prefix;
 import Main.*;
-
 import com.github.fedy2.weather.*;
 import com.github.fedy2.weather.data.*;
 import com.github.fedy2.weather.data.unit.*;

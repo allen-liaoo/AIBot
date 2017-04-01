@@ -12,7 +12,6 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.guild.GuildAvailableEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-// EMoji can be found here: https://github.com/vdurmont/emoji-java
+// Emoji can be found here: https://github.com/vdurmont/emoji-java
 
 package Config;
 

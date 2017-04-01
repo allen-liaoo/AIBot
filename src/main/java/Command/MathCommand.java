@@ -8,7 +8,6 @@
 
 package Command;
 
-import static Command.NumberCommand.HELP;
 import Config.Emoji;
 import Config.Info;
 import Config.Prefix;

@@ -10,6 +10,9 @@ package Config;
  * @author liaoyilin
  */
 public class Info {
+    //Main
+    public static final String BOT_TOKEN = "Mjk0MzI3Nzg1NTEyNzYzMzky.C7Thog.1_sklRqpnW8ECdjQbwDYzL9Um70";
+    
     //Icon
     public static String I_info = "https://maxcdn.icons8.com/Share/icon/Very_Basic//info1600.png";
     public static String I_help = "https://maxcdn.icons8.com/Share/icon/Programming//help1600.png";

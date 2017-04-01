@@ -6,7 +6,6 @@
 package Command;
 
 import Audio.*;
-import Command.*;
 import Config.*;
 import Main.*;
 import java.awt.Color;
@@ -14,8 +13,6 @@ import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.managers.AudioManager;
 
 /**
  *

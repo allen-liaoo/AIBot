@@ -5,7 +5,6 @@
  */
 package Command;
 
-import static Command.KickCommand.HELP;
 import Config.Emoji;
 import Config.Info;
 import Config.Prefix;

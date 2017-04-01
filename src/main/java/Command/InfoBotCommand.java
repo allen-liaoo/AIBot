@@ -7,7 +7,6 @@ package Command;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
-import Command.*;
 import Config.*;
 import Main.*;
 import java.awt.Color;
@@ -16,8 +15,6 @@ import java.util.List;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.Permission;

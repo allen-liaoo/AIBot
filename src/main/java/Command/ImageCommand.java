@@ -5,10 +5,7 @@
  */
 package Command;
 
-import Config.Emoji;
-import Config.Info;
-import Config.Prefix;
-import Config.Web;
+import Config.*;
 import Main.*;
 import java.awt.Color;
 import java.io.IOException;

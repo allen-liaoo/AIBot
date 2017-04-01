@@ -5,13 +5,7 @@
  */
 package Config;
 
-import Command.*;
-import Config.*;
-import Main.*;
-
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
-import net.dv8tion.jda.core.events.Event;
 
 import java.util.ArrayList;
 /**

@@ -30,7 +30,6 @@ public class Main {
 
     public static JDA jda;
     public static final CommandParser parser = new CommandParser();
-    public static final String BOT_TOKEN = "Mjk0MzI3Nzg1NTEyNzYzMzky.C7Thog.1_sklRqpnW8ECdjQbwDYzL9Um70";
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
     public static long timeStart = 0;
     
@@ -42,7 +41,7 @@ public class Main {
         try {
             jda = new JDABuilder(AccountType.BOT)
                     .addListener(new CommandListener())
-                    .setToken(BOT_TOKEN)
+                    .setToken(Info.BOT_TOKEN)
                     .buildBlocking();
             
             timeStart = System.currentTimeMillis();

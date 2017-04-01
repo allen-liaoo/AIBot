@@ -7,7 +7,6 @@ package Command;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
-import Command.*;
 import Config.*;
 import Main.*;
 

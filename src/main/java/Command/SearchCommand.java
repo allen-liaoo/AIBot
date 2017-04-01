@@ -8,8 +8,6 @@ package Command;
 import Config.Emoji;
 import Config.Info;
 import Config.Prefix;
-import java.net.*;
-import java.io.UnsupportedEncodingException;
 import java.io.IOException;
 
 import Main.*;

@@ -5,8 +5,6 @@
  */
 package Command;
 
-import Command.*;
-import static Command.InviteCommand.HELP;
 import Config.Emoji;
 import Config.Info;
 import Config.Prefix;

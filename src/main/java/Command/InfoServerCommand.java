@@ -5,7 +5,6 @@
  */
 package Command;
 
-import static Command.InfoBotCommand.HELP;
 import Config.Info;
 import Config.Prefix;
 import Main.*;

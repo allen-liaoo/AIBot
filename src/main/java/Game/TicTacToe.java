@@ -6,7 +6,6 @@
 package Game;
 
 import Config.Emoji;
-import static Main.Command.embed;
 import java.awt.Color;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;

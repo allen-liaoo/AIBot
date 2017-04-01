@@ -5,7 +5,6 @@
  */
 package Command;
 
-import static Command.InviteCommand.HELP;
 import Config.*;
 import Main.*;
 import java.awt.Color;

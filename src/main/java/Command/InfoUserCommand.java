@@ -5,16 +5,13 @@
  */
 package Command;
 
-import Config.Emoji;
-import Config.Info;
-import Config.Prefix;
+import Config.*;
 import Main.*;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.Role;
