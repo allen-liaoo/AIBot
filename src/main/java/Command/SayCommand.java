@@ -11,6 +11,8 @@ import Main.*;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -56,16 +58,18 @@ public final static  String HELP = "This command is for letting a bot say someth
         
         else if("embed".equals(args[0]))
         {
+            List<User> mentionedUsers = e.getMessage().getMentionedUsers();
+            int mencount = 0;
             for(int i = 1; i < args.length; i++)
             {
                 if(!args[i].startsWith("@"))
                         input += args[i] + " ";
-                    else
-                    {
-                        List<User> mentionedUsers = e.getMessage().getMentionedUsers();
-                        if(mentionedUsers.size()>0)
-                            input += mentionedUsers.get(0).getAsMention() + " ";
-                    }
+                else
+                {
+                    if(mentionedUsers.size()>0)
+                        input += mentionedUsers.get(mencount).getAsMention() + " ";
+                    mencount++;
+                }
             }
             
             
@@ -87,15 +91,17 @@ public final static  String HELP = "This command is for letting a bot say someth
         
         else 
         {
+            List<User> mentionedUsers = e.getMessage().getMentionedUsers();
+            int mencount = 0;
             for(int i = 0; i < args.length; i++)
             {
                 if(!args[i].startsWith("@"))
                     input += args[i] + " ";
                 else
                 {
-                    List<User> mentionedUsers = e.getMessage().getMentionedUsers();
                     if(mentionedUsers.size()>0)
-                        input += mentionedUsers.get(0).getAsMention() + " ";
+                        input += mentionedUsers.get(mencount).getAsMention() + " ";
+                    mencount++;
                 }
             }
             
@@ -104,6 +110,12 @@ public final static  String HELP = "This command is for letting a bot say someth
             {
                 msg2.delete().queue();
             }));
+            
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SayCommand.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             e.getChannel().sendMessage(input).queue();
             input = "";
