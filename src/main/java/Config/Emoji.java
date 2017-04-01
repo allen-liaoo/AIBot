@@ -60,6 +60,9 @@ public class Emoji {
     //-SearchCommand
     public static String E_search = EmojiParser.parseToUnicode(":mag:");
     
+    //-Game
+    public static String E_game = EmojiParser.parseToUnicode(":video_game:");
+    
     //Music
     public static String E_globe = EmojiParser.parseToUnicode(":globe_with_meridians:");
     
