@@ -25,10 +25,10 @@ public class AboutCommand implements Command{
                                      + "Parameter: `-h | null`";
     
     public final static String BOT_DES = "The AIBot that started in the March of 2017 for music and fun commands.\n"
-                                    + "**Developer:** Ayy™#3103\n"
+                                    + "**Developer:** Ayy™#3103 *aka* AlienIdeology, Allen Liao\n"
                                     + "**Version:** 0.0.7\n"
                                     + "**Annoucement:** Working on Music Module~~\n"
-                                    + "**Latest Changes:** ImageCommand done.\n"
+                                    + "**Latest Changes:** TicTacToe Game!\n"
                                     + "**Github Link:** https://github.com/AlienIdeology/AIBot";
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embeddes = new EmbedBuilder();
