@@ -119,6 +119,8 @@ public class Main {
         commands.put("f", new FaceCommand());
         commands.put("tictactoe", new TicTacToeCommand());
         commands.put("ttt", new TicTacToeCommand());
+        commands.put("hangman", new HangManCommand());
+        commands.put("hm", new HangManCommand());
         
         // Music Commands
         commands.put("join", new JoinCommand());

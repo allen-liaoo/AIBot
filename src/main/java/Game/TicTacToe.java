@@ -55,8 +55,7 @@ public class TicTacToe implements Game{
         opponent = mentionedUsers.get(0);
         
         embedstatus.setColor(Color.green);
-        embedstatus.addField(Emoji.E_game + " Game Mode ON!", "Starter: " + starter.getAsMention() + "\nOpponent: " + opponent.getAsMention(), true);
-
+        embedstatus.addField(Emoji.E_game + " Tic Tac Toe: Game Mode ON!", "Starter: " + starter.getAsMention() + "\nOpponent: " + opponent.getAsMention(), true);
         MessageEmbed me = embedstatus.build();
         e.getChannel().sendMessage(me).queue();
         embedstatus.clearFields();
@@ -71,7 +70,7 @@ public class TicTacToe implements Game{
         if(e.getAuthor() == starter || e.getAuthor() == opponent)
         {
             embedstatus.setColor(Color.green);
-            embedstatus.setTitle(Emoji.E_game + " Game Mode OFF!", null);
+            embedstatus.setTitle(Emoji.E_game + " Tic Tac Toe: Game Mode OFF!", null);
             embedstatus.setFooter(e.getAuthor().getName() + " ended the game.", null);
 
             MessageEmbed me = embedstatus.build();

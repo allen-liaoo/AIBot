@@ -60,7 +60,7 @@ public class FaceCommand implements Command{
         
         if(args.length == 0)
         {
-            int num = (int)(Math.random() * 8 + 1);
+            int num = (int)(Math.random() * 9 + 1);
             
             switch (num) {  //Different outputs for different number.
                         case 1: output = faces.get("lenny");
