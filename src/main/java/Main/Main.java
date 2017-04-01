@@ -6,6 +6,7 @@
 
 package Main;
 
+import Command.Command;
 import Listener.CommandListener;
 import Command.*;
 import Config.*;

@@ -10,7 +10,7 @@ import Config.Info;
 import Config.Prefix;
 import Game.TicTacToe;
 import Main.*;
-import static Main.Command.embed;
+import static Command.Command.embed;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;
