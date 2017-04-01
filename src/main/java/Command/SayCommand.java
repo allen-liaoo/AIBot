@@ -16,6 +16,8 @@ import java.util.logging.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -26,7 +28,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class SayCommand implements Command{
 public final static  String HELP = "This command is for letting a bot say something for you.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"say`\n"
-                                     + "Parameter: `-h | null`";
+                                     + "Parameter: `-h | [Content] | embed [Content]| null`\n"
+                                     + "[Content]: The sentence you want AIBot to say in normal message form.\n"
+                                     + "embed [Content]: The sentence you want AIBot to say in embed message form.\n"
+                                     + "Support @mention(s): @everyone, @here, and @user.";
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embedmsg = new EmbedBuilder();
             
@@ -62,7 +67,7 @@ public final static  String HELP = "This command is for letting a bot say someth
             int mencount = 0;
             for(int i = 1; i < args.length; i++)
             {
-                if(!args[i].startsWith("@"))
+                if("@everyone".equals(args[i]) || "@here".equals(args[i]) || !args[i].startsWith("@"))
                         input += args[i] + " ";
                 else
                 {
@@ -95,15 +100,19 @@ public final static  String HELP = "This command is for letting a bot say someth
         {
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             int mencount = 0;
+            
             for(int i = 0; i < args.length; i++)
-            {
-                if(!args[i].startsWith("@"))
+            {   
+                if("@everyone".equals(args[i]) || "@here".equals(args[i]) || !args[i].startsWith("@")) //Mention @everyone, @here, or normal message
                     input += args[i] + " ";
-                else
+                
+                else //Mention Users
                 {
-                    if(mentionedUsers.size()>0)
+                    if(mentionedUsers.size() > 0)
+                    {
                         input += mentionedUsers.get(mencount).getAsMention() + " ";
-                    mencount++;
+                        mencount++;
+                    }
                 }
             }
             
@@ -123,6 +132,7 @@ public final static  String HELP = "This command is for letting a bot say someth
             }
             
             e.getChannel().sendMessage(input).queue();
+            System.out.println(input);
             input = "";
         }
     }
