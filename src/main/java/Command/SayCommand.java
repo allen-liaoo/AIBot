@@ -72,12 +72,14 @@ public final static  String HELP = "This command is for letting a bot say someth
                 }
             }
             
-            
-            //Delete the command message.
-            e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
+            if(e.getChannelType() != e.getChannelType().PRIVATE)
             {
-                msg2.delete().queue();
-            }));
+                //Delete the command message.
+                e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
+                {
+                    msg2.delete().queue();
+                }));
+            }
             
             embedmsg.setColor(Color.red);
             embedmsg.setAuthor("Said", null, e.getJDA().getSelfUser().getAvatarUrl());
@@ -105,16 +107,19 @@ public final static  String HELP = "This command is for letting a bot say someth
                 }
             }
             
-            //Delete the command message.
-            e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
+            if(e.getChannelType() != e.getChannelType().PRIVATE)
             {
-                msg2.delete().queue();
-            }));
-            
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(SayCommand.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    //Delete the command message.
+                    e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
+                    {
+                        msg2.delete().queue();
+                    }));
+
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(SayCommand.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
             e.getChannel().sendMessage(input).queue();
