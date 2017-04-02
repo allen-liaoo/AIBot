@@ -47,7 +47,7 @@ public class LeaveCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
         {
-            Connection.disconnect(e);
+            AudioConnection.disconnect(e);
         }
         else if(args.length == 1 && "-h".equals(args[0])) 
         {

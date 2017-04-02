@@ -21,7 +21,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class JoinCommand implements Command{
 
     public final static  String HELP = "This command is for adding the bot to your current voice channel.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"join` or `" + Prefix.getDefaultPrefix() + "j`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"join`  or `" + Prefix.getDefaultPrefix() + "summon` or `" + Prefix.getDefaultPrefix() + "j`\n"
                                      + "Parameter: `-h | null`";
     private final EmbedBuilder embed = new EmbedBuilder();
     
@@ -47,7 +47,7 @@ public class JoinCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
         {
-            Connection.connect(e);
+            AudioConnection.connect(e);
         }
         else if(args.length == 1 && "-h".equals(args[0])) 
         {
