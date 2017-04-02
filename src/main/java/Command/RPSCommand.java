@@ -6,7 +6,6 @@
 package Command;
 
 import static Command.Command.embed;
-import static Command.HangManCommand.HELP;
 import Config.Emoji;
 import Config.Info;
 import Config.Prefix;
