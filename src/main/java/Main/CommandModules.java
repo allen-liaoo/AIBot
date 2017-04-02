@@ -54,7 +54,7 @@ public class CommandModules {
                                     + "**face** - ( ͡° ͜ʖ ͡°) *\n"
                                     + "***game*** - Play a game. \n"
                                     + "   **tictactoe (ttt)** - Play a Tic Tac Toe Game XO!!\n"
-                                    + "   **hangman (hm)** - Play HangMan.\n";
+                                    + "   **hangman (hm)** - Play HangMan. *\n";
     
     public final static String HELP_MUSIC = "__**Music Commands**__\n"
                                     + "**join (j)** - Add bot to a voice channel.\n"
