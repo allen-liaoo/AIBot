@@ -52,7 +52,7 @@ public class ShutDownCommand implements Command{
         {
             if("248214880379863041".equals(e.getAuthor().getId()))
             {
-                e.getChannel().sendMessage(Emoji.E_success + " Shutting down...").queue();
+                e.getChannel().sendMessage(Emoji.success + " Shutting down...").queue();
 
                 try {
                     Thread.sleep(2000);
@@ -64,7 +64,7 @@ public class ShutDownCommand implements Command{
                 
             }
             else
-                e.getChannel().sendMessage(Emoji.E_error + " This command is for **Bot Owner** only!").queue();
+                e.getChannel().sendMessage(Emoji.error + " This command is for **Bot Owner** only!").queue();
                 
         }
 

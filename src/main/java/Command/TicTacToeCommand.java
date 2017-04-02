@@ -70,7 +70,7 @@ public class TicTacToeCommand implements Command {
             try {
                 game.sendInput(args, e);
             } catch(NullPointerException en) {
-                e.getChannel().sendMessage(Emoji.E_error + "Game haven't started yet!").queue();
+                e.getChannel().sendMessage(Emoji.error + "Game haven't started yet!").queue();
             }
         }
     }

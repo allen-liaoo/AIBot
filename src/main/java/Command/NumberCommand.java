@@ -91,9 +91,9 @@ public class NumberCommand implements Command {
                     from ++;
                 }
             } catch (NumberFormatException nfe) {
-                e.getChannel().sendMessage(Emoji.E_error + " Please enter two valid integers.").queue();
+                e.getChannel().sendMessage(Emoji.error + " Please enter two valid integers.").queue();
             } catch (ArrayIndexOutOfBoundsException aioe) {
-                e.getChannel().sendMessage(Emoji.E_error + " Please enter two integer with a space in between.").queue();
+                e.getChannel().sendMessage(Emoji.error + " Please enter two integer with a space in between.").queue();
             }
             }
         }
@@ -109,28 +109,28 @@ public class NumberCommand implements Command {
                     num = (int)(Math.random() * 6 + 1);
                     String emoji;
                     switch (num) {  //Different emojis for different number.
-                        case 1: emoji = Emoji.E_1;
+                        case 1: emoji = Emoji.one;
                             break;
-                        case 2: emoji = Emoji.E_2;
+                        case 2: emoji = Emoji.two;
                             break;
-                        case 3: emoji = Emoji.E_3;
+                        case 3: emoji = Emoji.three;
                             break;
-                        case 4: emoji = Emoji.E_4;
+                        case 4: emoji = Emoji.four;
                             break;
-                        case 5: emoji = Emoji.E_5;
+                        case 5: emoji = Emoji.five;
                             break;
-                        case 6: emoji = Emoji.E_6;
+                        case 6: emoji = Emoji.six;
                             break;
-                        default : emoji = Emoji.E_roll;
+                        default : emoji = Emoji.roll;
                             break;
                     }
-                    e.getChannel().sendMessage(Emoji.E_roll + " Dice Rolled: " + emoji).queue();
+                    e.getChannel().sendMessage(Emoji.roll + " Dice Rolled: " + emoji).queue();
                 }
                     
                 else if(args.length == 1) //Defualt random range 1~100
                 {
                     num = (int)(Math.random() * 100 + 0);
-                    e.getChannel().sendMessage(Emoji.E_number + " Random Number generated: " + num
+                    e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + num
                     + "\nBy default range `0~100`").queue();
                 }
                     
@@ -149,22 +149,22 @@ public class NumberCommand implements Command {
                     int range = (high - low) + 1;
                     num = (int)(Math.random() * range + low);
                         
-                    e.getChannel().sendMessage(Emoji.E_number + " Random Number generated: " + num
+                    e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + num
                     + "\nBy specified range ` " + low + "~" + high + "`").queue();
                 }
                 
             } catch (NumberFormatException nfe) {
-                e.getChannel().sendMessage(Emoji.E_error + " Please enter valid numbers.").queue();
+                e.getChannel().sendMessage(Emoji.error + " Please enter valid numbers.").queue();
             } catch (ArrayIndexOutOfBoundsException aiobe) {
-                e.getChannel().sendMessage(Emoji.E_error + " Please enter two numbers.").queue();
+                e.getChannel().sendMessage(Emoji.error + " Please enter two numbers.").queue();
             }
         }
         
         //Coin Flip
         else if("coinflip".equals(args[0]) | "cf".equals(args[0]))
         {
-            if (Math.random() < 0.5) e.getChannel().sendMessage(Emoji.E_up + " Head!").queue();
-            else e.getChannel().sendMessage(Emoji.E_down + " Tail!").queue();
+            if (Math.random() < 0.5) e.getChannel().sendMessage(Emoji.up + " Head!").queue();
+            else e.getChannel().sendMessage(Emoji.down + " Tail!").queue();
         }
     }
 

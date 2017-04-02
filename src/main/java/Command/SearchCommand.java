@@ -89,7 +89,7 @@ public class SearchCommand implements Command{
                 
                 else if ("&as_sitesearch=".equals(site) && args.length <= 1) //Custom Site Search without site or keyword
                 {
-                    e.getChannel().sendMessage(Emoji.E_error + " Please enter a custom site.").queue();
+                    e.getChannel().sendMessage(Emoji.error + " Please enter a custom site.").queue();
                 }
                 
                 else if(!"&as_sitesearch=".equals(site)) //Google, wiki, urban, github

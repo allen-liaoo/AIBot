@@ -62,7 +62,7 @@ public class SourceCommand implements Command{
         {
             if(!"248214880379863041".equals(e.getAuthor().getId()))// || !e.getMember().equals(e.getGuild().getOwner()))
             {
-                e.getChannel().sendMessage(Emoji.E_error + " This command is for **Server Owner** or **Bot Owner** only.").queue();
+                e.getChannel().sendMessage(Emoji.error + " This command is for **Server Owner** or **Bot Owner** only.").queue();
             }
             
             else
@@ -147,7 +147,7 @@ public class SourceCommand implements Command{
                     //Success Message
                     if(e.getChannelType() != e.getChannelType().PRIVATE)
                     {
-                        e.getChannel().sendMessage(Emoji.E_success + " This is the source code of `" + folder + "/" + file + "`\n").queue();   
+                        e.getChannel().sendMessage(Emoji.success + " This is the source code of `" + folder + "/" + file + "`\n").queue();   
                         if(args.length == 3) e.getChannel().sendMessage("Fom line `" + fromOrig + " to " + to + "`.").queue();   
                     }
                     
@@ -158,7 +158,7 @@ public class SourceCommand implements Command{
                     }
                     
                 } catch(FileNotFoundException fnfe) {
-                    e.getChannel().sendMessage(Emoji.E_error + " `" + args[0] +  "Command.java` does not exist.").queue();
+                    e.getChannel().sendMessage(Emoji.error + " `" + args[0] +  "Command.java` does not exist.").queue();
                     
                 } catch(Exception ex){
                     ex.printStackTrace();

@@ -121,11 +121,11 @@ public class WeatherCommand implements Command{
                 embedw.setFooter("Weather of " + title + " | " + date, null);
                 embedw.setTimestamp(null);
 
-                embedw.addField(Emoji.E_temp + "Temperature", temp + "/" + tempF, true);
-                embedw.addField(Emoji.E_wind + "Wind", wind, true);
-                embedw.addField(Emoji.E_sweat + "Humidity", humidity, true);
-                embedw.addField(Emoji.E_press + "Pressure", pressure, true);
-                embedw.addField(Emoji.E_eyes + "Visibility", visibility, true);
+                embedw.addField(Emoji.temp + "Temperature", temp + "/" + tempF, true);
+                embedw.addField(Emoji.wind + "Wind", wind, true);
+                embedw.addField(Emoji.sweat + "Humidity", humidity, true);
+                embedw.addField(Emoji.press + "Pressure", pressure, true);
+                embedw.addField(Emoji.eyes + "Visibility", visibility, true);
                 embedw.addField(EmojiCon + "Condition", condes, true);
                 
                 MessageEmbed mew = embedw.build();
@@ -159,21 +159,21 @@ public class WeatherCommand implements Command{
         String condition = "";
         switch (code) {
             //Sunny
-            case 32: condition = Emoji.E_sunny;
+            case 32: condition = Emoji.sunny;
                 break;
                 
             //Cloudy
             case 26:
             case 27:
             case 28:
-                condition = Emoji.E_cloudy;
+                condition = Emoji.cloudy;
                 break;
             
             //Partly Cloudy
             case 29:
             case 30:
             case 44:
-                condition = Emoji.E_cloud_part;
+                condition = Emoji.cloud_part;
                 break;
                 
             //Rain 1
@@ -182,7 +182,7 @@ public class WeatherCommand implements Command{
             case 17:
             case 35:
             case 40:
-                condition = Emoji.E_cloudy_rain;
+                condition = Emoji.cloudy_rain;
                 break;
                 
             //Rain 2
@@ -192,7 +192,7 @@ public class WeatherCommand implements Command{
             case 11:
             case 12:
             case 18:
-                condition = Emoji.E_cloud_rain;
+                condition = Emoji.cloud_rain;
                 break;
                 
             //Thunder Storm
@@ -203,7 +203,7 @@ public class WeatherCommand implements Command{
             case 39:
             case 45:
             case 47:
-                condition = Emoji.E_cloud_thunder_rain;
+                condition = Emoji.cloud_thunder_rain;
                 break;
                 
             //Snow
@@ -212,14 +212,14 @@ public class WeatherCommand implements Command{
             case 15:
             case 16:
             case 46:
-                condition = Emoji.E_snow;
+                condition = Emoji.snow;
                 break;
                 
             //Tornado
             case 0:
             case 1:
             case 2:
-                condition = Emoji.E_cloud_tornado;
+                condition = Emoji.cloud_tornado;
                 break;
                 
             //Dusty, windy, foggy, smoke
@@ -228,21 +228,21 @@ public class WeatherCommand implements Command{
             case 22:
             case 23:
             case 24:
-                condition = Emoji.E_windy;
+                condition = Emoji.windy;
                 break;
                 
             case 21:
             case 25:
             case 41:
             case 42:
-                condition = Emoji.E_snowman;
+                condition = Emoji.snowman;
                 break;
                 
             //Hot
             case 36:
-                condition = Emoji.E_error;
+                condition = Emoji.error;
                 
-            default: condition = Emoji.E_cloud;
+            default: condition = Emoji.cloud;
                 break;
                 
         }

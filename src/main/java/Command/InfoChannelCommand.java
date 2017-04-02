@@ -148,7 +148,7 @@ public class InfoChannelCommand implements Command{
                 e.getTextChannel().sendMessage(meci).queue();
                 embedci.clearFields();
             } catch (RuntimeException rte) {
-                e.getTextChannel().sendMessage(Emoji.E_error + " You need to join a voice channel first "
+                e.getTextChannel().sendMessage(Emoji.error + " You need to join a voice channel first "
                                         + "to see the channel's information.").queue();
             }
         }

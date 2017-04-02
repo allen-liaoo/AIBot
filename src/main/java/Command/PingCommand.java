@@ -51,7 +51,7 @@ public class PingCommand implements Command {
         {
             long ping = e.getMessage().getJDA().getPing();
             
-            String respond = Emoji.E_ping + " Pong.\n";
+            String respond = Emoji.ping + " Pong.\n";
             String respond2 = "Current ping `" + ping + "` ms";
             e.getChannel().sendMessage(respond).queue();
             e.getChannel().sendMessage(respond2).queue();

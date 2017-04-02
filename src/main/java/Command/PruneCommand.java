@@ -52,7 +52,7 @@ public class PruneCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0)
         {
-            e.getChannel().sendMessage(Emoji.E_error + " You must add a number after Prune command to delete an amount of messages.\n"
+            e.getChannel().sendMessage(Emoji.error + " You must add a number after Prune command to delete an amount of messages.\n"
                                          + "Use `" + Prefix.getDefaultPrefix() + "prune -h` for help.").queue();
         }
         else if("-h".equals(args[0]))
@@ -66,7 +66,7 @@ public class PruneCommand implements Command{
             try {
                 msgs = Integer.parseInt(args[0]);
             } catch (NumberFormatException nfe) {
-                e.getChannel().sendMessage(Emoji.E_error + " Please enter a number.").queue();
+                e.getChannel().sendMessage(Emoji.error + " Please enter a number.").queue();
             } 
             
             try {
@@ -75,19 +75,19 @@ public class PruneCommand implements Command{
                         try {
                             msg.delete().queue();
                         } catch (PermissionException pe) {
-                            e.getChannel().sendMessage(Emoji.E_error + " I need to have **Manage Messages** Permission to delete messages.").queue();
+                            e.getChannel().sendMessage(Emoji.error + " I need to have **Manage Messages** Permission to delete messages.").queue();
                         }
                 })
                 );
             } catch (IllegalArgumentException iae) { //Detect if the number is in range.
-                e.getChannel().sendMessage(Emoji.E_error + " Please enter a number between **1 ~ 100**.").queue();
+                e.getChannel().sendMessage(Emoji.error + " Please enter a number between **1 ~ 100**.").queue();
             }
             
             //Delay the message deletion.
             try {
                 Thread.sleep(1000);
                 //Only show this message when 100 > msgs > 0.
-                if(msgs < 100 && msgs > 0) e.getChannel().sendMessage(Emoji.E_success + " `" + args[0] + "` messages deleted.").complete().delete().complete();
+                if(msgs < 100 && msgs > 0) e.getChannel().sendMessage(Emoji.success + " `" + args[0] + "` messages deleted.").complete().delete().complete();
                 //Thread.sleep(2000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(PruneCommand.class.getName()).log(Level.SEVERE, null, ex);

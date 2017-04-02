@@ -82,25 +82,25 @@ public class MathCommand implements Command{
                 int integer = (int)result;
                 
                 if(result >= 2147483647 || result <= -2147483647)
-                        e.getChannel().sendMessage(Emoji.E_error +  " Calculation exceeds the range I am able to display!\n Range: `2147483647 ~ -2147483648`").queue();
+                        e.getChannel().sendMessage(Emoji.error +  " Calculation exceeds the range I am able to display!\n Range: `2147483647 ~ -2147483648`").queue();
                 
                 else if(result % 1 == 0)
                 {
-                    e.getChannel().sendMessage(Emoji.E_output + Emoji.E_number + "  `" + input + "` is  `" 
+                    e.getChannel().sendMessage(Emoji.output + Emoji.number + "  `" + input + "` is  `" 
                     + integer + "`").queue();
                     
                         
                 }
                 else
                 {
-                    e.getChannel().sendMessage(Emoji.E_output + Emoji.E_number + "  `" + input + "` is  `"
+                    e.getChannel().sendMessage(Emoji.output + Emoji.number + "  `" + input + "` is  `"
                     + result + "`").queue();
                 }
                 
             } catch (ArithmeticException ae) {
-                e.getChannel().sendMessage(Emoji.E_error + " Do not devide a value by 0.").queue();
+                e.getChannel().sendMessage(Emoji.error + " Do not devide a value by 0.").queue();
             } catch (RuntimeException iae) {
-                e.getChannel().sendMessage(Emoji.E_error + " Please enter a valid math operation.").queue();
+                e.getChannel().sendMessage(Emoji.error + " Please enter a valid math operation.").queue();
             }
             
             input = "";

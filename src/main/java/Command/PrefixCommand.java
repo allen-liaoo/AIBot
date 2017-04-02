@@ -57,7 +57,7 @@ public class PrefixCommand implements Command {
         else 
         {
             //Prefix.setPrefix(args[0], e);
-            e.getChannel().sendMessage(Emoji.E_error + " Setting Prefix is not supported.").queue();
+            e.getChannel().sendMessage(Emoji.error + " Setting Prefix is not supported.").queue();
         }
             
     }

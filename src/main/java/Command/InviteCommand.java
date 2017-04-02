@@ -49,7 +49,7 @@ public class InviteCommand implements Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        String msg = Emoji.E_invite + " Invite me to your server here:\n"
+        String msg = Emoji.invite + " Invite me to your server here:\n"
                 + "https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=368573567\n"
                 + "You can also join my Discord Server if you require support here: https://discord.gg/EABc8Kc";
         

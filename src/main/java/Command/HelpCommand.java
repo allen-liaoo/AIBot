@@ -90,7 +90,7 @@ public class HelpCommand implements Command {
         {
             e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage(me).queue());
             embedHelp.clearFields(); //Refresh EmbedMessage
-            e.getTextChannel().sendMessage(Emoji.E_envelope + " A list of AIBot commands has been sent. Check your Direct Message.").queue();
+            e.getTextChannel().sendMessage(Emoji.envelope + " A list of AIBot commands has been sent. Check your Direct Message.").queue();
         }
         
         else if("-h".equals(args[0])) //Parameter -h
@@ -114,7 +114,7 @@ public class HelpCommand implements Command {
         
         else //Parameter commands name
         {
-            String cmdhelp = Emoji.E_error + " Cannot find such command/module.", cmdtitle = args[0];
+            String cmdhelp = Emoji.error + " Cannot find such command/module.", cmdtitle = args[0];
             boolean isMod = false; //Check if this is module or command.
             
             switch (cmdtitle) {
@@ -271,7 +271,7 @@ public class HelpCommand implements Command {
             }
             
             //Set EmbedMessage addField title.
-            if(cmdhelp.equals(Emoji.E_error + " Cannot find such command/module."))
+            if(cmdhelp.equals(Emoji.error + " Cannot find such command/module."))
                     cmdtitle = "NA";
             else 
             {

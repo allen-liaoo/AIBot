@@ -38,7 +38,7 @@ public class Web {
         else 
             tempSite = "via `Google Search Engine";
         
-        final String tempString = Emoji.E_search + " This is the result for `" + input + "` " + tempSite + "`:";
+        final String tempString = Emoji.search + " This is the result for `" + input + "` " + tempSite + "`:";
             
         e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
         
@@ -74,7 +74,7 @@ public class Web {
         
         Elements links = Jsoup.connect(google+ URLEncoder.encode(input,charset)+ num + customsite).timeout(0).userAgent(userAgent).get().select(".g>.r>a");
             
-        e.getChannel().sendMessage("Searching........").complete().editMessage(Emoji.E_search + " Image!").complete();
+        e.getChannel().sendMessage("Searching........").complete().editMessage(Emoji.search + " Image!").complete();
         
         for( Element link : links )
         {

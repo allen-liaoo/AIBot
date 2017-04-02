@@ -110,7 +110,7 @@ public class FaceCommand implements Command{
             
             if(e.getChannelType() != e.getChannelType().PRIVATE)
             {
-                e.getTextChannel().sendMessage(Emoji.E_envelope + "Shhh... Check your Direct Message.").queue();
+                e.getTextChannel().sendMessage(Emoji.envelope + "Shhh... Check your Direct Message.").queue();
                 e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage(mefl).queue());
             }
             else

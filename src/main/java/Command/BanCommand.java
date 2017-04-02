@@ -58,7 +58,7 @@ public class BanCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
         {
-            e.getTextChannel().sendMessage(Emoji.E_error + " You need to mention 1 or more members to ban!").queue();
+            e.getTextChannel().sendMessage(Emoji.error + " You need to mention 1 or more members to ban!").queue();
         }
 
         else if("-h".equals(args[0])) 
@@ -73,7 +73,7 @@ public class BanCommand implements Command{
             
             //Check if the bot have permission to kick.
             if (!selfMember.hasPermission(Permission.BAN_MEMBERS))
-                e.getTextChannel().sendMessage(Emoji.E_error + " I need to have **Ban Members* Permission to ban members.").queue();
+                e.getTextChannel().sendMessage(Emoji.error + " I need to have **Ban Members* Permission to ban members.").queue();
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             
             for (User user : mentionedUsers)
@@ -81,12 +81,12 @@ public class BanCommand implements Command{
                 Member member = guild.getMember(user);
                 if(!selfMember.canInteract(member))
                 {
-                    e.getTextChannel().sendMessage(Emoji.E_error + " Cannot ban member: " + member.getEffectiveName()
+                    e.getTextChannel().sendMessage(Emoji.error + " Cannot ban member: " + member.getEffectiveName()
                                       + ", they are in a higher role than I am!").queue();
                 }
                 
                 guild.getController().ban(member, delDays).queue(
-                    success -> e.getTextChannel().sendMessage(Emoji.E_success + " Banned " + member.getEffectiveName() + "! Don't come back!\n").queue(),
+                    success -> e.getTextChannel().sendMessage(Emoji.success + " Banned " + member.getEffectiveName() + "! Don't come back!\n").queue(),
                     error -> 
                     {
                         if (error instanceof PermissionException)
@@ -94,12 +94,12 @@ public class BanCommand implements Command{
                             PermissionException pe = (PermissionException) error;
                             Permission missingPermission = pe.getPermission();
                             
-                            e.getTextChannel().sendMessage(Emoji.E_error + " PermissionError banning " + member.getEffectiveName()
+                            e.getTextChannel().sendMessage(Emoji.error + " PermissionError banning " + member.getEffectiveName()
                                             + ": " + error.getMessage()).queue();
                         }
                         else
                         {
-                            e.getTextChannel().sendMessage(Emoji.E_error + " Unknown error while banning " + member.getEffectiveName()
+                            e.getTextChannel().sendMessage(Emoji.error + " Unknown error while banning " + member.getEffectiveName()
                                     + ": <" + error.getClass().getSimpleName() + ">: " + error.getMessage()).queue();
                         }
                     });
