@@ -36,7 +36,15 @@ public class HangMan implements Game{
     private static String[] right; //Right guesses
     
     private static final int limit = 6;
-    private static int count;
+    
+    public static String hangman = "```_____________   \n"
+                                 + "|           |   \n"
+                                 + "|          " + Emoji.E_hanged_face + "  \n"
+                                 + "|           |   \n"
+                                 + "|          /|\\  \n"
+                                 + "|          / \\  \n"
+                                 + "|               \n"
+                                 + "___             ```\n";
     
     public HangMan(MessageReceivedEvent event)
     {
@@ -63,6 +71,7 @@ public class HangMan implements Game{
                 if(random == count) break;
             }
             reader.close();
+            System.out.println(ranword);
             
             //Initialize
             word = new String[ranword.length()]; 
@@ -87,6 +96,7 @@ public class HangMan implements Game{
         embedstatus.clearFields();
         
         printRightLetter();
+        e.getChannel().sendMessage(hangman).queue();
     }
 
     @Override
@@ -94,10 +104,16 @@ public class HangMan implements Game{
         embedstatus.setColor(Color.green);
         embedstatus.setTitle(Emoji.E_game + " Hang Man: Game Mode OFF!", null);
         embedstatus.setFooter(e.getAuthor().getName() + " ended the game.", null);
-
         MessageEmbed me = embedstatus.build();
         e.getChannel().sendMessage(me).queue();
         embedstatus.clearFields();
+        
+        String aword = "";
+        for(String w : word)
+        {
+            aword += w + " ";
+        }
+        e.getChannel().sendMessage("The word was : `" + aword +"`").queue();
     }
 
     @Override
@@ -126,18 +142,44 @@ public class HangMan implements Game{
             if(countmiss == word.length)
             {
                 missed.add(letter);
-                count++;
-                if(count == limit)
+                
+                if(missed.size() >= limit)
                 {
                     endGame();
+                    return;
                 }
             }
             
-            printHangMan();
+            boolean end = checkWin();
+            if(end == false) print();
         }
     }
     
-    public void printHangMan()
+    public boolean checkWin()
+    {
+        for(int i = 0; i < word.length; i++)
+        {
+            if(!right[i].equals(word[i]))
+                return false;
+        }
+        
+        embedstatus.setColor(Color.green);
+        embedstatus.setTitle(Emoji.E_game + " Hang Man: Game Mode OFF!", null);
+        embedstatus.setFooter(e.getAuthor().getName() + " is the winner!", null);
+        MessageEmbed me = embedstatus.build();
+        e.getChannel().sendMessage(me).queue();
+        embedstatus.clearFields();
+        
+        String aword = "";
+        for(String w : word)
+        {
+            aword += w + " ";
+        }
+        e.getChannel().sendMessage("The word was : `" + aword +"`").queue();
+        return true;
+    }
+    
+    public void print()
     {
         String missedletter = "";
         
@@ -153,7 +195,7 @@ public class HangMan implements Game{
         
         embedgame.setColor(Color.green);
         embedgame.setTitle(Emoji.E_game + " Current Man (Hanged!?)", null);
-        embedgame.setDescription(missedletter);
+        embedgame.setDescription(missedletter + "\n" + printHangMan());
         embedgame.setFooter("Guessed by " + e.getAuthor().getName(), e.getAuthor().getAvatarUrl());
 
         MessageEmbed me = embedgame.build();
@@ -161,6 +203,7 @@ public class HangMan implements Game{
         embedgame.clearFields();
         
         printRightLetter();
+        
     }
     
     public void printRightLetter()
@@ -172,6 +215,87 @@ public class HangMan implements Game{
            }
            rightletter += "`";
         e.getChannel().sendMessage(rightletter).queue();
+    }
+    
+    public String printHangMan()
+    {
+        String hangman =  "";
+        switch(missed.size())
+        {
+            case 0:
+                hangman =   "```_____________   \n"
+                         + "|           |   \n"
+                         + "|               \n"
+                         + "|               \n"
+                         + "|                \n"
+                         + "|                \n"
+                         + "|                \n"
+                         + "___              ```\n";
+            case 1:
+                hangman =   "```_____________   \n"
+                         + "|           |   \n"
+                         + "|          " + Emoji.E_hanged_face + "  \n"
+                         + "|               \n"
+                         + "|                \n"
+                         + "|                \n"
+                         + "|                \n"
+                         + "___              ```\n";
+                break;
+            case 2:
+                hangman =   "```_____________   \n"
+                         + "|           |   \n"
+                         + "|           " + Emoji.E_hanged_face + "  \n"
+                         + "|           |   \n"
+                         + "|                \n"
+                         + "|                \n"
+                         + "|                \n"
+                         + "___              ```\n";
+                break;
+            case 3:
+                hangman =   "```_____________   \n"
+                         + "|           |   \n"
+                         + "|           " + Emoji.E_hanged_face + "  \n"
+                         + "|           |   \n"
+                         + "|           |    \n"
+                         + "|                \n"
+                         + "|                \n"
+                         + "___              ```\n";
+                break;
+            case 4:
+                hangman =   "```_____________   \n"
+                         + "|           |   \n"
+                         + "|           " + Emoji.E_hanged_face + "  \n"
+                         + "|           |  \n"
+                         + "|          /|    \n"
+                         + "|                \n"
+                         + "|                \n"
+                         + "___              ```\n";
+                break;
+            case 5:
+                hangman =   "```_____________   \n"
+                         + "|           |   \n"
+                         + "|           " + Emoji.E_hanged_face + "  \n"
+                         + "|           |   \n"
+                         + "|          /|\\   \n"
+                         + "|                \n"
+                         + "|                \n"
+                         + "___              ```\n";
+                break;
+            case 6:
+                hangman =   "```_____________   \n"
+                         + "|           |   \n"
+                         + "|           " + Emoji.E_hanged_face + "  \n"
+                         + "|           |   \n"
+                         + "|          /|\\   \n"
+                         + "|          /     \n"
+                         + "|                \n"
+                         + "___              ```\n";
+                break;
+            default:
+                hangman = " ";
+        }
+        return hangman;
+        //e.getChannel().sendMessage(hangman).queue();
     }
 
     @Override
