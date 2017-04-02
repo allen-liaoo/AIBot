@@ -6,13 +6,16 @@
 
 package Main;
 
-import Command.Command;
-import Listener.CommandListener;
 import Command.*;
 import Config.*;
 import Listener.*;
 import Main.*;
 import Audio.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -43,7 +46,7 @@ public class Main {
         try {
             jda = new JDABuilder(AccountType.BOT)
                     .addListener(new CommandListener())
-                    .setToken(Info.BOT_TOKEN)
+                    .setToken(Private.BOT_TOKEN)
                     .buildBlocking();
             
             timeStart = System.currentTimeMillis();
@@ -131,6 +134,7 @@ public class Main {
         
         // Music Commands
         commands.put("join", new JoinCommand());
+        commands.put("summon", new JoinCommand());
         commands.put("j", new JoinCommand());
         commands.put("leave", new LeaveCommand());
         commands.put("l", new LeaveCommand());
