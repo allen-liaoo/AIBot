@@ -12,6 +12,7 @@ import Command.*;
 import Config.*;
 import Listener.*;
 import Main.*;
+import Audio.*;
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -54,6 +55,10 @@ public class Main {
             e.printStackTrace();
         }
         
+        addCommands();
+    }
+        
+    private static void addCommands() {
         // Information Commands
         commands.put("help", new HelpCommand());
         commands.put("h", new HelpCommand());

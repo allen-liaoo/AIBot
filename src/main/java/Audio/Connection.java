@@ -29,9 +29,9 @@ public class Connection {
             am = e.getGuild().getAudioManager();
             am.openAudioConnection(vc);
             
-            e.getTextChannel().sendMessage(Emoji.E_globe + " Joined Voice Channel `" + vc.getName() + "`").queue();
+            e.getChannel().sendMessage(Emoji.E_globe + " Joined Voice Channel `" + vc.getName() + "`").queue();
         } catch (IllegalArgumentException iea) {
-            e.getTextChannel().sendMessage(Emoji.E_error + " You must connect to a voice channel first.").queue();
+            e.getChannel().sendMessage(Emoji.E_error + " You must connect to a voice channel first.").queue();
         }
     }
     
@@ -41,10 +41,10 @@ public class Connection {
                 am = e.getGuild().getAudioManager();
                 am.closeAudioConnection();
             } catch (NullPointerException npe) {
-                e.getTextChannel().sendMessage(Emoji.E_error + " You are not in a voice channel.").queue();
+                e.getChannel().sendMessage(Emoji.E_error + " You are not in a voice channel.").queue();
             }
             
-            e.getTextChannel().sendMessage(Emoji.E_globe + " Left Voice Channel `" + vc.getName() + "`").queue();
+            e.getChannel().sendMessage(Emoji.E_globe + " Left Voice Channel `" + vc.getName() + "`").queue();
     }
     
     
