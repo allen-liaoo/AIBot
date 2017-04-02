@@ -34,9 +34,9 @@ public class TicTacToe implements Game{
                                     +"-------------------\n"
                                     +"[ 0 ]  |     |     |     |\n"
                                     +"-------------------\n"
-                                    +"[ 0 ]  |     |     |     |\n"
+                                    +"[ 1 ]  |     |     |     |\n"
                                     +"-------------------\n"
-                                    +"[ 0 ]  |     |     |     |\n"
+                                    +"[ 2 ]  |     |     |     |\n"
                                     +"-------------------\n";
     
     public TicTacToe(MessageReceivedEvent event)
