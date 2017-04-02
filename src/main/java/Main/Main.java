@@ -138,7 +138,6 @@ public class Main {
         commands.put("source", new SourceCommand());
     }
     
-    //HandleCommand 1 for Server Message Commands
     public static void handleCommand(CommandParser.CommandContainer cmd)
     {
         if(commands.containsKey(cmd.invoke)) {
