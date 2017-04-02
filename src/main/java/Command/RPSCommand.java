@@ -71,6 +71,11 @@ public class RPSCommand implements Command {
                 emoji = Emoji.E_scissors;
                 hand = "scissors";
             }
+            else
+            {
+                e.getChannel().sendMessage(Emoji.E_error + " Please enter a valid choice.").queue();
+                return;
+            }
             
             String output = compare(hand, hand2);
             
@@ -108,7 +113,7 @@ public class RPSCommand implements Command {
     {
         String result = "";
         if(hand.equals(hand2))
-            result = "It's a tie!";
+            result = Emoji.E_tie + " It's a tie!";
         else if(hand.equals("rock"))
         {
             if(hand2.equals("paper"))
