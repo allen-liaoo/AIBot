@@ -62,6 +62,7 @@ public class Emoji {
     
     //-Game
     public static String E_game = EmojiParser.parseToUnicode(":video_game:");
+    public static String E_hanged_face = EmojiParser.parseToUnicode(":confounded:");
     
     //Music
     public static String E_globe = EmojiParser.parseToUnicode(":globe_with_meridians:");

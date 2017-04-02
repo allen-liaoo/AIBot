@@ -59,7 +59,10 @@ public class HangManCommand implements Command{
         
         else if(args.length > 0 && "end".equals(args[0]))
         {
-            game.endGame();
+            if(e.getAuthor() == HangMan.starter)
+                game.endGame();
+            else
+                e.getChannel().sendMessage(Emoji.E_error + " Only the game starter can end the game.").queue();
         }
         
         else
@@ -67,7 +70,7 @@ public class HangManCommand implements Command{
             try {
                 game.sendInput(args, e);
             } catch(NullPointerException en) {
-                e.getChannel().sendMessage(Emoji.E_error + "Game haven't started yet!").queue();
+                e.getChannel().sendMessage(Emoji.E_error + " Game haven't started yet!").queue();
             }
         }
     }

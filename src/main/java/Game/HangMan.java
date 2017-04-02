@@ -25,17 +25,18 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class HangMan implements Game{
 
     private static MessageReceivedEvent e;
-    private static EmbedBuilder embedstatus = new EmbedBuilder();
+    private static EmbedBuilder embedstart = new EmbedBuilder();
+    private static EmbedBuilder embedend = new EmbedBuilder();
     private static EmbedBuilder embedgame = new EmbedBuilder();
-    private static User starter;
+    public static User starter;
     
     private static String letter;
-    private static String[] word;
+    private static ArrayList<String> word = new ArrayList<String>();
     private static ArrayList<String> guessed = new ArrayList<String>(); //All guesses
     private static ArrayList<String> missed = new ArrayList<String>(); //Wrong guesses
-    private static String[] right; //Right guesses
+    private static ArrayList<String> right = new ArrayList<String>(); //Right guesses
     
-    private static final int limit = 6;
+    private static final int limit = 7;
     
     public static String hangman = "```_____________   \n"
                                  + "|           |   \n"
@@ -73,40 +74,37 @@ public class HangMan implements Game{
             reader.close();
             System.out.println(ranword);
             
-            //Initialize
-            word = new String[ranword.length()]; 
-            right = new String[word.length];
-            Arrays.fill(right, "_");
-            
-            for(int i = 0; i < word.length; i ++)
+            //Initialize            
+            for(int i = 0; i < ranword.length(); i ++)
             {
-                word[i] = ranword.substring(i,i+1);
+                word.add(ranword.substring(i,i+1));
+                right.add("_");
             }
             
         } catch (IOException io) {
             io.printStackTrace();
         }
         
-        embedstatus.setColor(Color.green);
-        embedstatus.addField(Emoji.E_game + " Hang Man: Game Mode ON!", 
+        embedstart.setColor(Color.green);
+        embedstart.addField(Emoji.E_game + " Hang Man: Game Mode ON!", 
                 "Starter: " + starter.getAsMention()
-                + "\nWord length: " + word.length, true);
-        MessageEmbed me = embedstatus.build();
+                + "\nWord length: " + word.size()
+                + "\n" + hangman, true);
+        MessageEmbed me = embedstart.build();
         e.getChannel().sendMessage(me).queue();
-        embedstatus.clearFields();
+        embedstart.clearFields();
         
         printRightLetter();
-        e.getChannel().sendMessage(hangman).queue();
     }
 
     @Override
-    public void endGame() {
-        embedstatus.setColor(Color.green);
-        embedstatus.setTitle(Emoji.E_game + " Hang Man: Game Mode OFF!", null);
-        embedstatus.setFooter(e.getAuthor().getName() + " ended the game.", null);
-        MessageEmbed me = embedstatus.build();
+    public void endGame() { //End the game
+        embedend.setColor(Color.green);
+        embedend.setTitle(Emoji.E_game + " Hang Man: Game Mode OFF!", null);
+        embedend.setFooter(e.getAuthor().getName() + " ended the game.", null);
+        MessageEmbed me = embedend.build();
         e.getChannel().sendMessage(me).queue();
-        embedstatus.clearFields();
+        embedend.clearFields();
         
         String aword = "";
         for(String w : word)
@@ -114,24 +112,38 @@ public class HangMan implements Game{
             aword += w + " ";
         }
         e.getChannel().sendMessage("The word was : `" + aword +"`").queue();
+        clear();
     }
 
     @Override
-    public void sendInput(String[] in, MessageReceivedEvent event) {
+    public void sendInput(String[] in, MessageReceivedEvent event) { //Get input
+        e = event;
         if(in.length > 1 || in[0].length() != 1)
             e.getChannel().sendMessage(Emoji.E_error + " One letter at a time!").queue();
-            
+        
+        else if(!Character.isLetter(in[0].charAt(0)))
+            e.getChannel().sendMessage(Emoji.E_error + " Please enter a valid letter.").queue();
+        
+        else if(word.size() == 0)
+            e.getChannel().sendMessage(Emoji.E_error + " Game haven't started yet!").queue();
+        
         else
         {   
             letter = in[0];
-            guessed.add(letter);
+            if(!guessed.contains(letter))
+                guessed.add(letter);
+            else
+            {
+                e.getChannel().sendMessage(Emoji.E_error + " This letter has been guessed before.").queue();
+                return;
+            }
             
             int countmiss = 0;
-            for(int i = 0; i < word.length; i ++)
+            for(int i = 0; i < word.size(); i ++)
             {
-                if(letter.equals(word[i]))
+                if(letter.equals(word.get(i)))
                 {
-                    right[i] = letter;
+                    right.set(i, letter);
                 }
                 else
                 {
@@ -139,7 +151,7 @@ public class HangMan implements Game{
                 }
             }
             
-            if(countmiss == word.length)
+            if(countmiss == word.size())
             {
                 missed.add(letter);
                 
@@ -155,20 +167,20 @@ public class HangMan implements Game{
         }
     }
     
-    public boolean checkWin()
+    public boolean checkWin() //Check for winner
     {
-        for(int i = 0; i < word.length; i++)
+        for(int i = 0; i < word.size(); i++)
         {
-            if(!right[i].equals(word[i]))
+            if(!right.get(i).equals(word.get(i)))
                 return false;
         }
         
-        embedstatus.setColor(Color.green);
-        embedstatus.setTitle(Emoji.E_game + " Hang Man: Game Mode OFF!", null);
-        embedstatus.setFooter(e.getAuthor().getName() + " is the winner!", null);
-        MessageEmbed me = embedstatus.build();
+        embedend.setColor(Color.green);
+        embedend.setTitle(Emoji.E_game + " Hang Man: Game Mode OFF!", null);
+        embedend.setFooter(e.getAuthor().getName() + " is the winner!", null);
+        MessageEmbed me = embedend.build();
         e.getChannel().sendMessage(me).queue();
-        embedstatus.clearFields();
+        embedend.clearFields();
         
         String aword = "";
         for(String w : word)
@@ -179,7 +191,15 @@ public class HangMan implements Game{
         return true;
     }
     
-    public void print()
+    public void clear() //Clear all arraylist.
+    {
+        guessed.clear();
+        missed.clear();
+        word.clear();
+        right.clear();
+    }
+    
+    public void print() //Print out the result
     {
         String missedletter = "";
         
@@ -291,11 +311,20 @@ public class HangMan implements Game{
                          + "|                \n"
                          + "___              ```\n";
                 break;
+            case 7:
+                hangman =   "```_____________   \n"
+                         + "|           |   \n"
+                         + "|           " + Emoji.E_hanged_face + "  \n"
+                         + "|           |   \n"
+                         + "|          /|\\   \n"
+                         + "|          / \\   \n"
+                         + "|                \n"
+                         + "___              ```\n";
+                break;
             default:
                 hangman = " ";
         }
         return hangman;
-        //e.getChannel().sendMessage(hangman).queue();
     }
 
     @Override
