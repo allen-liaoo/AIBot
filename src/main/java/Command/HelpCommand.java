@@ -215,6 +215,14 @@ public class HelpCommand implements Command {
                 case "f": 
                     cmdhelp = FaceCommand.HELP;
                     break;
+                case "tictactoe": 
+                case "ttt": 
+                    cmdhelp = TicTacToeCommand.HELP;
+                    break;
+                case "hangman": 
+                case "hm": 
+                    cmdhelp = HangManCommand.HELP;
+                    break;
                     
                 //Music Commands
                 case "music":
