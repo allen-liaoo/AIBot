@@ -31,10 +31,11 @@ public class HangMan implements Game{
     
     private static String letter;
     private static String[] word;
-    private static ArrayList<String> guessed = new ArrayList<String>();
-    private static String[] right;
+    private static ArrayList<String> guessed = new ArrayList<String>(); //All guesses
+    private static ArrayList<String> missed = new ArrayList<String>(); //Wrong guesses
+    private static String[] right; //Right guesses
     
-    private static int limit;
+    private static final int limit = 6;
     private static int count;
     
     public HangMan(MessageReceivedEvent event)
@@ -53,7 +54,7 @@ public class HangMan implements Game{
             BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/WordBank.txt"));
             
             String ranword;
-            long random = (long) Math.random() * 58109 + 1;
+            long random = (long) (Math.random() * 58109) + 1;
             long count = 0;
             
             while((ranword = reader.readLine() ) != null)
@@ -63,28 +64,29 @@ public class HangMan implements Game{
             }
             reader.close();
             
-            word = new String[ranword.length()];
+            //Initialize
+            word = new String[ranword.length()]; 
+            right = new String[word.length];
+            Arrays.fill(right, "_");
             
             for(int i = 0; i < word.length; i ++)
             {
                 word[i] = ranword.substring(i,i+1);
             }
             
-            right = new String[word.length];
-            Arrays.fill(right, "_");
-            
-            limit = word.length;
-            
         } catch (IOException io) {
             io.printStackTrace();
         }
         
         embedstatus.setColor(Color.green);
-        embedstatus.addField(Emoji.E_game + " Hang Man: Game Mode ON!", "Starter: " + starter.getAsMention() + "\nWord length: " + limit, true);
-
+        embedstatus.addField(Emoji.E_game + " Hang Man: Game Mode ON!", 
+                "Starter: " + starter.getAsMention()
+                + "\nWord length: " + word.length, true);
         MessageEmbed me = embedstatus.build();
         e.getChannel().sendMessage(me).queue();
         embedstatus.clearFields();
+        
+        printRightLetter();
     }
 
     @Override
@@ -104,18 +106,30 @@ public class HangMan implements Game{
             e.getChannel().sendMessage(Emoji.E_error + " One letter at a time!").queue();
             
         else
-        {
-            count++;
-            //if(count == limit)
-            
+        {   
             letter = in[0];
             guessed.add(letter);
             
+            int countmiss = 0;
             for(int i = 0; i < word.length; i ++)
             {
                 if(letter.equals(word[i]))
                 {
                     right[i] = letter;
+                }
+                else
+                {
+                    countmiss++;
+                }
+            }
+            
+            if(countmiss == word.length)
+            {
+                missed.add(letter);
+                count++;
+                if(count == limit)
+                {
+                    endGame();
                 }
             }
             
@@ -125,29 +139,39 @@ public class HangMan implements Game{
     
     public void printHangMan()
     {
-        String guessedle = "Guessed Letters: ";
-        String rightle = "Right Letters: ";
+        String missedletter = "";
         
-        for(String s : guessed)
+        for(String s : missed)
         {
-            guessedle += s + ", ";
+            missedletter += s + ", ";
         }
         
-        for(String s : right)
-        {
-            rightle += s + " ";
-        }
+        if("".equals(missedletter))
+            missedletter = "Missed Letters: None";
+        else
+            missedletter = "Missed Letters: " + missedletter.substring(0,missedletter.length()-2).toUpperCase();
         
         embedgame.setColor(Color.green);
         embedgame.setTitle(Emoji.E_game + " Current Man (Hanged!?)", null);
-        embedgame.setDescription(guessedle + "\n" + rightle);
-        //embedgame.setFooter(, null);
+        embedgame.setDescription(missedletter);
+        embedgame.setFooter("Guessed by " + e.getAuthor().getName(), e.getAuthor().getAvatarUrl());
 
         MessageEmbed me = embedgame.build();
         e.getChannel().sendMessage(me).queue();
         embedgame.clearFields();
-
-        //e.getChannel().sendMessage().queue();
+        
+        printRightLetter();
+    }
+    
+    public void printRightLetter()
+    {
+        String rightletter = "`"; 
+        for(String s : right)
+           {
+               rightletter += s + " ";
+           }
+           rightletter += "`";
+        e.getChannel().sendMessage(rightletter).queue();
     }
 
     @Override
