@@ -122,6 +122,8 @@ public class Main {
         commands.put("8ball", new EightBallCommand());
         commands.put("face", new FaceCommand());
         commands.put("f", new FaceCommand());
+        commands.put("rockpaperscissors", new RPSCommand());
+        commands.put("rps", new RPSCommand());
         commands.put("tictactoe", new TicTacToeCommand());
         commands.put("ttt", new TicTacToeCommand());
         commands.put("hangman", new HangManCommand());

@@ -53,8 +53,9 @@ public class CommandModules {
                                     + "**8ball** - Ask the magic 8ball a question. *\n"
                                     + "**face** - ( ͡° ͜ʖ ͡°) *\n"
                                     + "***game*** - Play a game. \n"
-                                    + "   **tictactoe (ttt)** - Play a Tic Tac Toe Game XO!!\n"
-                                    + "   **hangman (hm)** - Play HangMan. *\n";
+                                    + "   *rockpaperscissors (rps)* - Play Rock Paper Scissors with the bot. *\n"
+                                    + "   *tictactoe (ttt)* - Play a Tic Tac Toe Game XO!!\n"
+                                    + "   *hangman (hm)* - Play HangMan. *\n";
     
     public final static String HELP_MUSIC = "__**Music Commands**__\n"
                                     + "**join (j)** - Add bot to a voice channel.\n"

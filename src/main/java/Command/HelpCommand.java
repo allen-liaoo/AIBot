@@ -215,6 +215,10 @@ public class HelpCommand implements Command {
                 case "f": 
                     cmdhelp = FaceCommand.HELP;
                     break;
+                case "rockpaperscissors": 
+                case "rps": 
+                    cmdhelp = RPSCommand.HELP;
+                    break;
                 case "tictactoe": 
                 case "ttt": 
                     cmdhelp = TicTacToeCommand.HELP;
