@@ -5,7 +5,6 @@
  */
 package Command;
 
-import static Command.Command.embed;
 import Config.Emoji;
 import Config.Info;
 import Config.Prefix;
