@@ -132,7 +132,6 @@ public final static  String HELP = "This command is for letting a bot say someth
             }
             
             e.getChannel().sendMessage(input).queue();
-            System.out.println(input);
             input = "";
         }
     }
