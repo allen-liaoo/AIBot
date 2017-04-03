@@ -49,7 +49,6 @@ game - Play a game. <br />
 &nbsp;&nbsp;*rockpaperscissors (rps)* - Play Rock Paper Scissors with the bot. * <br />
 &nbsp;&nbsp;*tictactoe (ttt)* - Play a Tic Tac Toe Game XO!! <br />
 &nbsp;&nbsp;*hangman (hm)* - Play HangMan. * <br />
-&nbsp;&nbsp;*hangmancheater (hmc)* - Play HangMan. * <br />
 &nbsp;&nbsp;*hangmancheater (hmc)* - Hang Man Cheater base on the unknown word and missed letters. *<br />
 
 __**Music Commands**__ <br />
