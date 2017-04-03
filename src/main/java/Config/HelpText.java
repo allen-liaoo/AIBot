@@ -11,7 +11,7 @@ import Command.InformationModule.HelpCommand;
  *
  * @author liaoyilin
  */
-public class CommandModules {
+public class HelpText {
     public final static String HELP_INFO = "__**Information Commands**__\n"
                                     + "**help (h)** - Get a list of commands. *\n"
                                     + "**invite** - Get a invite link for this bot. *\n"

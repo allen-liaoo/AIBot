@@ -7,7 +7,7 @@ package Command.InformationModule;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
-import Config.CommandModules;
+import Config.HelpText;
 import Command.ModerationModule.*;
 import Command.Command;
 import Command.MiscellaneousModule.*;
@@ -37,23 +37,23 @@ public class HelpCommand implements Command {
                                + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
     
     public final static String HELP_TEXT = "List of commands for this bot:\n"
-                                    + CommandModules.HELP_INFO
-                                    + CommandModules.HELP_MOD
-                                    + CommandModules.HELP_MISS
-                                    + CommandModules.HELP_MISS2
-                                    + CommandModules.HELP_MUSIC
-                                    + CommandModules.HELP_NOTE;
+                                    + HelpText.HELP_INFO
+                                    + HelpText.HELP_MOD
+                                    + HelpText.HELP_MISS
+                                    + HelpText.HELP_MISS2
+                                    + HelpText.HELP_MUSIC
+                                    + HelpText.HELP_NOTE;
     
     public final static String HELP_TEXT_M = "List of commands for this bot **(More)**:\n"
-                                    + CommandModules.HELP_INFO
-                                    + CommandModules.HELP_MOD
-                                    + CommandModules.HELP_MISS
-                                    + CommandModules.HELP_MISS_NUM
-                                    + CommandModules.HELP_MISS2
-                                    + CommandModules.HELP_MISS_HMC
-                                    + CommandModules.HELP_MUSIC
-                                    + CommandModules.HELP_RESTRICT
-                                    + CommandModules.HELP_NOTE;
+                                    + HelpText.HELP_INFO
+                                    + HelpText.HELP_MOD
+                                    + HelpText.HELP_MISS
+                                    + HelpText.HELP_MISS_NUM
+                                    + HelpText.HELP_MISS2
+                                    + HelpText.HELP_MISS_HMC
+                                    + HelpText.HELP_MUSIC
+                                    + HelpText.HELP_RESTRICT
+                                    + HelpText.HELP_NOTE;
     
     private final EmbedBuilder embed = new EmbedBuilder();
     MessageEmbed me = embed.build();
@@ -130,7 +130,7 @@ public class HelpCommand implements Command {
                 //Information Commands
                 case "information":
                 case "info":
-                    cmdhelp = CommandModules.HELP_INFO;
+                    cmdhelp = HelpText.HELP_INFO;
                     isMod = true;
                     break;
                 case "invite": cmdhelp = InviteCommand.HELP;
@@ -163,7 +163,7 @@ public class HelpCommand implements Command {
                 //Moderation Commands
                 case "moderation":
                 case "mod":
-                    cmdhelp = CommandModules.HELP_MOD;
+                    cmdhelp = HelpText.HELP_MOD;
                     isMod = true;
                     break;
                 case "prune": cmdhelp = PruneCommand.HELP;
@@ -181,9 +181,9 @@ public class HelpCommand implements Command {
                 //Miscellaneous Commands
                 case "miscellaneous":
                 case "mis":
-                    cmdhelp = CommandModules.HELP_MISS
-                    + CommandModules.HELP_MISS_NUM
-                    + CommandModules.HELP_MISS2;
+                    cmdhelp = HelpText.HELP_MISS
+                    + HelpText.HELP_MISS_NUM
+                    + HelpText.HELP_MISS2;
                     isMod = true;
                     break;
                 case "number":
@@ -245,7 +245,7 @@ public class HelpCommand implements Command {
                     
                 //Music Commands
                 case "music":
-                    cmdhelp = CommandModules.HELP_MUSIC;
+                    cmdhelp = HelpText.HELP_MUSIC;
                     isMod = true;
                     break;
                 case "join":
@@ -260,7 +260,7 @@ public class HelpCommand implements Command {
                 //Restricted Commands
                 case "restricted":
                 case "restrict":
-                    cmdhelp = CommandModules.HELP_RESTRICT;
+                    cmdhelp = HelpText.HELP_RESTRICT;
                     isMod = true;
                     break;
                 case "shutdown": cmdhelp = ShutDownCommand.HELP;
