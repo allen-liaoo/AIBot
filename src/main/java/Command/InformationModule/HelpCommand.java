@@ -37,12 +37,7 @@ public class HelpCommand implements Command {
                                + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
     
     public final static String HELP_TEXT = "List of commands for this bot:\n"
-                                    + HelpText.HELP_INFO
-                                    + HelpText.HELP_MOD
-                                    + HelpText.HELP_MISS
-                                    + HelpText.HELP_MISS2
-                                    + HelpText.HELP_MUSIC
-                                    + HelpText.HELP_NOTE;
+                                    + HelpText.HELP_SHORT;
     
     public final static String HELP_TEXT_M = "List of commands for this bot **(More)**:\n"
                                     + HelpText.HELP_INFO
