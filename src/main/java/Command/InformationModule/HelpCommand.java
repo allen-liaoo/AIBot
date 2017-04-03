@@ -7,16 +7,15 @@ package Command.InformationModule;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
+import Command.*;
+import Command.ModerationModule.*;
 import Command.UtilityModule.*;
-import Config.HelpText;
-import Command.ModerationModule.*;
-import Command.Command;
 import Command.MusicModule.*;
-import Command.ModerationModule.*;
+import Command.FunModule.*;
 import Command.RestrictedModule.*;
-
 import Config.*;
 import Main.*;
+
 import java.awt.Color;
 import java.time.Instant;
 import java.util.Random;

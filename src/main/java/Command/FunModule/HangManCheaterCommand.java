@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Command.UtilityModule;
+package Command.FunModule;
 
 import Command.*;
 import static Command.Command.embed;
