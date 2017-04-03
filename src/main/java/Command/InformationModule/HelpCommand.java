@@ -7,6 +7,7 @@ package Command.InformationModule;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
+import Command.FunModule.EightBallCommand;
 import Command.*;
 import Command.ModerationModule.*;
 import Command.UtilityModule.*;

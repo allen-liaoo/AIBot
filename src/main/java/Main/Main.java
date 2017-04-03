@@ -6,6 +6,7 @@
 
 package Main;
 
+import Command.FunModule.EightBallCommand;
 import Command.*;
 import Command.InformationModule.*;
 import Command.ModerationModule.*;

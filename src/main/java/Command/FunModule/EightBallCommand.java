@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Command.UtilityModule;
+package Command.FunModule;
 
 import Command.Command;
 import Config.Info;
 import Config.Prefix;
 import Main.*;
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -62,9 +65,39 @@ public class EightBallCommand implements Command{
     
     public String eightball()
     {
-        int magic = (int) Math.ceil(Math.random() * 10);
-        String respond = "";
+        String respond = "", output = "";
+        int totalline = 0;
         
+        //Generate Random Number base on the lines in 8Ball.txt
+        try {
+                BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/8Ball.txt"));
+                
+                while((output = reader.readLine()) != null)
+                {
+                    totalline++;
+                }
+                reader.close();
+            } catch (IOException io) {
+                io.printStackTrace();
+        }
+        int magic = (int) Math.ceil(Math.random() * totalline), line = 0;
+        
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/8Ball.txt"));
+
+            while((respond = reader.readLine()) != null)
+            {
+                line++;
+                if(line >= magic)
+                    break;
+            }
+            reader.close();
+                
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+        
+        /*
         switch(magic)
         {
             case 1: respond = "Yes.";
@@ -89,7 +122,7 @@ public class EightBallCommand implements Command{
             break;
             default: respond = "Try Again.";
             break;
-        }
+        }*/
         return respond;
     }
 }
