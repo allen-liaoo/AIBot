@@ -13,7 +13,6 @@ import Command.InformationModule.HelpCommand;
  */
 public class HelpText {
     
-    
     /*
     * Information Module
     */
@@ -22,9 +21,9 @@ public class HelpText {
             + "**invite**\n"
             + "**botinfo (bi)**\n"
             + "**serverinfo (si)**\n"
-            + "**channelinfo (ci)**\n"
+            + "**channelinfo (ci)**\n\n"
             + "**userinfo (ui)**\n"
-            + "**prefix**\n"
+            + "**prefix**\n\n"
             + "**ping**\n"
             + "**about**\n"
             + "**support**\n";
@@ -34,9 +33,9 @@ public class HelpText {
             + "Get a invite link for this bot. *\n"
             + "Get bot info. *\n"
             + "Get server info.\n"
-            + "Get channel info (Text/Voice Channel).\n"
+            + "Get channel info. \n(Text/Voice Channel)\n"
             + "Get user info. *\n"
-            + "Set the server prefix. ~~(Under Development)~~\n"
+            + "Set the server prefix. \n~~(Under Development)~~\n"
             + "Pong. *\n"
             + "Bot description. *\n"
             + "Related servers and bots. *\n";
@@ -57,62 +56,69 @@ public class HelpText {
             + "Unban member(s) by ID.\n";
     
     /*
-    * Miscellaneous Module
+    * Utility Module
     */
-    public final static String MIS_CMD = 
-            "**number (n)**\n"
-            + "**math (m)**\n"
-            + "**say**\n"
+    public final static String UTIL_CMD = 
+            "**number (n)**\n\n"
+            + "**math (m)**\n\n"
+            + "**say**\n\n"
             + "**weather (w)**\n"
             //Command Group- Search 
             + "**search**\n"
-            + "   *google (g)*\n"
-            + "   *wiki*\n"
-            + "   *urban*\n"
-            + "   *github (git)*"
+            + "*google (g)*\n"
+            + "*wiki*\n"
+            + "*urban*\n"
+            + "*github (git)*\n"
             //Command Group- Image
             + "**image**\n"
             + "*imgur*\n"
             + "*gif*\n"
-            + "*meme*"
-            + "**8ball**\n"
-            + "**face**\n"
-            //Command Group- Game
-            + "**game**\n"
-            + "   *rockpaperscissors (rps)*"
-            + "   *tictactoe (ttt)*"
-            + "   *hangman (hm)*\n"
-            + "   *hangmancheater (hmc)*\n";
+            + "*meme*\n";
     
-    public final static String MIS_DES = 
-            "Generate random numbers, roll a dice, or flip a coin. *\n"
-            + "Let the bot to solve a math operation for you. *\n"
-            + "Let the bot say something for you. Support Embed Message. *\n"
+    public final static String UTIL_DES = 
+            "Generate random numbers, \nroll a dice, or flip a coin. *\n"
+            + "Let the bot to solve a \nmath operation for you. *\n"
+            + "Let the bot say something \nfor you. Support Embed Message. *\n"
             + "Get the weather. *\n"
             //Command Group- Search 
-            + "Search Google, Wikipedia, Urban Dictionary, Github, and custom sites. *\n"
-            + "Search via Google Search Engine.\n"
-            + "Search Wikipedia.\n"
-            + "Search Urban Dictionary.\n"
-            + "Search Github.\n"
+            + "Search Custom sites. *\n"
+            + "Google Search.\n"
+            + "Wikipedia.\n"
+            + "Urban Dictionary.\n"
+            + "Github.\n"
             //Command Group- Image
-            + "Search images from Imgur, Giphy, and KnowYourMeme. *\n"
+            + "Search images. *\n"
             + "Search from Imgur.\n"
             + "Search from Giphy.\n"
-            + "Search from KnowYourMeme.\n"
-            + "Ask the magic 8ball a question. *\n"
-            + "( ͡° ͜ʖ ͡°) *\n"
-            //Command Group- Game
-            + "Play a game. \n"
-            + "Play Rock Paper Scissors with the bot. *\n"
-            + "Play a Tic Tac Toe Game XO!!\n"
-            + "Play HangMan. *\n"
-            + "Hang Man Cheater base on the unknown word and missed letters. *\n";
+            + "Search from KnowYourMeme.\n";
     
-    public final static String MISS_NUM = "*num random (n r)* - Generate random numbers.\n"
+    public final static String UTIL_NUM = "*num random (n r)* - Generate random numbers.\n"
                                     + "*num count (n c)* - Count numbers.\n"
                                     + "*num roll* - Roll the dice.\n"
                                     + "*num coinflip (n cf)* - Flip a coin.\n";
+            
+    /*
+    * Fun Module
+    */
+    public final static String FUN_CMD = 
+            "**8ball**\n"
+            + "**face**\n"
+            //Command Group- Game
+            + "**game**\n"
+            + "*rockpaperscissors (rps)*\n\n"
+            + "*tictactoe (ttt)*\n"
+            + "*hangman (hm)*\n"
+            + "*hangmancheater (hmc)*\n\n";
+    
+    public final static String FUN_DES = 
+            "Ask the magic 8ball a question. *\n"
+            + "( ͡° ͜ʖ ͡°) *\n"
+            //Command Group- Game
+            + "Play a game. *\n"
+            + "Play Rock Paper Scissors \nwith the bot. *\n"
+            + "Play a Tic Tac Toe Game XO!!\n"
+            + "Play HangMan. *\n"
+            + "Hang Man Cheater base on \nthe unknown word and missed letters. *\n";
     
     /*
     * Music Module
@@ -129,13 +135,14 @@ public class HelpText {
     * Restricted Module
     */
     public final static String RESTRICT_CMD = 
-            "These commands are for **Server Owner** or **Bot Owner** only.\n"
-            + "**shutdown**\n"
+            "**Server Owner** or\n"
+            + "**shutdown**\n\n"
             + "**source**\n";
     
     public final static String RESTRICT_DES = 
-            "Shut down the bot remotely. (Bot Owner) *\n"
-            + "Get the source code of a command class. *\n";
+            "**Bot Owner** only.\n"
+            + "Shut down the bot remotely. \n(Bot Owner) *\n"
+            + "Get the source code of a \ncommand class. *\n";
     
     
     /*

@@ -40,7 +40,7 @@ public class HelpCommand implements Command {
                                     + HelpText.INFO_DES
                                     + HelpText.MOD_DES
                                     + HelpText.MISS_DES
-                                    + HelpText.MISS_NUM
+                                    + HelpText.UTIL_NUM
                                     + HelpText.MISS2
                                     + HelpText.MISS_HMC
                                     + HelpText.MUSIC_DES
@@ -77,12 +77,24 @@ public class HelpCommand implements Command {
         {
             embed.setColor(setColor());
             embed.setAuthor("AIBot Help", null, Info.I_help);
-            
+           
             embed.addField("Information Module", HelpText.INFO_CMD, true);
+            embed.addField("Description", HelpText.INFO_DES, true);
+            
             embed.addField("Moderation Module", HelpText.MOD_CMD, true);
-            embed.addField("Miscellaneous Module", HelpText.MIS_CMD, true);
+            embed.addField("Description", HelpText.MOD_DES, true);
+            
+            embed.addField("Utility Module", HelpText.UTIL_CMD, true);
+            embed.addField("Description", HelpText.UTIL_DES, true);
+            
+            embed.addField("Fun Module", HelpText.FUN_CMD, true);
+            embed.addField("Description", HelpText.FUN_DES, true);
+            
             embed.addField("Music Module", HelpText.MUSIC_CMD, true);
+            embed.addField("Description", HelpText.MUSIC_DES, true);
+            
             embed.addField("Restricted Module", HelpText.RESTRICT_CMD, true);
+            embed.addField("Description", HelpText.RESTRICT_DES, true);
             
             embed.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
             embed.setFooter("Commands List", null);
@@ -125,7 +137,7 @@ public class HelpCommand implements Command {
             boolean isMod = false; //Check if this is module or command.
             
             switch (cmdtitle) {
-                //Information Commands
+                //Information Module
                 case "information":
                 case "info":
                     cmdhelp = HelpText.INFO_CMD;
@@ -159,7 +171,7 @@ public class HelpCommand implements Command {
                 case "support": cmdhelp = SupportCommand.HELP;
                     break;
                     
-                //Moderation Commands
+                //Moderation Module
                 case "moderation":
                 case "mod":
                     cmdhelp = HelpText.MOD_CMD;
@@ -178,13 +190,14 @@ public class HelpCommand implements Command {
                 case "ub": cmdhelp = UnbanCommand.HELP;
                     break;
 
-                //Miscellaneous Commands
-                case "miscellaneous":
-                case "mis":
-                    cmdhelp = HelpText.MIS_CMD;
-                    cmdhelp2 = HelpText.MIS_DES;
+                //Utility Module
+                case "utility":
+                case "util":
+                    cmdhelp = HelpText.UTIL_CMD;
+                    cmdhelp2 = HelpText.UTIL_DES;
                     isMod = true;
                     break;
+                //Command Group- Number
                 case "number":
                 case "num":
                 case "n":
@@ -202,6 +215,7 @@ public class HelpCommand implements Command {
                 case "w":
                     cmdhelp = WeatherCommand.HELP;
                     break;
+                //Command Group- Search
                 case "search":
                 case "google":
                 case "g":
@@ -211,11 +225,19 @@ public class HelpCommand implements Command {
                 case "git":
                     cmdhelp = SearchCommand.HELP;
                     break;
+                //Command Group- Image
                 case "image":
                 case "imgur":
                 case "gif":
                 case "meme":
                     cmdhelp = ImageCommand.HELP;
+                    break;
+                    
+                //Fun Module
+                case "fun":
+                    cmdhelp = HelpText.FUN_CMD;
+                    cmdhelp2 = HelpText.FUN_DES;
+                    isMod = true;
                     break;
                 case "8ball": cmdhelp = EightBallCommand.HELP;
                     break;
@@ -223,6 +245,7 @@ public class HelpCommand implements Command {
                 case "f": 
                     cmdhelp = FaceCommand.HELP;
                     break;
+                //Command Group- Game
                 case "game": cmdhelp = GameCommand.HELP;
                     break;
                 case "rockpaperscissors": 
@@ -242,7 +265,7 @@ public class HelpCommand implements Command {
                     cmdhelp = HangManCheaterCommand.HELP;
                     break;
                     
-                //Music Commands
+                //Music Module
                 case "music":
                     cmdhelp = HelpText.MUSIC_CMD;
                     cmdhelp2 = HelpText.MUSIC_DES;
@@ -257,7 +280,7 @@ public class HelpCommand implements Command {
                     cmdhelp = LeaveCommand.HELP;
                     break;
                     
-                //Restricted Commands
+                //Restricted Module
                 case "restricted":
                 case "restrict":
                     cmdhelp = HelpText.RESTRICT_CMD;
@@ -299,6 +322,8 @@ public class HelpCommand implements Command {
             embedHelp.setColor(setColor());
             
             embedHelp.addField(cmdtitle, cmdhelp, true);
+            if(isMod == true)
+                embedHelp.addField("Discription", cmdhelp2, true);
             embedHelp.setFooter(morc + " Help/Usage", Info.I_help);
             embedHelp.setTimestamp(Instant.now());
 
