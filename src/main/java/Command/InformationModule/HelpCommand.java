@@ -8,26 +8,13 @@ package Command.InformationModule;
 //Setted to SUPPORT PRIVATE CHANNEL.
 
 import Config.CommandModules;
-import Command.ModerationModule.BanCommand;
+import Command.ModerationModule.*;
 import Command.Command;
-import Command.MiscellaneousModule.EightBallCommand;
-import Command.MiscellaneousModule.GameCommand;
-import Command.MiscellaneousModule.HangManCommand;
-import Command.MiscellaneousModule.ImageCommand;
-import Command.MusicModule.JoinCommand;
-import Command.ModerationModule.KickCommand;
-import Command.MusicModule.LeaveCommand;
-import Command.MiscellaneousModule.MathCommand;
-import Command.MiscellaneousModule.NumberCommand;
-import Command.ModerationModule.PruneCommand;
-import Command.MiscellaneousModule.RPSCommand;
-import Command.MiscellaneousModule.SayCommand;
-import Command.MiscellaneousModule.SearchCommand;
-import Command.RestrictedModule.ShutDownCommand;
-import Command.RestrictedModule.SourceCommand;
-import Command.MiscellaneousModule.TicTacToeCommand;
-import Command.ModerationModule.UnbanCommand;
-import Command.MiscellaneousModule.WeatherCommand;
+import Command.MiscellaneousModule.*;
+import Command.MusicModule.*;
+import Command.ModerationModule.*;
+import Command.RestrictedModule.*;
+
 import Config.*;
 import Main.*;
 import java.awt.Color;
@@ -63,6 +50,7 @@ public class HelpCommand implements Command {
                                     + CommandModules.HELP_MISS
                                     + CommandModules.HELP_MISS_NUM
                                     + CommandModules.HELP_MISS2
+                                    + CommandModules.HELP_MISS_HMC
                                     + CommandModules.HELP_MUSIC
                                     + CommandModules.HELP_RESTRICT
                                     + CommandModules.HELP_NOTE;
@@ -249,6 +237,10 @@ public class HelpCommand implements Command {
                 case "hangman": 
                 case "hm": 
                     cmdhelp = HangManCommand.HELP;
+                    break;
+                case "hangmancheater": 
+                case "hmc": 
+                    cmdhelp = HangManCheaterCommand.HELP;
                     break;
                     
                 //Music Commands

@@ -6,46 +6,16 @@
 
 package Main;
 
-import Command.RestrictedModule.SourceCommand;
-import Command.RestrictedModule.ShutDownCommand;
-import Command.ModerationModule.BanCommand;
-import Command.ModerationModule.UnbanCommand;
-import Command.ModerationModule.KickCommand;
-import Command.ModerationModule.PruneCommand;
-import Command.MiscellaneousModule.HangManCommand;
-import Command.MiscellaneousModule.SearchCommand;
-import Command.MiscellaneousModule.SayCommand;
-import Command.MiscellaneousModule.EightBallCommand;
-import Command.MiscellaneousModule.TicTacToeCommand;
-import Command.MiscellaneousModule.GameCommand;
-import Command.MiscellaneousModule.WeatherCommand;
-import Command.MiscellaneousModule.RPSCommand;
-import Command.MiscellaneousModule.ImageCommand;
-import Command.MiscellaneousModule.MathCommand;
-import Command.MiscellaneousModule.NumberCommand;
-import Command.MusicModule.JoinCommand;
-import Command.MusicModule.LeaveCommand;
-import Command.InformationModule.InviteCommand;
-import Command.InformationModule.SupportCommand;
-import Command.InformationModule.HelpCommand;
-import Command.InformationModule.InfoServerCommand;
-import Command.InformationModule.FaceCommand;
-import Command.InformationModule.InfoUserCommand;
-import Command.InformationModule.InfoBotCommand;
-import Command.InformationModule.PrefixCommand;
-import Command.InformationModule.AboutCommand;
-import Command.InformationModule.PingCommand;
-import Command.InformationModule.InfoChannelCommand;
 import Command.*;
+import Command.InformationModule.*;
+import Command.ModerationModule.*;
+import Command.MiscellaneousModule.*;
+import Command.MusicModule.*;
+import Command.RestrictedModule.*;
 import Config.*;
 import Listener.*;
 import Main.*;
 import Audio.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -163,6 +133,8 @@ public class Main {
         commands.put("ttt", new TicTacToeCommand());
         commands.put("hangman", new HangManCommand());
         commands.put("hm", new HangManCommand());
+        commands.put("hangmancheater", new HangManCheaterCommand());
+        commands.put("hmc", new HangManCheaterCommand());
         
         // Music Commands
         commands.put("join", new JoinCommand());

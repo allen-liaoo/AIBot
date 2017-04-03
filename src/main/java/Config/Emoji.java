@@ -69,6 +69,7 @@ public class Emoji {
     public static String paper = EmojiParser.parseToUnicode(":rolled_up_newspaper:");
     public static String scissors = EmojiParser.parseToUnicode(":scissors:");
     public static String tie = EmojiParser.parseToUnicode(":necktie:");
+    public static String blush = EmojiParser.parseToUnicode(":blush:");
     
     //Music
     public static String globe = EmojiParser.parseToUnicode(":globe_with_meridians:");
