@@ -6,10 +6,10 @@
 
 package Main;
 
+import Command.UtilityModule.*;
 import Command.*;
 import Command.InformationModule.*;
 import Command.ModerationModule.*;
-import Command.MiscellaneousModule.*;
 import Command.MusicModule.*;
 import Command.RestrictedModule.*;
 import Config.*;
