@@ -59,18 +59,18 @@ public class HelpText {
     * Utility Module
     */
     public final static String UTIL_CMD = 
-            "**number (n)**\n\n"
+            "***number (n)***\n\n"
             + "**math (m)**\n\n"
             + "**say**\n\n"
             + "**weather (w)**\n"
             //Command Group- Search 
-            + "**search**\n"
+            + "***search***\n"
             + "*google (g)*\n"
             + "*wiki*\n"
             + "*urban*\n"
             + "*github (git)*\n"
             //Command Group- Image
-            + "**image**\n"
+            + "***image***\n"
             + "*imgur*\n"
             + "*gif*\n"
             + "*meme*\n";
@@ -104,7 +104,7 @@ public class HelpText {
             "**8ball**\n"
             + "**face**\n"
             //Command Group- Game
-            + "**game**\n"
+            + "***game***\n"
             + "*rockpaperscissors (rps)*\n\n"
             + "*tictactoe (ttt)*\n"
             + "*hangman (hm)*\n"

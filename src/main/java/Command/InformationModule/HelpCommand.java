@@ -36,22 +36,10 @@ public class HelpCommand implements Command {
                                + "Parameter: `-h | -dm | Command/Module Name  | -m | null`\n"
                                + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
     
-    /*public final static String HELP_TEXT_M = "List of commands for this bot **(More)**:\n"
-                                    + HelpText.INFO_DES
-                                    + HelpText.MOD_DES
-                                    + HelpText.MISS_DES
-                                    + HelpText.UTIL_NUM
-                                    + HelpText.MISS2
-                                    + HelpText.MISS_HMC
-                                    + HelpText.MUSIC_DES
-                                    + HelpText.RESTRICT_CMD
-                                    + HelpText.NOTE;*/
-    
     private final EmbedBuilder embed = new EmbedBuilder();
     MessageEmbed me = embed.build();
     private final EmbedBuilder embedusage = new EmbedBuilder();
     private final EmbedBuilder embedHelp = new EmbedBuilder();
-    private final EmbedBuilder embedm = new EmbedBuilder();
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
