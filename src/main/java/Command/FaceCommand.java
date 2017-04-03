@@ -27,10 +27,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class FaceCommand implements Command{
 
     public final static String HELP = "This command is for... ( ͡° ͜ʖ ͡°)\n"
-                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"face` or `" + Prefix.getDefaultPrefix() + "num`\n"
-                                    + "Parameter: `-h | Face Name | -list | null`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"face` or `" + Prefix.getDefaultPrefix() + "lenny` or `" + Prefix.getDefaultPrefix() + "f`\n"
+                                    + "Parameter: `-h | [Face Name] | -list | null`\n"
                                     + "null: Get a random face.\n"
-                                    + "Face Name: Get a specific face.\n"
+                                    + "[Face Name]: Get a specific face by name.\n"
                                     + "-list: Get a list of faces and their names in your Direct Message.";
     
     private final EmbedBuilder embed = new EmbedBuilder();
