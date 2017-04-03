@@ -60,8 +60,8 @@ public class ShutDownCommand implements Command{
                 } catch (InterruptedException ex) {
                     Logger.getLogger(ShutDownCommand.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                e.getJDA().shutdown();
+                
+                Main.shutdown();
                 
             }
             else

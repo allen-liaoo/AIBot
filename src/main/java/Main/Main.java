@@ -60,6 +60,11 @@ public class Main {
         
         addCommands();
     }
+    
+    public static void shutdown()
+    {
+        jda.shutdown();
+    }
         
     private static void addCommands() {
         // Information Commands
