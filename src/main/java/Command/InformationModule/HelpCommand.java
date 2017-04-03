@@ -7,10 +7,10 @@ package Command.InformationModule;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
+import Command.UtilityModule.*;
 import Config.HelpText;
 import Command.ModerationModule.*;
 import Command.Command;
-import Command.MiscellaneousModule.*;
 import Command.MusicModule.*;
 import Command.ModerationModule.*;
 import Command.RestrictedModule.*;
