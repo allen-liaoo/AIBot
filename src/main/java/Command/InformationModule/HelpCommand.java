@@ -36,19 +36,16 @@ public class HelpCommand implements Command {
                                + "Parameter: `-h | -dm | Command/Module Name  | -m | null`\n"
                                + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
     
-    public final static String HELP_TEXT = "List of commands for this bot:\n";
-                                    //+ HelpText.HELP_SHORT;
-    
-    public final static String HELP_TEXT_M = "List of commands for this bot **(More)**:\n"
-                                    + HelpText.INFO
-                                    + HelpText.MOD
-                                    + HelpText.MISS
+    /*public final static String HELP_TEXT_M = "List of commands for this bot **(More)**:\n"
+                                    + HelpText.INFO_DES
+                                    + HelpText.MOD_DES
+                                    + HelpText.MISS_DES
                                     + HelpText.MISS_NUM
                                     + HelpText.MISS2
                                     + HelpText.MISS_HMC
-                                    + HelpText.MUSIC
-                                    + HelpText.RESTRICT
-                                    + HelpText.NOTE;
+                                    + HelpText.MUSIC_DES
+                                    + HelpText.RESTRICT_CMD
+                                    + HelpText.NOTE;*/
     
     private final EmbedBuilder embed = new EmbedBuilder();
     MessageEmbed me = embed.build();
@@ -80,16 +77,18 @@ public class HelpCommand implements Command {
         {
             embed.setColor(setColor());
             embed.setAuthor("AIBot Help", null, Info.I_help);
-            embed.addField("Information Module", "```" + HelpText.SHORT_INFO + "```", true);
-            embed.addField("Moderation", HelpText.SHORT_MOD, true);
-            embed.addField("Module", HelpText.SHORT_MOD2, true);
-            embed.addField("Miscellaneous", HelpText.SHORT_MIS, true);
-            embed.addField("Module", HelpText.SHORT_MIS2, true);
+            
+            embed.addField("Information Module", HelpText.INFO_CMD, true);
+            embed.addField("Moderation Module", HelpText.MOD_CMD, true);
+            embed.addField("Miscellaneous Module", HelpText.MIS_CMD, true);
+            embed.addField("Music Module", HelpText.MUSIC_CMD, true);
+            embed.addField("Restricted Module", HelpText.RESTRICT_CMD, true);
+            
             embed.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
             embed.setFooter("Commands List", null);
             embed.setTimestamp(Instant.now());
 
-            MessageEmbed me = embed.build();
+            me = embed.build();
             e.getChannel().sendMessage(me).queue();
             embed.clearFields(); //Refresh EmbedMessage
         }
@@ -106,7 +105,7 @@ public class HelpCommand implements Command {
             help(e);
         }
         
-        else if("-m".equals(args[0]) ) //Parameter more
+        /*else if("-m".equals(args[0]) ) //Parameter more
         {
             embedm.setColor(setColor());
             embedm.setAuthor("AIBot Help", null, Info.I_help);
@@ -118,18 +117,19 @@ public class HelpCommand implements Command {
             MessageEmbed mem = embedm.build();
             e.getChannel().sendMessage(mem).queue();
             embedm.clearFields(); //Refresh EmbedMessage
-        }
+        }*/
         
         else //Parameter commands name
         {
-            String cmdhelp = Emoji.error + " Cannot find such command/module.", cmdtitle = args[0];
+            String cmdhelp = Emoji.error + " Cannot find such command/module.", cmdhelp2 = "", cmdtitle = args[0];
             boolean isMod = false; //Check if this is module or command.
             
             switch (cmdtitle) {
                 //Information Commands
                 case "information":
                 case "info":
-                    cmdhelp = HelpText.INFO;
+                    cmdhelp = HelpText.INFO_CMD;
+                    cmdhelp2 = HelpText.INFO_DES;
                     isMod = true;
                     break;
                 case "invite": cmdhelp = InviteCommand.HELP;
@@ -162,7 +162,8 @@ public class HelpCommand implements Command {
                 //Moderation Commands
                 case "moderation":
                 case "mod":
-                    cmdhelp = HelpText.MOD;
+                    cmdhelp = HelpText.MOD_CMD;
+                    cmdhelp2 = HelpText.MOD_DES;
                     isMod = true;
                     break;
                 case "prune": cmdhelp = PruneCommand.HELP;
@@ -180,9 +181,8 @@ public class HelpCommand implements Command {
                 //Miscellaneous Commands
                 case "miscellaneous":
                 case "mis":
-                    cmdhelp = HelpText.MISS
-                    + HelpText.MISS_NUM
-                    + HelpText.MISS2;
+                    cmdhelp = HelpText.MIS_CMD;
+                    cmdhelp2 = HelpText.MIS_DES;
                     isMod = true;
                     break;
                 case "number":
@@ -244,7 +244,8 @@ public class HelpCommand implements Command {
                     
                 //Music Commands
                 case "music":
-                    cmdhelp = HelpText.MUSIC;
+                    cmdhelp = HelpText.MUSIC_CMD;
+                    cmdhelp2 = HelpText.MUSIC_DES;
                     isMod = true;
                     break;
                 case "join":
@@ -259,7 +260,8 @@ public class HelpCommand implements Command {
                 //Restricted Commands
                 case "restricted":
                 case "restrict":
-                    cmdhelp = HelpText.RESTRICT;
+                    cmdhelp = HelpText.RESTRICT_CMD;
+                    cmdhelp2 = HelpText.RESTRICT_DES;
                     isMod = true;
                     break;
                 case "shutdown": cmdhelp = ShutDownCommand.HELP;
