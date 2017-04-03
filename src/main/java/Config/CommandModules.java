@@ -57,7 +57,7 @@ public class CommandModules {
                                     + "   *tictactoe (ttt)* - Play a Tic Tac Toe Game XO!!\n"
                                     + "   *hangman (hm)* - Play HangMan. *\n";
     
-    public final static String HELP_MISS_HMC = "   *hangmancheater (hmc)* - Hang Man Cheater base on the unknown word and missed letters. *";
+    public final static String HELP_MISS_HMC = "   *hangmancheater (hmc)* - Hang Man Cheater base on the unknown word and missed letters. *\n";
     
     public final static String HELP_MUSIC = "__**Music Commands**__\n"
                                     + "**join (j)** - Add bot to a voice channel.\n"
