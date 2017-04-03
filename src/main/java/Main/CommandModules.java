@@ -5,7 +5,7 @@
  */
 package Main;
 
-import Command.HelpCommand;
+import Command.InformationCommand.HelpCommand;
 
 /**
  *

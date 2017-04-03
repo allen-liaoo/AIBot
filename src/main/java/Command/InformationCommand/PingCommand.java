@@ -3,32 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Command.InformationCommand;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
-package Command;
-
+import Command.Command;
 import Config.*;
 import Main.*;
 
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.awt.Color;
 import java.time.Instant;
-
+        
 /**
  *
  * @author liaoyilin
  */
-public class InviteCommand implements Command {
+public class PingCommand implements Command {
 
-    public final static  String HELP = "This command is for inviting the bot to your own server.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"invite`\n"
-                                     + "Parameter: `-h | null`";
+    public final static String HELP = "This command is for Pong.\n"
+                             + "Command Usage: `" + Prefix.getDefaultPrefix() + "ping`\n"
+                             + "Parameter: `-h | null`";
     private final EmbedBuilder embed = new EmbedBuilder();
-            
+    
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
         return true;
@@ -38,35 +38,33 @@ public class InviteCommand implements Command {
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
-        embed.addField("Invite -Help", HELP, true);
+        embed.addField("Ping -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Info.I_help);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
         e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        String msg = Emoji.invite + " Invite me to your server here:\n"
-                + "https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=368573567\n"
-                + "You can also join my Discord Server if you require support here: https://discord.gg/EABc8Kc";
-        
         if(args.length == 0) 
         {
-            e.getChannel().sendMessage(msg).queue();
+            long ping = e.getMessage().getJDA().getPing();
+            
+            String respond = Emoji.ping + " Pong.\n";
+            String respond2 = "Current ping `" + ping + "` ms";
+            e.getChannel().sendMessage(respond).queue();
+            e.getChannel().sendMessage(respond2).queue();
         }
-
-        else if("-h".equals(args[0])) 
+        else if("-h".equals(args[0]))
         {
-            help(e);
+            help(e);      
         }
     }
 
     @Override
     public void executed(boolean success, MessageReceivedEvent e) {
-        
     }
     
 }

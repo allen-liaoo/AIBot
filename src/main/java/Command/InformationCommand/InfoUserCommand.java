@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Command;
+package Command.InformationCommand;
 
+import Command.Command;
 import Config.*;
 import Main.*;
 import java.awt.Color;

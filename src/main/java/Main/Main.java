@@ -6,6 +6,17 @@
 
 package Main;
 
+import Command.InformationCommand.InviteCommand;
+import Command.InformationCommand.SupportCommand;
+import Command.InformationCommand.HelpCommand;
+import Command.InformationCommand.InfoServerCommand;
+import Command.InformationCommand.FaceCommand;
+import Command.InformationCommand.InfoUserCommand;
+import Command.InformationCommand.InfoBotCommand;
+import Command.InformationCommand.PrefixCommand;
+import Command.InformationCommand.AboutCommand;
+import Command.InformationCommand.PingCommand;
+import Command.InformationCommand.InfoChannelCommand;
 import Command.*;
 import Config.*;
 import Listener.*;

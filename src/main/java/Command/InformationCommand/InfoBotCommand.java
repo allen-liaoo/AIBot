@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Command;
+package Command.InformationCommand;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
+import Command.Command;
 import Config.*;
 import Main.*;
 import java.awt.Color;

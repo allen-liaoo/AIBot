@@ -3,26 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Command;
 
-import Config.*;
+//Setted to SUPPORT PRIVATE CHANNEL.
+
+package Command.InformationCommand;
+
+import Command.Command;
+import Config.Emoji;
+import Config.Info;
+import Config.Prefix;
 import Main.*;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
-
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author liaoyilin
  */
-public class PrefixCommand implements Command {
-    public final static String HELP = "This command is for setting the prefix.\n"
-                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() + "prefix`\n"
-                                    + "Parameter: `-h | Prefix`";
-    
+public class SupportCommand implements Command{
+    public final static  String HELP = "This command is for supporting the bot.\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"support`\n"
+                                     + "Parameter: `-h | null`";
     private final EmbedBuilder embed = new EmbedBuilder();
     
     @Override
@@ -34,11 +38,10 @@ public class PrefixCommand implements Command {
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
-        embed.setTitle("Prefix -Help", null);
-        embed.setDescription(HELP);
+        embed.addField("Support -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Info.I_help);
         embed.setTimestamp(Instant.now());
-
+        
         MessageEmbed me = embed.build();
         e.getChannel().sendMessage(me).queue();
         embed.clearFields();
@@ -46,20 +49,18 @@ public class PrefixCommand implements Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE)
+        if(args.length == 0) 
         {
-            e.getChannel().sendMessage("Current prefix: `" + Prefix.getDefaultPrefix() + "`").queue();
+            String msg = Emoji.invite + " Join this server for music!\n"
+                                        + "https://discord.gg/UMCqtZN";
+            
+            e.getChannel().sendMessage(msg).queue();
         }
+
         else if("-h".equals(args[0])) 
         {
             help(e);
         }
-        else 
-        {
-            //Prefix.setPrefix(args[0], e);
-            e.getChannel().sendMessage(Emoji.error + " Setting Prefix is not supported.").queue();
-        }
-            
     }
 
     @Override

@@ -6,28 +6,30 @@
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
-package Command;
+package Command.InformationCommand;
 
-import Config.Emoji;
-import Config.Info;
-import Config.Prefix;
+import Command.Command;
+import Config.*;
 import Main.*;
+
+import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+
 import java.awt.Color;
 import java.time.Instant;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author liaoyilin
  */
-public class SupportCommand implements Command{
-    public final static  String HELP = "This command is for supporting the bot.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"support`\n"
+public class InviteCommand implements Command {
+
+    public final static  String HELP = "This command is for inviting the bot to your own server.\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"invite`\n"
                                      + "Parameter: `-h | null`";
     private final EmbedBuilder embed = new EmbedBuilder();
-    
+            
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
         return true;
@@ -37,10 +39,10 @@ public class SupportCommand implements Command{
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
-        embed.addField("Support -Help", HELP, true);
+        embed.addField("Invite -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Info.I_help);
         embed.setTimestamp(Instant.now());
-        
+
         MessageEmbed me = embed.build();
         e.getChannel().sendMessage(me).queue();
         embed.clearFields();
@@ -48,11 +50,12 @@ public class SupportCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        String msg = Emoji.invite + " Invite me to your server here:\n"
+                + "https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=368573567\n"
+                + "You can also join my Discord Server if you require support here: https://discord.gg/EABc8Kc";
+        
         if(args.length == 0) 
         {
-            String msg = Emoji.invite + " Join this server for music!\n"
-                                        + "https://discord.gg/UMCqtZN";
-            
             e.getChannel().sendMessage(msg).queue();
         }
 

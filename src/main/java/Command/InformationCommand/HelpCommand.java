@@ -3,10 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Command;
+package Command.InformationCommand;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
+import Command.BanCommand;
+import Command.Command;
+import Command.EightBallCommand;
+import Command.GameCommand;
+import Command.HangManCommand;
+import Command.ImageCommand;
+import Command.JoinCommand;
+import Command.KickCommand;
+import Command.LeaveCommand;
+import Command.MathCommand;
+import Command.NumberCommand;
+import Command.PruneCommand;
+import Command.RPSCommand;
+import Command.SayCommand;
+import Command.SearchCommand;
+import Command.ShutDownCommand;
+import Command.SourceCommand;
+import Command.TicTacToeCommand;
+import Command.UnbanCommand;
+import Command.WeatherCommand;
 import Config.*;
 import Main.*;
 import java.awt.Color;
