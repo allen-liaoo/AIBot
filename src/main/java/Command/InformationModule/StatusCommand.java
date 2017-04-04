@@ -8,6 +8,7 @@ package Command.InformationModule;
 import Command.*;
 import static Command.InformationModule.InfoBotCommand.HELP;
 import Config.Info;
+import Config.Prefix;
 import Main.Main;
 import java.awt.Color;
 import java.time.Instant;
@@ -22,6 +23,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class StatusCommand implements Command{
 
+    public final static String HELP = "This command is for getting this bot's status.\n"
+                              + "Command Usage: `" + Prefix.getDefaultPrefix() + "status` or `" + Prefix.getDefaultPrefix() + "uptime`\n"
+                              + "Parameter: `-h | null`";
+    
     private EmbedBuilder embedstatus = new EmbedBuilder();
     private String type = "";
     
@@ -40,7 +45,7 @@ public class StatusCommand implements Command{
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
-        embed.addField("BotInfo -Help", HELP, true);
+        embed.addField("Status -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Info.I_help);
         embed.setTimestamp(Instant.now());
 
@@ -66,7 +71,12 @@ public class StatusCommand implements Command{
         
         if(args.length == 0)
         {
-            if("uptime".equals(type))
+            if(args.length > 0 && "-h".equals(args[1]))
+            {
+                help(e);
+            }
+                    
+            else if("uptime".equals(type))
             {
                 e.getTextChannel().sendMessage("AIBot has been up for: " + upinfo).queue();
             }
