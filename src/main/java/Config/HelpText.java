@@ -62,6 +62,10 @@ public class HelpText {
     */
     public final static String UTIL_CMD = 
             "***number (n)***\n\n"
+            + "*num random (n r)*\n"
+            + "*num count (n c)*\n"
+            + "*num roll*\n"
+            + "*num coinflip (n cf)*\n"
             + "**math (m)**\n\n"
             + "**say**\n\n"
             + "**weather (w)**\n"
@@ -79,6 +83,10 @@ public class HelpText {
     
     public final static String UTIL_DES = 
             "Generate random numbers, \nroll a dice, or flip a coin. *\n"
+            + "Generate random numbers.\n"
+            + "Count numbers.\n"
+            + "Roll the dice.\n"
+            + "Flip a coin.\n"
             + "Let the bot to solve a \nmath operation for you. *\n"
             + "Let the bot say something \nfor you. Support Embed Message. *\n"
             + "Get the weather. *\n"
@@ -93,11 +101,6 @@ public class HelpText {
             + "Search from Imgur.\n"
             + "Search from Giphy.\n"
             + "Search from KnowYourMeme.\n";
-    
-    public final static String UTIL_NUM = "*num random (n r)* - Generate random numbers.\n"
-                                    + "*num count (n c)* - Count numbers.\n"
-                                    + "*num roll* - Roll the dice.\n"
-                                    + "*num coinflip (n cf)* - Flip a coin.\n";
             
     /*
     * Fun Module
