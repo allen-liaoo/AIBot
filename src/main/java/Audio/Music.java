@@ -5,8 +5,10 @@
  */
 package Audio;
 
+import Main.Main;
 import Audio.AudioConnection;
 import Config.Emoji;
+import Config.Prefix;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -25,14 +27,14 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class Music {
     public static AudioPlayerManager playerManager;
-    public static GuildMusicManager guildManager;
+    public static GuildSetting guildManager;
     public static final Pattern urlPattern = Pattern.compile("^(https?|ftp)://([A-Za-z0-9-._~/?#\\\\[\\\\]:!$&'()*+,;=]+)$");
     
     public static void musicStartup(JDA jda, String id){
         playerManager = new DefaultAudioPlayerManager();
         AudioSourceManagers.registerRemoteSources(playerManager);
         AudioSourceManagers.registerLocalSource(playerManager);
-        guildManager = new GuildMusicManager(playerManager);
+        guildManager = new GuildSetting(playerManager);
         jda.getGuildById(id).getAudioManager().setSendingHandler(guildManager.getSendHandler());
     }
     
@@ -53,12 +55,12 @@ public class Music {
                 }
 
                 public void playlistLoaded(AudioPlaylist playlist) {
-                    e.getTextChannel().sendMessage("Playlist loaded successfully!").queue();
+                    e.getTextChannel().sendMessage(Emoji.success + " Playlist loaded successfully!").queue();
                     return;
                 }
 
                 public void noMatches() {
-                    e.getTextChannel().sendMessage("No match found :c").queue();
+                    e.getTextChannel().sendMessage(Emoji.error + " No match found.").queue();
                     return;
                 }
 
@@ -71,9 +73,20 @@ public class Music {
         }
         else
         {
-            e.getTextChannel().sendMessage("No match found :c").queue();
+            e.getTextChannel().sendMessage(Emoji.error + " No match found.").queue();
             return;
         }
+    }
+    
+    public static void pause(MessageReceivedEvent e)
+    {
+        Music.guildManager.player.setPaused(true);
+    }
+    
+    public static void skip(MessageReceivedEvent e)
+    {
+        Music.guildManager.scheduler.nextTrack();
+        e.getTextChannel().sendMessage(Emoji.success + " Track skipped.").queue();
     }
     
     public static void stop(MessageReceivedEvent e)
