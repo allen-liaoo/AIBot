@@ -156,6 +156,10 @@ public class HelpCommand implements Command {
                     break;
                 case "about": cmdhelp = AboutCommand.HELP;
                     break;
+                case "status": cmdhelp = StatusCommand.HELP;
+                    break;
+                case "uptime": cmdhelp = StatusCommand.HELP;
+                    break;
                 case "support": cmdhelp = SupportCommand.HELP;
                     break;
                     

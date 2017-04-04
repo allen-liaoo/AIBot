@@ -26,6 +26,7 @@ public class HelpText {
             + "**prefix**\n\n"
             + "**ping**\n"
             + "**about**\n"
+            + "**status**\n"
             + "**support**\n";
     
     public final static String INFO_DES = 
@@ -38,6 +39,7 @@ public class HelpText {
             + "Set the server prefix. \n~~(Under Development)~~\n"
             + "Pong. *\n"
             + "Bot description. *\n"
+            + "Bot status and uptime. *\n"
             + "Related servers and bots. *\n";
     
     /*

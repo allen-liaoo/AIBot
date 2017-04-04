@@ -94,7 +94,7 @@ public class StatusCommand implements Command{
         {
             if("uptime".equals(type))
             {
-                e.getTextChannel().sendMessage(Emoji.stopwatch + " AIBot has been up for: " + upinfo).queue();
+                e.getChannel().sendMessage(Emoji.stopwatch + " AIBot has been up for: " + upinfo).queue();
             }
 
             else if("status".equals(type))
