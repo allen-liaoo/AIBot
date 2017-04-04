@@ -24,6 +24,10 @@ public class Emoji {
     //Information Commands
     public static String envelope = EmojiParser.parseToUnicode(":incoming_envelope:");
     public static String ping = EmojiParser.parseToUnicode(":ping_pong:");
+    public static String stopwatch = EmojiParser.parseToUnicode(":stopwatch:");
+    public static String status = EmojiParser.parseToUnicode(":vertical_traffic_light:");
+    public static String guilds = EmojiParser.parseToUnicode(":card_file_box:");
+    public static String shards = EmojiParser.parseToUnicode(":file_cabinet:");
     
     //Utility Commands
     //-NumberCommand

@@ -7,6 +7,7 @@ package Command.InformationModule;
 
 import Command.*;
 import static Command.InformationModule.InfoBotCommand.HELP;
+import Config.Emoji;
 import Config.Info;
 import Config.Prefix;
 import Main.Main;
@@ -69,28 +70,28 @@ public class StatusCommand implements Command{
         uptime = timeCurrent - Main.timeStart;
         upinfo = uptime/3600000 + " hours, " + (uptime/60000)%60 + " minutes, and " + (uptime/1000)%60 + " seconds.";
         
+        if(args.length > 0 && "-h".equals(args[0]))
+        {
+            help(e);
+        }
+        
         if(args.length == 0)
         {
-            if(args.length > 0 && "-h".equals(args[1]))
+            if("uptime".equals(type))
             {
-                help(e);
+                e.getTextChannel().sendMessage(Emoji.stopwatch + " AIBot has been up for: " + upinfo).queue();
             }
-                    
-            else if("uptime".equals(type))
-            {
-                e.getTextChannel().sendMessage("AIBot has been up for: " + upinfo).queue();
-            }
-            
+
             else if("status".equals(type))
             {
                 embedstatus.setColor(Color.blue);
                 embedstatus.setTitle("AIBot Status", null);
                 embedstatus.setThumbnail(avatar);
-                
-                embedstatus.addField("Uptime", upinfo, true);
-                embedstatus.addField("Status", status, true);
-                embedstatus.addField("Servers", String.valueOf(guild), true);
-                embedstatus.addField("Shards", shard, true);
+
+                embedstatus.addField(Emoji.stopwatch + " Uptime", upinfo, true);
+                embedstatus.addField(Emoji.status + " Status", status, true);
+                embedstatus.addField(Emoji.guilds + " Servers", String.valueOf(guild), true);
+                embedstatus.addField(Emoji.shards + "Shards", shard, true);
                 embedstatus.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embedstatus.setTimestamp(Instant.now());
 
