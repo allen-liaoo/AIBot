@@ -275,10 +275,15 @@ public class HelpCommand implements Command {
                     cmdhelp = PlayCommand.HELP;
                     break;
                 case "pause":
+                case "resume":
+                case "unpause":
                     cmdhelp = PauseCommand.HELP;
                     break;
                 case "skip":
                     cmdhelp = SkipCommand.HELP;
+                    break;
+                case "volume":
+                    cmdhelp = VolumeCommand.HELP;
                     break;
                 case "stop":
                     cmdhelp = StopCommand.HELP;

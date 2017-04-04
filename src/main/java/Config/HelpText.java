@@ -134,6 +134,7 @@ public class HelpText {
             + "**play**\n"
             + "**pause**\n"
             + "**skip**\n"
+            + "**volume**\n"
             + "**stop**\n";
     
     public final static String MUSIC_DES = 
@@ -142,6 +143,7 @@ public class HelpText {
             + "Play a song from YouTube.\n"
             + "Pause the current playing song.\n"
             + "Skip the song.\n"
+            + "Set the volume of the bot.\n"
             + "Stop the player.\n";
     
     /*
