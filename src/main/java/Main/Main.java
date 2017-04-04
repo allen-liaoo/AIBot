@@ -60,6 +60,7 @@ public class Main {
             e.printStackTrace();
         }
         
+        Music.musicStartup(jda, "293928413029466114");
         addCommands();
     }
     
@@ -151,6 +152,8 @@ public class Main {
         commands.put("j", new JoinCommand());
         commands.put("leave", new LeaveCommand());
         commands.put("l", new LeaveCommand());
+        commands.put("play", new PlayCommand());
+        commands.put("stop", new StopCommand());
         
         //Restricted Commands
         commands.put("shutdown", new ShutDownCommand());
