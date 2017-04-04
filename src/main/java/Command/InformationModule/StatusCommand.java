@@ -17,6 +17,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import java.lang.management.*;
 
 /**
  *
@@ -59,16 +60,30 @@ public class StatusCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         
         JDA bot = e.getJDA();
-        String avatar, status, game, shard, upinfo;
+        String avatar, status, game, shard, upinfo, more;
         int guild;
         long timeCurrent = System.currentTimeMillis(), uptime;
 
         avatar = bot.getSelfUser().getAvatarUrl();
         status = bot.getPresence().getStatus().getKey();
+        status = status.substring(0, 1).toUpperCase() + status.substring(1);
         guild = bot.getGuilds().size();
         try{shard = bot.getShardInfo().getShardString();} catch(NullPointerException ne) {shard = "None";}
         uptime = timeCurrent - Main.timeStart;
         upinfo = uptime/3600000 + " hours, " + (uptime/60000)%60 + " minutes, and " + (uptime/1000)%60 + " seconds.";
+        
+        OperatingSystemMXBean os = (OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
+        double loadAverage = os.getSystemLoadAverage();
+        int processors = os.getAvailableProcessors();
+        String osversion = os.getVersion();
+        
+        MemoryUsage osx = (MemoryUsage)ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
+        String memory = osx.getUsed() + "/" + osx.getCommitted() + " bytes";
+        
+        more = "Load Average: " + loadAverage
+               + "\nAvailable Processors: " + processors 
+               + "\nOperating System Version: Mac Sierra " + osversion
+               + "\nUsed Memory: " + memory;
         
         if(args.length > 0 && "-h".equals(args[0]))
         {
@@ -91,7 +106,8 @@ public class StatusCommand implements Command{
                 embedstatus.addField(Emoji.stopwatch + " Uptime", upinfo, true);
                 embedstatus.addField(Emoji.status + " Status", status, true);
                 embedstatus.addField(Emoji.guilds + " Servers", String.valueOf(guild), true);
-                embedstatus.addField(Emoji.shards + "Shards", shard, true);
+                embedstatus.addField(Emoji.shards + " Shards", shard, true);
+                embedstatus.addField("More...", more, true);
                 embedstatus.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embedstatus.setTimestamp(Instant.now());
 
