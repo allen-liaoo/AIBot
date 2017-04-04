@@ -8,6 +8,7 @@ userinfo (ui) - Get user info. *
 prefix - Set the server prefix. (Under Development)
 ping - Pong. *
 about - Bot description. *
+status - Bot status or uptime. *
 support - Related servers and bots. *
 
 __**Moderation Commands**__
