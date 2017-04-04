@@ -27,9 +27,9 @@ public class SourceCommand implements Command{
 
     public final static  String HELP = "This command is for getting the source code of a command class.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"source`\n"
-                                     + "Parameter: `-h | Class Name | Class Name [from] [to] | null`\n"
-                                    + "Class Name: Return the whole file.\n"
-                                    + "Class Name [from] [to]: Return the codes from line `[from]` to `[to]`.";
+                                     + "Parameter: `-h | [Package Name] [Class Name] [from] [to] | [Module Name] [Class Name] [from] [to] | null`\n"
+                                     + "[Package Name] [Class Name] [from] [to]: Get java files outside of Command package.\n"
+                                     + "[Module Name] [Class Name] [from] [to]: Return the command class's codes from line `[from]` to `[to]`.";
     private final EmbedBuilder embed = new EmbedBuilder();
     private static int count = 1, fromOrig = 0, from = 0, to = 0;
     private FileInputStream fstream;
@@ -69,16 +69,17 @@ public class SourceCommand implements Command{
             else
             {
                 try{
-                    String output = "", folder = "", file = "";
+                    String output = "", folder = "", folder2 = "", file = "";
                     
                     //Check and assign line numbers
-                    if(args.length == 3)
+                    if(args.length == 4 && (args[0].equals("information") || args[0].equals("moderation") || args[0].equals("utility") || args[0].equals("fun")  || args[0].equals("music") || args[0].equals("restrict")))
                     {
                         folder = "Command";
-                        file = args[0].substring(0, 1).toUpperCase() + args[0].substring(1) + "Command.java";
+                        folder2 = "/" + args[0].substring(0, 1).toUpperCase() + args[0].substring(1) + "Module";
+                        file = args[1].substring(0, 1).toUpperCase() + args[1].substring(1) + "Command.java";
                         
-                        fromOrig = Integer.parseInt(args[1]);
-                        to = Integer.parseInt(args[2]);
+                        fromOrig = Integer.parseInt(args[2]);
+                        to = Integer.parseInt(args[3]);
                     }
                     else if(args.length == 4)
                     {
@@ -107,7 +108,7 @@ public class SourceCommand implements Command{
                     
                             
                     //Read File
-                    fstream = new FileInputStream("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/" + folder +"/" + file);
+                    fstream = new FileInputStream("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/" + folder + folder2 + "/" + file);
                     BufferedReader br = new BufferedReader(new InputStreamReader(fstream));  
 
                     String s;  
@@ -148,7 +149,7 @@ public class SourceCommand implements Command{
                     //Success Message
                     if(e.getChannelType() != e.getChannelType().PRIVATE)
                     {
-                        e.getChannel().sendMessage(Emoji.success + " This is the source code of `" + folder + "/" + file + "`\n").queue();   
+                        e.getChannel().sendMessage(Emoji.success + " This is the source code of `" + folder + folder2 + "/" + file + "`\n").queue();   
                         if(args.length == 3) e.getChannel().sendMessage("Fom line `" + fromOrig + " to " + to + "`.").queue();   
                     }
                     
@@ -159,7 +160,7 @@ public class SourceCommand implements Command{
                     }
                     
                 } catch(FileNotFoundException fnfe) {
-                    e.getChannel().sendMessage(Emoji.error + " `" + args[0] +  "Command.java` does not exist.").queue();
+                    e.getChannel().sendMessage(Emoji.error + " `" + args[0] + "/" + args[1] +  "` does not exist.").queue();
                     
                 } catch(Exception ex){
                     ex.printStackTrace();
