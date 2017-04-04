@@ -154,7 +154,9 @@ public class Main {
         commands.put("leave", new LeaveCommand());
         commands.put("l", new LeaveCommand());
         commands.put("play", new PlayCommand());
-        commands.put("pause", new PauseCommand());
+        commands.put("pause", new PauseCommand("pause"));
+        commands.put("resume", new PauseCommand("resume"));
+        commands.put("unpause", new PauseCommand("resume"));
         commands.put("skip", new SkipCommand());
         commands.put("stop", new StopCommand());
         

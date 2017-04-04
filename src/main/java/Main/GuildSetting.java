@@ -29,7 +29,11 @@ public class GuildSetting {
    */
   public final TrackScheduler scheduler;
 
+  /**
+   * @param voteSkip The vote for skipping current song
+   */
   private String guildId, prefix;
+  private int voteSkip;
   
   /**
    * Creates a player and a track scheduler.
@@ -46,6 +50,7 @@ public class GuildSetting {
     
     this.guildId = guildId;
     this.prefix = prefix;
+    voteSkip = 0;
   }
 
     /**
@@ -73,5 +78,15 @@ public class GuildSetting {
 
     public void setPrefix(String prefix){
         this.prefix = prefix;
+    }
+    
+    public int getVoteSkip()
+    {
+        return voteSkip;
+    }
+    
+    public void addVoteSkip()
+    {
+        voteSkip++;
     }
 }

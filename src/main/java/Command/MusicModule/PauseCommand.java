@@ -22,9 +22,17 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class PauseCommand implements Command{
-    public final static  String HELP = "This command is for pausing the bot if the bot is playing music.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"pause`\n"
+    public final static  String HELP = "This command is for pausing/resuming the bot if the bot is playing music.\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"pause` or `"+ Prefix.getDefaultPrefix() +"resume` or `"+ Prefix.getDefaultPrefix() +"unpause`\n"
                                      + "Parameter: `-h | null`";
+    
+    private String type = "";
+    
+    public PauseCommand(String invoke)
+    {
+        if("pause".equals(invoke)) type = "pause";
+        else if("resume".equals(invoke)) type = "resume";
+    }
     
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
@@ -50,16 +58,27 @@ public class PauseCommand implements Command{
         {
             help(e);
         }
-        else
+        else if("pause".equals(type))
         {
             if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
-                e.getTextChannel().sendMessage("Already paused! Type " + Prefix.getDefaultPrefix() + "play to resume.").queue();
+                e.getTextChannel().sendMessage("Already paused! Type `" + Prefix.getDefaultPrefix() + "resume` to resume.").queue();
             else
             {
                 Music.pause(e);
                 e.getChannel().sendMessage(Emoji.success + " Track paused.").queue();
             }
         }
+        else if("resume".equals(type))
+        {
+            if(!Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
+                e.getTextChannel().sendMessage("Already resumed! Type `" + Prefix.getDefaultPrefix() + "pause` to pause.").queue();
+            else
+            {
+                Music.resume(e);
+                e.getChannel().sendMessage(Emoji.success + " Track resumed.").queue();
+            }
+        }
+        
     }
 
     @Override

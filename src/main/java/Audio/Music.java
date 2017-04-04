@@ -81,6 +81,11 @@ public class Music {
         Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(true);
     }
     
+    public static void resume(MessageReceivedEvent e)
+    {
+        Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(false);
+    }
+    
     public static void skip(MessageReceivedEvent e)
     {
         Main.guilds.get(e.getGuild().getId()).getScheduler().nextTrack();
