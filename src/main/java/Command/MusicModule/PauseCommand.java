@@ -8,6 +8,7 @@ package Command.MusicModule;
 import Command.*;
 import Audio.Music;
 import static Command.MusicModule.JoinCommand.HELP;
+import Config.Emoji;
 import Config.Info;
 import Config.Prefix;
 import Main.Main;
@@ -21,6 +22,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class PauseCommand implements Command{
+    public final static  String HELP = "This command is for pausing the bot if the bot is playing music.\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"pause`\n"
+                                     + "Parameter: `-h | null`";
+    
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
         return true;
@@ -50,8 +55,10 @@ public class PauseCommand implements Command{
             if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
                 e.getTextChannel().sendMessage("Already paused! Type " + Prefix.getDefaultPrefix() + "play to resume.").queue();
             else
+            {
                 Music.pause(e);
-
+                e.getChannel().sendMessage(Emoji.success + " Track paused.").queue();
+            }
         }
     }
 

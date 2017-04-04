@@ -155,7 +155,7 @@ public class Main {
         commands.put("l", new LeaveCommand());
         commands.put("play", new PlayCommand());
         commands.put("pause", new PauseCommand());
-        //commands.put("skip", new SkipCommand());
+        commands.put("skip", new SkipCommand());
         commands.put("stop", new StopCommand());
         
         //Restricted Commands

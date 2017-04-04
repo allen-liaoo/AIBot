@@ -47,6 +47,7 @@ public class Music {
                         e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getInfo().title + "`").queue();
                     else
                         e.getTextChannel().sendMessage(Emoji.success + " Now playing `" + track.getInfo().title + "`. Track loaded successfully!").queue();
+                    
                     Main.guilds.get(e.getGuild().getId()).scheduler.queue(track);
                     return;
                 }
@@ -83,7 +84,6 @@ public class Music {
     public static void skip(MessageReceivedEvent e)
     {
         Main.guilds.get(e.getGuild().getId()).getScheduler().nextTrack();
-        e.getTextChannel().sendMessage(Emoji.success + " Track skipped.").queue();
     }
     
     public static void stop(MessageReceivedEvent e)

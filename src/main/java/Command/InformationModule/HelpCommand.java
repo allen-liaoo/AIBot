@@ -271,6 +271,18 @@ public class HelpCommand implements Command {
                 case "l":
                     cmdhelp = LeaveCommand.HELP;
                     break;
+                case "play":
+                    cmdhelp = PlayCommand.HELP;
+                    break;
+                case "pause":
+                    cmdhelp = PauseCommand.HELP;
+                    break;
+                case "skip":
+                    cmdhelp = SkipCommand.HELP;
+                    break;
+                case "stop":
+                    cmdhelp = StopCommand.HELP;
+                    break;
                     
                 //Restricted Module
                 case "restricted":
