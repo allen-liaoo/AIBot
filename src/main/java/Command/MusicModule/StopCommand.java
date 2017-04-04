@@ -8,14 +8,20 @@ package Command.MusicModule;
 import Audio.AudioConnection;
 import Audio.Music;
 import Command.Command;
+import static Command.MusicModule.JoinCommand.HELP;
 import Config.Emoji;
+import Config.Info;
+import Config.Prefix;
 import Main.Main;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import java.awt.Color;
+import java.time.Instant;
 import java.util.regex.Matcher;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -24,6 +30,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class StopCommand implements Command{
 
+    public final static  String HELP = "This command is for stopping the bot from playing music and unbind to the voice channel.\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"stop`\n"
+                                     + "Parameter: `-h | null`";
+    
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
         return true;
@@ -31,7 +41,15 @@ public class StopCommand implements Command{
 
     @Override
     public void help(MessageReceivedEvent e) {
-        
+        embed.setColor(Color.red);
+        embed.setTitle("Music Module", null);
+        embed.addField("Stop -Help", HELP, true);
+        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setTimestamp(Instant.now());
+
+        MessageEmbed me = embed.build();
+        e.getChannel().sendMessage(me).queue();
+        embed.clearFields();
     }
 
     @Override
