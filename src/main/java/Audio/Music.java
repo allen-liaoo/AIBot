@@ -29,7 +29,7 @@ public class Music {
     public static AudioPlayerManager playerManager;
     public static final Pattern urlPattern = Pattern.compile("^(https?|ftp)://([A-Za-z0-9-._~/?#\\\\[\\\\]:!$&'()*+,;=]+)$");
     
-    public static void musicStartup(JDA jda, String id){
+    public static void musicStartup(){
         playerManager = new DefaultAudioPlayerManager();
         AudioSourceManagers.registerRemoteSources(playerManager);
         AudioSourceManagers.registerLocalSource(playerManager);

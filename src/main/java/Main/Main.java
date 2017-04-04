@@ -61,7 +61,7 @@ public class Main {
             e.printStackTrace();
         }
         
-        Music.musicStartup(jda, "293928413029466114");
+        Music.musicStartup();
         addCommands();
     }
     

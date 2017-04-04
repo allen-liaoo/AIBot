@@ -7,7 +7,7 @@ package Listener;
 
 import Config.*;
 import Main.*;
-import Audio.GuildSetting;
+import Main.GuildSetting;
 import Audio.Music;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;

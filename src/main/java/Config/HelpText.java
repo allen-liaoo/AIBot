@@ -130,11 +130,19 @@ public class HelpText {
     */
     public final static String MUSIC_CMD = 
             "**join (j)**\n"
-            + "**leave  (l)**\n";
+            + "**leave  (l)**\n"
+            + "**play**\n"
+            + "**pause**\n"
+            + "**skip**\n"
+            + "**stop**\n";
     
     public final static String MUSIC_DES = 
             "Add bot to a voice channel.\n"
-            + "Remove bot from a voice channel.\n";
+            + "Remove bot from a voice channel.\n"
+            + "Play a song from YouTube.\n"
+            + "Pause the current playing song.\n"
+            + "Skip the song.\n"
+            + "Stop the player.\n";
     
     /*
     * Restricted Module

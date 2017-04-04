@@ -55,6 +55,10 @@ game - Play a game. <br />
 __**Music Commands**__ <br />
 join (j) - Add bot to a voice channel. <br />
 leave (l) - Remove bot from a voice channel. <br />
+play - Play a song from YouTube. <br />
+pause - Pause the current playing song. <br />
+skip - Skip the song. <br />
+stop - Stop the player. <br />
 
 __**Restricted Commands**__ <br />
 These commands are for **Server Owner** or **Bot Owner** only. <br />
