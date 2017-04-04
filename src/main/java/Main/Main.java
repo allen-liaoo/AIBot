@@ -87,6 +87,8 @@ public class Main {
         commands.put("ping", new PingCommand());
         
         commands.put("about", new AboutCommand());
+        commands.put("status", new StatusCommand("status"));
+        commands.put("uptime", new StatusCommand("uptime"));
         commands.put("support", new SupportCommand());
         
         // Moderation Commands

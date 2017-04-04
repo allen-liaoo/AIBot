@@ -55,9 +55,7 @@ public class InfoBotCommand implements Command{
         {
             JDA bot = e.getJDA();
             
-            String id, name, nickname = "", dis, avatar, owner, status, game, shard, join = "", register, perm, permString = "", roles;
-            int guild;
-            long timeCurrent = System.currentTimeMillis(), uptime;
+            String id, name, nickname = "", dis, avatar, owner, game, join = "", register, perm, permString = "", roles;
             
             //Bot Information
             name = bot.getSelfUser().getName();
@@ -76,15 +74,8 @@ public class InfoBotCommand implements Command{
             
             //Bot Status
             game = bot.getPresence().getGame().getName();
-            int seconds = (int) (timeCurrent - Main.timeStart/ 1000) % 60 ;
-            int minutes = (int) ((timeCurrent - Main.timeStart / (1000*60)) % 60);
-            int hours   = (int) ((timeCurrent - Main.timeStart / (1000*60*60)) % 24);
-            
-            status = bot.getPresence().getStatus().getKey();
-            try{shard = bot.getShardInfo().getShardString();} catch(NullPointerException ne) {shard = "None";}
             
             //Bot /w Guild Info
-            guild = bot.getGuilds().size();
             if(e.getChannelType() != e.getChannelType().PRIVATE)
             {
                 perm = e.getGuild().getSelfMember().getPermissions(e.getTextChannel()).toString();
@@ -109,16 +100,12 @@ public class InfoBotCommand implements Command{
             embedinfo.addField("Discriminator", dis, true);
             embedinfo.addField("Owner", owner, true);
             embedinfo.addField("Game", game, true);
-            embedinfo.addField("Up Time", hours + " hours, " + minutes + " minutes, " + seconds + " seconds", true);
             embedinfo.addField("Registered", register, true);
             if(e.getChannelType() != e.getChannelType().PRIVATE)
+            {
                 embedinfo.addField("Joined", join, true);
-            
-            embedinfo.addField("Status", status, true);
-            embedinfo.addField("Shard", shard, true);
-            embedinfo.addField("Servers", String.valueOf(guild), true);
-            if(e.getChannelType() != e.getChannelType().PRIVATE)
                 embedinfo.addField("Permissions", permString, false);
+            }
             
             MessageEmbed mein = embedinfo.build();
             e.getChannel().sendMessage(mein).queue();
