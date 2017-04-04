@@ -63,7 +63,7 @@ public class Web {
             count++;
         }
         
-        System.out.println("** Web --> Done : "+ count +" results");
+        System.out.println("** Web Search --> Done : "+ count +" results");
     }
     
     public static void searchImage(String customsite, String num, String input, MessageReceivedEvent e) throws UnsupportedEncodingException, IOException {
@@ -96,6 +96,6 @@ public class Web {
             count++;
         }
         
-        System.out.println("** Web --> Done : "+ count +" results");
+        System.out.println("** Web Image Search --> Done : "+ count +" results");
     }
 }
