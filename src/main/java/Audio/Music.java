@@ -27,15 +27,12 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class Music {
     public static AudioPlayerManager playerManager;
-    public static GuildSetting guildManager;
     public static final Pattern urlPattern = Pattern.compile("^(https?|ftp)://([A-Za-z0-9-._~/?#\\\\[\\\\]:!$&'()*+,;=]+)$");
     
     public static void musicStartup(JDA jda, String id){
         playerManager = new DefaultAudioPlayerManager();
         AudioSourceManagers.registerRemoteSources(playerManager);
         AudioSourceManagers.registerLocalSource(playerManager);
-        guildManager = new GuildSetting(playerManager);
-        jda.getGuildById(id).getAudioManager().setSendingHandler(guildManager.getSendHandler());
     }
     
     public static void play(String[] args, MessageReceivedEvent e)
@@ -50,7 +47,7 @@ public class Music {
                         e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getInfo().title + "`").queue();
                     else
                         e.getTextChannel().sendMessage(Emoji.success + " Now playing `" + track.getInfo().title + "`. Track loaded successfully!").queue();
-                    Music.guildManager.scheduler.queue(track);
+                    Main.guilds.get(e.getGuild().getId()).scheduler.queue(track);
                     return;
                 }
 
@@ -80,18 +77,18 @@ public class Music {
     
     public static void pause(MessageReceivedEvent e)
     {
-        Music.guildManager.player.setPaused(true);
+        Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(true);
     }
     
     public static void skip(MessageReceivedEvent e)
     {
-        Music.guildManager.scheduler.nextTrack();
+        Main.guilds.get(e.getGuild().getId()).getScheduler().nextTrack();
         e.getTextChannel().sendMessage(Emoji.success + " Track skipped.").queue();
     }
     
     public static void stop(MessageReceivedEvent e)
     {
-        Music.guildManager.player.stopTrack();
+        Main.guilds.get(e.getGuild().getId()).getPlayer().stopTrack();
         AudioConnection.disconnect(e);
     }
 }

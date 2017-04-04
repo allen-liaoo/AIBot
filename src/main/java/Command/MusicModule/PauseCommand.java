@@ -10,6 +10,7 @@ import Audio.Music;
 import static Command.MusicModule.JoinCommand.HELP;
 import Config.Info;
 import Config.Prefix;
+import Main.Main;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -46,7 +47,7 @@ public class PauseCommand implements Command{
         }
         else
         {
-            if(Music.guildManager.player.isPaused())
+            if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
                 e.getTextChannel().sendMessage("Already paused! Type " + Prefix.getDefaultPrefix() + "play to resume.").queue();
             else
                 Music.pause(e);

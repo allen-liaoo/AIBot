@@ -27,9 +27,10 @@ public class CommandListener extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent e){
         if(!Main.guilds.containsKey(e.getGuild().getId()))
         {
-            GuildSetting newGuild = new GuildSetting(Music.playerManager);
+            GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=", 50);
             Main.guilds.put(e.getGuild().getId(), newGuild);
             e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
+            System.out.println("New Server Added to HashMap: guilds - " + e.getGuild().getId());
         }
         
         if(e.getMessage().getContent().startsWith(Prefix.getDefaultPrefix()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
