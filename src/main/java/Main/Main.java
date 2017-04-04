@@ -38,6 +38,7 @@ public class Main {
     public static JDA jda;
     public static final CommandParser parser = new CommandParser();
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
+    public static HashMap<String, GuildSetting> guilds = new HashMap<String, GuildSetting>();
     public static long timeStart = 0;
     
     /**
@@ -153,6 +154,8 @@ public class Main {
         commands.put("leave", new LeaveCommand());
         commands.put("l", new LeaveCommand());
         commands.put("play", new PlayCommand());
+        commands.put("pause", new PauseCommand());
+        //commands.put("skip", new SkipCommand());
         commands.put("stop", new StopCommand());
         
         //Restricted Commands

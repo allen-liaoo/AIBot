@@ -7,6 +7,8 @@ package Listener;
 
 import Config.*;
 import Main.*;
+import Audio.GuildSetting;
+import Audio.Music;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -23,9 +25,16 @@ public class CommandListener extends ListenerAdapter {
     
     @Override
     public void onMessageReceived(MessageReceivedEvent e){
+        if(!Main.guilds.containsKey(e.getGuild().getId()))
+        {
+            GuildSetting newGuild = new GuildSetting(Music.playerManager);
+            Main.guilds.put(e.getGuild().getId(), newGuild);
+            e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
+        }
+        
         if(e.getMessage().getContent().startsWith(Prefix.getDefaultPrefix()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
-            Main.handleCommand(Main.parser.parse(e.getMessage().getContent().toLowerCase(), e));
+            Main.handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
         }
     }
     
