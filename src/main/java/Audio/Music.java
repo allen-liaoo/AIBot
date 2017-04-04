@@ -96,4 +96,9 @@ public class Music {
         Main.guilds.get(e.getGuild().getId()).getPlayer().stopTrack();
         AudioConnection.disconnect(e);
     }
+    
+    public static void setVolume(MessageReceivedEvent e, int in)
+    {
+        Main.guilds.get(e.getGuild().getId()).getPlayer().setVolume(in);
+    }
 }

@@ -158,6 +158,7 @@ public class Main {
         commands.put("resume", new PauseCommand("resume"));
         commands.put("unpause", new PauseCommand("resume"));
         commands.put("skip", new SkipCommand());
+        commands.put("volume", new VolumeCommand());
         commands.put("stop", new StopCommand());
         
         //Restricted Commands
