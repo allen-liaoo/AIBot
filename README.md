@@ -58,6 +58,7 @@ leave (l) - Remove bot from a voice channel. <br />
 play - Play a song from YouTube. <br />
 pause - Pause the current playing song. <br />
 skip - Skip the song. <br />
+volume - Set the volume of the bot. <br />
 stop - Stop the player. <br />
 
 __**Restricted Commands**__ <br />
