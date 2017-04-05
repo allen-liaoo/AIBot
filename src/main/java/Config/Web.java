@@ -25,8 +25,8 @@ import org.jsoup.nodes.TextNode;
  */
 public class Web {
     
-    private String defnum = "&num=1";
-    private String site = "&as_sitesearch=";
+    private static String defnum = "&num=";
+    private static String defsite = "&as_sitesearch=";
     private static int count = 0;
     private final static String songLyrics = "http://www.genius.com/";
     
@@ -38,7 +38,7 @@ public class Web {
         String charset = "UTF-8";
         String userAgent = "DiscordBot";
         
-        Elements links = Jsoup.connect(google+ URLEncoder.encode(input,charset)+ num + customsite).timeout(0).userAgent(userAgent).get().select(".g>.r>a");
+        Elements links = Jsoup.connect(google+ URLEncoder.encode(input,charset)+ defnum + num + customsite).timeout(0).userAgent(userAgent).get().select(".g>.r>a");
         
         for( Element link : links )
         {
@@ -60,6 +60,39 @@ public class Web {
         System.out.println("** Web Search --> " + input + " : " + count +" results");
         return results;
     }
+    
+    public static List<SearchResult> youtubeSearch(String num, String input) throws UnsupportedEncodingException, IOException 
+    {
+        List<SearchResult> results = new ArrayList<SearchResult>();
+        
+        String ytsite = "https://www.youtube.com/results?search_query=";
+        String charset = "UTF-8";
+        String userAgent = "DiscordBot";
+        System.out.println(ytsite + input);
+        
+        Elements links = Jsoup.connect(ytsite + URLEncoder.encode(input,charset)).timeout(0).userAgent(userAgent).get().select(".g>.r>a");
+        
+        for( Element link : links )
+        {
+            String title = link.text();
+            String url = link.absUrl("href");
+            
+            //decode link from link of google.
+            String urlLink = URLDecoder.decode(url.substring(url.indexOf("=")+1 , url.indexOf("&")) , charset);
+            
+            if( ! urlLink.startsWith("http") )
+            {
+                System.out.println("Not url: "+urlLink);
+                continue;    //ads/news etc
+            }
+            results.add(new SearchResult(title, null, urlLink, null));
+            count++;
+        }
+        
+        System.out.println("** Web Search --> " + input + " : " + count +" results");
+        return results;
+    }
+    
     /*
     public static String getLyrics(String customsite, String input)
     {

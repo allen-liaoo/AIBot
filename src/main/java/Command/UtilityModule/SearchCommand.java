@@ -38,7 +38,7 @@ public class SearchCommand implements Command{
                                      + "**urban** - Search Urban Dictionary.\n"
                                      + "**github (git)** - Search Github.";
     private final EmbedBuilder embed = new EmbedBuilder();
-    private String num = "&num=1";
+    private String num = "1";
     private String site = "&as_sitesearch=";
     
     public SearchCommand(String invoke)
@@ -81,14 +81,14 @@ public class SearchCommand implements Command{
                 {
                     System.out.println("Custom Search");
                     
-                    site += args[0];
+                    site = args[0];
                     String input = "";
                     for(int i = 0; i < args.length; i++){
                         if(i != 0) 
                             input += args[i] + " ";
                     }
                     
-                    final String tempString = Emoji.search + " This is the result for `" + input + "` on `" + site.substring(15) + "`:";
+                    final String tempString = Emoji.search + " This is the result for `" + input + "` on `" + site + "`:";
                     e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
                     
                     List<SearchResult> result = Web.search(site, num, input);

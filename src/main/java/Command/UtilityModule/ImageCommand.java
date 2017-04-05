@@ -36,9 +36,9 @@ public class ImageCommand implements Command{
     public ImageCommand(String invoke)
     {
         if("image".equals(invoke)) site = "";
-        else if("imgur".equals(invoke)) site = "&as_sitesearch=imgur.com";
-        else if("gif".equals(invoke))   site = "&as_sitesearch=giphy.com";
-        else if("meme".equals(invoke))   site = "&as_sitesearch=knowyourmeme.com";
+        else if("imgur".equals(invoke)) site += "imgur.com";
+        else if("gif".equals(invoke))   site += "giphy.com";
+        else if("meme".equals(invoke))   site += "knowyourmeme.com";
     }
     
     @Override
@@ -78,6 +78,8 @@ public class ImageCommand implements Command{
                 
             } catch (IOException ex) {
                 ex.printStackTrace();
+            } catch (IndexOutOfBoundsException iobe) {
+                e.getChannel().sendMessage(Emoji.error + " No result.").queue();
             }
         }
         
