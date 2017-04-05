@@ -61,6 +61,7 @@ public class Main {
             e.printStackTrace();
         }
         
+        guilds.put(null, null);
         Music.musicStartup();
         addCommands();
     }

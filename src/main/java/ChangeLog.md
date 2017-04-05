@@ -11,6 +11,8 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 #### [0.1.2] - 2017-04-04
 ##### Added
 - Add Play, Pause, Skip, Volume, and Stop Command for Music Module. Pretty straight forward.
+- Bot can detect mention from CommandListener and send help message.
 ##### Changed
 - Reconstruct the Search System, added the new class SearchResult. Remove Web#searchImage and combine it 
   with only one search method.
+- Reconstruct help message so CommandListener can use it as static methods.

@@ -36,8 +36,8 @@ public class HelpCommand implements Command {
                                + "Parameter: `-h | -dm | Command/Module Name  | -m | null`\n"
                                + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
     
-    private final EmbedBuilder embed = new EmbedBuilder();
-    MessageEmbed me = embed.build();
+    public static EmbedBuilder embed = new EmbedBuilder();
+    public static MessageEmbed me = embed.build();
     private final EmbedBuilder embedusage = new EmbedBuilder();
     private final EmbedBuilder embedHelp = new EmbedBuilder();
 
@@ -94,7 +94,7 @@ public class HelpCommand implements Command {
         
     }
     
-    public void helpText(MessageReceivedEvent e)
+    public static void helpText(MessageReceivedEvent e)
     {
         embed.setColor(setColor());
         embed.setAuthor("AIBot Help", null, Info.I_help);
