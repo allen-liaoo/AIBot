@@ -89,10 +89,10 @@ public class SearchCommand implements Command{
                     }
                     
                     final String tempString = Emoji.search + " This is the result for `" + input + "` on `" + site.substring(15) + "`:";
-            
                     e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
                     
-                    Web.search(site, num, input, e);
+                    List<SearchResult> result = Web.search(site, num, input);
+                    e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
                 }
                 
                 else if ("&as_sitesearch=".equals(site) && args.length <= 1) //Custom Site Search without site or keyword
@@ -108,10 +108,9 @@ public class SearchCommand implements Command{
                     
                     
                     final String tempString = Emoji.search + " This is the result for `" + input + "` via `Google Search Engine" + "`:";
-            
                     e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
                     
-                    List<SearchResult> result = Web.search(site, num, input, e);
+                    List<SearchResult> result = Web.search(site, num, input);
                     e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
                 }
                 

@@ -15,6 +15,9 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
 
 /**
  *
@@ -25,8 +28,9 @@ public class Web {
     private String defnum = "&num=1";
     private String site = "&as_sitesearch=";
     private static int count = 0;
+    private final static String songLyrics = "http://www.genius.com/";
     
-    public static List<SearchResult> search(String customsite, String num, String input, MessageReceivedEvent e) throws UnsupportedEncodingException, IOException 
+    public static List<SearchResult> search(String customsite, String num, String input) throws UnsupportedEncodingException, IOException 
     {
         List<SearchResult> results = new ArrayList<SearchResult>();
         
@@ -49,11 +53,17 @@ public class Web {
                 System.out.println("Not url: "+urlLink);
                 continue;    //ads/news etc
             }
-            results.add(new SearchResult(title, urlLink, null, null));
+            results.add(new SearchResult(title, null, urlLink, null));
             count++;
         }
         
         System.out.println("** Web Search --> " + input + " : " + count +" results");
         return results;
     }
+    /*
+    public static String getLyrics(String customsite, String input)
+    {
+        Document doc = Jsoup.connect(songLyrics+ "/"+band.replace(" ", "-").toLowerCase()+"/"+songTitle.replace(" ", "-").toLowerCase()+"-lyrics/").get();
+        String title = doc.title();
+    }*/
 }

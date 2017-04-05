@@ -11,7 +11,7 @@ package Config;
  */
 public class SearchResult {
     private String title;
-    private String info;
+    private String author;
     private String link;
     private String text;
    
@@ -21,7 +21,7 @@ public class SearchResult {
     public SearchResult()
     {
         this.title = null;
-        this.info = null;
+        this.author = null;
         this.link = null;
         this.text = null;
     }
@@ -29,14 +29,14 @@ public class SearchResult {
     /**
     * @param title SearchResult title
     * @param link SearchResult link
-    * @param info SearchResult description
+    * @param author SearchResult lyrics author/artist
     * @param text SearchResult text, such as lyrics
     */
-    public SearchResult(String title, String link, String info, String text)
+    public SearchResult(String title, String author, String link, String text)
     {
         this.title = title;
+        this.author = author;
         this.link = link;
-        this.info = info;
         this.text = text;
     }
 
@@ -50,14 +50,14 @@ public class SearchResult {
         this.title = title;
     }
 
-    public String getInfo() 
+    public String getAuthor() 
     {
-        return info;
+        return author;
     }
 
-    public void setInfo(String info) 
+    public void setAuthor(String info) 
     {
-        this.info = info;
+        this.author = info;
     }
 
     public String getLink() 
@@ -68,5 +68,9 @@ public class SearchResult {
     public void setLink(String link) 
     {
         this.link = link;
+    }
+
+    public String getText() {
+        return text;
     }
 }
