@@ -16,3 +16,6 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - Reconstruct the Search System, added the new class SearchResult. Remove Web#searchImage and combine it 
   with only one search method.
 - Reconstruct help message so CommandListener can use it as static methods.
+
+#### [0.1.3] - 2017-04-05
+##### Added EmojiCommand for getting informations about an emote.
