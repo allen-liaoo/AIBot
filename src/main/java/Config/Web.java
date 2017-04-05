@@ -26,7 +26,7 @@ public class Web {
     private String site = "&as_sitesearch=";
     private static int count = 0;
     
-    public static List<SearchResult> searchSite(String customsite, String num, String input, MessageReceivedEvent e) throws UnsupportedEncodingException, IOException 
+    public static List<SearchResult> search(String customsite, String num, String input, MessageReceivedEvent e) throws UnsupportedEncodingException, IOException 
     {
         List<SearchResult> results = new ArrayList<SearchResult>();
         

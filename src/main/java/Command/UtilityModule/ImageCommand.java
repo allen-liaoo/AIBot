@@ -73,7 +73,7 @@ public class ImageCommand implements Command{
                 for(int i = 0; i < args.length; i++){ input += args[i] + " "; }
                 
                 e.getChannel().sendMessage("Searching........").complete().editMessage(Emoji.search + " Image!").complete();
-                List<SearchResult> result = Web.searchSite(site, num, input, e);
+                List<SearchResult> result = Web.search(site, num, input, e);
                 e.getChannel().sendMessage(result.get(0).getLink()).queue();
                 
             } catch (IOException ex) {

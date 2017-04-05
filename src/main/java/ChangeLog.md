@@ -11,3 +11,6 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 #### [0.1.2] - 2017-04-04
 ##### Added
 - Add Play, Pause, Skip, Volume, and Stop Command for Music Module. Pretty straight forward.
+##### Changed
+- Reconstruct the Search System, added the new class SearchResult. Remove Web#searchImage and combine it 
+  with only one search method.

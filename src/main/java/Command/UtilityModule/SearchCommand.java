@@ -92,7 +92,7 @@ public class SearchCommand implements Command{
             
                     e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
                     
-                    Web.searchSite(site, num, input, e);
+                    Web.search(site, num, input, e);
                 }
                 
                 else if ("&as_sitesearch=".equals(site) && args.length <= 1) //Custom Site Search without site or keyword
@@ -111,7 +111,7 @@ public class SearchCommand implements Command{
             
                     e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
                     
-                    List<SearchResult> result = Web.searchSite(site, num, input, e);
+                    List<SearchResult> result = Web.search(site, num, input, e);
                     e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
                 }
                 
