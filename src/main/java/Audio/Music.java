@@ -35,13 +35,13 @@ public class Music {
         AudioSourceManagers.registerLocalSource(playerManager);
     }
     
-    public static void play(String[] args, MessageReceivedEvent e)
+    public static void play(String link, MessageReceivedEvent e)
     {
-        Matcher m = Music.urlPattern.matcher(args[0]);
+        Matcher m = Music.urlPattern.matcher(link);
         AudioConnection.connect(e);
         
         if(m.find()){
-            Music.playerManager.loadItemOrdered(Music.playerManager, args[0], new AudioLoadResultHandler() {
+            Music.playerManager.loadItemOrdered(Music.playerManager, link, new AudioLoadResultHandler() {
                 public void trackLoaded(AudioTrack track) {
                     if(track.getState() == track.getState().PLAYING)
                         e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getInfo().title + "`").queue();

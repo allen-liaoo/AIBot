@@ -12,13 +12,17 @@ import static Command.MusicModule.JoinCommand.HELP;
 import Config.Emoji;
 import Config.Info;
 import Config.Prefix;
+import Config.SearchResult;
+import Config.Web;
 import Main.Main;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import java.awt.Color;
+import java.io.IOException;
 import java.time.Instant;
+import java.util.List;
 import java.util.regex.Matcher;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -32,6 +36,7 @@ public class PlayCommand implements Command{
     public final static  String HELP = "This command is for playing an youtube music in the voice channel.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"play`\n"
                                      + "Parameter: `-h | [Youtube Url] | null`";
+    private String num = "1";
     
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
@@ -59,7 +64,25 @@ public class PlayCommand implements Command{
         }
         else
         {
-            Music.play(args, e);
+            if(!args[0].startsWith("http"))
+            {
+                String input = "";
+                for(int i = 0; i < args.length; i++){
+                    input += args[i] + "+";
+                }
+                
+                input = input.substring(0, input.length() - 1);
+            
+                try {
+                    List<SearchResult> result = Web.youtubeSearch(num, input);
+                    //e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
+                    Music.play(result.get(0).getLink(), e);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            else
+                Music.play(args[0], e);
         }
     }
 
