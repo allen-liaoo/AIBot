@@ -9,12 +9,15 @@ import Command.Command;
 import Config.Emoji;
 import Config.Info;
 import Config.Prefix;
+import Config.SearchResult;
 import java.io.IOException;
 
 import Main.*;
 import Config.Web;
 import java.awt.Color;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -85,6 +88,10 @@ public class SearchCommand implements Command{
                             input += args[i] + " ";
                     }
                     
+                    final String tempString = Emoji.search + " This is the result for `" + input + "` on `" + site.substring(15) + "`:";
+            
+                    e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
+                    
                     Web.searchSite(site, num, input, e);
                 }
                 
@@ -99,7 +106,13 @@ public class SearchCommand implements Command{
                     String input = "";
                     for(int i = 0; i < args.length; i++){ input += args[i] + " "; }
                     
-                    Web.searchSite(site, num, input, e);
+                    
+                    final String tempString = Emoji.search + " This is the result for `" + input + "` via `Google Search Engine" + "`:";
+            
+                    e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
+                    
+                    List<SearchResult> result = Web.searchSite(site, num, input, e);
+                    e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
                 }
                 
             } catch (IOException ex) {

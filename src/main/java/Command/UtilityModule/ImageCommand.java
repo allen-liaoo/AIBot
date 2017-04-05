@@ -11,6 +11,7 @@ import Main.*;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -71,7 +72,9 @@ public class ImageCommand implements Command{
                 String input = "";
                 for(int i = 0; i < args.length; i++){ input += args[i] + " "; }
                 
-                Web.searchImage(site, num, input, e);
+                e.getChannel().sendMessage("Searching........").complete().editMessage(Emoji.search + " Image!").complete();
+                List<SearchResult> result = Web.searchSite(site, num, input, e);
+                e.getChannel().sendMessage(result.get(0).getLink()).queue();
                 
             } catch (IOException ex) {
                 ex.printStackTrace();
