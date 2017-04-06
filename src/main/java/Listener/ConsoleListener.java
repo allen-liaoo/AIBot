@@ -9,6 +9,7 @@ import static Listener.CommandListener.handleCommand;
 import Main.Main;
 import java.io.File;
 import java.util.Scanner;
+import net.dv8tion.jda.core.OnlineStatus;
 
 /**
  *
@@ -31,9 +32,42 @@ public class ConsoleListener extends Thread {
         while (true) 
         {
             System.out.print("AIBot Console $ ");
-            if (scanner.next().equals("shutdown")) 
+            String input = scanner.nextLine();
+            if (input.equals("shutdown")) 
             {
                 Main.shutdown();
+            }
+            else if(input.startsWith("setGame"))
+            {
+                Main.setGame(input.substring(8));
+                System.out.println("Game set to " + input.substring(8));
+            }
+            else if(input.startsWith("setStatus"))
+            {
+                OnlineStatus status;
+                switch(input.substring(10)) {
+                        case "online":
+                            status = OnlineStatus.ONLINE;
+                            break;
+                        case "idle":
+                            status = OnlineStatus.IDLE;
+                            break;
+                        case "dnd":
+                            status = OnlineStatus.DO_NOT_DISTURB;
+                            break;
+                        case "invisible":
+                            status = OnlineStatus.INVISIBLE;
+                            break;
+                        case "offline":
+                            status = OnlineStatus.OFFLINE;
+                            break;
+                        default:
+                            System.out.println("Unknown Status");
+                            return;
+                    }
+                
+                System.out.println("Status set to " + status.toString());
+                Main.setStatus(status);
             }
         }
     }

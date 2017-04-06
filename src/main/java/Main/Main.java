@@ -29,6 +29,7 @@ import net.dv8tion.jda.core.entities.Game;
 
 import java.util.HashMap;
 import javax.security.auth.login.LoginException;
+import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 
@@ -43,6 +44,7 @@ public class Main {
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
     public static HashMap<String, GuildSetting> guilds = new HashMap<String, GuildSetting>();
     public static long timeStart = 0;
+    public static String game = Prefix.DIF_PREFIX + "help | Developed by Ayy™";
     
     /**
      * @param args the command line arguments
@@ -53,7 +55,7 @@ public class Main {
                     .addListener(new CommandListener())
                     .setToken(Private.BOT_TOKEN)
                     .buildBlocking();
-            jda.getPresence().setGame(Game.of(Prefix.getDefaultPrefix() + "help | Developed by Ayy™"));
+            jda.getPresence().setGame(Game.of(game));
             jda.setAutoReconnect(true);
             
             timeStart = System.currentTimeMillis();
@@ -84,6 +86,20 @@ public class Main {
         System.exit(0);
     }
     
+    public static void setStatus(OnlineStatus stat)
+    {
+        jda.getPresence().setStatus(stat);
+        SmartLogger.updateLog("Bot Status set to " + stat.toString());
+    }
+    
+    public static void setGame(String game)
+    {
+        if(!"".equals(game))
+            jda.getPresence().setGame(Game.of(game));
+        else if("default".equals(game))
+            game = game;
+        SmartLogger.updateLog("Bot Game set to " + game);
+    }
         
     private static void addCommands() {
         // Information Commands
@@ -181,5 +197,7 @@ public class Main {
         //Restricted Commands
         commands.put("shutdown", new ShutDownCommand());
         commands.put("source", new SourceCommand());
+        commands.put("setStatus", new PresenceCommand("setStatus"));
+        commands.put("setGame", new PresenceCommand("setGame"));
     }
 }
