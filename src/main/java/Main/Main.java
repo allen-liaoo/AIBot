@@ -77,8 +77,8 @@ public class Main {
     
     public static void startUp()
     {
-        addCommands();
         Music.musicStartup();
+        addCommands();
         ConsoleListener console = new ConsoleListener();
         
         Main.updateLog("Bot Start Up. Commands Added.");
