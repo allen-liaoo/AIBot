@@ -75,6 +75,7 @@ public class UnbanCommand implements Command{
                 if (!selfMember.hasPermission(Permission.BAN_MEMBERS))
                     e.getTextChannel().sendMessage(Emoji.error + " I need to have **Ban Members* Permission to unban members.").queue();
 
+                SmartLogger.commandLog(e.getGuild().getName(), "UnbanCommand", "Called to unban " + args.length + " users.");
 
                 for (String userId : args)
                 {

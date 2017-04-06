@@ -10,6 +10,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -76,6 +77,8 @@ public class BanCommand implements Command{
             if (!selfMember.hasPermission(Permission.BAN_MEMBERS))
                 e.getTextChannel().sendMessage(Emoji.error + " I need to have **Ban Members* Permission to ban members.").queue();
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
+            
+            SmartLogger.commandLog(e.getGuild().getName(), "BanCommand", "Called to ban " + mentionedUsers.size() + " users.");
             
             for (User user : mentionedUsers)
             {

@@ -10,6 +10,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -71,6 +72,8 @@ public class KickCommand implements Command{
                 e.getTextChannel().sendMessage(Emoji.error + " I need to have **Kick Members* Permission to kick members.").queue();
             
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
+            
+            SmartLogger.commandLog(e.getGuild().getName(), "KickCommand", "Called to kick " + mentionedUsers.size() + " users.");
             
             for (User user : mentionedUsers)
             {

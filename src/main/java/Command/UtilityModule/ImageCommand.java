@@ -66,8 +66,6 @@ public class ImageCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        SmartLogger.commandLog(e.getGuild().getName(), "ImageCommand", "Called");
-                
         if(args.length == 0 || "-h".equals(args[0]) || "".equals(site)) 
         {
             help(e);

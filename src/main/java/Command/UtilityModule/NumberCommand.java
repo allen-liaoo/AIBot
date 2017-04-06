@@ -11,6 +11,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -58,6 +59,8 @@ public class NumberCommand implements Command {
         //Number Counter
         else if("count".equals(args[0]) | "cunt".equals(args[0]) | "c".equals(args[0]))
         {
+            SmartLogger.commandLog(e.getGuild().getName(), "NumberCommand#Count", "Called");
+            
             if(args.length == 1) //Default count from 1 to 4
             {
                 e.getChannel().sendMessage("Counting from 1 to 4...").queue();

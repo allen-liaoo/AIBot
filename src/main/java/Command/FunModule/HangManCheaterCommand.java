@@ -67,6 +67,7 @@ public class HangManCheaterCommand implements Command {
         
         else
         {
+            SmartLogger.commandLog(e.getGuild().getName(), "HangManCheaterCommand", "Called by " + e.getAuthor().getName());
             //Initialize
             String word = args[0], miss = args[1];
             

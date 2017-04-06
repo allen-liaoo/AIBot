@@ -77,6 +77,8 @@ public class SearchCommand implements Command{
         }
         else
         {
+            SmartLogger.commandLog(e.getGuild().getName(), "SearchCommand", "Called");
+            
             try {
                 if("&as_sitesearch=".equals(site) && args.length >= 2) //Custom Site Search
                 {
