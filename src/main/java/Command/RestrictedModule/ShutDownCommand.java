@@ -39,7 +39,7 @@ public class ShutDownCommand implements Command{
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
         embed.setTitle("Restricted Module", null);
-        embed.addField("ShitDown -Help", HELP, true);
+        embed.addField("ShutDown -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 

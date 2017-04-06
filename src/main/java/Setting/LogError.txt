@@ -96,3 +96,51 @@ net.objecthunter.exp4j.tokenizer.UnknownFunctionOrVariableException: Unknown fun
 	at com.neovisionaries.ws.client.ReadingThread.main(ReadingThread.java:110)
 	at com.neovisionaries.ws.client.ReadingThread.run(ReadingThread.java:66)
 
+Apr 06, 2017 4:34:09 PM Setting.SmartLogger errorLog
+WARNING: Guild: 3BotRuleTheWorld
+	 Cause: PresenceCommand -> Unknown Status
+java.lang.IllegalArgumentException: Cannot set the presence status to an unknown OnlineStatus!
+	at net.dv8tion.jda.core.managers.impl.PresenceImpl.setStatus(PresenceImpl.java:87)
+	at Main.Main.setStatus(Main.java:90)
+	at Command.RestrictedModule.PresenceCommand.action(PresenceCommand.java:96)
+	at Listener.CommandListener.handleCommand(CommandListener.java:74)
+	at Listener.CommandListener.onMessageReceived(CommandListener.java:46)
+	at net.dv8tion.jda.core.hooks.ListenerAdapter.onEvent(ListenerAdapter.java:326)
+	at net.dv8tion.jda.core.hooks.InterfacedEventManager.handle(InterfacedEventManager.java:84)
+	at net.dv8tion.jda.core.handle.MessageCreateHandler.handleDefaultMessage(MessageCreateHandler.java:135)
+	at net.dv8tion.jda.core.handle.MessageCreateHandler.handleInternally(MessageCreateHandler.java:52)
+	at net.dv8tion.jda.core.handle.SocketHandler.handle(SocketHandler.java:38)
+	at net.dv8tion.jda.core.requests.WebSocketClient.handleEvent(WebSocketClient.java:719)
+	at net.dv8tion.jda.core.requests.WebSocketClient.onTextMessage(WebSocketClient.java:456)
+	at com.neovisionaries.ws.client.ListenerManager.callOnTextMessage(ListenerManager.java:352)
+	at com.neovisionaries.ws.client.ReadingThread.callOnTextMessage(ReadingThread.java:262)
+	at com.neovisionaries.ws.client.ReadingThread.callOnTextMessage(ReadingThread.java:240)
+	at com.neovisionaries.ws.client.ReadingThread.handleTextFrame(ReadingThread.java:965)
+	at com.neovisionaries.ws.client.ReadingThread.handleFrame(ReadingThread.java:748)
+	at com.neovisionaries.ws.client.ReadingThread.main(ReadingThread.java:110)
+	at com.neovisionaries.ws.client.ReadingThread.run(ReadingThread.java:66)
+
+Apr 06, 2017 4:46:19 PM Setting.SmartLogger errorLog
+WARNING: Guild: Joshypooh's Potato Parlour
+	 Cause: PresenceCommand -> Unknown Status
+java.lang.IllegalArgumentException: Cannot set the presence status to an unknown OnlineStatus!
+	at net.dv8tion.jda.core.managers.impl.PresenceImpl.setStatus(PresenceImpl.java:87)
+	at Main.Main.setStatus(Main.java:91)
+	at Command.RestrictedModule.PresenceCommand.action(PresenceCommand.java:98)
+	at Listener.CommandListener.handleCommand(CommandListener.java:74)
+	at Listener.CommandListener.onMessageReceived(CommandListener.java:46)
+	at net.dv8tion.jda.core.hooks.ListenerAdapter.onEvent(ListenerAdapter.java:326)
+	at net.dv8tion.jda.core.hooks.InterfacedEventManager.handle(InterfacedEventManager.java:84)
+	at net.dv8tion.jda.core.handle.MessageCreateHandler.handleDefaultMessage(MessageCreateHandler.java:135)
+	at net.dv8tion.jda.core.handle.MessageCreateHandler.handleInternally(MessageCreateHandler.java:52)
+	at net.dv8tion.jda.core.handle.SocketHandler.handle(SocketHandler.java:38)
+	at net.dv8tion.jda.core.requests.WebSocketClient.handleEvent(WebSocketClient.java:719)
+	at net.dv8tion.jda.core.requests.WebSocketClient.onTextMessage(WebSocketClient.java:456)
+	at com.neovisionaries.ws.client.ListenerManager.callOnTextMessage(ListenerManager.java:352)
+	at com.neovisionaries.ws.client.ReadingThread.callOnTextMessage(ReadingThread.java:262)
+	at com.neovisionaries.ws.client.ReadingThread.callOnTextMessage(ReadingThread.java:240)
+	at com.neovisionaries.ws.client.ReadingThread.handleTextFrame(ReadingThread.java:965)
+	at com.neovisionaries.ws.client.ReadingThread.handleFrame(ReadingThread.java:748)
+	at com.neovisionaries.ws.client.ReadingThread.main(ReadingThread.java:110)
+	at com.neovisionaries.ws.client.ReadingThread.run(ReadingThread.java:66)
+

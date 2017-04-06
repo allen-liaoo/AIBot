@@ -5,7 +5,7 @@
  */
 package Command.InformationModule;
 
-//Setted to SUPPORT PRIVATE CHANNEL.
+//Set to SUPPORT PRIVATE CHANNEL.
 
 import Resource.Prefix;
 import Resource.Info;

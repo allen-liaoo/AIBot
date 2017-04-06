@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-//Setted to SUPPORT PRIVATE CHANNEL.
+//Set to SUPPORT PRIVATE CHANNEL.
 
 package Command.InformationModule;
 
