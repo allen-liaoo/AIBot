@@ -1,0 +1,6 @@
+Apr 05, 2017 8:33:44 PM Main.Main updateLog
+INFO: Bot Start Up 
+null
+Apr 05, 2017 8:34:58 PM Main.Main updateLog
+INFO: Input: aibot  
+Index: 0, Size: 0
