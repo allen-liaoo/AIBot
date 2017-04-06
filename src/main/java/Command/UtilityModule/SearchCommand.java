@@ -115,7 +115,7 @@ public class SearchCommand implements Command{
                 }
                 
             } catch (IOException ex) {
-                ex.printStackTrace();
+                Main.errorLog(ex, e, "SearchCommand -> IO Exception");
             }
         }
         

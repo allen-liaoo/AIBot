@@ -102,6 +102,7 @@ public class UnbanCommand implements Command{
                 }
             } catch (Exception ex) {
                 e.getTextChannel().sendMessage(Emoji.error + " Cannot find this (these) member!\n").queue();
+                Main.errorLog(ex, e, "UnbanCommand -> Can't find member.");
             }
             
         }

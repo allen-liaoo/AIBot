@@ -46,7 +46,7 @@ public class EightBallCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        String msg = e.getAuthor().getAsMention() + " " + eightball();
+        String msg = e.getAuthor().getAsMention() + " " + eightball(e);
         if(args.length > 0 && !"-h".equals(args[0]))
         {
             e.getChannel().sendMessage(msg).queue();
@@ -63,7 +63,7 @@ public class EightBallCommand implements Command{
         
     }
     
-    public String eightball()
+    public String eightball(MessageReceivedEvent e)
     {
         String respond = "", output = "";
         int totalline = 0;
@@ -78,7 +78,7 @@ public class EightBallCommand implements Command{
                 }
                 reader.close();
             } catch (IOException io) {
-                io.printStackTrace();
+                Main.errorLog(io, e, "EightBallCommand -> BufferedReader");
         }
         int magic = (int) Math.ceil(Math.random() * totalline), line = 0;
         
@@ -94,35 +94,8 @@ public class EightBallCommand implements Command{
             reader.close();
                 
         } catch (IOException io) {
-            io.printStackTrace();
+            Main.errorLog(io, e, "EightBallCommand -> BufferedReader");
         }
-        
-        /*
-        switch(magic)
-        {
-            case 1: respond = "Yes.";
-            break;
-            case 2: respond = "No.";
-            break;
-            case 3: respond = "The odds are in favor.";
-            break;
-            case 4: respond = "The odds are against you.";
-            break;
-            case 5: respond = "Never.";
-            break;
-            case 6: respond = "Definitely!";
-            break;
-            case 7: respond = "Maybe.";
-            break;
-            case 8: respond = "I don't think so.";
-            break;
-            case 9: respond = "I'd say no.";
-            break;
-            case 10: respond = "Probably.";
-            break;
-            default: respond = "Try Again.";
-            break;
-        }*/
         return respond;
     }
 }

@@ -18,4 +18,6 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - Reconstruct help message so CommandListener can use it as static methods.
 
 #### [0.1.3] - 2017-04-05
-##### Added EmojiCommand for getting informations about an emote.
+##### Added 
+- EmojiCommand for getting informations about an emote.
+- Log System for exception and status tracking.

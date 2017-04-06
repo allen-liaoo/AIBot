@@ -57,8 +57,8 @@ public class ShutDownCommand implements Command{
 
                 try {
                     Thread.sleep(2000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ShutDownCommand.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ite) {
+                    Main.errorLog(ite, e, "ShutDownCommand -> Process interrupted.");
                 }
                 
                 Main.shutdown();

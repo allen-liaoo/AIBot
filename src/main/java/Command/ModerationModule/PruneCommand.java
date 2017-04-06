@@ -92,8 +92,8 @@ public class PruneCommand implements Command{
                 //Only show this message when 100 > msgs > 0.
                 if(msgs < 100 && msgs > 0) e.getChannel().sendMessage(Emoji.success + " `" + args[0] + "` messages deleted.").complete().delete().complete();
                 //Thread.sleep(2000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(PruneCommand.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ite) {
+                Main.errorLog(ite, e, "PruneCOmmand -> Pruning interrupted.");
             }
         }
     }

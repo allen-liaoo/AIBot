@@ -128,7 +128,7 @@ public final static  String HELP = "This command is for letting a bot say someth
 
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(SayCommand.class.getName()).log(Level.SEVERE, null, ex);
+                    Main.errorLog(ex, e, "SayCommand -> Process interrupted.");
                 }
             }
             

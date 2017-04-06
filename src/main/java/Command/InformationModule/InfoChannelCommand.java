@@ -151,6 +151,7 @@ public class InfoChannelCommand implements Command{
             } catch (RuntimeException rte) {
                 e.getTextChannel().sendMessage(Emoji.error + " You need to join a voice channel first "
                                         + "to see the channel's information.").queue();
+                Main.errorLog(rte, e, "InfoChannelCommand -> Requested AudioChannel Info when the user is not in a VoiceChannel.");
             }
         }
         else if("-h".equals(args[0]))

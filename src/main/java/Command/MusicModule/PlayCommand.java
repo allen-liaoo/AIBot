@@ -77,8 +77,8 @@ public class PlayCommand implements Command{
                     List<SearchResult> result = Web.youtubeSearch(num, input);
                     //e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
                     Music.play(result.get(0).getLink(), e);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                } catch (IOException ioe) {
+                    Main.errorLog(ioe, e, "PlayCommand -> IOException");
                 }
             }
             else

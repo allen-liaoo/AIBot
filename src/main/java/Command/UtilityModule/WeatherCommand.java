@@ -134,10 +134,10 @@ public class WeatherCommand implements Command{
                 e.getChannel().sendMessage(mew).queue();
                 embedw.clearFields();
             } catch (JAXBException ex) {
-                System.out.println("JAXBException: An error occurs parsing the response.");
+                Main.errorLog(ex, e, "An error occurs parsing the response.");
                 Logger.getLogger(WeatherCommand.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                System.out.println("IOException: If an error occurs communicating with the service.");
+                Main.errorLog(ex, e, "An error occurs communicating with the service.");
                 Logger.getLogger(WeatherCommand.class.getName()).log(Level.SEVERE, null, ex);
             }
 

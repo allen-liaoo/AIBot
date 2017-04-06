@@ -62,7 +62,8 @@ public class Music  {
                 }
 
                 public void loadFailed(FriendlyException exception) {
-                    e.getTextChannel().sendMessage(exception.getMessage()).queue();
+                    e.getTextChannel().sendMessage(Emoji.error + " Fail to load the video.").queue();
+                    Main.errorLog(exception, e, "Music Play -> Load Failed.");
                     return;
                 }
             });

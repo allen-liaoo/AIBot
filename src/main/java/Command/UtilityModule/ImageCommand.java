@@ -81,8 +81,8 @@ public class ImageCommand implements Command{
                 List<SearchResult> result = Web.search(site, num, input);
                 e.getChannel().sendMessage(result.get(0).getLink()).queue();
                 
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } catch (IOException ioe) {
+                Main.errorLog(ioe, e, "ImageCommand -> IO Exception.");
             } catch (IndexOutOfBoundsException iobe) {
                 e.getChannel().sendMessage(Emoji.error + " No result.").queue();
                 Main.errorLog(iobe, e,"ImageCommand -> No Result.");

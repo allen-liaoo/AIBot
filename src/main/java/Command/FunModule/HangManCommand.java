@@ -10,6 +10,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Game.HangMan;
+import Main.Main;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -72,6 +73,7 @@ public class HangManCommand implements Command{
                 game.sendInput(args, e);
             } catch(NullPointerException en) {
                 e.getChannel().sendMessage(Emoji.error + " Game haven't started yet!").queue();
+                Main.errorLog(en, e, "HangManCommand -> Game haven't started.");
             }
         }
     }

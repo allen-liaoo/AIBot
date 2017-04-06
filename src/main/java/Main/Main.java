@@ -120,7 +120,7 @@ public class Main {
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
         } catch (IOException ioe) {
-            
+            ioe.printStackTrace();
         }
     }
         

@@ -100,8 +100,9 @@ public class MathCommand implements Command{
                 
             } catch (ArithmeticException ae) {
                 e.getChannel().sendMessage(Emoji.error + " Do not devide a value by 0.").queue();
-            } catch (RuntimeException iae) {
+            } catch (RuntimeException rte) {
                 e.getChannel().sendMessage(Emoji.error + " Please enter a valid math operation.").queue();
+                Main.errorLog(rte, e, "MathCommand -> Unvalid operation.");
             }
             
             input = "";

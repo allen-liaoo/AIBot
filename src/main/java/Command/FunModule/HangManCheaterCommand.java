@@ -7,6 +7,7 @@ package Command.FunModule;
 
 import Command.*;
 import static Command.Command.embed;
+import Main.Main;
 import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
@@ -104,8 +105,8 @@ public class HangManCheaterCommand implements Command {
                         nomissed.add(ranword);
                 }
             
-                } catch (IOException io) {
-                io.printStackTrace();
+                } catch (IOException ioe) {
+                Main.errorLog(ioe, e, "HangManCheaterCommand -> BufferedReader at Checking missed letters.");
             }
             
             //Check if the known position has the same letters
