@@ -68,14 +68,16 @@ public class Emoji {
     //-Game
     public static String game = EmojiParser.parseToUnicode(":video_game:");
     public static String hanged_face = EmojiParser.parseToUnicode(":confounded:");
-    
+    //--RPSCommand
     public static String rock = EmojiParser.parseToUnicode(":last_quarter_moon:");
     public static String paper = EmojiParser.parseToUnicode(":rolled_up_newspaper:");
     public static String scissors = EmojiParser.parseToUnicode(":scissors:");
     public static String tie = EmojiParser.parseToUnicode(":necktie:");
-    public static String blush = EmojiParser.parseToUnicode(":blush:");
     
     //Music
     public static String globe = EmojiParser.parseToUnicode(":globe_with_meridians:");
     
+    //Faces
+    public static String face_tongue = EmojiParser.parseToUnicode(":stuck_out_tongue:");
+    public static String face_blush = EmojiParser.parseToUnicode(":blush:");
 }
