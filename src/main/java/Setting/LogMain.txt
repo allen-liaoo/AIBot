@@ -48,3 +48,7 @@ Apr 06, 2017 5:20:12 PM Setting.SmartLogger updateLog
 INFO: 	New Server - Name: HoP Highly Over Powered  Esports
 Apr 06, 2017 5:20:16 PM Setting.SmartLogger updateLog
 INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 5:29:47 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: bot heaven
+Apr 06, 2017 5:29:53 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: JDA (Java Discord API)

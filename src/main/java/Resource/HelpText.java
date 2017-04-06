@@ -160,15 +160,16 @@ public class HelpText {
     
     public final static String RESTRICT_DES = 
             "**Bot Owner** only.\n"
-            + "Shut down the bot remotely. \n(Bot Owner) *\n"
+            + "Shut down the bot remotely. \n(Bot Owner Only) * ^\n"
             + "Get the source code of a \ncommand class. *\n"
-            + "Set the status of the bot. *\n"
-            + "Set the game of the bot. *\n";
+            + "Set the status of the bot. * ^\n"
+            + "Set the game of the bot. * ^\n";
     
     /*
     * Note
     */
     public final static String NOTE = 
             "Adding the command/module name after `help` will show the command/module usage.\n"
-            + "* - Available directly from Private Message. (Private Channel)";
+            + "* - Available directly from Private Message. (Private Channel)\n"
+            + "^ - Available directly from Console.";
 }
