@@ -58,7 +58,7 @@ public class ShutDownCommand implements Command{
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ite) {
-                    Main.errorLog(ite, e, "ShutDownCommand -> Thread Sleep process interrupted.");
+                    Main.errorLog(ite, e.getGuild().getName(), this.getClass().getName(), "Thread Sleep process interrupted.");
                 }
                 
                 Main.updateLog("Bot Shut Down Attemp");

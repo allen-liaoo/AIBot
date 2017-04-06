@@ -1,2 +1,0 @@
-Apr 06, 2017 7:31:32 AM Main.Main updateLog
-INFO: Bot Shut Down Successfully

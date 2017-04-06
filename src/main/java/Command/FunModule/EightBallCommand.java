@@ -78,7 +78,7 @@ public class EightBallCommand implements Command{
                 }
                 reader.close();
             } catch (IOException io) {
-                Main.errorLog(io, e, "EightBallCommand -> BufferedReader");
+                Main.errorLog(io, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at reading line numbers");
         }
         int magic = (int) Math.ceil(Math.random() * totalline), line = 0;
         
@@ -94,7 +94,7 @@ public class EightBallCommand implements Command{
             reader.close();
                 
         } catch (IOException io) {
-            Main.errorLog(io, e, "EightBallCommand -> BufferedReader");
+            Main.errorLog(io, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at getting response.");
         }
         return respond;
     }

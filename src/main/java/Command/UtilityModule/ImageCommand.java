@@ -82,10 +82,10 @@ public class ImageCommand implements Command{
                 e.getChannel().sendMessage(result.get(0).getLink()).queue();
                 
             } catch (IOException ioe) {
-                Main.errorLog(ioe, e, "ImageCommand -> IO Exception.");
+                Main.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "IO Exception.");
             } catch (IndexOutOfBoundsException iobe) {
                 e.getChannel().sendMessage(Emoji.error + " No result.").queue();
-                Main.errorLog(iobe, e,"ImageCommand -> No Result.");
+                Main.errorLog(iobe, e.getGuild().getName(), this.getClass().getName(), "Image Search \""+ args[0] +"\" No Result.");
             }
         }
         

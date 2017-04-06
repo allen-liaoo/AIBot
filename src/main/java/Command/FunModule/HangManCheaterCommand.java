@@ -106,7 +106,7 @@ public class HangManCheaterCommand implements Command {
                 }
             
                 } catch (IOException ioe) {
-                Main.errorLog(ioe, e, "HangManCheaterCommand -> BufferedReader at Checking missed letters.");
+                Main.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at Checking missed letters.");
             }
             
             //Check if the known position has the same letters

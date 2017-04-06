@@ -78,7 +78,7 @@ public class PlayCommand implements Command{
                     //e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
                     Music.play(result.get(0).getLink(), e);
                 } catch (IOException ioe) {
-                    Main.errorLog(ioe, e, "PlayCommand -> IOException");
+                    Main.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "IOException at getting Youtube search result.");
                 }
             }
             else

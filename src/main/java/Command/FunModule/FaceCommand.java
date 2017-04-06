@@ -79,7 +79,7 @@ public class FaceCommand implements Command{
                 num = (int)(Math.random() * lines + 1);
                 if(num % 2 != 0) num += 1; //Make the random number always even
             } catch (IOException io) {
-                Main.errorLog(io, e, "FaceCommand -> BufferedReader at getting sum of line numbers.");
+                Main.errorLog(io, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at getting sum of line numbers.");
             }
             
             try {
@@ -93,7 +93,7 @@ public class FaceCommand implements Command{
                 reader.close();
                 
             } catch (IOException ioe) {
-                Main.errorLog(ioe, e, "FaceCommand -> BufferedReader at getting face.");
+                Main.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at getting face.");
             }
             
             e.getChannel().sendMessage(output).queue();
@@ -121,7 +121,7 @@ public class FaceCommand implements Command{
                         facelist += output + "\t";
                 }
             } catch (IOException ioe) {
-                Main.errorLog(ioe, e, "FaceCommand -> BufferedReader at -list.");
+                Main.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at -list.");
             }
             
             EmbedBuilder embedfl = new EmbedBuilder();
@@ -163,7 +163,7 @@ public class FaceCommand implements Command{
                     }
                 }
             } catch (IOException ioe) {
-                Main.errorLog(ioe, e, "FaceCommand -> BufferedReader at specified face.");
+                Main.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at specified face.");
             }
             
             e.getChannel().sendMessage(output).queue();

@@ -93,11 +93,15 @@ public class Main {
         System.exit(0);
     }
     
+    /**
+     * Logging when bot status changed
+     * @param msg the message for logging
+     */
     public static void updateLog(String msg)
     {
         try
         {
-            FileHandler fh = new FileHandler("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/LogMain.txt");
+            FileHandler fh = new FileHandler("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/LogMain.txt", true);
             startLogger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -112,17 +116,24 @@ public class Main {
         }
     }
     
-    public static void errorLog(Exception ex, MessageReceivedEvent e, String cause)
+    /**
+     * Logging when an exception is thrown
+     * @param ex the Exception for logging
+     * @param guild the guild name
+     * @param at the exception source (class name)
+     * @param cause cause of the exception
+     */
+    public static void errorLog(Exception ex, String guild, String at, String cause)
     {
         try
         {
-            FileHandler fhe = new FileHandler("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/LogError.txt");
+            FileHandler fhe = new FileHandler("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/LogError.txt", true);
             errorLogger.addHandler(fhe);
             SimpleFormatter formatter = new SimpleFormatter();
             fhe.setFormatter(formatter);
             errorLogger.setUseParentHandlers(false);
             
-            errorLogger.log(Level.WARNING, "Guild: " + e.getGuild().getName() + " | Exception Cause: " + cause, ex);
+            errorLogger.log(Level.WARNING, "Guild: " + guild + "\nCause: " + at + " -> " + cause, ex);
             fhe.close();
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();

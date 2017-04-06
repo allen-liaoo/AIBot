@@ -115,7 +115,7 @@ public class SearchCommand implements Command{
                 }
                 
             } catch (IOException ex) {
-                Main.errorLog(ex, e, "SearchCommand -> IO Exception");
+                Main.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "IO Exception");
             }
         }
         
