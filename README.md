@@ -66,6 +66,8 @@ __**Restricted Commands**__ <br />
 These commands are for **Server Owner** or **Bot Owner** only. <br />
 shutdown - Shut down the bot remotely. (Bot Owner) * <br />
 source - Get the source code of a command class. * <br />
+setStatus - Set the status of the bot. * <br />
+setGame - Set the game of the bot. * <br />
 
 __**Note:**__ <br />
 Adding the command/module name after help will show the command/module usage. <br />

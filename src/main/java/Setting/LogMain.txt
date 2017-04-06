@@ -20,3 +20,31 @@ Apr 06, 2017 5:04:19 PM Setting.SmartLogger updateLog
 INFO: Bot Status set to DO_NOT_DISTURB
 Apr 06, 2017 5:04:29 PM Setting.SmartLogger updateLog
 INFO: Bot Status set to ONLINE
+Apr 06, 2017 5:09:08 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 5:12:21 PM Setting.SmartLogger updateLog
+INFO: Bot Status set to IDLE
+Apr 06, 2017 5:12:21 PM Setting.SmartLogger updateLog
+INFO: Bot setStatus Attempt
+Apr 06, 2017 5:12:29 PM Setting.SmartLogger updateLog
+INFO: Bot Game set to idle
+Apr 06, 2017 5:12:29 PM Setting.SmartLogger updateLog
+INFO: Bot setGame Attempt
+Apr 06, 2017 5:12:50 PM Setting.SmartLogger updateLog
+INFO: Bot Status set to ONLINE
+Apr 06, 2017 5:12:50 PM Setting.SmartLogger updateLog
+INFO: Bot setStatus Attempt
+Apr 06, 2017 5:12:59 PM Setting.SmartLogger updateLog
+INFO: Bot Game set to @tag me for welp
+Apr 06, 2017 5:12:59 PM Setting.SmartLogger updateLog
+INFO: Bot setGame Attempt
+Apr 06, 2017 5:16:00 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 5:16:38 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 5:20:10 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 5:20:12 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 5:20:16 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots

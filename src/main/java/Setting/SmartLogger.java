@@ -57,6 +57,7 @@ public class SmartLogger {
      */
     public static void errorLog(Exception ex, String guild, String at, String cause) {
         try {
+            if(guild.equals(null)) guild = "N/A";
             FileHandler fhe = new FileHandler(LogError, true);
             errorLogger.addHandler(fhe);
             SimpleFormatter formatter = new SimpleFormatter();
