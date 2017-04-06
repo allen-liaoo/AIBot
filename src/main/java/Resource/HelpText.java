@@ -154,13 +154,16 @@ public class HelpText {
     public final static String RESTRICT_CMD = 
             "**Server Owner** or\n"
             + "**shutdown**\n\n"
-            + "**source**\n";
+            + "**source**\n"
+            + "**setStatus**\n"
+            + "**setGame**\n";
     
     public final static String RESTRICT_DES = 
             "**Bot Owner** only.\n"
             + "Shut down the bot remotely. \n(Bot Owner) *\n"
-            + "Get the source code of a \ncommand class. *\n";
-    
+            + "Get the source code of a \ncommand class. *\n"
+            + "Set the status of the bot. *\n"
+            + "Set the game of the bot. *\n";
     
     /*
     * Note
