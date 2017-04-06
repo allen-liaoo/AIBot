@@ -79,6 +79,8 @@ public class Main {
     {
         addCommands();
         Music.musicStartup();
+        ConsoleListener console = new ConsoleListener();
+        
         Main.updateLog("Bot Start Up. Commands Added.");
     }
     
@@ -86,6 +88,7 @@ public class Main {
     {
         Main.updateLog("Bot Shut Down Successfully");
         jda.shutdown();
+        System.exit(0);
     }
     
     public static void updateLog(String msg)
@@ -173,6 +176,7 @@ public class Main {
         commands.put("say", new SayCommand());
         
         commands.put("emoji", new EmojiCommand());
+        commands.put("emote", new EmojiCommand());
         commands.put("weather", new WeatherCommand());
         commands.put("w", new WeatherCommand());
         

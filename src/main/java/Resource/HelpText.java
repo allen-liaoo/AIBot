@@ -68,6 +68,7 @@ public class HelpText {
             + "*num coinflip (n cf)*\n"
             + "**math (m)**\n\n"
             + "**say**\n\n"
+            + "**emoji**\n"
             + "**weather (w)**\n"
             //Command Group- Search 
             + "***search***\n"
@@ -89,6 +90,7 @@ public class HelpText {
             + "Flip a coin.\n"
             + "Let the bot to solve a \nmath operation for you. *\n"
             + "Let the bot say something \nfor you. Support Embed Message. *\n"
+            + "Getting informations about an emoji. *\n"
             + "Get the weather. *\n"
             //Command Group- Search 
             + "Search Custom sites. *\n"

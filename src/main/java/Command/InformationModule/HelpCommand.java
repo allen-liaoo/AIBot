@@ -209,6 +209,10 @@ public class HelpCommand implements Command {
             case "say":
                 cmdhelp = SayCommand.HELP;
                 break;
+            case "emoji":
+            case "emote":
+                cmdhelp = EmojiCommand.HELP;
+                break;
             case "weather":
             case "w":
                 cmdhelp = WeatherCommand.HELP;

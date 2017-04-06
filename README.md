@@ -33,6 +33,7 @@ number (n) - Generate random numbers, roll a dice, or flip a coin. * <br />
 &nbsp;&nbsp;*num roll* - Roll the dice. <br />
 &nbsp;&nbsp;*num coinflip (n cf)* - Flip a coin. <br />
 say - Let the bot say something for you. Support Embed Message. * <br />
+emoji - Getting informations about an emoji. * <br />
 math (m) - Let the bot to solve a math operation for you. * <br />
 weather (w) - Get the weather. * <br />
 search - Search Google, Wikipedia, Urban Dictionary, Github, and custom sites. * <br />

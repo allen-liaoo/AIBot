@@ -1,2 +1,2 @@
-Apr 05, 2017 9:55:33 PM Main.Main updateLog
-INFO: New Server Added to HashMap(guilds) - Name: JDA (Java Discord API)	ID: 125227483518861312
+Apr 05, 2017 10:50:51 PM Main.Main updateLog
+INFO: Bot Shut Down Successfully
