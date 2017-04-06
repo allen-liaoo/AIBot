@@ -5,6 +5,7 @@
  */
 package Listener;
 
+import static Listener.CommandListener.handleCommand;
 import Main.Main;
 import java.io.File;
 import java.util.Scanner;
@@ -24,13 +25,16 @@ public class ConsoleListener extends Thread {
     }
     
     @Override
-    public void run() {
+    public void run() 
+    {
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        while (true) 
+        {
             System.out.print("AIBot Console $ ");
-            if (scanner.nextLine().equals("shutdown")) {
+            if (scanner.next().equals("shutdown")) 
+            {
                 Main.shutdown();
             }
         }
-}
+    }
 }

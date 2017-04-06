@@ -86,7 +86,9 @@ public class Main {
     
     public static void shutdown()
     {
+        System.out.println("Bot Shut Down Successfully");
         Main.updateLog("Bot Shut Down Successfully");
+        
         jda.shutdown();
         System.exit(0);
     }
