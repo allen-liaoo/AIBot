@@ -42,7 +42,7 @@ public class InviteCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
         embed.addField("Invite -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -53,8 +53,8 @@ public class InviteCommand implements Command {
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
         String msg = Emoji.invite + " Invite me to your server here:\n"
-                + "https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=368573567\n"
-                + "You can also join my Discord Server if you require support here: https://discord.gg/EABc8Kc";
+                + Info.B_DISCORD_BOT + "\n"
+                + "You can also join my Discord Server if you require support here: " + Info.B_SERVER;
         
         if(args.length == 0) 
         {

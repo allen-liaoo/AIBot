@@ -9,3 +9,25 @@ Apr 06, 2017 8:31:37 AM Setting.SmartLogger updateLog
 INFO: 	New Server - Name: Discord Bots
 Apr 06, 2017 8:31:39 AM Setting.SmartLogger updateLog
 INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 8:38:03 AM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Music Hub
+Apr 06, 2017 9:02:33 AM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: JDA (Java Discord API)
+Apr 06, 2017 9:13:03 AM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 9:16:34 AM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: bot heaven
+Apr 06, 2017 10:01:20 AM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Bots Bots Bots
+Apr 06, 2017 10:01:37 AM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: hi
+Apr 06, 2017 10:02:05 AM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: BOTS
+Apr 06, 2017 10:12:54 AM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Joshypooh's Potato Parlour
+Apr 06, 2017 10:20:42 AM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Patres Of Bellum
+Apr 06, 2017 12:32:45 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Bots Cool Server
+Apr 06, 2017 1:58:14 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: MTC Gaming Community

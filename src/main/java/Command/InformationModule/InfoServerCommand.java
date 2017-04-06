@@ -42,7 +42,7 @@ public class InfoServerCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Server Information -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -68,7 +68,7 @@ public class InfoServerCommand implements Command{
             member = guild.getMembers().size();
             role = guild.getRoles().size();
             
-            embedsi.setAuthor(name, null, Info.I_info);
+            embedsi.setAuthor(name, null, Info.I_INFO);
             embedsi.setColor(Color.blue);
             embedsi.setThumbnail(icon);
             embedsi.setTimestamp(Instant.now());

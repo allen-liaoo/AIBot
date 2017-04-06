@@ -44,7 +44,7 @@ public class AboutCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
         embed.addField("About -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -57,7 +57,7 @@ public class AboutCommand implements Command{
         if(args.length == 0) 
         {
             embeddes.setColor(Color.red);
-            embeddes.setAuthor("What is AIBot?", Info.B_URL, Info.I_info);
+            embeddes.setAuthor("What is AIBot?", Info.B_DISCORD_BOT, Info.I_INFO);
             embeddes.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
             embeddes.setDescription(BOT_DES);
             embeddes.setFooter("Request by " + e.getAuthor().getName() + "#" + e.getAuthor().getDiscriminator(), e.getAuthor().getEffectiveAvatarUrl());

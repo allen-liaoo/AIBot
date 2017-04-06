@@ -44,7 +44,7 @@ public class PruneCommand implements Command{
         embed.setTitle("Utility Module", null);
         embed.setTitle("Prune -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

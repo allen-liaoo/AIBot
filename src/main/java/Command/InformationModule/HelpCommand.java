@@ -54,7 +54,7 @@ public class HelpCommand implements Command {
         embedusage.setColor(Color.red);
         embedusage.setTitle("Information Module", null);
         embedusage.addField("Help -Help", HELP, true);
-        embedusage.setFooter("Command Help/Usage", Info.I_help);
+        embedusage.setFooter("Command Help/Usage", Info.I_HELP);
         embedusage.setTimestamp(Instant.now());
 
         MessageEmbed eu = embedusage.build();
@@ -100,7 +100,7 @@ public class HelpCommand implements Command {
     public static void helpText(MessageReceivedEvent e)
     {
         embed.setColor(setColor());
-        embed.setAuthor("AIBot Help", null, Info.I_help);
+        embed.setAuthor("AIBot Help", null, Info.I_HELP);
 
         embed.addField("Information Module", HelpText.INFO_CMD, true);
         embed.addField("Description", HelpText.INFO_DES, true);
@@ -341,7 +341,7 @@ public class HelpCommand implements Command {
         embedHelp.addField(cmdtitle, cmdhelp, true);
         if(isMod == true)
             embedHelp.addField("Discription", cmdhelp2, true);
-        embedHelp.setFooter(morc + " Help/Usage", Info.I_help);
+        embedHelp.setFooter(morc + " Help/Usage", Info.I_HELP);
         embedHelp.setTimestamp(Instant.now());
 
         MessageEmbed meh = embedHelp.build();

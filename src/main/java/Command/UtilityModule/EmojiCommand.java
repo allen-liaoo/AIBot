@@ -40,7 +40,7 @@ public class EmojiCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Utility Module", null);
         embed.addField("Emoji -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

@@ -35,7 +35,7 @@ public class SkipCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Music Module", null);
         embed.addField("Skip -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

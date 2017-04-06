@@ -43,7 +43,7 @@ public class InfoUserCommand implements Command{
         embed.setTitle("Information Module", null);
         embed.setTitle("UserInfo -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -128,7 +128,7 @@ public class InfoUserCommand implements Command{
             register = user.getCreationTime().toString();
         }
         
-        embedui.setAuthor(name, null, Info.I_info);
+        embedui.setAuthor(name, null, Info.I_INFO);
         embedui.setColor(Color.blue);
         embedui.setThumbnail(icon);
         embedui.setTimestamp(Instant.now());

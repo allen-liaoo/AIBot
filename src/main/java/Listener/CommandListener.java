@@ -53,7 +53,7 @@ public class CommandListener extends ListenerAdapter {
             {
                 String contain = e.getMessage().getContent();
 
-                if(contain.length() < 20 || contain.contains("help") || contain.contains("welp"))
+                if(contain.length() < 20 && (contain.contains("help") || contain.contains("welp")))
                 {
                     HelpCommand.helpText(e);
                     HelpCommand.me = HelpCommand.embed.build();

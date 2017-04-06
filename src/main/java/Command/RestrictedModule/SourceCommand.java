@@ -45,7 +45,7 @@ public class SourceCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Restricted Module", null);
         embed.addField("Source -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

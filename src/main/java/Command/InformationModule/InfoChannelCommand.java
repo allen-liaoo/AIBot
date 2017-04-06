@@ -46,7 +46,7 @@ public class InfoChannelCommand implements Command{
         embed.setTitle("Information Module", null);
         embed.setTitle("InfoInfo -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -84,7 +84,7 @@ public class InfoChannelCommand implements Command{
                     bot ++;
             }
             
-            embedci.setAuthor(name, null, Info.I_info);
+            embedci.setAuthor(name, null, Info.I_INFO);
             embedci.setColor(Color.blue);
             embedci.setThumbnail(icon);
             embedci.setTimestamp(Instant.now());
@@ -130,7 +130,7 @@ public class InfoChannelCommand implements Command{
                     else
                         bot ++;
                 }
-                embedci.setAuthor(name, null, Info.I_info);
+                embedci.setAuthor(name, null, Info.I_INFO);
                 embedci.setColor(Color.blue);
                 embedci.setThumbnail(icon);
                 embedci.setTimestamp(Instant.now());

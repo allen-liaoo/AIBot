@@ -42,7 +42,7 @@ public class InfoBotCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
         embed.addField("BotInfo -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -89,11 +89,11 @@ public class InfoBotCommand implements Command{
                 permString = permString.substring(0, permString.length()-2);
             }
             
-            embedinfo.setAuthor(name, null, Info.I_info);
+            embedinfo.setAuthor(name, null, Info.I_INFO);
             embedinfo.setColor(Color.blue);
             embedinfo.setThumbnail(avatar);
             embedinfo.setTimestamp(Instant.now());
-            embedinfo.setFooter("AIBot Information", Info.B_URL);
+            embedinfo.setFooter("AIBot Information", Info.B_DISCORD_BOT);
             
             embedinfo.addField("ID", id, true);
             if(e.getChannelType() != e.getChannelType().PRIVATE)

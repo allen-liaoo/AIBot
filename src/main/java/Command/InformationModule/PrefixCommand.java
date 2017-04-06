@@ -39,7 +39,7 @@ public class PrefixCommand implements Command {
         embed.setTitle("Information Module", null);
         embed.setTitle("Prefix -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

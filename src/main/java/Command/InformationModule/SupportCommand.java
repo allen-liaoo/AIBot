@@ -39,7 +39,7 @@ public class SupportCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
         embed.addField("Support -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
         
         MessageEmbed me = embed.build();
@@ -52,7 +52,7 @@ public class SupportCommand implements Command{
         if(args.length == 0) 
         {
             String msg = Emoji.invite + " Join this server for music!\n"
-                                        + "https://discord.gg/UMCqtZN";
+                                        + Info.L_MUSIC_HUB;
             
             e.getChannel().sendMessage(msg).queue();
         }

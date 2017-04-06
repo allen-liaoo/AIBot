@@ -47,7 +47,7 @@ public class WeatherCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Utility Module", null);
         embed.addField("BotInfo -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -116,7 +116,7 @@ public class WeatherCommand implements Command{
                 
                 String EmojiCon = setConditionEmoji(concode);
                 
-                embedw.setAuthor("Weather of " + title, link, Info.I_info);
+                embedw.setAuthor("Weather of " + title, link, Info.I_INFO);
                 embedw.setColor(Color.blue);
                 embedw.setThumbnail(null);
                 embedw.setTimestamp(Instant.now());

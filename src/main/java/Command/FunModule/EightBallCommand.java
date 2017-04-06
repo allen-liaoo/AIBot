@@ -37,7 +37,7 @@ public class EightBallCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("EightBall -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

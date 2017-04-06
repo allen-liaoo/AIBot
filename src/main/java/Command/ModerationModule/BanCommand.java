@@ -44,7 +44,7 @@ public class BanCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Moderation Module", null);
         embed.addField("Ban -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_help);
+        embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
