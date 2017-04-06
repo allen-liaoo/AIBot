@@ -1,2 +1,2 @@
-Apr 05, 2017 11:03:42 PM Main.Main updateLog
-INFO: Bot Shut Down Successfully
+Apr 05, 2017 11:16:58 PM Main.Main updateLog
+INFO: New Server Added to HashMap(guilds) - Name: 3BotRuleTheWorld	ID: 293928413029466114

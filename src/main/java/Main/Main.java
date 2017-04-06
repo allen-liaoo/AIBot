@@ -57,7 +57,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        startUp();
+    }
+    
+    public static void startUp()
+    {
         try {
             jda = new JDABuilder(AccountType.BOT)
                     .addListener(new CommandListener())
@@ -72,11 +76,7 @@ public class Main {
             e.printStackTrace();
             Main.updateLog("Exception thrown while logging.");
         }
-        startUp();
-    }
-    
-    public static void startUp()
-    {
+        
         Music.musicStartup();
         addCommands();
         ConsoleListener console = new ConsoleListener();
@@ -91,6 +91,15 @@ public class Main {
         
         jda.shutdown();
         System.exit(0);
+    }
+    
+    public static void restart()
+    {
+        System.out.println("Bot Restart Successfully");
+        Main.updateLog("Bot Restart Successfully");
+        
+        jda.shutdown();
+        Main.startUp();
     }
     
     public static void updateLog(String msg)
