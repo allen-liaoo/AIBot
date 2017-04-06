@@ -9,6 +9,7 @@ import Command.Command;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -78,7 +79,7 @@ public class EightBallCommand implements Command{
                 }
                 reader.close();
             } catch (IOException io) {
-                Main.errorLog(io, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at reading line numbers");
+                SmartLogger.errorLog(io, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at reading line numbers");
         }
         int magic = (int) Math.ceil(Math.random() * totalline), line = 0;
         
@@ -94,7 +95,7 @@ public class EightBallCommand implements Command{
             reader.close();
                 
         } catch (IOException io) {
-            Main.errorLog(io, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at getting response.");
+            SmartLogger.errorLog(io, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at getting response.");
         }
         return respond;
     }

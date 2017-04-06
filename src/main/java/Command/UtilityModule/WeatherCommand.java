@@ -10,6 +10,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Setting.SmartLogger;
 import com.github.fedy2.weather.*;
 import com.github.fedy2.weather.data.*;
 import com.github.fedy2.weather.data.unit.*;
@@ -134,9 +135,9 @@ public class WeatherCommand implements Command{
                 e.getChannel().sendMessage(mew).queue();
                 embedw.clearFields();
             } catch (JAXBException ex) {
-                Main.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "An error occurs parsing the response.");
+                SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "An error occurs parsing the response.");
             } catch (IOException ex) {
-                Main.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "An error occurs communicating with the service.");
+                SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "An error occurs communicating with the service.");
             }
 
             

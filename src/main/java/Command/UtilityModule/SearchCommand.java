@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import Main.*;
 import Resource.Web;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -115,7 +116,7 @@ public class SearchCommand implements Command{
                 }
                 
             } catch (IOException ex) {
-                Main.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "IO Exception");
+                SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "IO Exception");
             }
         }
         

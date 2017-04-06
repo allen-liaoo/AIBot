@@ -18,9 +18,8 @@ import Command.FunModule.*;
 import Command.RestrictedModule.*;
 import Listener.*;
 import Audio.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
+import Setting.SmartLogger;
+
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -29,11 +28,6 @@ import net.dv8tion.jda.core.exceptions.*;
 import net.dv8tion.jda.core.entities.Game;
 
 import java.util.HashMap;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 import javax.security.auth.login.LoginException;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -49,9 +43,6 @@ public class Main {
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
     public static HashMap<String, GuildSetting> guilds = new HashMap<String, GuildSetting>();
     public static long timeStart = 0;
-    SimpleDateFormat dateformatter = new SimpleDateFormat("M/dd/yyyy, h:mm:ss a 'UTC'");
-    public static Logger startLogger = Logger.getLogger(Main.class.getName());  
-    public static Logger errorLogger = Logger.getLogger("Error");  
     
     /**
      * @param args the command line arguments
@@ -69,7 +60,7 @@ public class Main {
             
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
             e.printStackTrace();
-            Main.updateLog("Exception thrown while logging.");
+            SmartLogger.updateLog("Exception thrown while logging.");
         }
         
         startUp();
@@ -81,66 +72,18 @@ public class Main {
         addCommands();
         ConsoleListener console = new ConsoleListener();
         
-        Main.updateLog("Bot Start Up. Commands Added.");
+        SmartLogger.updateLog("Bot Start Up. Commands Added.");
     }
     
     public static void shutdown()
     {
         System.out.println("Bot Shut Down Successfully");
-        Main.updateLog("Bot Shut Down Successfully");
+        SmartLogger.updateLog("Bot Shut Down Successfully");
         
         jda.shutdown();
         System.exit(0);
     }
     
-    /**
-     * Logging when bot status changed
-     * @param msg the message for logging
-     */
-    public static void updateLog(String msg)
-    {
-        try
-        {
-            FileHandler fh = new FileHandler("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/LogMain.txt", true);
-            startLogger.addHandler(fh);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
-            startLogger.setUseParentHandlers(false);
-            
-            startLogger.info(msg);
-            fh.close();
-        } catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
-    
-    /**
-     * Logging when an exception is thrown
-     * @param ex the Exception for logging
-     * @param guild the guild name
-     * @param at the exception source (class name)
-     * @param cause cause of the exception
-     */
-    public static void errorLog(Exception ex, String guild, String at, String cause)
-    {
-        try
-        {
-            FileHandler fhe = new FileHandler("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/LogError.txt", true);
-            errorLogger.addHandler(fhe);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fhe.setFormatter(formatter);
-            errorLogger.setUseParentHandlers(false);
-            
-            errorLogger.log(Level.WARNING, "Guild: " + guild + "\nCause: " + at + " -> " + cause, ex);
-            fhe.close();
-        } catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
         
     private static void addCommands() {
         // Information Commands

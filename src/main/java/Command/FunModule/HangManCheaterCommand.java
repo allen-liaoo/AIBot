@@ -11,6 +11,7 @@ import Main.Main;
 import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -106,7 +107,7 @@ public class HangManCheaterCommand implements Command {
                 }
             
                 } catch (IOException ioe) {
-                Main.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at Checking missed letters.");
+                SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at Checking missed letters.");
             }
             
             //Check if the known position has the same letters

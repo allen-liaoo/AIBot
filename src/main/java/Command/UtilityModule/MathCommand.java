@@ -13,6 +13,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -102,7 +103,7 @@ public class MathCommand implements Command{
                 e.getChannel().sendMessage(Emoji.error + " Do not devide a value by 0.").queue();
             } catch (RuntimeException rte) {
                 e.getChannel().sendMessage(Emoji.error + " Please enter a valid math operation.").queue();
-                Main.errorLog(rte, e.getGuild().getName(), this.getClass().getName(), "Unvalid operation.");
+                SmartLogger.errorLog(rte, e.getGuild().getName(), this.getClass().getName(), "Unvalid operation.");
             }
             
             input = "";

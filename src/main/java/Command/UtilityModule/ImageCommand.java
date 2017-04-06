@@ -12,6 +12,7 @@ import Resource.Info;
 import Resource.SearchResult;
 import Command.Command;
 import Main.*;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
@@ -65,6 +66,8 @@ public class ImageCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        SmartLogger.commandLog(e.getGuild().getName(), "ImageCommand", "Called");
+                
         if(args.length == 0 || "-h".equals(args[0]) || "".equals(site)) 
         {
             help(e);
@@ -82,10 +85,10 @@ public class ImageCommand implements Command{
                 e.getChannel().sendMessage(result.get(0).getLink()).queue();
                 
             } catch (IOException ioe) {
-                Main.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "IO Exception.");
+                SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "IO Exception.");
             } catch (IndexOutOfBoundsException iobe) {
                 e.getChannel().sendMessage(Emoji.error + " No result.").queue();
-                Main.errorLog(iobe, e.getGuild().getName(), this.getClass().getName(), "Image Search \""+ args[0] +"\" No Result.");
+                SmartLogger.errorLog(iobe, e.getGuild().getName(), this.getClass().getName(), "Image Search \""+ args[0] +"\" No Result.");
             }
         }
         

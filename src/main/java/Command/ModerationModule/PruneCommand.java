@@ -10,6 +10,7 @@ import Resource.Prefix;
 import Resource.Info;
 import Command.Command;
 import Main.*;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -93,7 +94,7 @@ public class PruneCommand implements Command{
                 if(msgs < 100 && msgs > 0) e.getChannel().sendMessage(Emoji.success + " `" + args[0] + "` messages deleted.").complete().delete().complete();
                 //Thread.sleep(2000);
             } catch (InterruptedException ite) {
-                Main.errorLog(ite, e.getGuild().getName(), this.getClass().getName(), "Pruning interrupted.");
+                SmartLogger.errorLog(ite, e.getGuild().getName(), this.getClass().getName(), "Pruning interrupted.");
             }
         }
     }

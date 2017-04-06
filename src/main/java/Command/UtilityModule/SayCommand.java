@@ -9,6 +9,7 @@ import Command.Command;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -128,7 +129,7 @@ public final static  String HELP = "This command is for letting a bot say someth
 
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
-                    Main.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "Process interrupted.");
+                    SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "Process interrupted.");
                 }
             }
             

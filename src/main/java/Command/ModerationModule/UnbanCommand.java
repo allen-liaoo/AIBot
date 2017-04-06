@@ -10,6 +10,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -102,7 +103,7 @@ public class UnbanCommand implements Command{
                 }
             } catch (Exception ex) {
                 e.getTextChannel().sendMessage(Emoji.error + " Cannot find this (these) member!\n").queue();
-                Main.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "Can't find member.");
+                SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "Can't find member.");
             }
             
         }

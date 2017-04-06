@@ -15,6 +15,7 @@ import Resource.Prefix;
 import Resource.SearchResult;
 import Resource.Web;
 import Main.Main;
+import Setting.SmartLogger;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
@@ -78,7 +79,7 @@ public class PlayCommand implements Command{
                     //e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
                     Music.play(result.get(0).getLink(), e);
                 } catch (IOException ioe) {
-                    Main.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "IOException at getting Youtube search result.");
+                    SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "IOException at getting Youtube search result.");
                 }
             }
             else

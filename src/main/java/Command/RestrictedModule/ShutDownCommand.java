@@ -10,6 +10,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.logging.Level;
@@ -58,10 +59,10 @@ public class ShutDownCommand implements Command{
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ite) {
-                    Main.errorLog(ite, e.getGuild().getName(), this.getClass().getName(), "Thread Sleep process interrupted.");
+                    SmartLogger.errorLog(ite, e.getGuild().getName(), this.getClass().getName(), "Thread Sleep process interrupted.");
                 }
                 
-                Main.updateLog("Bot Shut Down Attemp");
+                SmartLogger.updateLog("Bot Shut Down Attemp");
                 Main.shutdown();
             }
             else

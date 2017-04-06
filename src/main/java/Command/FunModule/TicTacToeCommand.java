@@ -12,6 +12,7 @@ import Resource.Prefix;
 import Game.TicTacToe;
 import Main.*;
 import static Command.Command.embed;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -72,7 +73,7 @@ public class TicTacToeCommand implements Command {
                 game.sendInput(args, e);
             } catch(NullPointerException en) {
                 e.getChannel().sendMessage(Emoji.error + "Game haven't started yet!").queue();
-                Main.errorLog(en, e.getGuild().getName(), this.getClass().getName(), "Game haven't started.");
+                SmartLogger.errorLog(en, e.getGuild().getName(), this.getClass().getName(), "Game haven't started.");
             }
         }
     }

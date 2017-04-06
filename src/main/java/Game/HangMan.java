@@ -7,6 +7,7 @@ package Game;
 
 import Main.Main;
 import Resource.Emoji;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -83,7 +84,7 @@ public class HangMan implements Game{
             }
             
         } catch (IOException ioe) {
-            Main.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferReeader at startGame()");
+            SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferReeader at startGame()");
         }
         
         embedstart.setColor(Color.green);

@@ -12,6 +12,7 @@ import Setting.GuildSetting;
 import Audio.Music;
 import Command.InformationModule.HelpCommand;
 import static Main.Main.commands;
+import Setting.SmartLogger;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -36,7 +37,7 @@ public class CommandListener extends ListenerAdapter {
             GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=", 50);
             Main.guilds.put(e.getGuild().getId(), newGuild);
             e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
-            Main.updateLog("New Server Added to HashMap(guilds) - Name: " + Main.jda.getGuildById(e.getGuild().getId()).getName() + "\tID: " + e.getGuild().getId());
+            SmartLogger.updateLog("\tNew Server - Name: " + Main.jda.getGuildById(e.getGuild().getId()).getName());
         }
         
         // Detect Command
