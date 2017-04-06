@@ -5,11 +5,13 @@
  */
 package Listener;
 
-import Config.*;
+import Resource.Emoji;
+import Resource.Prefix;
 import Main.*;
-import Main.GuildSetting;
+import Setting.GuildSetting;
 import Audio.Music;
 import Command.InformationModule.HelpCommand;
+import static Main.Main.commands;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -40,7 +42,7 @@ public class CommandListener extends ListenerAdapter {
         // Detect Command
         if(e.getMessage().getContent().startsWith(Prefix.getDefaultPrefix()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
-            Main.handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
+            handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
         }
         
         // Detect mention
@@ -58,6 +60,21 @@ public class CommandListener extends ListenerAdapter {
                     e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().editMessage(HelpCommand.me).submit());
                     HelpCommand.embed.clearFields();
                 }
+            }
+        }
+    }
+    
+    public static void handleCommand(CommandParser.CommandContainer cmd)
+    {
+        if(commands.containsKey(cmd.invoke)) {
+            boolean safe = commands.get(cmd.invoke).called(cmd.args, cmd.event);
+        
+            if(safe) {
+                commands.get(cmd.invoke).action(cmd.args, cmd.event);
+                commands.get(cmd.invoke).executed(safe, cmd.event);
+            }
+            else {
+                commands.get(cmd.invoke).executed(safe, cmd.event);
             }
         }
     }

@@ -7,8 +7,9 @@ package Command.InformationModule;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
+import Resource.Prefix;
+import Resource.Info;
 import Command.Command;
-import Config.*;
 import Main.*;
 import java.awt.Color;
 import java.time.Instant;

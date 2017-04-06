@@ -6,14 +6,14 @@
 package Command.UtilityModule;
 
 import Command.Command;
-import Config.Emoji;
-import Config.Info;
-import Config.Prefix;
-import Config.SearchResult;
+import Resource.Emoji;
+import Resource.Info;
+import Resource.Prefix;
+import Resource.SearchResult;
 import java.io.IOException;
 
 import Main.*;
-import Config.Web;
+import Resource.Web;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.ArrayList;

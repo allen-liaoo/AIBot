@@ -7,6 +7,10 @@ package Command.InformationModule;
 
 //Setted to SUPPORT PRIVATE CHANNEL.
 
+import Resource.Emoji;
+import Resource.HelpText;
+import Resource.Prefix;
+import Resource.Info;
 import Command.FunModule.EightBallCommand;
 import Command.*;
 import Command.ModerationModule.*;
@@ -14,7 +18,6 @@ import Command.UtilityModule.*;
 import Command.MusicModule.*;
 import Command.FunModule.*;
 import Command.RestrictedModule.*;
-import Config.*;
 import Main.*;
 
 import java.awt.Color;

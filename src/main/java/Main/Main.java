@@ -6,7 +6,9 @@
 
 package Main;
 
-import Command.FunModule.EightBallCommand;
+import Setting.GuildSetting;
+import Resource.Private;
+import Resource.Prefix;
 import Command.*;
 import Command.InformationModule.*;
 import Command.ModerationModule.*;
@@ -14,10 +16,11 @@ import Command.UtilityModule.*;
 import Command.MusicModule.*;
 import Command.FunModule.*;
 import Command.RestrictedModule.*;
-import Config.*;
 import Listener.*;
-import Main.*;
 import Audio.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -26,6 +29,9 @@ import net.dv8tion.jda.core.exceptions.*;
 import net.dv8tion.jda.core.entities.Game;
 
 import java.util.HashMap;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javax.security.auth.login.LoginException;
 
 
@@ -40,6 +46,8 @@ public class Main {
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
     public static HashMap<String, GuildSetting> guilds = new HashMap<String, GuildSetting>();
     public static long timeStart = 0;
+    SimpleDateFormat dateformatter = new SimpleDateFormat("M/dd/yyyy, h:mm:ss a 'UTC'");
+    public static Logger logger = Logger.getLogger(Main.class.getName());  
     
     /**
      * @param args the command line arguments
@@ -63,12 +71,35 @@ public class Main {
         
         guilds.put(null, null);
         Music.musicStartup();
+    }
+    
+    public void startUp()
+    {
         addCommands();
+        
+        Main.updateLog();
     }
     
     public static void shutdown()
     {
         jda.shutdown();
+    }
+    
+    public static void updateLog()
+    {
+        try
+        {
+            FileHandler fh = new FileHandler("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/MainLog.txt");
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+            
+            logger.info("Text Log");
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            
+        }
     }
         
     private static void addCommands() {
@@ -166,20 +197,5 @@ public class Main {
         //Restricted Commands
         commands.put("shutdown", new ShutDownCommand());
         commands.put("source", new SourceCommand());
-    }
-    
-    public static void handleCommand(CommandParser.CommandContainer cmd)
-    {
-        if(commands.containsKey(cmd.invoke)) {
-            boolean safe = commands.get(cmd.invoke).called(cmd.args, cmd.event);
-        
-            if(safe) {
-                commands.get(cmd.invoke).action(cmd.args, cmd.event);
-                commands.get(cmd.invoke).executed(safe, cmd.event);
-            }
-            else {
-                commands.get(cmd.invoke).executed(safe, cmd.event);
-            }
-        }
     }
 }

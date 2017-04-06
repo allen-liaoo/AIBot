@@ -6,9 +6,9 @@
 package Command.FunModule;
 
 import Command.Command;
-import Config.Emoji;
-import Config.Info;
-import Config.Prefix;
+import Resource.Emoji;
+import Resource.Info;
+import Resource.Prefix;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;

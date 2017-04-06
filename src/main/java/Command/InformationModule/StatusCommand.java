@@ -7,9 +7,9 @@ package Command.InformationModule;
 
 import Command.*;
 import static Command.InformationModule.InfoBotCommand.HELP;
-import Config.Emoji;
-import Config.Info;
-import Config.Prefix;
+import Resource.Emoji;
+import Resource.Info;
+import Resource.Prefix;
 import Main.Main;
 import java.awt.Color;
 import java.time.Instant;

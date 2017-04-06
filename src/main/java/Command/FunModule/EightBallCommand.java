@@ -6,8 +6,8 @@
 package Command.FunModule;
 
 import Command.Command;
-import Config.Info;
-import Config.Prefix;
+import Resource.Info;
+import Resource.Prefix;
 import Main.*;
 import java.awt.Color;
 import java.io.BufferedReader;

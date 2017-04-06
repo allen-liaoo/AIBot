@@ -6,9 +6,9 @@
 package Command.UtilityModule;
 
 import Command.Command;
-import Config.Emoji;
-import Config.Info;
-import Config.Prefix;
+import Resource.Emoji;
+import Resource.Info;
+import Resource.Prefix;
 import Main.*;
 import com.github.fedy2.weather.*;
 import com.github.fedy2.weather.data.*;

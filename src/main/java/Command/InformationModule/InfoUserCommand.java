@@ -5,8 +5,9 @@
  */
 package Command.InformationModule;
 
+import Resource.Prefix;
+import Resource.Info;
 import Command.Command;
-import Config.*;
 import Main.*;
 import java.awt.Color;
 import java.time.Instant;

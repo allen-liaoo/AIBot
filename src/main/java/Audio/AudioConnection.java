@@ -5,8 +5,8 @@
  */
 package Audio;
 
+import Resource.Emoji;
 import Command.*;
-import Config.*;
 import Main.*;
 
 import net.dv8tion.jda.core.entities.VoiceChannel;

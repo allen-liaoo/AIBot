@@ -5,7 +5,7 @@
  */
 package Game;
 
-import Config.Emoji;
+import Resource.Emoji;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

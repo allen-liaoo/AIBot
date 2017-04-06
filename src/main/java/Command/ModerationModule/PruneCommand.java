@@ -5,8 +5,10 @@
  */
 package Command.ModerationModule;
 
+import Resource.Emoji;
+import Resource.Prefix;
+import Resource.Info;
 import Command.Command;
-import Config.*;
 import Main.*;
 import java.awt.Color;
 import java.time.Instant;

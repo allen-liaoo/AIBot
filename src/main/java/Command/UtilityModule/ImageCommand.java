@@ -5,8 +5,12 @@
  */
 package Command.UtilityModule;
 
+import Resource.Emoji;
+import Resource.Web;
+import Resource.Prefix;
+import Resource.Info;
+import Resource.SearchResult;
 import Command.Command;
-import Config.*;
 import Main.*;
 import java.awt.Color;
 import java.io.IOException;

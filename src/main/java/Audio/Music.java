@@ -6,18 +6,15 @@
 package Audio;
 
 import Main.Main;
-import Audio.AudioConnection;
-import Config.Emoji;
-import Config.Prefix;
+import Resource.Emoji;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import java.util.regex.Matcher;
-import net.dv8tion.jda.core.JDA;
 import java.util.regex.Pattern;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -25,9 +22,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class Music {
+public class Music  {
     public static AudioPlayerManager playerManager;
     public static final Pattern urlPattern = Pattern.compile("^(https?|ftp)://([A-Za-z0-9-._~/?#\\\\[\\\\]:!$&'()*+,;=]+)$");
+    private static MessageReceivedEvent event;
     
     public static void musicStartup(){
         playerManager = new DefaultAudioPlayerManager();
@@ -38,12 +36,13 @@ public class Music {
     public static void play(String link, MessageReceivedEvent e)
     {
         Matcher m = Music.urlPattern.matcher(link);
+        event = e;
         AudioConnection.connect(e);
         
         if(m.find()){
             Music.playerManager.loadItemOrdered(Music.playerManager, link, new AudioLoadResultHandler() {
                 public void trackLoaded(AudioTrack track) {
-                    if(track.getState() == track.getState().PLAYING)
+                    if(Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack() != null)
                         e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getInfo().title + "`").queue();
                     else
                         e.getTextChannel().sendMessage(Emoji.success + " Now playing `" + track.getInfo().title + "`. Track loaded successfully!").queue();

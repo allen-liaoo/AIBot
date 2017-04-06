@@ -8,8 +8,10 @@
 
 package Command.InformationModule;
 
+import Resource.Emoji;
+import Resource.Prefix;
+import Resource.Info;
 import Command.Command;
-import Config.*;
 import Main.*;
 
 import net.dv8tion.jda.core.entities.MessageEmbed;

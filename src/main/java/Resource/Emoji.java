@@ -5,7 +5,7 @@
  */
 // Emoji can be found here: https://github.com/vdurmont/emoji-java
 
-package Config;
+package Resource;
 
 import com.vdurmont.emoji.*;
 
