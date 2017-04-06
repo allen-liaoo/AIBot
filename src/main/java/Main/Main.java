@@ -70,6 +70,7 @@ public class Main {
             
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
             e.printStackTrace();
+            Main.updateLog("Exception thrown while logging.");
         }
         startUp();
     }
@@ -101,7 +102,7 @@ public class Main {
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
         } catch (IOException ioe) {
-            
+            ioe.printStackTrace();
         }
     }
     

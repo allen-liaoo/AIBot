@@ -5,6 +5,7 @@
  */
 package Game;
 
+import Main.Main;
 import Resource.Emoji;
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -81,8 +82,8 @@ public class HangMan implements Game{
                 right.add("_");
             }
             
-        } catch (IOException io) {
-            io.printStackTrace();
+        } catch (IOException ioe) {
+            Main.errorLog(ioe, e, "HangMan -> BufferReeader at startGame()");
         }
         
         embedstart.setColor(Color.green);
