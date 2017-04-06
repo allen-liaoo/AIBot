@@ -21,3 +21,4 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 ##### Added 
 - EmojiCommand for getting informations about an emote.
 - Log System implemented for exception and status tracking. (Changed try-catch in about 10 files.)
+- ConsoleListener implemented for listening to commands from console. Current command: shutdown. There are more to come.
