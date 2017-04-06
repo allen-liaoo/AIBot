@@ -167,7 +167,10 @@ public class FaceCommand implements Command{
                 SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at specified face.");
             }
             
-            e.getChannel().sendMessage(output).queue();
+            if(output != null)
+                e.getChannel().sendMessage(output).queue();
+            else
+                e.getChannel().sendMessage("No such face " + Emoji.face_tongue).queue();
         }
     }
 
