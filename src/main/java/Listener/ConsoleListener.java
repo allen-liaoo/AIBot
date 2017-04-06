@@ -35,10 +35,6 @@ public class ConsoleListener extends Thread {
             {
                 Main.shutdown();
             }
-            else if (scanner.next().equals("restart")) 
-            {
-                Main.restart();
-            }
         }
     }
 }
