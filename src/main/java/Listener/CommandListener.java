@@ -36,7 +36,7 @@ public class CommandListener extends ListenerAdapter {
             GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=", 50);
             Main.guilds.put(e.getGuild().getId(), newGuild);
             e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
-            System.out.println("New Server Added to HashMap(guilds) - Name: " + Main.jda.getGuildById(e.getGuild().getId()).getName() + "\tID: " + e.getGuild().getId());
+            Main.updateLog("New Server Added to HashMap(guilds) - Name: " + Main.jda.getGuildById(e.getGuild().getId()).getName() + "\tID: " + e.getGuild().getId());
         }
         
         // Detect Command

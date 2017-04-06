@@ -1,0 +1,2 @@
+Apr 05, 2017 9:48:14 PM Main.Main updateLog
+INFO: New Server Added to HashMap(guilds) - Name: HoP Highly Over Powered  Esports	ID: 296000619565809664

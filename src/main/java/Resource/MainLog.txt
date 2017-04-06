@@ -1,3 +1,0 @@
-Name                Server Id                Command             Date/Time
-PBot                N/A                      Startup             4/05/2017, 1:44:31 AM UTC
-Ayy™                293928413029466114       List                4/05/2017, 2:11:40 AM UTC

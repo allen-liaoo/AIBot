@@ -30,9 +30,12 @@ import net.dv8tion.jda.core.entities.Game;
 
 import java.util.HashMap;
 import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import javax.security.auth.login.LoginException;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 
 /**
@@ -47,7 +50,8 @@ public class Main {
     public static HashMap<String, GuildSetting> guilds = new HashMap<String, GuildSetting>();
     public static long timeStart = 0;
     SimpleDateFormat dateformatter = new SimpleDateFormat("M/dd/yyyy, h:mm:ss a 'UTC'");
-    public static Logger logger = Logger.getLogger(Main.class.getName());  
+    public static Logger startLogger = Logger.getLogger(Main.class.getName());  
+    public static Logger errorLogger = Logger.getLogger("Error");  
     
     /**
      * @param args the command line arguments
@@ -59,25 +63,22 @@ public class Main {
                     .addListener(new CommandListener())
                     .setToken(Private.BOT_TOKEN)
                     .buildBlocking();
+            jda.getPresence().setGame(Game.of(Prefix.getDefaultPrefix() + "help | Developed by Ayy™"));
+            jda.setAutoReconnect(true);
             
             timeStart = System.currentTimeMillis();
             
-            jda.getPresence().setGame(Game.of(Prefix.getDefaultPrefix() + "help | Developed by Ayy™"));
-            
-            jda.setAutoReconnect(true);
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
             e.printStackTrace();
         }
-        
-        guilds.put(null, null);
-        Music.musicStartup();
+        startUp();
     }
     
-    public void startUp()
+    public static void startUp()
     {
         addCommands();
-        
-        Main.updateLog();
+        Music.musicStartup();
+        Main.updateLog("Bot Start Up");
     }
     
     public static void shutdown()
@@ -85,16 +86,37 @@ public class Main {
         jda.shutdown();
     }
     
-    public static void updateLog()
+    public static void updateLog(String msg)
     {
         try
         {
-            FileHandler fh = new FileHandler("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/MainLog.txt");
-            logger.addHandler(fh);
+            FileHandler fh = new FileHandler("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/LogMain.txt");
+            startLogger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
+            startLogger.setUseParentHandlers(false);
             
-            logger.info("Text Log");
+            startLogger.info(msg);
+            fh.close();
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            
+        }
+    }
+    
+    public static void errorLog(Exception ex, MessageReceivedEvent e, String cause)
+    {
+        try
+        {
+            FileHandler fhe = new FileHandler("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/LogError.txt");
+            errorLogger.addHandler(fhe);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fhe.setFormatter(formatter);
+            errorLogger.setUseParentHandlers(false);
+            
+            errorLogger.log(Level.WARNING, "Guild: " + e.getGuild().getName() + " | Exception Cause: " + cause, ex);
+            fhe.close();
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
         } catch (IOException ioe) {

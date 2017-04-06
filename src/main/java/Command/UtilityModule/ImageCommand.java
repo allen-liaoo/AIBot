@@ -71,10 +71,11 @@ public class ImageCommand implements Command{
         }
         else
         {
+            String input = "";
+            for(int i = 0; i < args.length; i++){ input += args[i] + " "; }
+            
             try {
                 System.out.println("Image Search");
-                String input = "";
-                for(int i = 0; i < args.length; i++){ input += args[i] + " "; }
                 
                 e.getChannel().sendMessage("Searching........").complete().editMessage(Emoji.search + " Image!").complete();
                 List<SearchResult> result = Web.search(site, num, input);
@@ -84,6 +85,7 @@ public class ImageCommand implements Command{
                 ex.printStackTrace();
             } catch (IndexOutOfBoundsException iobe) {
                 e.getChannel().sendMessage(Emoji.error + " No result.").queue();
+                Main.errorLog(iobe, e,"ImageCommand -> No Result.");
             }
         }
         
