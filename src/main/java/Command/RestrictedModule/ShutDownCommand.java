@@ -58,11 +58,11 @@ public class ShutDownCommand implements Command{
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ite) {
-                    Main.errorLog(ite, e, "ShutDownCommand -> Process interrupted.");
+                    Main.errorLog(ite, e, "ShutDownCommand -> Thread Sleep process interrupted.");
                 }
                 
+                Main.updateLog("Bot Shut Down Attemp");
                 Main.shutdown();
-                
             }
             else
                 e.getChannel().sendMessage(Emoji.error + " This command is for **Bot Owner** only!").queue();

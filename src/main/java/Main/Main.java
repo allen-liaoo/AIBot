@@ -79,11 +79,12 @@ public class Main {
     {
         addCommands();
         Music.musicStartup();
-        Main.updateLog("Bot Start Up");
+        Main.updateLog("Bot Start Up. Commands Added.");
     }
     
     public static void shutdown()
     {
+        Main.updateLog("Bot Shut Down Successfully");
         jda.shutdown();
     }
     
