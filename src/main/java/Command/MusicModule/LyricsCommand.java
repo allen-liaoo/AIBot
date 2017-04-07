@@ -9,6 +9,7 @@ import Audio.Lyrics;
 import Command.Command;
 import Resource.Info;
 import Resource.SearchResult;
+import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import org.jsoup.HttpStatusException;
 
 /**
  *
@@ -98,8 +100,10 @@ public class LyricsCommand implements Command{
                     e.getChannel().sendMessage(out).queue();
                 }
                 
-            } catch (IOException ex) {
-                Logger.getLogger(LyricsCommand.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (HttpStatusException hse) {
+                SmartLogger.errorLog(hse, e.getGuild().getName(), this.getClass().getName(), "Invalid Lyrics Name");
+            } catch (IOException ioe) {
+                SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "Unknown Cause");
             }
         }
     }

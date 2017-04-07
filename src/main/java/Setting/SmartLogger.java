@@ -64,6 +64,7 @@ public class SmartLogger {
             fhe.setFormatter(formatter);
             errorLogger.setUseParentHandlers(false);
             
+            Logger.getGlobal().log(Level.WARNING, "Error from " + at + " in guild: " + guild);
             errorLogger.log(Level.WARNING, "Guild: " + guild + "\n\t Cause: " + at + " -> " + cause, ex);
             fhe.close();
         } catch (FileNotFoundException fnfe) {

@@ -40,7 +40,7 @@ public class CommandListener extends ListenerAdapter {
             GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=", 50);
             Main.guilds.put(e.getGuild().getId(), newGuild);
             e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
-            SmartLogger.updateLog("\tNew Server - Name: " + Main.jda.getGuildById(e.getGuild().getId()).getName());
+            SmartLogger.updateLog("\tNew Server: " + Main.jda.getGuildById(e.getGuild().getId()).getName());
         }
         
         // Detect Command
