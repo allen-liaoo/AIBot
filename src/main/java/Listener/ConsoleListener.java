@@ -5,10 +5,14 @@
  */
 package Listener;
 
+import Audio.Lyrics;
 import static Listener.CommandListener.handleCommand;
 import Main.Main;
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.dv8tion.jda.core.OnlineStatus;
 
 /**
@@ -36,6 +40,14 @@ public class ConsoleListener extends Thread {
             if (input.equals("shutdown")) 
             {
                 Main.shutdown();
+            }
+            else if (input.equals("lyric")) 
+            {
+                try {
+                    System.out.println(Lyrics.getSongLyrics("U2", "With or Without You"));
+                } catch (IOException ex) {
+                    Logger.getLogger(ConsoleListener.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             else if(input.startsWith("setGame"))
             {

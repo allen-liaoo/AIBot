@@ -29,6 +29,9 @@ public class CommandListener extends ListenerAdapter {
     
     @Override
     public void onMessageReceived(MessageReceivedEvent e){
+        //Reject Commands from Bots
+        if(e.getAuthor().isBot() || e.getAuthor().isFake())
+            return;
         
         // Create GuildSetting for each Guild
         if(!e.isFromType(e.getChannelType().PRIVATE) && !Main.guilds.containsKey(e.getGuild().getId()))

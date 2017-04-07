@@ -22,6 +22,7 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.exceptions.PermissionException;
 
 /**
  *
@@ -58,13 +59,14 @@ public final static  String HELP = "This command is for letting a bot say someth
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
         String input = "";
-        if("-h".equals(args[0])) 
+        if(args.length > 0 && "-h".equals(args[0])) 
         {
             help(e);
         }
         
         else if("embed".equals(args[0]))
         {
+            SmartLogger.commandLog(e.getGuild().getName(), "SayCommand", "Embed");
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             int mencount = 0;
             for(int i = 1; i < args.length; i++)
@@ -100,6 +102,7 @@ public final static  String HELP = "This command is for letting a bot say someth
         
         else 
         {
+            SmartLogger.commandLog(e.getGuild().getName(), "SayCommand", "Embed");
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             int mencount = 0;
             
@@ -130,6 +133,8 @@ public final static  String HELP = "This command is for letting a bot say someth
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "Process interrupted.");
+                } catch (PermissionException pe) {
+                    SmartLogger.errorLog(pe, e.getGuild().getName(), this.getClass().getName(), "Cannot delete message.");
                 }
             }
             

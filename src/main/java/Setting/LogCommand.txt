@@ -1,5 +1,0 @@
-Apr 06, 2017 8:29:39 AM Setting.SmartLogger commandLog
-INFO: Guild: 3BotRuleTheWorld Command: ImageCommand Description: Called
-Apr 06, 2017 8:31:39 AM Setting.SmartLogger commandLog
-INFO: Guild: 3BotRuleTheWorld
-	Command: ImageCommand	Description: Called

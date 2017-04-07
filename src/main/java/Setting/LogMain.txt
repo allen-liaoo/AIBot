@@ -52,3 +52,249 @@ Apr 06, 2017 5:29:47 PM Setting.SmartLogger updateLog
 INFO: 	New Server - Name: bot heaven
 Apr 06, 2017 5:29:53 PM Setting.SmartLogger updateLog
 INFO: 	New Server - Name: JDA (Java Discord API)
+Apr 06, 2017 5:48:27 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 5:51:09 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: bot heaven
+Apr 06, 2017 5:52:52 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 5:53:37 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: JDA (Java Discord API)
+Apr 06, 2017 5:54:47 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 5:55:21 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: JDA (Java Discord API)
+Apr 06, 2017 5:55:58 PM Setting.SmartLogger updateLog
+INFO: Bot Shut Down Successfully
+Apr 06, 2017 5:56:35 PM Setting.SmartLogger updateLog
+INFO: Bot Shut Down Successfully
+Apr 06, 2017 5:56:51 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 5:59:06 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: hi
+Apr 06, 2017 5:59:12 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: BOTS
+Apr 06, 2017 6:00:04 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:00:31 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 6:01:37 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: JDA (Java Discord API)
+Apr 06, 2017 6:03:18 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Patres Of Bellum
+Apr 06, 2017 6:03:33 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:03:33 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:03:40 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:04:18 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:04:33 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:05:06 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 6:11:14 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Patres Of Bellum
+Apr 06, 2017 6:13:50 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:13:51 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 6:14:23 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:15:43 PM Setting.SmartLogger updateLog
+INFO: Bot Shut Down Successfully
+Apr 06, 2017 6:15:57 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:15:57 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:16:10 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Patres Of Bellum
+Apr 06, 2017 6:16:36 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:16:41 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:16:42 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Music Hub
+Apr 06, 2017 6:16:42 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Music Hub
+Apr 06, 2017 6:17:43 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:17:53 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:18:43 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Music Hub
+Apr 06, 2017 6:20:32 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:20:37 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:21:06 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Music Hub
+Apr 06, 2017 6:27:19 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Music Hub
+Apr 06, 2017 6:27:19 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:27:30 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:29:22 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:29:33 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:29:38 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: bot heaven
+Apr 06, 2017 6:29:53 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Music Hub
+Apr 06, 2017 6:33:30 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:33:30 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:34:38 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:34:38 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:35:19 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:35:33 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:36:40 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Bots Bots Bots
+Apr 06, 2017 6:42:48 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:42:48 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:43:24 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:43:25 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:45:20 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:45:20 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:46:13 PM Setting.SmartLogger updateLog
+INFO: Bot Shut Down Successfully
+Apr 06, 2017 6:46:26 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:46:26 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:47:41 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:49:44 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:50:32 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 6:54:02 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 6:54:19 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:02:13 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:02:15 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:03:02 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:04:15 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:07:51 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:07:56 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:09:23 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:09:48 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:10:04 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:10:12 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:11:47 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:11:58 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:16:28 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:16:28 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:16:43 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 7:19:57 PM Setting.SmartLogger updateLog
+INFO: Bot Shut Down Attemp
+Apr 06, 2017 7:19:57 PM Setting.SmartLogger updateLog
+INFO: Bot Shut Down Successfully
+Apr 06, 2017 7:20:42 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:20:55 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:22:02 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:22:02 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:22:14 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 7:22:14 PM Setting.SmartLogger updateLog
+INFO: Bot Status set to DO_NOT_DISTURB
+Apr 06, 2017 7:22:14 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 7:22:14 PM Setting.SmartLogger updateLog
+INFO: Bot Status set to DO_NOT_DISTURB
+Apr 06, 2017 7:22:14 PM Setting.SmartLogger updateLog
+INFO: Bot setStatus Attempt
+Apr 06, 2017 7:22:45 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 7:22:45 PM Setting.SmartLogger updateLog
+INFO: Bot Status set to DO_NOT_DISTURB
+Apr 06, 2017 7:22:45 PM Setting.SmartLogger updateLog
+INFO: Bot setStatus Attempt
+Apr 06, 2017 7:23:01 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:24:01 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:25:58 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:32:22 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 7:32:22 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 7:38:47 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:40:00 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:42:17 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 7:46:12 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 7:46:53 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Patres Of Bellum
+Apr 06, 2017 7:58:12 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: 3BotRuleTheWorld
+Apr 06, 2017 7:58:46 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 8:01:35 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 8:03:17 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 8:16:21 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: JDA (Java Discord API)
+Apr 06, 2017 8:16:53 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 8:20:00 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 8:23:16 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: JDA (Java Discord API)
+Apr 06, 2017 8:24:47 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: JDA (Java Discord API)
+Apr 06, 2017 8:25:00 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 8:25:05 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 8:29:24 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
+Apr 06, 2017 8:30:06 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Patres Of Bellum
+Apr 06, 2017 8:34:15 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 8:37:03 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: HoP Highly Over Powered  Esports
+Apr 06, 2017 8:43:33 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Patres Of Bellum
+Apr 06, 2017 8:44:25 PM Setting.SmartLogger updateLog
+INFO: 	New Server - Name: Discord Bots
