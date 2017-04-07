@@ -21,4 +21,5 @@ public class Info {
     
     //Link
     public static String L_MUSIC_HUB = "https://discord.gg/UMCqtZN";
+    public static final String LYRICSURL = "https://genius.com/";
 }

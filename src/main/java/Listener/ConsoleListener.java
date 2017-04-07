@@ -41,14 +41,6 @@ public class ConsoleListener extends Thread {
             {
                 Main.shutdown();
             }
-            else if (input.equals("lyric")) 
-            {
-                try {
-                    System.out.println(Lyrics.getSongLyrics("U2", "With or Without You"));
-                } catch (IOException ex) {
-                    Logger.getLogger(ConsoleListener.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
             else if(input.startsWith("setGame"))
             {
                 Main.setGame(input.substring(8));

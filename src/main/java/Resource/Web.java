@@ -53,7 +53,7 @@ public class Web {
                 System.out.println("Not url: "+urlLink);
                 continue;    //ads/news etc
             }
-            results.add(new SearchResult(title, null, urlLink, null));
+            results.add(new SearchResult(title, null, urlLink, null, null));
             count++;
         }
         
@@ -85,7 +85,7 @@ public class Web {
                 System.out.println("Not url: "+urlLink);
                 continue;    //ads/news etc
             }
-            results.add(new SearchResult(title, null, urlLink, null));
+            results.add(new SearchResult(title, null, urlLink, null, null));
             count++;
         }
         

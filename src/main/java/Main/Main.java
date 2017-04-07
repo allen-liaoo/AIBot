@@ -193,6 +193,7 @@ public class Main {
         commands.put("skip", new SkipCommand());
         commands.put("volume", new VolumeCommand());
         commands.put("stop", new StopCommand());
+        commands.put("lyrics", new LyricsCommand());
         
         //Restricted Commands
         commands.put("shutdown", new ShutDownCommand());
