@@ -24,9 +24,12 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class GuessNumberCommand implements Command{
 
-    public final static String HELP = "Play Rock Paper Scissors with the bot!\n"
-                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "rockpaperscissors` or `" + Prefix.getDefaultPrefix() + "rps`\n"
-                                    + "Parameter: `-h | rock | paper | scissors | null`\n";
+    public final static String HELP = "Play Number Guessing Game with the bot!\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "guessnum` or `" + Prefix.getDefaultPrefix() + "gn`\n"
+                                    + "Parameter: `-h | start | end | [Number] | null`\n"
+                                    + "start or null: Start the game.\n"
+                                    + "end: End the game.\n"
+                                    + "[Number]: Guess a nmber.\n";
     
     private GuessNumber gn;
     
