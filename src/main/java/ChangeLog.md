@@ -29,5 +29,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - LyricsCommand for getting lyrics from Genius.com via JSoup. Search Lyrics function will be implemented in the future.
 
 #### [0.1.6] - 2017-04-06
+##### Added 
+- GuessNumber Game and GuessNumberCommand. Enjoy~
 ##### Changed
 - Log System from input `String guild` to `MessageReceivedEvent event` in order to supports Private Message Logging.

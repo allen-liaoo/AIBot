@@ -113,6 +113,7 @@ public class HelpText {
             //Command Group- Game
             + "***game***\n"
             + "*rockpaperscissors (rps)*\n\n"
+            + "*guessnum (gn)*\n"
             + "*tictactoe (ttt)*\n"
             + "*hangman (hm)*\n"
             + "*hangmancheater (hmc)*\n\n";
@@ -123,6 +124,7 @@ public class HelpText {
             //Command Group- Game
             + "Play a game. *\n"
             + "Play Rock Paper Scissors \nwith the bot. *\n"
+            + "Guess a number!\n"
             + "Play a Tic Tac Toe Game XO!!\n"
             + "Play HangMan. *\n"
             + "Hang Man Cheater base on \nthe unknown word and missed letters. *\n";

@@ -49,6 +49,7 @@ image - Search images from Imgur, Giphy, and KnowYourMeme. * <br />
 face - Lenny * <br />
 game - Play a game. <br />
 &nbsp;&nbsp;*rockpaperscissors (rps)* - Play Rock Paper Scissors with the bot. * <br />
+&nbsp;&nbsp;*guessnum (gn)* - Guess a number! * <br />
 &nbsp;&nbsp;*tictactoe (ttt)* - Play a Tic Tac Toe Game XO!! <br />
 &nbsp;&nbsp;*hangman (hm)* - Play HangMan. * <br />
 &nbsp;&nbsp;*hangmancheater (hmc)* - Hang Man Cheater base on the unknown word and missed letters. *<br />

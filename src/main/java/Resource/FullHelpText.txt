@@ -42,6 +42,7 @@ __**Fun Commands**__
 face - Lenny * 
 game - Play a game. 
 *rockpaperscissors (rps)* - Play Rock Paper Scissors with the bot. * 
+*guessnum (gn)* - Guess a number! *
 *tictactoe (ttt)* - Play a Tic Tac Toe Game XO!! 
 *hangman (hm)* - Play HangMan. * 
 *hangmancheater (hmc)* - Hang Man Cheater base on the unknown word and missed letters. *
