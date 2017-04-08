@@ -13,7 +13,7 @@ import Resource.SearchResult;
 import java.io.IOException;
 
 import Main.*;
-import Resource.Web;
+import Resource.Search;
 import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
@@ -94,7 +94,7 @@ public class SearchCommand implements Command{
                     final String tempString = Emoji.search + " This is the result for `" + input + "` on `" + site + "`:";
                     e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
                     
-                    List<SearchResult> result = Web.search(site, num, input);
+                    List<SearchResult> result = Search.search(site, num, input);
                     e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
                 }
                 
@@ -113,7 +113,7 @@ public class SearchCommand implements Command{
                     final String tempString = Emoji.search + " This is the result for `" + input + "` via `Google Search Engine" + "`:";
                     e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
                     
-                    List<SearchResult> result = Web.search(site, num, input);
+                    List<SearchResult> result = Search.search(site, num, input);
                     e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
                 }
                 

@@ -8,6 +8,7 @@ package Listener;
 import Audio.Lyrics;
 import static Listener.CommandListener.handleCommand;
 import Main.Main;
+import Resource.Search;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -37,15 +38,33 @@ public class ConsoleListener extends Thread {
         {
             System.out.print("AIBot Console $ ");
             String input = scanner.nextLine();
+            
+            //ShutDown
             if (input.equals("shutdown")) 
             {
                 Main.shutdown();
             }
+            
+            //Test Commands
+            else if(input.startsWith("test"))
+            {
+                try {
+                    //System.out.println("Test wot?");
+                    Search.lyricsSearch("");
+                } catch (IOException ex) {
+                    Logger.getLogger(ConsoleListener.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            //Presence
+            //-SetGame
             else if(input.startsWith("setGame"))
             {
                 Main.setGame(input.substring(8));
                 System.out.println("Game set to " + input.substring(8));
             }
+            
+            //-SetStatus
             else if(input.startsWith("setStatus"))
             {
                 OnlineStatus status;

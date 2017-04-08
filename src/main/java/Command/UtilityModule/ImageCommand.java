@@ -6,7 +6,7 @@
 package Command.UtilityModule;
 
 import Resource.Emoji;
-import Resource.Web;
+import Resource.Search;
 import Resource.Prefix;
 import Resource.Info;
 import Resource.SearchResult;
@@ -79,7 +79,7 @@ public class ImageCommand implements Command{
                 System.out.println("Image Search");
                 
                 e.getChannel().sendMessage("Searching........").complete().editMessage(Emoji.search + " Image!").complete();
-                List<SearchResult> result = Web.search(site, num, input);
+                List<SearchResult> result = Search.search(site, num, input);
                 e.getChannel().sendMessage(result.get(0).getLink()).queue();
                 
             } catch (IOException ioe) {

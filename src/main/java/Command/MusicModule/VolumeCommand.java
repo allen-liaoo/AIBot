@@ -73,7 +73,7 @@ public class VolumeCommand implements Command {
             }
             
             Music.setVolume(e, volume);
-            e.getTextChannel().sendMessage(Emoji.success + " Volume set to " + volume).queue();
+            e.getTextChannel().sendMessage(Emoji.volume_low + " Volume set to " + volume).queue();
         }
     }
 

@@ -74,6 +74,9 @@ public class Emoji {
     
     //Music
     public static String globe = EmojiParser.parseToUnicode(":globe_with_meridians:");
+    public static String notes = EmojiParser.parseToUnicode(":notes:");
+    public static String volume_low = EmojiParser.parseToUnicode(":sound:");
+    public static String volume_high = EmojiParser.parseToUnicode(":loud_sound:");
     
     //Faces
     public static String face_tongue = EmojiParser.parseToUnicode(":stuck_out_tongue:");

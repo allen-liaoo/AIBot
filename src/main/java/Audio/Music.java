@@ -49,15 +49,18 @@ public class Music  {
         event = e;
         AudioConnection.connect(e, false);
         
+        if(!e.getMember().getVoiceState().inVoiceChannel())
+            return;
+        
         if(m.find()){
             Music.playerManager.loadItemOrdered(Music.playerManager, link, new AudioLoadResultHandler() {
                 public void trackLoaded(AudioTrack track) {
                     if(Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack() != null)
                         e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getInfo().title + "`").queue();
                     else
-                        e.getTextChannel().sendMessage(Emoji.success + " Now playing `" + track.getInfo().title + "`. Track loaded successfully!").queue();
+                        e.getTextChannel().sendMessage(Emoji.notes + " Now playing `" + track.getInfo().title + "`").queue();
                     
-                    Main.guilds.get(e.getGuild().getId()).scheduler.queue(track, e);
+                    Main.guilds.get(e.getGuild().getId()).getScheduler().queue(track, e);
                     return;
                 }
 
@@ -104,6 +107,7 @@ public class Music  {
     public static void stop(MessageReceivedEvent e)
     {
         Main.guilds.get(e.getGuild().getId()).getPlayer().stopTrack();
+        Main.guilds.get(e.getGuild().getId()).getScheduler().clearQueue();
         AudioConnection.disconnect(e, false);
     }
     
@@ -136,7 +140,7 @@ public class Music  {
     {
         Iterator<AudioTrack> list = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
         ArrayList<User> queuer = Main.guilds.get(e.getGuild().getId()).getScheduler().getRequester();
-        if(!list.hasNext() )
+        if(!list.hasNext())
         {
             e.getChannel().sendMessage("The queue is curently empty.").queue();
             return;
@@ -153,9 +157,7 @@ public class Music  {
         AudioTrack playing = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack();
         if(playing == null)
         {
-            e.getChannel().sendMessage("The queue is curently empty.").queue();
-            embed.addField("Now Playing", "None", false);
-            
+            embed.addField("Now Playing", "None", false);   
         }
         else
         {

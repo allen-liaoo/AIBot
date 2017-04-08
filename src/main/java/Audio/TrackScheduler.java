@@ -5,6 +5,7 @@
  */
 package Audio;
 
+import Resource.Emoji;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
@@ -48,6 +49,7 @@ public class TrackScheduler extends AudioEventAdapter {
     // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
     // something is playing, it returns false and does nothing. In that case the player was already playing so this
     // track goes to the queue instead.
+
         if (!player.startTrack(track, true)) {
             queue.offer(track);
             requester.add(e.getAuthor());
@@ -60,20 +62,34 @@ public class TrackScheduler extends AudioEventAdapter {
     public void nextTrack() {
         // Start the next track, regardless of if something is already playing or not. In case queue was empty, we are
         // giving null to startTrack, which is a valid argument and will simply stop the player.
+        requester.remove(0);
         player.startTrack(queue.poll(), false);
+    }
+
+    @Override
+    public void onTrackStart(AudioPlayer player, AudioTrack track) {
+        super.onTrackStart(player, track);
+        //event.getTextChannel().sendMessage(Emoji.success + " Now playing `" + track.getInfo().title + "`. Track loaded successfully!").queue();
     }
 
   @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
+        requester.remove(0);
         if (endReason.mayStartNext) {
-          nextTrack();
+            nextTrack();
         }
     }
     
     public Iterator getQueue()
     {
         return queue.iterator();
+    }
+    
+    public void clearQueue()
+    {
+        queue.clear();
+        requester.clear();
     }
     
     public ArrayList<User> getRequester()

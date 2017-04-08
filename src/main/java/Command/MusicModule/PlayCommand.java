@@ -9,8 +9,14 @@ import Audio.Music;
 import Command.Command;
 import Resource.Info;
 import Resource.Prefix;
+import Resource.SearchResult;
+import Resource.Search;
+import Setting.SmartLogger;
 import java.awt.Color;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.time.Instant;
+import java.util.List;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -23,7 +29,7 @@ public class PlayCommand implements Command{
     public final static  String HELP = "This command is for playing an youtube music in the voice channel.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"play`\n"
                                      + "Parameter: `-h | [Youtube Url] | null`";
-    private String num = "1";
+    private String num = "5";
     
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
@@ -45,13 +51,13 @@ public class PlayCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) 
+        if(args.length == 0 || "-h".equals(args[0])) 
         {
             help(e);
         }
         else
         {
-            /*if(!args[0].startsWith("http"))
+            if(!args[0].startsWith("http"))
             {
                 String input = "";
                 for(int i = 0; i < args.length; i++){
@@ -61,14 +67,14 @@ public class PlayCommand implements Command{
                 input = input.substring(0, input.length() - 1);
             
                 try {
-                    List<SearchResult> result = Web.youtubeSearch(num, input);
-                    //e.getChannel().sendMessage("**" + result.get(0).getTitle() + "**\n" + result.get(0).getLink()).queue();
+                    List<SearchResult> result = Search.youtubeSearch(num, input);
                     Music.play(result.get(0).getLink(), e);
+                    result.clear();
                 } catch (IOException ioe) {
                     SmartLogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result.");
                 }
             }
-            else*/
+            else
                 Music.play(args[0], e);
         }
     }

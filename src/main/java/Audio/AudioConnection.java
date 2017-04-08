@@ -8,10 +8,12 @@ package Audio;
 import Resource.Emoji;
 import Command.*;
 import Main.*;
+import Setting.SmartLogger;
 
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.managers.AudioManager;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.exceptions.PermissionException;
 
 /**
  *
@@ -30,6 +32,10 @@ public class AudioConnection {
             am.openAudioConnection(vc);
         } catch (IllegalArgumentException iea) {
             e.getChannel().sendMessage(Emoji.error + " You must connect to a voice channel first.").queue();
+            return;
+        } catch (PermissionException pe) {
+            e.getChannel().sendMessage(Emoji.error + " I don't have the permission to join `" + vc.getName() + "`.").queue();
+            SmartLogger.errorLog(pe, e, "AudioConnection", "Do not have permission to join a voice channel");
             return;
         }
         
