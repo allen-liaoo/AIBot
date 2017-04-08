@@ -1,9 +1,0 @@
-Apr 07, 2017 9:39:08 PM Setting.SmartLogger commandLog
-INFO: From guild : Music Hub
-	Command: Help Command	Description: Triggered!
-Apr 07, 2017 9:40:54 PM Setting.SmartLogger commandLog
-INFO: From guild : Music Hub
-	Command: NumberCommand#Count	Description: Called
-Apr 07, 2017 9:41:01 PM Setting.SmartLogger commandLog
-INFO: From guild : Music Hub
-	Command: NumberCommand#Count	Description: Called

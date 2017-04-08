@@ -76,7 +76,7 @@ public class CommandListener extends ListenerAdapter {
     
     @Override
     public void onGuildAvailable(GuildAvailableEvent event) {
-        super.onGuildAvailable(event); //To change body of generated methods, choose Tools | Templates.
+        super.onGuildAvailable(event);
         System.out.println("Guild Avaliable:" + event.getGuild().getName());
     }
 }
