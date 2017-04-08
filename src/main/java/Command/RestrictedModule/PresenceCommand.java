@@ -107,11 +107,12 @@ public class PresenceCommand implements Command {
                 }
                 else if("game".equals(type))
                 {
-                    String game = e.getMessage().getRawContent().substring(9);
+                    String game = "";
+                    for(String g : args) { game += g;}
 
                     Main.setGame(game);
                     SmartLogger.updateLog("Bot setGame Attempt");
-                    e.getChannel().sendMessage(Emoji.success + " Game set to `"+ args[0] + "`").queue();
+                    e.getChannel().sendMessage(Emoji.success + " Game set to `"+ e.getJDA().getPresence().getGame().getName() + "`").queue();
                 }
             }
             else
