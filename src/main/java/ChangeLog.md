@@ -23,14 +23,21 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - Log System implemented for exception and status tracking. (Changed try-catch in about 10 files.)
 - ConsoleListener implemented for listening to commands from console. Current command: shutdown. There are more to come.
 
-#### [0.1.6] - 2017-04-06
+#### [0.1.8] - 2017-04-06
 ##### Added 
 - PresenceCommand : setStatus and setGame commands for both discord and console thread.
 - LyricsCommand for getting lyrics from Genius.com via JSoup. Search Lyrics function will be implemented in the future.
 
-#### [0.1.6] - 2017-04-06
+#### [0.1.6] - 2017-04-07
 ##### Added 
 - GuessNumber Game and GuessNumberCommand. Enjoy~
 ##### Changed
 - Log System from input `String guild` to `MessageReceivedEvent event` in order to supports Private Message Logging.
 - Changed the CommandListener to listen to commands with mention. 
+
+#### [0.1.9] - 2017-04-08
+##### Added 
+- NowPlayingCommand for getting the title, link, and duration of the now playing song.
+- QueueCommand for getting the gueue list.
+##### Fixed
+- PresenceCommand to work with @Mention prefix

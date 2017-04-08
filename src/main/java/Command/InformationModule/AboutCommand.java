@@ -26,11 +26,11 @@ public class AboutCommand implements Command{
                                      + "Parameter: `-h | null`";
     
     public final static String BOT_DES = "The AIBot that started in the March of 2017 for music and fun commands.\n"
-                                    + "**Developer:** Ayy™#3103 *aka* AlienIdeology, Allen Liao\n"
-                                    + "**Version:** 1.5\n"
+                                    + "**Developer:** Ayy™#3103 *aka* AlienIdeology\n"
+                                    + "**Version:** " + Info.VERSION +"\n"
                                     + "**Annoucement:** Working on Music Module~~\n"
-                                    + "**Latest Changes:** Reconstruct Help Message\n"
-                                    + "**Github Link:** https://github.com/AlienIdeology/AIBot";
+                                    + "**Latest Changes:** QueueCommand and NowPlayingcOmmand\n"
+                                    + "**Github Link:** " + Info.B_GITHUB;
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embeddes = new EmbedBuilder();
     
@@ -57,8 +57,8 @@ public class AboutCommand implements Command{
         if(args.length == 0) 
         {
             embeddes.setColor(Color.red);
-            embeddes.setAuthor("What is AIBot?", Info.B_DISCORD_BOT, Info.I_INFO);
-            embeddes.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
+            embeddes.setAuthor("What is " + Info.B_NAME + "?", Info.B_DISCORD_BOT, Info.I_INFO);
+            embeddes.setThumbnail(Info.B_AVATAR);
             embeddes.setDescription(BOT_DES);
             embeddes.setFooter("Request by " + e.getAuthor().getName() + "#" + e.getAuthor().getDiscriminator(), e.getAuthor().getEffectiveAvatarUrl());
             embeddes.setTimestamp(Instant.now());
