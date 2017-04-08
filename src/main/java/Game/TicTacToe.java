@@ -117,7 +117,7 @@ public class TicTacToe implements Game{
             }
             else
             {
-                e.getChannel().sendMessage(Emoji.error + "The place is occupied. Use your eyes!").queue();
+                e.getChannel().sendMessage(Emoji.error + " The place is occupied. Use your eyes!").queue();
                 return;
             }
 
