@@ -301,6 +301,9 @@ public class HelpCommand implements Command {
             case "stop":
                 cmdhelp = StopCommand.HELP;
                 break;
+            case "lyrics":
+                cmdhelp = LyricsCommand.HELP;
+                break;
 
             //Restricted Module
             case "restricted":

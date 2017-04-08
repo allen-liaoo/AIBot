@@ -8,6 +8,7 @@ package Command.MusicModule;
 import Audio.Lyrics;
 import Command.Command;
 import Resource.Info;
+import Resource.Prefix;
 import Resource.SearchResult;
 import Setting.SmartLogger;
 import java.awt.Color;
@@ -28,6 +29,11 @@ import org.jsoup.HttpStatusException;
  */
 public class LyricsCommand implements Command{
 
+    public final static  String HELP = "This command is showing the lyrics of a song.\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"lyrics`\n"
+                                     + "Parameter: `-h | [Artist Name] [Song Name] |null`\n"
+                                     + "[Artist Name] [Song Name]: The exact name of the artist(s) and the song.";
+    
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
         return true;

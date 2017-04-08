@@ -61,6 +61,7 @@ pause - Pause the current playing song. <br />
 skip - Skip the song. <br />
 volume - Set the volume of the bot. <br />
 stop - Stop the player. <br />
+lyrics - Show the lyrics of a song. * <br />
 
 __**Restricted Commands**__ <br />
 These commands are for **Server Owner** or **Bot Owner** only. <br />

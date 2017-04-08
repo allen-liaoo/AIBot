@@ -137,7 +137,8 @@ public class HelpText {
             + "**pause**\n"
             + "**skip**\n"
             + "**volume**\n"
-            + "**stop**\n";
+            + "**stop**\n"
+            + "**lyrics**\n";
     
     public final static String MUSIC_DES = 
             "Add bot to a voice channel.\n"
@@ -146,7 +147,8 @@ public class HelpText {
             + "Pause the current playing song.\n"
             + "Skip the song.\n"
             + "Set the volume of the bot.\n"
-            + "Stop the player.\n";
+            + "Stop the player.\n"
+            + "Show the lyrics of a song.\n";
     
     /*
     * Restricted Module
