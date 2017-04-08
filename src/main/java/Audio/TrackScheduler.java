@@ -9,9 +9,13 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
@@ -24,6 +28,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class TrackScheduler extends AudioEventAdapter {
     private final AudioPlayer player;
     private final BlockingQueue<AudioTrack> queue;
+    private final ArrayList<User> requester;
 
   /**
    * @param player The audio player this scheduler uses
@@ -31,6 +36,7 @@ public class TrackScheduler extends AudioEventAdapter {
     public TrackScheduler(AudioPlayer player) {
         this.player = player;
         this.queue = new LinkedBlockingQueue<>();
+        this.requester = new ArrayList<User>();
   }
 
   /**
@@ -38,12 +44,13 @@ public class TrackScheduler extends AudioEventAdapter {
    *
    * @param track The track to play or add to queue.
    */
-    public void queue(AudioTrack track) {
+    public void queue(AudioTrack track, MessageReceivedEvent e) {
     // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
     // something is playing, it returns false and does nothing. In that case the player was already playing so this
     // track goes to the queue instead.
         if (!player.startTrack(track, true)) {
-        queue.offer(track);
+            queue.offer(track);
+            requester.add(e.getAuthor());
         }
   }
 
@@ -62,6 +69,16 @@ public class TrackScheduler extends AudioEventAdapter {
         if (endReason.mayStartNext) {
           nextTrack();
         }
+    }
+    
+    public Iterator getQueue()
+    {
+        return queue.iterator();
+    }
+    
+    public ArrayList<User> getRequester()
+    {
+        return requester;
     }
 }
 

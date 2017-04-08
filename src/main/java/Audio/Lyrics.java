@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import Resource.SearchResult;
+import org.jsoup.HttpStatusException;
  
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,7 +25,7 @@ import org.jsoup.nodes.TextNode;
  */
 public class Lyrics {
  
-   public static SearchResult getSongLyrics(String input) throws IOException 
+   public static SearchResult getSongLyrics(String input) throws IOException, HttpStatusException
    {
         List<String> lyrics= new ArrayList<String>();
  

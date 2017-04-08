@@ -5,26 +5,12 @@
  */
 package Command.MusicModule;
 
-import Audio.AudioConnection;
 import Audio.Music;
 import Command.Command;
-import static Command.MusicModule.JoinCommand.HELP;
-import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
-import Resource.SearchResult;
-import Resource.Web;
-import Main.Main;
-import Setting.SmartLogger;
-import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import java.awt.Color;
-import java.io.IOException;
 import java.time.Instant;
-import java.util.List;
-import java.util.regex.Matcher;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -65,7 +51,7 @@ public class PlayCommand implements Command{
         }
         else
         {
-            if(!args[0].startsWith("http"))
+            /*if(!args[0].startsWith("http"))
             {
                 String input = "";
                 for(int i = 0; i < args.length; i++){
@@ -82,7 +68,7 @@ public class PlayCommand implements Command{
                     SmartLogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result.");
                 }
             }
-            else
+            else*/
                 Music.play(args[0], e);
         }
     }

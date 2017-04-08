@@ -8,8 +8,10 @@ package Command.MusicModule;
 import Resource.Prefix;
 import Resource.Info;
 import Audio.*;
+import static Audio.AudioConnection.vc;
 import Command.Command;
 import Main.*;
+import Resource.Emoji;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -49,7 +51,7 @@ public class JoinCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
         {
-            AudioConnection.connect(e);
+            AudioConnection.connect(e, true);
         }
         else if(args.length == 1 && "-h".equals(args[0])) 
         {

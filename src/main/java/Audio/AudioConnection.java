@@ -22,28 +22,33 @@ public class AudioConnection {
     public static VoiceChannel vc;
     public static AudioManager am;
     
-    public static void connect(MessageReceivedEvent e)
+    public static void connect(MessageReceivedEvent e, boolean inform)
     {
         try {
             vc = e.getMember().getVoiceState().getChannel();
             am = e.getGuild().getAudioManager();
             am.openAudioConnection(vc);
-            
-            e.getChannel().sendMessage(Emoji.globe + " Joined Voice Channel `" + vc.getName() + "`").queue();
         } catch (IllegalArgumentException iea) {
             e.getChannel().sendMessage(Emoji.error + " You must connect to a voice channel first.").queue();
+            return;
         }
+        
+        //Inform the users that the bot joined a voice channel
+        if(inform)
+            e.getChannel().sendMessage(Emoji.globe + " Joined Voice Channel `" + vc.getName() + "`").queue();
     }
     
-    public static void disconnect(MessageReceivedEvent e)
+    public static void disconnect(MessageReceivedEvent e, boolean inform)
     {
-            try {
-                am = e.getGuild().getAudioManager();
-                am.closeAudioConnection();
-            } catch (NullPointerException npe) {
-                e.getChannel().sendMessage(Emoji.error + " You are not in a voice channel.").queue();
-            }
-            
+        try {
+            am = e.getGuild().getAudioManager();
+            am.closeAudioConnection();
+        } catch (NullPointerException npe) {
+            e.getChannel().sendMessage(Emoji.error + " You are not in a voice channel.").queue();
+        }
+        
+        //Inform the users that the bot joined a voice channel
+        if(inform)
             e.getChannel().sendMessage(Emoji.globe + " Left Voice Channel `" + vc.getName() + "`").queue();
     }
     

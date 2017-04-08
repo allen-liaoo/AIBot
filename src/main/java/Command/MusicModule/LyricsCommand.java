@@ -7,6 +7,7 @@ package Command.MusicModule;
 
 import Audio.Lyrics;
 import Command.Command;
+import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Resource.SearchResult;
@@ -83,10 +84,12 @@ public class LyricsCommand implements Command{
                     lyricsText += s + "\n";
                 }
                 
-                //Delete multiple lines breaks
+                //Delete multiple lines breaks, <i> / </i> Nodes
                 lyricsText = lyricsText.replaceAll("[\r\n]+", "\n");
+                lyricsText = lyricsText.replaceAll("<i>", "");
+                lyricsText = lyricsText.replaceAll("</i>", "");
                 
-                //Split strings if the length os more than 1500
+                //Split strings if the length is more than 1500
                 List<String> strings = new ArrayList<String>();
                 int index = 0;
                 while (index < lyricsText.length()) {
@@ -107,6 +110,7 @@ public class LyricsCommand implements Command{
                 }
                 
             } catch (HttpStatusException hse) {
+                e.getChannel().sendMessage(Emoji.error + " Please enter a valid artist and song name.").queue();
                 SmartLogger.errorLog(hse, e, this.getClass().getName(), "Invalid Lyrics Name");
             } catch (IOException ioe) {
                 SmartLogger.errorLog(ioe, e, this.getClass().getName(), "Unknown Cause");
