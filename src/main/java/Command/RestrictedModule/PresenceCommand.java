@@ -99,7 +99,7 @@ public class PresenceCommand implements Command {
                         SmartLogger.updateLog("Bot setStatus Attempt");
                     } catch (IllegalArgumentException iae) {
                         e.getChannel().sendMessage(Emoji.error + " Please enter a valid status.").queue();
-                        SmartLogger.errorLog(iae, e.getGuild().getName(), "PresenceCommand", "Unknown Status");
+                        SmartLogger.errorLog(iae, e, "PresenceCommand", "Unknown Status");
                         return;
                     }
                     

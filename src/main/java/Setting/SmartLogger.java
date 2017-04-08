@@ -13,6 +13,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
@@ -51,21 +52,28 @@ public class SmartLogger {
     /**
      * Logging when an exception is thrown
      * @param ex the Exception for logging
-     * @param guild the guild name
+     * @param event the event for getting guild name/author name
      * @param at the exception source (class name)
      * @param cause cause of the exception
      */
-    public static void errorLog(Exception ex, String guild, String at, String cause) {
+    public static void errorLog(Exception ex, MessageReceivedEvent event, String at, String cause) {
         try {
-            if(guild.equals(null)) guild = "N/A";
             FileHandler fhe = new FileHandler(LogError, true);
             errorLogger.addHandler(fhe);
             SimpleFormatter formatter = new SimpleFormatter();
             fhe.setFormatter(formatter);
             errorLogger.setUseParentHandlers(false);
             
-            Logger.getGlobal().log(Level.WARNING, "Error from " + at + " in guild: " + guild);
-            errorLogger.log(Level.WARNING, "Guild: " + guild + "\n\t Cause: " + at + " -> " + cause, ex);
+            String from;
+            if(event.getChannelType() == event.getChannelType().TEXT)
+                from = " guild: " + event.getGuild().getName();
+            else if (event.getChannelType() == event.getChannelType().PRIVATE)
+                from = " PM: " + event.getAuthor().getName();
+            else
+                from = ": Unknown (Probably local source)";
+            
+            Logger.getGlobal().log(Level.WARNING, "Error in " + at + " from" + from);
+            errorLogger.log(Level.WARNING, "From" + from + "\n\t Cause: " + at + " -> " + cause, ex);
             fhe.close();
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
@@ -76,11 +84,11 @@ public class SmartLogger {
     
     /**
      * Logging when a command is called.
-     * @param guild the guild name
+     * @param event the event for getting guild name/author name
      * @param command the command called
      * @param description the description of this command call
      */
-    public static void commandLog(String guild, String command, String description) {
+    public static void commandLog(MessageReceivedEvent event, String command, String description) {
          try {
             FileHandler fhc = new FileHandler(LogCommand, true);
             commandLogger.addHandler(fhc);
@@ -88,7 +96,15 @@ public class SmartLogger {
             fhc.setFormatter(formatter);
             commandLogger.setUseParentHandlers(false);
             
-            commandLogger.log(Level.INFO, "Guild: " + guild + "\n\tCommand: " + command + "\tDescription: " + description);
+            String from;
+            if(event.getChannelType() == event.getChannelType().TEXT)
+                from = " guild : " + event.getGuild().getName();
+            else if (event.getChannelType() == event.getChannelType().PRIVATE)
+                from = " PM: " +event.getAuthor().getName();
+            else
+                from = ": Unknown (Probably local source)";
+            
+            commandLogger.log(Level.INFO, "From" + from + "\n\tCommand: " + command + "\tDescription: " + description);
             fhc.close();
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();

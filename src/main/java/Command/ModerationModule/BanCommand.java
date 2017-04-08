@@ -78,7 +78,7 @@ public class BanCommand implements Command{
                 e.getTextChannel().sendMessage(Emoji.error + " I need to have **Ban Members* Permission to ban members.").queue();
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             
-            SmartLogger.commandLog(e.getGuild().getName(), "BanCommand", "Called to ban " + mentionedUsers.size() + " users.");
+            SmartLogger.commandLog(e, "BanCommand", "Called to ban " + mentionedUsers.size() + " users.");
             
             for (User user : mentionedUsers)
             {

@@ -84,7 +84,7 @@ public class HangMan implements Game{
             }
             
         } catch (IOException ioe) {
-            SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferReeader at startGame()");
+            SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferReeader at startGame()");
         }
         
         embedstart.setColor(Color.green);

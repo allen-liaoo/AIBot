@@ -75,7 +75,7 @@ public class UnbanCommand implements Command{
                 if (!selfMember.hasPermission(Permission.BAN_MEMBERS))
                     e.getTextChannel().sendMessage(Emoji.error + " I need to have **Ban Members* Permission to unban members.").queue();
 
-                SmartLogger.commandLog(e.getGuild().getName(), "UnbanCommand", "Called to unban " + args.length + " users.");
+                SmartLogger.commandLog(e, "UnbanCommand", "Called to unban " + args.length + " users.");
 
                 for (String userId : args)
                 {
@@ -104,7 +104,7 @@ public class UnbanCommand implements Command{
                 }
             } catch (Exception ex) {
                 e.getTextChannel().sendMessage(Emoji.error + " Cannot find this (these) member!\n").queue();
-                SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "Can't find member.");
+                SmartLogger.errorLog(ex, e, this.getClass().getName(), "Can't find member.");
             }
             
         }

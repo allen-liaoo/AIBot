@@ -73,7 +73,7 @@ public class KickCommand implements Command{
             
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             
-            SmartLogger.commandLog(e.getGuild().getName(), "KickCommand", "Called to kick " + mentionedUsers.size() + " users.");
+            SmartLogger.commandLog(e, "KickCommand", "Called to kick " + mentionedUsers.size() + " users.");
             
             for (User user : mentionedUsers)
             {

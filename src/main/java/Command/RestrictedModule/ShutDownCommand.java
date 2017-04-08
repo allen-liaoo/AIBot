@@ -59,7 +59,7 @@ public class ShutDownCommand implements Command{
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ite) {
-                    SmartLogger.errorLog(ite, e.getGuild().getName(), this.getClass().getName(), "Thread Sleep process interrupted.");
+                    SmartLogger.errorLog(ite, e, this.getClass().getName(), "Thread Sleep process interrupted.");
                 }
                 
                 SmartLogger.updateLog("Bot Shut Down Attemp");

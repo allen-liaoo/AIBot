@@ -65,7 +65,7 @@ public class HelpCommand implements Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        SmartLogger.commandLog(e.getGuild().getName(), "Help Command", "Triggered!");
+        SmartLogger.commandLog(e, "Help Command", "Triggered!");
         
         if(args.length == 0) //Parameter null
         {

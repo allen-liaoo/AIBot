@@ -135,11 +135,11 @@ public class WeatherCommand implements Command{
                 e.getChannel().sendMessage(mew).queue();
                 embedw.clearFields();
             } catch (JAXBException ex) {
-                SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "Occurs parsing the response.");
+                SmartLogger.errorLog(ex, e, this.getClass().getName(), "Occurs parsing the response.");
             } catch (IOException ex) {
-                SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "Occurs communicating with the service.");
+                SmartLogger.errorLog(ex, e, this.getClass().getName(), "Occurs communicating with the service.");
             } catch (IndexOutOfBoundsException ioobe) {
-                SmartLogger.errorLog(ioobe, e.getGuild().getName(), this.getClass().getName(), "Could not get an variable.");
+                SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Could not get an variable.");
             }
 
             

@@ -164,7 +164,7 @@ public class SourceCommand implements Command{
                     e.getChannel().sendMessage(Emoji.error + " `" + args[0] + "/" + args[1] +  "` does not exist.").queue();
                     
                 } catch(Exception ex){
-                    SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "Unspecified Exception.");
+                    SmartLogger.errorLog(ex, e, this.getClass().getName(), "Unspecified Exception.");
                 }  
                 
                 fromOrig = 0;

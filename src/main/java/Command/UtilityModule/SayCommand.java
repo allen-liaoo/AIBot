@@ -66,7 +66,7 @@ public final static  String HELP = "This command is for letting a bot say someth
         
         else if("embed".equals(args[0]))
         {
-            SmartLogger.commandLog(e.getGuild().getName(), "SayCommand", "Embed");
+            SmartLogger.commandLog(e, "SayCommand", "Embed");
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             int mencount = 0;
             for(int i = 1; i < args.length; i++)
@@ -102,7 +102,7 @@ public final static  String HELP = "This command is for letting a bot say someth
         
         else 
         {
-            SmartLogger.commandLog(e.getGuild().getName(), "SayCommand", "Embed");
+            SmartLogger.commandLog(e, "SayCommand", "Embed");
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             int mencount = 0;
             
@@ -132,9 +132,9 @@ public final static  String HELP = "This command is for letting a bot say someth
 
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
-                    SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "Process interrupted.");
+                    SmartLogger.errorLog(ex, e, this.getClass().getName(), "Process interrupted.");
                 } catch (PermissionException pe) {
-                    SmartLogger.errorLog(pe, e.getGuild().getName(), this.getClass().getName(), "Cannot delete message.");
+                    SmartLogger.errorLog(pe, e, this.getClass().getName(), "Cannot delete message.");
                 }
             }
             

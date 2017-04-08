@@ -69,7 +69,7 @@ public class PruneCommand implements Command{
             Integer msgs = new Integer(0);
             try {
                 msgs = Integer.parseInt(args[0]);
-                SmartLogger.commandLog(e.getGuild().getName(), "PruneCommand", "Called to prune " + msgs + " messages.");
+                SmartLogger.commandLog(e, "PruneCommand", "Called to prune " + msgs + " messages.");
             } catch (NumberFormatException nfe) {
                 e.getChannel().sendMessage(Emoji.error + " Please enter a number.").queue();
             } 
@@ -95,7 +95,7 @@ public class PruneCommand implements Command{
                 if(msgs < 100 && msgs > 0) e.getChannel().sendMessage(Emoji.success + " `" + args[0] + "` messages deleted.").complete().delete().complete();
                 //Thread.sleep(2000);
             } catch (InterruptedException ite) {
-                SmartLogger.errorLog(ite, e.getGuild().getName(), this.getClass().getName(), "Pruning interrupted.");
+                SmartLogger.errorLog(ite, e, this.getClass().getName(), "Pruning interrupted.");
             }
         }
     }

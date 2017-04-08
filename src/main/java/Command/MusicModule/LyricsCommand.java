@@ -107,9 +107,9 @@ public class LyricsCommand implements Command{
                 }
                 
             } catch (HttpStatusException hse) {
-                SmartLogger.errorLog(hse, e.getGuild().getName(), this.getClass().getName(), "Invalid Lyrics Name");
+                SmartLogger.errorLog(hse, e, this.getClass().getName(), "Invalid Lyrics Name");
             } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "Unknown Cause");
+                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "Unknown Cause");
             }
         }
     }

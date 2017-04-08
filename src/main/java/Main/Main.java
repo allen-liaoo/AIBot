@@ -173,6 +173,8 @@ public class Main {
         commands.put("f", new FaceCommand());
         commands.put("rockpaperscissors", new RPSCommand());
         commands.put("rps", new RPSCommand());
+        commands.put("guessnum", new GuessNumberCommand());
+        commands.put("gn", new GuessNumberCommand());
         commands.put("tictactoe", new TicTacToeCommand());
         commands.put("ttt", new TicTacToeCommand());
         commands.put("hangman", new HangManCommand());

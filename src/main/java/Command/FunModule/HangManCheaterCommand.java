@@ -67,7 +67,7 @@ public class HangManCheaterCommand implements Command {
         
         else
         {
-            SmartLogger.commandLog(e.getGuild().getName(), "HangManCheaterCommand", "Called by " + e.getAuthor().getName());
+            SmartLogger.commandLog(e, "HangManCheaterCommand", "Called by " + e.getAuthor().getName());
             //Initialize
             String word = args[0], miss = args[1];
             
@@ -108,7 +108,7 @@ public class HangManCheaterCommand implements Command {
                 }
             
                 } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at Checking missed letters.");
+                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at Checking missed letters.");
             }
             
             //Check if the known position has the same letters

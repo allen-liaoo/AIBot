@@ -59,7 +59,7 @@ public class NumberCommand implements Command {
         //Number Counter
         else if("count".equals(args[0]) | "cunt".equals(args[0]) | "c".equals(args[0]))
         {
-            SmartLogger.commandLog(e.getGuild().getName(), "NumberCommand#Count", "Called");
+            SmartLogger.commandLog(e, "NumberCommand#Count", "Called");
             
             if(args.length == 1) //Default count from 1 to 4
             {

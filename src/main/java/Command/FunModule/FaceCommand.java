@@ -80,7 +80,7 @@ public class FaceCommand implements Command{
                 num = (int)(Math.random() * lines + 1);
                 if(num % 2 != 0) num += 1; //Make the random number always even
             } catch (IOException io) {
-                SmartLogger.errorLog(io, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at getting sum of line numbers.");
+                SmartLogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting sum of line numbers.");
             }
             
             try {
@@ -94,7 +94,7 @@ public class FaceCommand implements Command{
                 reader.close();
                 
             } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at getting face.");
+                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at getting face.");
             }
             
             e.getChannel().sendMessage(output).queue();
@@ -122,7 +122,7 @@ public class FaceCommand implements Command{
                         facelist += output + "\t";
                 }
             } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at -list.");
+                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at -list.");
             }
             
             EmbedBuilder embedfl = new EmbedBuilder();
@@ -164,7 +164,7 @@ public class FaceCommand implements Command{
                     }
                 }
             } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e.getGuild().getName(), this.getClass().getName(), "BufferedReader at specified face.");
+                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at specified face.");
             }
             
             if(output != null)
