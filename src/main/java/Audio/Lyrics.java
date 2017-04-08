@@ -25,18 +25,13 @@ import org.jsoup.nodes.TextNode;
  */
 public class Lyrics {
  
-   public static SearchResult getSongLyrics(String input) throws IOException, HttpStatusException
+   public static String[] getSongLyrics(String input) throws IOException, HttpStatusException
    {
         List<String> lyrics= new ArrayList<String>();
  
-        String lyricsURL = Info.LYRICSURL + input.substring(0,1).toUpperCase() + input.substring(1).replace(" ", "-").toLowerCase() + "lyrics";
+        String lyricsURL = Info.LYRICSURL + input.substring(0,1).toUpperCase() + input.substring(1).replace(" ", "-").toLowerCase();
+        Document doc = Jsoup.connect(input).get();
         
-        Document doc = Jsoup.connect(lyricsURL).get();
-        String title = doc.title();
-        System.out.println(title);
-        
-        //String author = doc.select(".drop-target").get(0).childNodes().get(0).toString();
-        String lyricText = "";
         int count = 0;
         Element p = doc.select(".lyrics").select("p").get(0);
         doc.select("br").append("");
@@ -61,7 +56,27 @@ public class Lyrics {
             }
         }
         
-        return new SearchResult(title, "", lyricsURL, "", lyrics);
+        //Cleanup lyrics
+        String[] lyricsText = new String[lyrics.size()];
+        for(int i = 0; i < lyricsText.length; i++)
+        {
+            //Ignore line breaks
+            if(lyrics.get(i).equals("<br>"))
+                lyricsText[i] = "\n";
+            else
+                lyricsText[i] = lyrics.get(i);
+            
+            //Delete <i> / </i> nodes, multiple lines breaks
+            lyricsText[i] = lyricsText[i].replaceAll("<i>", "");
+            lyricsText[i] = lyricsText[i].replaceAll("</i>", "");
+            //lyricsText[i] = lyricsText[i].replaceAll("[\r\n]+", "\n");
+            
+            //Align the texts by deleting " " infront of the line, if any
+            if(lyricsText[i].startsWith(" "))
+                lyricsText[i] = lyricsText[i].replaceFirst(" ", "");
+        }
+        
+        return lyricsText;
    }
 }
 

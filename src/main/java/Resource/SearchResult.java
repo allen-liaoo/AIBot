@@ -5,8 +5,6 @@
  */
 package Resource;
 
-import java.util.List;
-
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
@@ -16,7 +14,7 @@ public class SearchResult {
     private String author;
     private String link;
     private String text;
-    private List<String> lyrics;
+    private String thumbnail;
    
     /**
      * Null SearchResult Constructor
@@ -27,6 +25,7 @@ public class SearchResult {
         this.author = null;
         this.link = null;
         this.text = null;
+        this.thumbnail = null;
     }
     
     /**
@@ -34,15 +33,15 @@ public class SearchResult {
     * @param link SearchResult link
     * @param author SearchResult lyrics author/artist
     * @param text SearchResult description
-    * @param lyrics SearchResult lyrics
+    * @param thumbnail SearchResult album picture, icon
     */
-    public SearchResult(String title, String author, String link, String text, List<String> lyrics)
+    public SearchResult(String title, String author, String link, String text, String thumbnail)
     {
         this.title = title;
         this.author = author;
         this.link = link;
         this.text = text;
-        this.lyrics = lyrics;
+        this.thumbnail = thumbnail;
     }
 
     public String getTitle() 
@@ -75,19 +74,13 @@ public class SearchResult {
         this.link = link;
     }
 
-    public String getText() {
+    public String getText() 
+    {
         return text;
     }
     
-    public void setText(String text) {
+    public void setText(String text)
+    {
         this.text = text;
-    }
-    
-    public List<String> getLyrics() {
-        return lyrics;
-    }
-
-    public void setLyrics(List<String> lyrics) {
-        this.lyrics = lyrics;
     }
 }

@@ -11,6 +11,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Resource.SearchResult;
+import Resource.Search;
 import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.IOException;
@@ -55,39 +56,35 @@ public class LyricsCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length > 0 && "-h".equals(args[0])) 
+        if(args.length == 0 || "-h".equals(args[0])) 
         {
             help(e);
         }
         
         else
         {
+            List<SearchResult> results = new ArrayList<SearchResult>();
             //Get input
             String input = "";
             for(String i : args) {input+=i + " ";}
             
+            //Search Lyrics
             try {
-                SearchResult lyric = Lyrics.getSongLyrics(input);
-                List<String> lyrics = lyric.getLyrics();
+                results = Search.lyricsSearch(input);
+            } catch (IOException ex) {
+                Logger.getLogger(LyricsCommand.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //Get Lyrics
+            try {
+                String[] lyrics = Lyrics.getSongLyrics(results.get(0).getLink());
                 
-                //Get lyrics
+                //Exract lyrics from String[] array to a single string
                 String lyricsText = "";
                 for(String s : lyrics)
                 {
-                    //Ignore line breaks
-                    if(s.equals("<br>"))
-                        continue;
-                    //Delete " " infront of the line, if any
-                    else if(s.startsWith(" "))
-                        s = s.replaceFirst(" ", "");
-                    
-                    lyricsText += s + "\n";
+                    lyricsText += s;
                 }
-                
-                //Delete multiple lines breaks, <i> / </i> Nodes
-                lyricsText = lyricsText.replaceAll("[\r\n]+", "\n");
-                lyricsText = lyricsText.replaceAll("<i>", "");
-                lyricsText = lyricsText.replaceAll("</i>", "");
                 
                 //Split strings if the length is more than 1500
                 List<String> strings = new ArrayList<String>();
@@ -98,8 +95,8 @@ public class LyricsCommand implements Command{
                 }
                 
                 EmbedBuilder embedly = new EmbedBuilder();
-                embedly.setTitle("Lyrics for " + lyric.getTitle(), lyric.getLink());
-                embedly.setFooter("Source: Genius.com", null);
+                embedly.setTitle(results.get(0).getTitle() + " by " + results.get(0).getAuthor(), results.get(0).getLink());
+                embedly.setFooter("From Genius.com", null);
                 MessageEmbed mely = embedly.build();
                 e.getChannel().sendMessage(mely).queue();
                 embedly.clearFields();
@@ -109,9 +106,9 @@ public class LyricsCommand implements Command{
                     e.getChannel().sendMessage(out).queue();
                 }
                 
-            } catch (HttpStatusException hse) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter a valid artist and song name.").queue();
-                SmartLogger.errorLog(hse, e, this.getClass().getName(), "Invalid Lyrics Name");
+            } catch (IndexOutOfBoundsException ioobe) {
+                e.getChannel().sendMessage(Emoji.error + " No result.").queue();
+                SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Lyrics Search, no result- " + input);
             } catch (IOException ioe) {
                 SmartLogger.errorLog(ioe, e, this.getClass().getName(), "Unknown Cause");
             }
