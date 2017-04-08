@@ -138,3 +138,5 @@ Apr 07, 2017 9:42:04 PM Setting.SmartLogger updateLog
 INFO: 	New Server: Discord Bots
 Apr 07, 2017 9:42:12 PM Setting.SmartLogger updateLog
 INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 9:51:04 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Bots Bots Bots
