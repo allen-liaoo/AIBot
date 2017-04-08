@@ -5,28 +5,26 @@
  */
 package Command.MusicModule;
 
-import Resource.Prefix;
-import Resource.Info;
-import Audio.*;
+import Audio.Music;
 import Command.Command;
-import Main.*;
+import Main.Main;
+import static Command.Command.embed;
+import static Command.MusicModule.PlayCommand.HELP;
+import Resource.Info;
+import Resource.Prefix;
 import java.awt.Color;
 import java.time.Instant;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
- * @author liaoyilin
+ * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class LeaveCommand implements Command{
-
-    public final static  String HELP = "This command is for removing the bot to your current voice channel.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"leave` or `" + Prefix.getDefaultPrefix() + "l`\n"
+public class QueueCommand implements Command{
+    public final static  String HELP = "This command is getting a list of queued songs\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"queue`\n"
                                      + "Parameter: `-h | null`";
-    private final EmbedBuilder embed = new EmbedBuilder();
-    
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
         return true;
@@ -36,7 +34,7 @@ public class LeaveCommand implements Command{
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
         embed.setTitle("Music Module", null);
-        embed.addField("Leave -Help", HELP, true);
+        embed.addField("Queue -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());
 
@@ -47,13 +45,13 @@ public class LeaveCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
-        {
-            AudioConnection.disconnect(e, true);
-        }
-        else if(args.length == 1 && "-h".equals(args[0])) 
+        if(args.length == 1 && "-h".equals(args[0])) 
         {
             help(e);
+        }
+        else
+        {
+            Music.queueList(e);
         }
     }
 

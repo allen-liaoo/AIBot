@@ -1,9 +1,8 @@
-/*
+/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Main;
 
 import Setting.GuildSetting;
@@ -18,6 +17,7 @@ import Command.FunModule.*;
 import Command.RestrictedModule.*;
 import Listener.*;
 import Audio.*;
+import Resource.Info;
 import Setting.SmartLogger;
 
 
@@ -44,7 +44,6 @@ public class Main {
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
     public static HashMap<String, GuildSetting> guilds = new HashMap<String, GuildSetting>();
     public static long timeStart = 0;
-    public static String game = Prefix.DIF_PREFIX + "help | Developed by Ayy™";
     
     /**
      * @param args the command line arguments
@@ -55,7 +54,7 @@ public class Main {
                     .addListener(new CommandListener())
                     .setToken(Private.BOT_TOKEN)
                     .buildBlocking();
-            jda.getPresence().setGame(Game.of(game));
+            jda.getPresence().setGame(Game.of(Info.B_GAME));
             jda.setAutoReconnect(true);
             
             timeStart = System.currentTimeMillis();
@@ -193,6 +192,11 @@ public class Main {
         commands.put("resume", new PauseCommand("resume"));
         commands.put("unpause", new PauseCommand("resume"));
         commands.put("skip", new SkipCommand());
+        commands.put("nowplaying", new NowPlayingCommand());
+        commands.put("current", new NowPlayingCommand());
+        commands.put("np", new NowPlayingCommand());
+        commands.put("queue", new QueueCommand());
+        commands.put("q", new QueueCommand());
         commands.put("volume", new VolumeCommand());
         commands.put("stop", new StopCommand());
         commands.put("lyrics", new LyricsCommand());

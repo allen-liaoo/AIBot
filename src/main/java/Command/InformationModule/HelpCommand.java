@@ -1,4 +1,4 @@
-/*
+/* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -102,7 +102,7 @@ public class HelpCommand implements Command {
     
     public static void helpText(MessageReceivedEvent e)
     {
-        embed.setColor(setColor());
+        embed.setColor(Info.setColor());
         embed.setAuthor("AIBot Help", null, Info.I_HELP);
 
         embed.addField("Information Module", HelpText.INFO_CMD, true);
@@ -300,6 +300,9 @@ public class HelpCommand implements Command {
             case "skip":
                 cmdhelp = SkipCommand.HELP;
                 break;
+            case "queue":
+                cmdhelp = QueueCommand.HELP;
+                break;
             case "volume":
                 cmdhelp = VolumeCommand.HELP;
                 break;
@@ -347,7 +350,7 @@ public class HelpCommand implements Command {
         }
 
         embedHelp.setTitle("AIBot Help -" + morc, null); //Set title for command
-        embedHelp.setColor(setColor());
+        embedHelp.setColor(Info.setColor());
 
         embedHelp.addField(cmdtitle, cmdhelp, true);
         if(isMod == true)
@@ -360,27 +363,4 @@ public class HelpCommand implements Command {
         embedHelp.clearFields(); //Refresh EmbedMessage
     }
     
-    public static Color setColor()
-    {
-        Random colorpicker = new Random();
-        
-        int red;
-        int green;
-        int blue;
-        
-        red = colorpicker.nextInt(255) + 1;
-        green = colorpicker.nextInt(255) + 1;
-        blue = colorpicker.nextInt(255) + 1;
-        
-        return new Color(red,green,blue);
-    }
-    
-    
-    /* Private Message Help
-        HelpCommand.helpText(e);
-        HelpCommand.me = HelpCommand.embed.build();
-        e.getChannel().sendMessage(Emoji.envelope + " You need help? Check private message!").complete();
-        e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().editMessage(HelpCommand.me).submit());
-        HelpCommand.embed.clearFields();
-    */
 }

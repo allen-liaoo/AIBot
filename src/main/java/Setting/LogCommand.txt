@@ -4,3 +4,30 @@ INFO: From guild : 3BotRuleTheWorld
 Apr 07, 2017 10:25:22 PM Setting.SmartLogger commandLog
 INFO: From guild : 3BotRuleTheWorld
 	Command: Help Command	Description: Triggered!
+Apr 07, 2017 10:41:37 PM Setting.SmartLogger commandLog
+INFO: From guild : 3BotRuleTheWorld
+	Command: PruneCommand	Description: Called to prune 1 messages.
+Apr 08, 2017 7:15:21 AM Setting.SmartLogger commandLog
+INFO: From guild : Patres Of Bellum
+	Command: Help Command	Description: Triggered!
+Apr 08, 2017 8:28:59 AM Setting.SmartLogger commandLog
+INFO: From guild : Patres Of Bellum
+	Command: Help Command	Description: Triggered!
+Apr 08, 2017 8:36:30 AM Setting.SmartLogger commandLog
+INFO: From guild : Patres Of Bellum
+	Command: Help Command	Description: Triggered!
+Apr 08, 2017 8:38:29 AM Setting.SmartLogger commandLog
+INFO: From guild : Patres Of Bellum
+	Command: HangManCheaterCommand	Description: Called by Ayy™
+Apr 08, 2017 9:44:03 AM Setting.SmartLogger commandLog
+INFO: From PM: Ayy™
+	Command: PruneCommand	Description: Called to prune 1000 messages.
+Apr 08, 2017 9:44:06 AM Setting.SmartLogger commandLog
+INFO: From PM: Ayy™
+	Command: PruneCommand	Description: Called to prune 100 messages.
+Apr 08, 2017 9:44:11 AM Setting.SmartLogger commandLog
+INFO: From PM: Ayy™
+	Command: PruneCommand	Description: Called to prune 99 messages.
+Apr 08, 2017 9:44:27 AM Setting.SmartLogger commandLog
+INFO: From PM: Ayy™
+	Command: PruneCommand	Description: Called to prune 10 messages.
