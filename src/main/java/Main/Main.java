@@ -6,7 +6,7 @@
 package Main;
 
 import Setting.GuildSetting;
-import Resource.Private;
+import Private.Private;
 import Resource.Prefix;
 import Command.*;
 import Command.InformationModule.*;

@@ -24,9 +24,9 @@ public class SmartLogger {
     public static Logger startLogger = Logger.getLogger(Main.class.getName());
     public static Logger errorLogger = Logger.getLogger("Error");
     public static Logger commandLogger = Logger.getLogger("Command");
-    public static String LogMain = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Setting/LogMain.txt";
-    public static String LogError = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Setting/LogError.txt";
-    public static String LogCommand = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Setting/LogCommand.txt";
+    public static String LogMain = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Private/LogMain.txt";
+    public static String LogError = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Private/LogError.txt";
+    public static String LogCommand = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Private/LogCommand.txt";
     
     /**
      * Logging when bot status changed
