@@ -119,6 +119,9 @@ public class SearchCommand implements Command{
                 
             } catch (IOException ex) {
                 SmartLogger.errorLog(ex, e.getGuild().getName(), this.getClass().getName(), "IO Exception");
+            } catch (IndexOutOfBoundsException iobe) {
+                e.getChannel().sendMessage(Emoji.error + " No result.").queue();
+                SmartLogger.errorLog(iobe, e.getGuild().getName(), this.getClass().getName(), "Web Search \""+ args[0] +"\" No Result.");
             }
         }
         

@@ -19,6 +19,7 @@ import Command.MusicModule.*;
 import Command.FunModule.*;
 import Command.RestrictedModule.*;
 import Main.*;
+import Setting.SmartLogger;
 
 import java.awt.Color;
 import java.time.Instant;
@@ -64,6 +65,8 @@ public class HelpCommand implements Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        SmartLogger.commandLog(e.getGuild().getName(), "Help Command", "Triggered!");
+        
         if(args.length == 0) //Parameter null
         {
             helpText(e);

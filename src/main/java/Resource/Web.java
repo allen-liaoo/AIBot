@@ -38,7 +38,11 @@ public class Web {
         String charset = "UTF-8";
         String userAgent = "DiscordBot";
         
-        Elements links = Jsoup.connect(google+ URLEncoder.encode(input,charset)+ defnum + num + customsite).timeout(0).userAgent(userAgent).get().select(".g>.r>a");
+        Elements links = Jsoup.connect(google+ URLEncoder.encode(input,charset)+ defnum + num + customsite)
+                .timeout(0)
+                .userAgent(userAgent)
+                .get()
+                .select(".g>.r>a");
         
         for( Element link : links )
         {
@@ -70,12 +74,20 @@ public class Web {
         String userAgent = "DiscordBot";
         System.out.println(ytsite + input);
         
-        Elements links = Jsoup.connect(ytsite + URLEncoder.encode(input,charset)).timeout(0).userAgent(userAgent).get().select(".g>.r>a");
+        Document doc = Jsoup.connect(ytsite + input.replaceAll(" ", "+")).timeout(0).get();
+        String title = doc.title();
+        System.out.println(title);
         
-        for( Element link : links )
+        Element p = doc.select("div#results").select("ol.item-section").select("li").get(0);
+        
+        for( Node n : p.childNodes() )
         {
-            String title = link.text();
-            String url = link.absUrl("href");
+            String urltitle, url = "";
+            if(n.hasAttr("href"))
+            {
+                urltitle = "";
+                url = n.absUrl("href");
+            }
             
             //decode link from link of google.
             String urlLink = URLDecoder.decode(url.substring(url.indexOf("=")+1 , url.indexOf("&")) , charset);

@@ -6,3 +6,45 @@ Apr 06, 2017 11:04:30 PM Setting.SmartLogger updateLog
 INFO: 	New Server: Joshypooh's Potato Parlour
 Apr 06, 2017 11:04:57 PM Setting.SmartLogger updateLog
 INFO: 	New Server: Discord Bots
+Apr 06, 2017 11:13:26 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 7:19:21 AM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 7:19:23 AM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 7:22:45 AM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 7:28:30 AM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 7:29:04 AM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 7:31:19 AM Setting.SmartLogger updateLog
+INFO: 	New Server: HoP Highly Over Powered  Esports
+Apr 07, 2017 7:32:18 AM Setting.SmartLogger updateLog
+INFO: 	New Server: BotTopia
+Apr 07, 2017 7:46:27 AM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 8:32:31 AM Setting.SmartLogger updateLog
+INFO: 	New Server: Joshypooh's Potato Parlour
+Apr 07, 2017 9:14:19 AM Setting.SmartLogger updateLog
+INFO: 	New Server: Patres Of Bellum
+Apr 07, 2017 9:27:16 AM Setting.SmartLogger updateLog
+INFO: 	New Server: Apoc Events
+Apr 07, 2017 10:14:17 AM Setting.SmartLogger updateLog
+INFO: 	New Server: Music Hub
+Apr 07, 2017 12:02:02 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Bots Bots Bots
+Apr 07, 2017 5:58:37 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Music Hub
+Apr 07, 2017 5:59:38 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 6:19:16 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 6:26:48 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Joshypooh's Potato Parlour
+Apr 07, 2017 6:31:05 PM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 6:41:32 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Patres Of Bellum
+Apr 07, 2017 7:30:39 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
