@@ -59,11 +59,14 @@ lyrics - Show the lyrics of a song. *
 
 __**Restricted Commands**__ 
 These commands are for **Server Owner** or **Bot Owner** only.
-shutdown - Shut down the bot remotely. (Bot Owner) *
+shutdown - Shut down the bot remotely. (Bot Owner) * ^
 source - Get the source code of a command class. * 
-setStatus - Set the status of the bot. *
-setGame - Set the game of the bot. *
+setStatus - Set the status of the bot. * ^
+setGame - Set the game of the bot. * ^
 
 __**Note:**__ 
+@Mention the bot with commands will also trigger the respond.
 Adding the command/module name after help will show the command/module usage.
+Adding `-h` after a command will show the command usage.
 * - Available directly from Private Message. (Private Channel)
+^ - Available directly from Console.

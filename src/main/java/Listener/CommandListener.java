@@ -48,23 +48,9 @@ public class CommandListener extends ListenerAdapter {
         {
             handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
         }
-        
-        // Detect mention
-        if(e.getMessage().getMentionedUsers().size() > 0)
+        else if(e.getMessage().getRawContent().startsWith(e.getJDA().getSelfUser().getAsMention()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
-            if(e.getMessage().isMentioned(e.getJDA().getSelfUser()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
-            {
-                String contain = e.getMessage().getContent();
-
-                if(contain.length() < 20 && (contain.contains("help") || contain.contains("welp")))
-                {
-                    HelpCommand.helpText(e);
-                    HelpCommand.me = HelpCommand.embed.build();
-                    e.getChannel().sendMessage(Emoji.envelope + " You need help? Check private message!").complete();
-                    e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().editMessage(HelpCommand.me).submit());
-                    HelpCommand.embed.clearFields();
-                }
-            }
+            handleCommand(Main.parser.parseMention(e.getMessage().getContent(), e));
         }
     }
     

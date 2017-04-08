@@ -90,3 +90,51 @@ Apr 07, 2017 9:09:25 PM Setting.SmartLogger updateLog
 INFO: 	New Server: Music Hub
 Apr 07, 2017 9:09:41 PM Setting.SmartLogger updateLog
 INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 9:13:57 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 9:16:46 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:18:09 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:18:23 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 9:20:26 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:21:55 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 9:23:48 PM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 9:27:02 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:27:03 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 9:28:02 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 9:28:03 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:28:25 PM Setting.SmartLogger updateLog
+INFO: Bot Shut Down Successfully
+Apr 07, 2017 9:28:40 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:28:41 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 9:29:53 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 9:30:24 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:30:28 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 9:30:45 PM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 9:35:43 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Music Hub
+Apr 07, 2017 9:38:18 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld
+Apr 07, 2017 9:38:41 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:39:08 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Music Hub
+Apr 07, 2017 9:42:04 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:42:12 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld

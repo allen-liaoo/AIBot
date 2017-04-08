@@ -374,4 +374,12 @@ public class HelpCommand implements Command {
         return new Color(red,green,blue);
     }
     
+    
+    /* Private Message Help
+        HelpCommand.helpText(e);
+        HelpCommand.me = HelpCommand.embed.build();
+        e.getChannel().sendMessage(Emoji.envelope + " You need help? Check private message!").complete();
+        e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().editMessage(HelpCommand.me).submit());
+        HelpCommand.embed.clearFields();
+    */
 }
