@@ -33,3 +33,4 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - GuessNumber Game and GuessNumberCommand. Enjoy~
 ##### Changed
 - Log System from input `String guild` to `MessageReceivedEvent event` in order to supports Private Message Logging.
+- Changed the CommandListener to listen to commands with mention. 
