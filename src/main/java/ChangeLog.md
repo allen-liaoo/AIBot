@@ -27,3 +27,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 ##### Added 
 - PresenceCommand : setStatus and setGame commands for both discord and console thread.
 - LyricsCommand for getting lyrics from Genius.com via JSoup. Search Lyrics function will be implemented in the future.
+
+#### [0.1.6] - 2017-04-06
+##### Changed
+- Log System from input `String guild` to `MessageReceivedEvent event` in order to supports Private Message Logging.

@@ -64,3 +64,29 @@ Apr 07, 2017 8:52:00 PM Setting.SmartLogger updateLog
 INFO: 	New Server: Discord Bots
 Apr 07, 2017 8:53:19 PM Setting.SmartLogger updateLog
 INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 8:56:39 PM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 8:56:44 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:01:45 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:01:51 PM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 9:04:08 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:04:48 PM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 9:05:16 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:05:16 PM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 9:06:49 PM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
+Apr 07, 2017 9:06:58 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:09:09 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Discord Bots
+Apr 07, 2017 9:09:25 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Music Hub
+Apr 07, 2017 9:09:41 PM Setting.SmartLogger updateLog
+INFO: 	New Server: JDA (Java Discord API)
