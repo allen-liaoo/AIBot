@@ -1,0 +1,6 @@
+Apr 07, 2017 10:16:36 PM Setting.SmartLogger updateLog
+INFO: 	New Server: Patres Of Bellum
+Apr 07, 2017 10:25:03 PM Setting.SmartLogger updateLog
+INFO: Bot Shut Down Successfully
+Apr 07, 2017 10:25:22 PM Setting.SmartLogger updateLog
+INFO: 	New Server: 3BotRuleTheWorld

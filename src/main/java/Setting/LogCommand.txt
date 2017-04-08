@@ -1,0 +1,6 @@
+Apr 07, 2017 10:24:49 PM Setting.SmartLogger commandLog
+INFO: From guild : 3BotRuleTheWorld
+	Command: Help Command	Description: Triggered!
+Apr 07, 2017 10:25:22 PM Setting.SmartLogger commandLog
+INFO: From guild : 3BotRuleTheWorld
+	Command: Help Command	Description: Triggered!

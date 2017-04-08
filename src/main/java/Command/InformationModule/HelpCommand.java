@@ -78,10 +78,10 @@ public class HelpCommand implements Command {
         else if("-dm".equals(args[0]) && e.getChannelType() != e.getChannelType().PRIVATE) //Parameter -dm
         {
             helpText(e);
-            me = embed.build();
-            e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage(me).queue());
-            embedHelp.clearFields();
             e.getTextChannel().sendMessage(Emoji.envelope + " A list of AIBot commands has been sent. Check your Direct Message.").queue();
+            me = embed.build();
+            e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().editMessage(me).submit());
+            embedHelp.clearFields();
         }
         
         else if("-h".equals(args[0])) //Parameter -h
