@@ -281,6 +281,7 @@ public class HelpCommand implements Command {
                 isMod = true;
                 break;
             case "join":
+            case "summon":
             case "j": 
                 cmdhelp = JoinCommand.HELP;
                 break;
