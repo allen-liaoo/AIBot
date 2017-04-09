@@ -140,6 +140,7 @@ public class HelpText {
             + "**play**\n"
             + "**pause**\n"
             + "**skip**\n"
+            + "nowplaying\n\n"
             + "**volume**\n"
             + "**stop**\n"
             + "**lyrics**\n";
@@ -150,6 +151,7 @@ public class HelpText {
             + "Play a song from YouTube.\n"
             + "Pause the current playing song.\n"
             + "Skip the song.\n"
+            + "Get the information of the \ncurrent playing song.\n"
             + "Set the volume of the bot.\n"
             + "Stop the player.\n"
             + "Show the lyrics of a song.\n";
