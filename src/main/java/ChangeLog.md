@@ -42,4 +42,6 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - LyricsCommand support search.
 - IMDbCommand for getting results from IMDb.
 ##### Fixed
-- PresenceCommand to work with @Mention prefix
+- PresenceCommand to work with @Mention prefix.
+- HangManCommand: Start Game properly, and allow multiple start game to refresh the game.
+- HangManCheaterCommand to change the output based on number of results.
