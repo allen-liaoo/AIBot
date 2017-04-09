@@ -45,3 +45,9 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - PresenceCommand to work with @Mention prefix.
 - HangManCommand: Start Game properly, and allow multiple start game to refresh the game.
 - HangManCheaterCommand to change the output based on number of results.
+
+#### [0.1.9] - 2017-04-09
+##### Added 
+- Number to Emoji Function for Number#RollADice
+- IMDbCommand: Get specific informations about a movie/tv-show
+- Emojis for IMDbCommand
