@@ -143,6 +143,7 @@ public class Search {
         }
         
         System.out.println("** IMDB Search --> " + input + " : " + totalcount +" results");
+        totalcount = 0;
         return results;
     }
     
@@ -150,7 +151,6 @@ public class Search {
     {
         Document doc = Jsoup.connect(result.getLink()).timeout(0).get();
         
-        System.out.println(result.getLink());
         String pic = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital>div.slate_wrapper>div.poster").select("a>img").attr("src");
         
         //Change getter for special thumbnails

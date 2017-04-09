@@ -86,23 +86,28 @@ public class IMDbCommand implements Command{
                 }
                 
                 //Prevent null Messages
+                if(results.isEmpty())
+                {
+                    e.getChannel().sendMessage(Emoji.error + " No results.").queue();
+                    return;
+                }
                 if("".equals(titles))
                     titles = "None";
                 if("".equals(names))
                     names = "None";
                 if("".equals(characters))
-                    characters = "None";
+                    characters = "None\n";
                     
                 //Get Thumbnail of the first SearchResult
-                Search.getIMDBThumbNail(results.get(0));//results.get(0).getThumbnail();
+                Search.getIMDBThumbNail(results.get(0));
                 
                 //Build EMbed Message
                 EmbedBuilder embeds = new EmbedBuilder();
                 embeds.setColor(Info.setColor());
-                embeds.setTitle("IMDB Search Results for \"" + input + "\"", "http://www.imdb.com/find?q=" + input);
+                embeds.setTitle("IMDB Search Results for \"" + input + "\"", null);
                 embeds.addField("Titles", titles, false);
                 embeds.addField("Names", names, false);
-                embeds.addField("Characters", characters, false);
+                embeds.addField("Characters", characters + "\n[Click here for more results...](" + "http://www.imdb.com/find?q=" + input + ")\n", false);
                 embeds.setThumbnail(results.get(0).getThumbnail());
                 embeds.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embeds.setTimestamp(Instant.now());
