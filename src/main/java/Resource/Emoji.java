@@ -19,6 +19,17 @@ public class Emoji {
     public static String down = EmojiParser.parseToUnicode(":arrow_down:");
     public static String invite = EmojiParser.parseToUnicode(":postbox:");
     
+    public static String one = EmojiParser.parseToUnicode(":one:");
+    public static String two = EmojiParser.parseToUnicode(":two:");
+    public static String three = EmojiParser.parseToUnicode(":three:");
+    public static String four = EmojiParser.parseToUnicode(":four:");
+    public static String five = EmojiParser.parseToUnicode(":five:");
+    public static String six = EmojiParser.parseToUnicode(":six:");
+    public static String seven = EmojiParser.parseToUnicode(":seven:");
+    public static String eight = EmojiParser.parseToUnicode(":eight:");
+    public static String nine = EmojiParser.parseToUnicode(":nine:");
+    public static String zero = EmojiParser.parseToUnicode(":zero:");
+    
     //Information Commands
     public static String envelope = EmojiParser.parseToUnicode(":incoming_envelope:");
     public static String ping = EmojiParser.parseToUnicode(":ping_pong:");
@@ -33,12 +44,6 @@ public class Emoji {
     public static String number = EmojiParser.parseToUnicode(":1234:");
     public static String output = EmojiParser.parseToUnicode(":printer:");
     public static String roll = EmojiParser.parseToUnicode(":game_die:");
-    public static String one = EmojiParser.parseToUnicode(":one:");
-    public static String two = EmojiParser.parseToUnicode(":two:");
-    public static String three = EmojiParser.parseToUnicode(":three:");
-    public static String four = EmojiParser.parseToUnicode(":four:");
-    public static String five = EmojiParser.parseToUnicode(":five:");
-    public static String six = EmojiParser.parseToUnicode(":six:");
     
     //-WeatherCommand
     public static String temp = EmojiParser.parseToUnicode(":thermometer:");
@@ -81,4 +86,52 @@ public class Emoji {
     //Faces
     public static String face_tongue = EmojiParser.parseToUnicode(":stuck_out_tongue:");
     public static String face_blush = EmojiParser.parseToUnicode(":blush:");
+    
+    /**
+     * Change the input number into a String of emojis
+     * @param num the number to be change to emoji
+     */
+    public static String numToEmoji(int num)
+    {   
+        String number = num + "";
+        String output = "";
+        for (int i = 0; i < number.length(); i++) 
+        {
+            int digit = Integer.parseInt(number.substring(i, i+1));
+            
+            switch(digit) {
+                case 1:
+                    output += Emoji.one;
+                    break;
+                case 2:
+                    output += Emoji.two;
+                    break;
+                case 3:
+                    output += Emoji.three;
+                    break;
+                case 4:
+                    output += Emoji.four;
+                    break;
+                case 5:
+                    output += Emoji.five;
+                    break;
+                case 6:
+                    output += Emoji.six;
+                    break;
+                case 7:
+                    output += Emoji.seven;
+                    break;
+                case 8:
+                    output += Emoji.eight;
+                    break;
+                case 9:
+                    output += Emoji.nine;
+                    break;
+                default:
+                    output += Emoji.zero;
+                    break;
+            }
+        }
+        return output;
+    }
 }

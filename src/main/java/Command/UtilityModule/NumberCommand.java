@@ -110,30 +110,15 @@ public class NumberCommand implements Command {
                 if("roll".equals(args[0])) //Roll the dice
                 {
                     num = (int)(Math.random() * 6 + 1);
-                    String emoji;
-                    switch (num) {  //Different emojis for different number.
-                        case 1: emoji = Emoji.one;
-                            break;
-                        case 2: emoji = Emoji.two;
-                            break;
-                        case 3: emoji = Emoji.three;
-                            break;
-                        case 4: emoji = Emoji.four;
-                            break;
-                        case 5: emoji = Emoji.five;
-                            break;
-                        case 6: emoji = Emoji.six;
-                            break;
-                        default : emoji = Emoji.roll;
-                            break;
-                    }
-                    e.getChannel().sendMessage(Emoji.roll + " Dice Rolled: " + emoji).queue();
+                    String number = Emoji.numToEmoji(num);
+                    e.getChannel().sendMessage(Emoji.roll + " Dice Rolled: " + number).queue();
                 }
                     
                 else if(args.length == 1) //Defualt random range 1~100
                 {
                     num = (int)(Math.random() * 100 + 0);
-                    e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + num
+                    String number = Emoji.numToEmoji(num);
+                    e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + number
                     + "\nBy default range `0~100`").queue();
                 }
                     
@@ -151,8 +136,9 @@ public class NumberCommand implements Command {
                     
                     int range = (high - low) + 1;
                     num = (int)(Math.random() * range + low);
+                    String number = Emoji.numToEmoji(num);
                         
-                    e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + num
+                    e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + number
                     + "\nBy specified range ` " + low + "~" + high + "`").queue();
                 }
                 
