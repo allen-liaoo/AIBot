@@ -10,6 +10,7 @@ package Resource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import net.dv8tion.jda.core.EmbedBuilder;
 import org.jsoup.Connection.Response;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -17,6 +18,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
+import org.jsoup.select.Elements;
 
 /**
  *
@@ -74,7 +76,92 @@ public class WebScraper {
     }
     
     /**
-     * Thumbnail getter from IMDb
+     * Get specific informations from a IMDb Title Link.
+     * @param result from Search#IMDbSearch, only used the link.
+     * @return EmbedBuilder
+     * @throws IOException
+     */
+    public static EmbedBuilder getIMDbInfo(SearchResult result) throws IOException {
+        Document doc = Jsoup.connect(result.getLink()).timeout(0).get();
+        
+        //Title, Content Rating, Duration, Genre, Release Date
+        Elements info = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital")
+                .select("div.title_block>div.title_bar_wrapper");
+        
+        String title = info.select("h1").get(0).text();
+        Elements sub = info.select("div.subtext");
+        String contentRating = sub.text().split(" | ")[0];
+        String duration = sub.select("time").text();
+        String genre = sub.select(".itemprop").text().replaceAll(" ", ", ");
+        String releaseDate = sub.select("a[title=\"See more release dates\"]").text();
+        //System.out.println(title + "\n" + contentRating + "\t" + duration + "\t" + genre + "\t" + releaseDate);
+        
+        //Plot, Crew Credit
+        Elements plot = doc.select("div#main_top>.title-overview>div.heroic-overview>div.plot_summary_wrapper");
+        
+        String summary = plot.select("div.summary_text").text();
+        String director = plot.select("span[itemprop=director]").text();
+        String stars = plot.select("span[itemprop=actors").text();
+        //System.out.println(summary + "\n" + director + "\t" + stars);
+        
+        //Ratings
+        Elements rate = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital")
+                .select("div.title_block>div.title_bar_wrapper>div.ratings_wrapper>div.imdbRating");
+        
+        String rating = "**" + rate.select("div.ratingValue").text() + "**";
+        String rates = " | " + rate.select("a").text() + " rates";
+        String metaScore = plot.select("div.titleReviewBar>div.titleReviewBarItem>a").text();
+        //System.out.println(rating + "\t" + rates + "\t" + metaScore);
+        
+        //Nominations
+        String top = "**" + doc.select("div#main_bottom>div#titleAwardsRanks>strong").text() + "**";
+        String middle = " | ";
+        String nomination = doc.select("div#main_bottom>div#titleAwardsRanks>span[itemprop=awards]").text(); //doc.select("div#main_bottom>div#titleAwardsRanks").text();
+        //System.out.println(top + "\t" + nomination);
+        
+        //Assign "None" to null datas
+        //if("".equals(title))
+        if("".equals(summary))
+            summary = "None";
+        if("".equals(director))
+            director = "None";
+        if("".equals(stars))
+            stars = "None";
+        if("".equals(metaScore))
+            metaScore = "None";
+        if("****".equals(top))
+            top = "";
+        else
+            top += middle;
+        if("".equals(nomination))
+            nomination = "No nomination or awards.";
+        
+        //Build MessageEmbed
+        EmbedBuilder imdb = new EmbedBuilder();
+        imdb.setColor(Info.setColor());
+        imdb.setThumbnail(result.getThumbnail());
+        imdb.setAuthor(Emoji.search + " IMDb Search", result.getLink(), null);
+        imdb.addField(Emoji.film_projector + " Title", title, true);
+        imdb.addField("Rating", contentRating, true);
+        imdb.addField(Emoji.film_frames + " Duration", duration, true);
+        imdb.addField("Genre", genre, true);
+        imdb.addField(Emoji.date + " Release Date", releaseDate, true);
+        
+        imdb.addField("Director(s)", director, true);
+        imdb.addField(Emoji.stars + " Stars", stars, false);
+        
+        imdb.addField(Emoji.star + "IMDb Rating", rating + rates, true);
+        imdb.addField("MetaScore", metaScore, true);
+        
+        imdb.addField(Emoji.trophy + " Nomination and Awards", top + nomination, true);
+        
+        imdb.addField(Emoji.book + " Plot", summary, true);
+        
+        return imdb;
+    }
+    
+    /**
+     * IMDb Thumbnail getter
      * @param result the value of SearchResult to add thumbnail
      * @throws IOException
      */
