@@ -14,6 +14,7 @@ import Resource.Info;
 import Resource.Prefix;
 import Resource.Search;
 import Resource.SearchResult;
+import Resource.WebScraper;
 import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.IOException;
@@ -99,7 +100,7 @@ public class IMDbCommand implements Command{
                     characters = "None\n";
                     
                 //Get Thumbnail of the first SearchResult
-                Search.getIMDBThumbNail(results.get(0));
+                WebScraper.getIMDBThumbNail(results.get(0));
                 
                 //Build EMbed Message
                 EmbedBuilder embeds = new EmbedBuilder();

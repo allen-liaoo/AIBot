@@ -147,24 +147,5 @@ public class Search {
         return results;
     }
     
-    public static void getIMDBThumbNail(SearchResult result) throws IOException
-    {
-        Document doc = Jsoup.connect(result.getLink()).timeout(0).get();
-        
-        String pic = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital>div.slate_wrapper>div.poster").select("a>img").attr("src");
-        
-        //Change getter for special thumbnails
-        if("".equals(pic))
-        {
-            try{
-                pic = doc.select("div#content-2-wide").get(0).select("div#main_top").get(0).select(".title-overview").get(0).select(".heroic-overview").get(0).select(".minPosterWithPlotSummaryHeight").get(0).select("div.poster").select("a").select("img").attr("src");
-            } catch (IndexOutOfBoundsException ioobe) {
-                //Initialize pic direcctly if there is no thumbnail for the result
-                pic = "http://ia.media-imdb.com/images/G/01/imdb/images/nopicture/32x44/film-3119741174._CB522736599_.png";
-            }
-        }
-            
-        result.setThumbnail(pic);
-    }
     
 }

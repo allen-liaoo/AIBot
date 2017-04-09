@@ -5,13 +5,13 @@
  */
 package Command.MusicModule;
 
-import Audio.Lyrics;
 import Command.Command;
 import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Resource.SearchResult;
 import Resource.Search;
+import Resource.WebScraper;
 import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.IOException;
@@ -77,7 +77,7 @@ public class LyricsCommand implements Command{
             
             //Get Lyrics
             try {
-                String[] lyrics = Lyrics.getSongLyrics(results.get(0).getLink());
+                String[] lyrics = WebScraper.getSongLyrics(results.get(0).getLink());
                 
                 //Exract lyrics from String[] array to a single string
                 String lyricsText = "";

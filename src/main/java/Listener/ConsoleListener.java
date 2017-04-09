@@ -5,7 +5,6 @@
  */
 package Listener;
 
-import Audio.Lyrics;
 import static Listener.CommandListener.handleCommand;
 import Main.Main;
 import Resource.Search;
@@ -48,12 +47,7 @@ public class ConsoleListener extends Thread {
             //Test Commands
             else if(input.startsWith("test"))
             {
-                try {
-                    //System.out.println("Test wot?");
-                    Search.IMDBSearch("");
-                } catch (IOException ex) {
-                    Logger.getLogger(ConsoleListener.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                System.out.println("Test wot?");
             }
             
             //Presence
