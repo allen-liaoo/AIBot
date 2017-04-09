@@ -19,6 +19,11 @@ public class Emoji {
     public static String down = EmojiParser.parseToUnicode(":arrow_down:");
     public static String invite = EmojiParser.parseToUnicode(":postbox:");
     
+    //-Faces
+    public static String face_tongue = EmojiParser.parseToUnicode(":stuck_out_tongue:");
+    public static String face_blush = EmojiParser.parseToUnicode(":blush:");
+    
+    //-Numbers
     public static String one = EmojiParser.parseToUnicode(":one:");
     public static String two = EmojiParser.parseToUnicode(":two:");
     public static String three = EmojiParser.parseToUnicode(":three:");
@@ -67,7 +72,22 @@ public class Emoji {
     
     //-SearchCommand
     public static String search = EmojiParser.parseToUnicode(":mag:");
+    //--IMDbCommand
+    public static String film_projector = EmojiParser.parseToUnicode(":film_projector:");
+    public static String film_frames = EmojiParser.parseToUnicode(":film_frames:");
+    public static String date = EmojiParser.parseToUnicode(":date:");
+    public static String star = EmojiParser.parseToUnicode(":star:");
+    public static String stars = EmojiParser.parseToUnicode(":stars:");
+    public static String trophy = EmojiParser.parseToUnicode(":trophy:");
+    public static String book = EmojiParser.parseToUnicode(":book:");
     
+    //Music
+    public static String globe = EmojiParser.parseToUnicode(":globe_with_meridians:");
+    public static String notes = EmojiParser.parseToUnicode(":notes:");
+    public static String volume_low = EmojiParser.parseToUnicode(":sound:");
+    public static String volume_high = EmojiParser.parseToUnicode(":loud_sound:");
+    
+    //Fun
     //-Game
     public static String game = EmojiParser.parseToUnicode(":video_game:");
     public static String hanged_face = EmojiParser.parseToUnicode(":confounded:");
@@ -76,16 +96,6 @@ public class Emoji {
     public static String paper = EmojiParser.parseToUnicode(":rolled_up_newspaper:");
     public static String scissors = EmojiParser.parseToUnicode(":scissors:");
     public static String tie = EmojiParser.parseToUnicode(":necktie:");
-    
-    //Music
-    public static String globe = EmojiParser.parseToUnicode(":globe_with_meridians:");
-    public static String notes = EmojiParser.parseToUnicode(":notes:");
-    public static String volume_low = EmojiParser.parseToUnicode(":sound:");
-    public static String volume_high = EmojiParser.parseToUnicode(":loud_sound:");
-    
-    //Faces
-    public static String face_tongue = EmojiParser.parseToUnicode(":stuck_out_tongue:");
-    public static String face_blush = EmojiParser.parseToUnicode(":blush:");
     
     /**
      * Change the input number into a String of emojis
