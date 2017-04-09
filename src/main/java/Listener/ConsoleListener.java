@@ -8,6 +8,7 @@ package Listener;
 import static Listener.CommandListener.handleCommand;
 import Main.Main;
 import Resource.Search;
+import Resource.WebScraper;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -47,7 +48,7 @@ public class ConsoleListener extends Thread {
             //Test Commands
             else if(input.startsWith("test"))
             {
-                System.out.println("Test wot?");
+                System.out.println("Test wot?");    
             }
             
             //Presence
