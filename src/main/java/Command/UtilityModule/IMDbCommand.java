@@ -64,7 +64,7 @@ public class IMDbCommand implements Command{
         else
         {
             String input = "";
-            for(int i = 0; i < args.length; i++){ input += args[i] + "+"; }
+            for(int i = 0; i < args.length; i++){ input += args[i].substring(0,1).toUpperCase() + args[i].substring(1) + " "; }
             input = input.substring(0, input.length()-1);
             
             try {
@@ -107,7 +107,8 @@ public class IMDbCommand implements Command{
                 embeds.setTitle("IMDB Search Results for \"" + input + "\"", null);
                 embeds.addField("Titles", titles, false);
                 embeds.addField("Names", names, false);
-                embeds.addField("Characters", characters + "\n[Click here for more results...](" + "http://www.imdb.com/find?q=" + input + ")\n", false);
+                embeds.addField("Characters", characters + "\n[Click here for more results...](" + 
+                        "http://www.imdb.com/find?q=" + input.replaceAll(" ", "+") + ")\n", false);
                 embeds.setThumbnail(results.get(0).getThumbnail());
                 embeds.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embeds.setTimestamp(Instant.now());

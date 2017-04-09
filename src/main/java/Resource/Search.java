@@ -113,7 +113,7 @@ public class Search {
     {
         List<SearchResult> results = new ArrayList<SearchResult>();
         
-        String IMDBsite = "http://www.imdb.com/find?q=" + input;
+        String IMDBsite = "http://www.imdb.com/find?q=" + input.replaceAll(" ", "+");
         Document doc = Jsoup.connect(IMDBsite).timeout(0).get();
         
         Elements p = doc.select("div#root").get(0).select("div.pagecontent").select("div#content-2-wide").select("div.article");
