@@ -24,6 +24,14 @@ import org.jsoup.nodes.Document;
 public class Search {
     private static int count = 0;
     
+    /**
+     * Google Search Engine
+     * @param customsite the custom site
+     * @param num the number of results the driver intend to get
+     * @param input the String to search via Google Search Engine
+     * @throws UnsupportedEncodingException
+     * @throws IOException
+     */
     public static List<SearchResult> search(String customsite, String num, String input) throws UnsupportedEncodingException, IOException 
     {
         List<SearchResult> results = new ArrayList<SearchResult>();
@@ -60,6 +68,13 @@ public class Search {
         return results;
     }
     
+    /**
+     * YouTube Search
+     * @param num the number of results the driver intend to get
+     * @param input the String for searching videos on YouTube
+     * @throws UnsupportedEncodingException
+     * @throws IOException
+     */
     public static List<SearchResult> youtubeSearch(String num, String input) throws UnsupportedEncodingException, IOException 
     {
         List<SearchResult> results = new ArrayList<SearchResult>();
@@ -86,6 +101,12 @@ public class Search {
         return results;
     }
     
+    /**
+     * Genius.com Lyrics Search
+     * @param input the String for searching lyrics on Genius.com
+     * @throws UnsupportedEncodingException
+     * @throws IOException
+     */
     public static List<SearchResult> lyricsSearch(String input) throws UnsupportedEncodingException, IOException 
     {
         List<SearchResult> results = new ArrayList<SearchResult>();
@@ -109,7 +130,13 @@ public class Search {
         return results;
     }
     
-    public static List<SearchResult> IMDBSearch(String input) throws UnsupportedEncodingException, IOException 
+    /**
+     * IMDb Titles, Names, Characters Search
+     * @param input the String to search in IMDb
+     * @throws UnsupportedEncodingException
+     * @throws IOException
+     */
+    public static List<SearchResult> IMDbSearch(String input) throws UnsupportedEncodingException, IOException 
     {
         List<SearchResult> results = new ArrayList<SearchResult>();
         

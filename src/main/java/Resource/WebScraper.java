@@ -23,7 +23,12 @@ import org.jsoup.nodes.TextNode;
  */
 public class WebScraper {
 
-    public static void getIMDBThumbNail(SearchResult result) throws IOException {
+    /**
+     *
+     * @param result the value of SearchResult to add thumbnail
+     * @throws IOException
+     */
+    public static void getIMDbThumbNail(SearchResult result) throws IOException {
         Document doc = Jsoup.connect(result.getLink()).timeout(0).get();
         String pic = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital>div.slate_wrapper>div.poster").select("a>img").attr("src");
         //Change getter for special thumbnails
@@ -38,6 +43,12 @@ public class WebScraper {
         result.setThumbnail(pic);
     }
 
+    /**
+     *
+     * @param input the value of lyrics URI, works with Search.lyricsSearch
+     * @throws IOException
+     * @throws HttpStatusException
+     */
     public static String[] getSongLyrics(String input) throws IOException, HttpStatusException {
         List<String> lyrics = new ArrayList<String>();
         String lyricsURL = Info.LYRICSURL + input.substring(0, 1).toUpperCase() + input.substring(1).replace(" ", "-").toLowerCase();

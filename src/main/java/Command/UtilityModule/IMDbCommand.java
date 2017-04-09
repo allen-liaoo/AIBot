@@ -69,7 +69,7 @@ public class IMDbCommand implements Command{
             input = input.substring(0, input.length()-1);
             
             try {
-                List<SearchResult> results = Search.IMDBSearch(input);
+                List<SearchResult> results = Search.IMDbSearch(input);
                 String titles = "";
                 String names = "";
                 String characters = "";
@@ -100,7 +100,7 @@ public class IMDbCommand implements Command{
                     characters = "None\n";
                     
                 //Get Thumbnail of the first SearchResult
-                WebScraper.getIMDBThumbNail(results.get(0));
+                WebScraper.getIMDbThumbNail(results.get(0));
                 
                 //Build EMbed Message
                 EmbedBuilder embeds = new EmbedBuilder();
