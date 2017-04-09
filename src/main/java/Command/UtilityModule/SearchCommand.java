@@ -59,7 +59,7 @@ public class SearchCommand implements Command{
     @Override
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
-        embed.setTitle("Miscellaneous Module", null);
+        embed.setTitle("Utility Module", null);
         embed.addField("Search -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Info.I_HELP);
         embed.setTimestamp(Instant.now());

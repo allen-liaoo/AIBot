@@ -65,12 +65,14 @@ public class SmartLogger {
             errorLogger.setUseParentHandlers(false);
             
             String from;
-            if(event.getChannelType() == event.getChannelType().TEXT)
+            if(event == null)
+                from = ": Unknown (Probably from methods that cannot access MessageReceivedEvent)";
+            else if(event.getChannelType() == event.getChannelType().TEXT)
                 from = " guild: " + event.getGuild().getName();
             else if (event.getChannelType() == event.getChannelType().PRIVATE)
                 from = " PM: " + event.getAuthor().getName();
             else
-                from = ": Unknown (Probably local source)";
+                from = ": Unknown (From unknown channel type.)";
             
             Logger.getGlobal().log(Level.WARNING, "Error in " + at + " from" + from);
             errorLogger.log(Level.WARNING, "From" + from + "\n\t Cause: " + at + " -> " + cause, ex);

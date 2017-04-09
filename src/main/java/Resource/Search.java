@@ -5,6 +5,7 @@
  */
 package Resource;
 
+import Setting.SmartLogger;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -109,5 +110,63 @@ public class Search {
         
         System.out.println("** Lyrics Search --> " + input + " : " + count +" results");
         return results;
+    }
+    
+    public static List<SearchResult> IMDBSearch(String input) throws UnsupportedEncodingException, IOException 
+    {
+        List<SearchResult> results = new ArrayList<SearchResult>();
+        
+        String IMDBsite = "http://www.imdb.com/find?q=" + input;
+        System.out.println(IMDBsite);
+        Document doc = Jsoup.connect(IMDBsite).timeout(0).get();
+        
+        Elements p = doc.select("div#root").get(0).select("div.pagecontent").select("div#content-2-wide").select("div.article");
+        
+        //Site Title
+        String title = p.select("h1.findHeader").text();
+        
+        Elements section = p.select("div.findSection");
+        
+        int totalcount = 0;
+        
+        //Titles
+        for( Element t : section )
+        {
+            while(count < 2)
+            {
+                try {
+                    String type = t.select(".findSectionHeader").text();
+                    String urltitle = t.select("tbody").select("tr").select("td.result_text").text(); 
+                    String url = "http://www.imdb.com" + t.select("tbody").select("tr").select("td.result_text>a").attr("href");
+                    String picture = t.select("tbody").select("tr>td.primary_photo").select("a>img").attr("src");
+
+                    results.add(new SearchResult(urltitle, null, url, type, picture));
+                    count++;
+                } catch(IndexOutOfBoundsException ioobe) {
+                    ioobe.printStackTrace();
+                    //SmartLogger.errorLog(ioobe, null, "Search#IMDBSearch", "Input is " + input);
+                    continue;
+                }
+            }
+            count = 0;
+            totalcount++;
+        }
+        
+        System.out.println("** IMDB Search --> " + input + " : " + totalcount +" results");
+        return results;
+    }
+    
+    public static String getIMDBThumbNail(SearchResult result) throws IOException
+    {
+        Document doc = Jsoup.connect(result.getLink()).timeout(0).get();
+        
+        System.out.println(result.getLink());
+        String pic = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital>div.slate_wrapper>div.poster").select("img").attr("src");
+        System.out.println("Pic" + pic);
+        if(pic == null)
+            pic = doc.select("div#main_top").select("div.title-overview").select("div.heroic-overview").select("div.minPosterWithPlotSummaryHeight").select("div.poster").select("a").select("img").attr("src");
+        
+        System.out.println("Pic" + pic);
+        return pic;
     }
 }
