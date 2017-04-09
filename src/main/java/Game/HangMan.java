@@ -76,12 +76,16 @@ public class HangMan implements Game{
             reader.close();
             System.out.println(ranword);
             
+            //Clear Last game's data
+            clear();
+            
             //Initialize            
             for(int i = 0; i < ranword.length(); i ++)
             {
                 word.add(ranword.substring(i,i+1));
                 right.add("_");
             }
+            ranword = "";
             
         } catch (IOException ioe) {
             SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferReeader at startGame()");

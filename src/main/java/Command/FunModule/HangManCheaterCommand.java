@@ -60,7 +60,7 @@ public class HangManCheaterCommand implements Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-h".equals(args[0])) 
+        if(args.length < 3 || "-h".equals(args[0])) 
         {
             help(e);
         }
@@ -133,7 +133,17 @@ public class HangManCheaterCommand implements Command {
             }
             
             //Print out result
-            String possibleword = "__**" + result.size() + "Possible Words In Alphabetical Order: **__\n", pages = "\nPages ";
+            String possibleword = "", pages = "\nPages ";
+            
+            if(result.isEmpty())
+            {
+                e.getChannel().sendMessage(Emoji.error + " No results.").queue();
+                return;
+            }
+            else if(result.size() == 1)
+                possibleword = "__** Found " + result.size() + " Possible Word: **__\n";
+            else
+                possibleword = "__** Found " + result.size() + " Possible Words: **__\n";
             
             pages += page;
             
