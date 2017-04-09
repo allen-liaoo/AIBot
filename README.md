@@ -60,8 +60,9 @@ Adding the command/module name after help will show the command/module usage. <b
 \* - Available directly from Private Message. (Private Channel) <br />
 
 ## Libraries
-1. JDK https://github.com/DV8FromTheWorld/JDA 
-2. Lavaplayer https://github.com/sedmelluq/lavaplayer 
-3. Emoji Java https://github.com/vdurmont/emoji-java 
-4. Exp4j http://www.objecthunter.net/exp4j/ 
-5. Yahoo Weather Java API https://github.com/fedy2/yahoo-weather-java-api 
+1. JDK https://github.com/DV8FromTheWorld/JDA (Discord API)
+2. Lavaplayer https://github.com/sedmelluq/lavaplayer (For Music Module)
+3. Emoji Java https://github.com/vdurmont/emoji-java (For Emotes)
+4. Exp4j http://www.objecthunter.net/exp4j/ (For MathCommand)
+5. Yahoo Weather Java API https://github.com/fedy2/yahoo-weather-java-api (For WeatherCommand)
+6. Jsoup https://jsoup.org/ (For searching and screen scraping)
