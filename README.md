@@ -49,15 +49,15 @@ __**Music Commands**__
 - stop - Stop the player. 
 - lyrics - Show the lyrics of a song. * 
 
-__**Restricted Commands**__ 
-<br />These commands are for **Server Owner** or **Bot Owner** only. 
+__**Restricted Commands**__ <br />
+These commands are for **Server Owner** or **Bot Owner** only. 
 - shutdown - Shut down the bot remotely. (Bot Owner) * 
 - source - Get the source code of a command class. * 
 - Presence - Set the Status or Game of the bot. * 
 
-__**Note:**__ 
-Adding the command/module name after help will show the command/module usage. 
-\* - Available directly from Private Message. (Private Channel) 
+__**Note:**__ <br />
+Adding the command/module name after help will show the command/module usage. <br />
+\* - Available directly from Private Message. (Private Channel) <br />
 
 ## Libraries
 1. JDK https://github.com/DV8FromTheWorld/JDA 
