@@ -57,6 +57,7 @@ public class HangManCommand implements Command{
         
         else if(args.length > 0 && "start".equals(args[0]))
         {
+            SmartLogger.commandLog(e, this.getClass().getName(), "HangMan Started.");
             game = new HangMan(e);
         }
         

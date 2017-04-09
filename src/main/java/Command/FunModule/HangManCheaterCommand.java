@@ -67,7 +67,7 @@ public class HangManCheaterCommand implements Command {
         
         else
         {
-            SmartLogger.commandLog(e, "HangManCheaterCommand", "Called by " + e.getAuthor().getName());
+            SmartLogger.commandLog(e, this.getClass().getName(), "Called by " + e.getAuthor().getName());
             //Initialize
             String word = args[0], miss = args[1];
             

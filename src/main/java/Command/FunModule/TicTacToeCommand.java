@@ -59,6 +59,7 @@ public class TicTacToeCommand implements Command {
         
         else if(args.length > 0 && "start".equals(args[0]))
         {
+            SmartLogger.commandLog(e, this.getClass().getName(), "TicTacToe Started.");
             game = new TicTacToe(e);
         }
         
