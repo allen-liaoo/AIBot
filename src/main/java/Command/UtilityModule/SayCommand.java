@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.Role;
@@ -82,12 +83,14 @@ public final static  String HELP = "This command is for letting a bot say someth
             }
             
             if(e.getChannelType() != e.getChannelType().PRIVATE)
-            {
-                //Delete the command message.
-                e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
+            {    if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE))
                 {
-                    msg2.delete().queue();
-                }));
+                    //Delete the command message.
+                    e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
+                    {
+                        msg2.delete().queue();
+                    }));
+                }
             }
             
             embedmsg.setColor(Color.red);
@@ -102,7 +105,7 @@ public final static  String HELP = "This command is for letting a bot say someth
         
         else 
         {
-            SmartLogger.commandLog(e, "SayCommand", "Embed");
+            SmartLogger.commandLog(e, "SayCommand", "Regular");
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             int mencount = 0;
             
@@ -123,18 +126,19 @@ public final static  String HELP = "This command is for letting a bot say someth
             
             if(e.getChannelType() != e.getChannelType().PRIVATE)
             {
-                try {
-                    //Delete the command message.
-                    e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
-                    {
-                        msg2.delete().queue();
-                    }));
+                if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE))
+                {
+                    try {
+                        //Delete the command message.
+                        e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
+                        {
+                            msg2.delete().queue();
+                        }));
 
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    SmartLogger.errorLog(ex, e, this.getClass().getName(), "Process interrupted.");
-                } catch (PermissionException pe) {
-                    SmartLogger.errorLog(pe, e, this.getClass().getName(), "Cannot delete message.");
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        SmartLogger.errorLog(ex, e, this.getClass().getName(), "Process interrupted.");
+                    }
                 }
             }
             
