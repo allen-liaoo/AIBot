@@ -28,7 +28,7 @@ __**Utility Commands**__
 - emoji - Getting informations about an emoji. * 
 - math (m) - Let the bot to solve a math operation for you. * 
 - weather (w) - Get the weather. * 
-- search - Search custom sites using Google Search Engine.* 
+- search - Search Google, Wikipedia, Urban Dictionary, Github, IMDb and custom sites.* 
 - image - Search images from Imgur, Giphy, and KnowYourMeme. * 
 
 __**Fun Commands**__
