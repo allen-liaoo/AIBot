@@ -50,7 +50,7 @@ __**Music Commands**__
 - lyrics - Show the lyrics of a song. * 
 
 __**Restricted Commands**__ 
-These commands are for **Server Owner** or **Bot Owner** only. 
+<br />These commands are for **Server Owner** or **Bot Owner** only. 
 - shutdown - Shut down the bot remotely. (Bot Owner) * 
 - source - Get the source code of a command class. * 
 - Presence - Set the Status or Game of the bot. * 
