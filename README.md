@@ -51,10 +51,9 @@ __**Music Commands**__
 
 __**Restricted Commands**__ 
 These commands are for **Server Owner** or **Bot Owner** only. 
-shutdown - Shut down the bot remotely. (Bot Owner) * 
-source - Get the source code of a command class. * 
-setStatus - Set the status of the bot. * 
-setGame - Set the game of the bot. * 
+- shutdown - Shut down the bot remotely. (Bot Owner) * 
+- source - Get the source code of a command class. * 
+- Presence - Set the Status or Game of the bot. * 
 
 __**Note:**__ 
 Adding the command/module name after help will show the command/module usage. 
