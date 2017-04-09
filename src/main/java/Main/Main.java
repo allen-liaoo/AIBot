@@ -139,13 +139,11 @@ public class Main {
         commands.put("number", new NumberCommand());
         commands.put("num", new NumberCommand());
         commands.put("n", new NumberCommand());
-        
         commands.put("math", new MathCommand());
         commands.put("calc", new MathCommand());
         commands.put("m", new MathCommand());
         
         commands.put("say", new SayCommand());
-        
         commands.put("emoji", new EmojiCommand());
         commands.put("emote", new EmojiCommand());
         commands.put("weather", new WeatherCommand());
@@ -158,6 +156,7 @@ public class Main {
         commands.put("urban", new SearchCommand("ub"));
         commands.put("github", new SearchCommand("git"));
         commands.put("git", new SearchCommand("git"));
+        commands.put("imdb", new IMDbCommand());
         
         commands.put("image", new ImageCommand("image"));
         commands.put("imgur", new ImageCommand("imgur"));
@@ -165,6 +164,7 @@ public class Main {
         commands.put("gif", new ImageCommand("gif"));
         commands.put("meme", new ImageCommand("meme"));
         
+        //Fun Commands
         commands.put("8ball", new EightBallCommand());
         commands.put("face", new FaceCommand());
         commands.put("game", new GameCommand());

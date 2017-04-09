@@ -40,5 +40,6 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - NowPlayingCommand for getting the title, link, and duration of the now playing song.
 - QueueCommand for getting the gueue list.
 - LyricsCommand support search.
+- IMDbCommand for getting results from IMDb.
 ##### Fixed
 - PresenceCommand to work with @Mention prefix

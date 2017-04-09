@@ -50,7 +50,7 @@ public class ConsoleListener extends Thread {
             {
                 try {
                     //System.out.println("Test wot?");
-                    Search.lyricsSearch("");
+                    Search.IMDBSearch("");
                 } catch (IOException ex) {
                     Logger.getLogger(ConsoleListener.class.getName()).log(Level.SEVERE, null, ex);
                 }

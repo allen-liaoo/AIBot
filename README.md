@@ -26,7 +26,7 @@ kick (k) - Kick member(s). <br />
 ban (b) - Ban member(s) by Mention. <br />
 unban (ub) - Unban member(s) by ID. <br />
 
-__**Miscellaneous Commands**__ <br />
+__**Utility Commands**__ <br />
 number (n) - Generate random numbers, roll a dice, or flip a coin. * <br />
 &nbsp;&nbsp;*num random (n r)* - Generate random numbers. <br />
 &nbsp;&nbsp;*num count (n c)* - Count numbers. <br />
@@ -36,15 +36,18 @@ say - Let the bot say something for you. Support Embed Message. * <br />
 emoji - Getting informations about an emoji. * <br />
 math (m) - Let the bot to solve a math operation for you. * <br />
 weather (w) - Get the weather. * <br />
-search - Search Google, Wikipedia, Urban Dictionary, Github, and custom sites. * <br />
-&nbsp;&nbsp;*google (g)* - Search via Google Search Engine. <br />
+search - Search custom sites using Google Search Engine.* <br />
+&nbsp;&nbsp;*google (g)* - Google Search. <br />
 &nbsp;&nbsp;*wiki* - Search Wikipedia. <br />
 &nbsp;&nbsp;*urban* - Search Urban Dictionary. <br />
 &nbsp;&nbsp;*github (git)* - Search Github. <br />
+&nbsp;&nbsp;*imdb* - Search IMDb. <br />
 image - Search images from Imgur, Giphy, and KnowYourMeme. * <br />
 &nbsp;&nbsp;*imgur* - Search from Imgur. <br />
 &nbsp;&nbsp;*gif* - Search from Giphy. <br />
 &nbsp;&nbsp;*meme* - Search from KnowYourMeme. <br />
+
+__**Fun Commands**__
 8ball - Ask the magic 8ball a question. * <br />
 face - Lenny * <br />
 game - Play a game. <br />

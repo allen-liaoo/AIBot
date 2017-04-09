@@ -22,17 +22,14 @@ import org.jsoup.nodes.Document;
  * @author liaoyilin
  */
 public class Search {
-    
-    private static String defnum = "&num=";
-    private static String defsite = "&as_sitesearch=";
     private static int count = 0;
-    private final static String songLyrics = "http://www.genius.com/";
     
     public static List<SearchResult> search(String customsite, String num, String input) throws UnsupportedEncodingException, IOException 
     {
         List<SearchResult> results = new ArrayList<SearchResult>();
         
         String google = "http://www.google.com/search?q=";
+        String defnum = "&num=";
         String charset = "UTF-8";
         String userAgent = "DiscordBot";
         
@@ -117,7 +114,6 @@ public class Search {
         List<SearchResult> results = new ArrayList<SearchResult>();
         
         String IMDBsite = "http://www.imdb.com/find?q=" + input;
-        System.out.println(IMDBsite);
         Document doc = Jsoup.connect(IMDBsite).timeout(0).get();
         
         Elements p = doc.select("div#root").get(0).select("div.pagecontent").select("div#content-2-wide").select("div.article");
@@ -132,21 +128,15 @@ public class Search {
         //Titles
         for( Element t : section )
         {
-            while(count < 2)
+            //Avoid Array IndexOutOfBoundsException which causes infinite printStackTrace
+            while(count < t.select("tbody").select("tr").size() && count < 4) //Max: 4 results for a type
             {
-                try {
-                    String type = t.select(".findSectionHeader").text();
-                    String urltitle = t.select("tbody").select("tr").select("td.result_text").text(); 
-                    String url = "http://www.imdb.com" + t.select("tbody").select("tr").select("td.result_text>a").attr("href");
-                    String picture = t.select("tbody").select("tr>td.primary_photo").select("a>img").attr("src");
+                String type = t.select(".findSectionHeader").text(); //Titles, ames, or Characters
+                String urltitle = t.select("tbody").select("tr").get(count).select("td.result_text").text(); 
+                String url = "http://www.imdb.com" + t.select("tbody").select("tr").get(count).select("td.result_text>a").attr("href");
 
-                    results.add(new SearchResult(urltitle, null, url, type, picture));
-                    count++;
-                } catch(IndexOutOfBoundsException ioobe) {
-                    ioobe.printStackTrace();
-                    //SmartLogger.errorLog(ioobe, null, "Search#IMDBSearch", "Input is " + input);
-                    continue;
-                }
+                results.add(new SearchResult(urltitle, null, url, type, null));
+                count++;
             }
             count = 0;
             totalcount++;
@@ -156,17 +146,25 @@ public class Search {
         return results;
     }
     
-    public static String getIMDBThumbNail(SearchResult result) throws IOException
+    public static void getIMDBThumbNail(SearchResult result) throws IOException
     {
         Document doc = Jsoup.connect(result.getLink()).timeout(0).get();
         
         System.out.println(result.getLink());
-        String pic = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital>div.slate_wrapper>div.poster").select("img").attr("src");
-        System.out.println("Pic" + pic);
-        if(pic == null)
-            pic = doc.select("div#main_top").select("div.title-overview").select("div.heroic-overview").select("div.minPosterWithPlotSummaryHeight").select("div.poster").select("a").select("img").attr("src");
+        String pic = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital>div.slate_wrapper>div.poster").select("a>img").attr("src");
         
-        System.out.println("Pic" + pic);
-        return pic;
+        //Change getter for special thumbnails
+        if("".equals(pic))
+        {
+            try{
+                pic = doc.select("div#content-2-wide").get(0).select("div#main_top").get(0).select(".title-overview").get(0).select(".heroic-overview").get(0).select(".minPosterWithPlotSummaryHeight").get(0).select("div.poster").select("a").select("img").attr("src");
+            } catch (IndexOutOfBoundsException ioobe) {
+                //Initialize pic direcctly if there is no thumbnail for the result
+                pic = "http://ia.media-imdb.com/images/G/01/imdb/images/nopicture/32x44/film-3119741174._CB522736599_.png";
+            }
+        }
+            
+        result.setThumbnail(pic);
     }
+    
 }

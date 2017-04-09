@@ -76,6 +76,7 @@ public class HelpText {
             + "*wiki*\n"
             + "*urban*\n"
             + "*github (git)*\n"
+            + "*imdb*\n"
             //Command Group- Image
             + "***image***\n"
             + "*imgur*\n"
@@ -98,6 +99,7 @@ public class HelpText {
             + "Wikipedia.\n"
             + "Urban Dictionary.\n"
             + "Github.\n"
+            + "Internet Movie Database\n"
             //Command Group- Image
             + "Search images. *\n"
             + "Search from Imgur.\n"

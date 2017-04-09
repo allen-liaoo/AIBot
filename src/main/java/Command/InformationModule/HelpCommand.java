@@ -237,6 +237,9 @@ public class HelpCommand implements Command {
             case "meme":
                 cmdhelp = ImageCommand.HELP;
                 break;
+            case "imdb":
+                cmdhelp = IMDbCommand.HELP;
+                break;
 
             //Fun Module
             case "fun":
@@ -299,6 +302,11 @@ public class HelpCommand implements Command {
                 break;
             case "skip":
                 cmdhelp = SkipCommand.HELP;
+                break;
+            case "nowplaying":
+            case "current":
+            case "np":
+                cmdhelp = NowPlayingCommand.HELP;
                 break;
             case "queue":
                 cmdhelp = QueueCommand.HELP;

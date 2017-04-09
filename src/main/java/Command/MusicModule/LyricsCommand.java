@@ -72,7 +72,7 @@ public class LyricsCommand implements Command{
             try {
                 results = Search.lyricsSearch(input);
             } catch (IOException ex) {
-                Logger.getLogger(LyricsCommand.class.getName()).log(Level.SEVERE, null, ex);
+                SmartLogger.errorLog(ex, e, this.getClass().getName(), "IO Exception");
             }
             
             //Get Lyrics
@@ -95,6 +95,7 @@ public class LyricsCommand implements Command{
                 }
                 
                 EmbedBuilder embedly = new EmbedBuilder();
+                embedly.setColor(Info.setColor());
                 embedly.setTitle(results.get(0).getTitle() + " by " + results.get(0).getAuthor(), results.get(0).getLink());
                 embedly.setFooter("From Genius.com", null);
                 MessageEmbed mely = embedly.build();
