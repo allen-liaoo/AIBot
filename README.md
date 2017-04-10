@@ -44,6 +44,7 @@ __**Music Commands**__
 - play - Play a song from YouTube. 
 - pause - Pause the current playing song. 
 - skip - Skip the song. 
+- queue - Show the playlist and what's coming next.
 - nowplaying - Get the information of the current playing song.
 - volume - Set the volume of the bot. 
 - stop - Stop the player. 

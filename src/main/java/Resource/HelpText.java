@@ -139,8 +139,9 @@ public class HelpText {
             + "**leave  (l)**\n"
             + "**play**\n"
             + "**pause**\n"
+            + "**queue**\n\n"
             + "**skip**\n"
-            + "nowplaying\n\n"
+            + "**nowplaying**\n\n"
             + "**volume**\n"
             + "**stop**\n"
             + "**lyrics**\n";
@@ -150,6 +151,7 @@ public class HelpText {
             + "Remove bot from a voice channel.\n"
             + "Play a song from YouTube.\n"
             + "Pause the current playing song.\n"
+            + "Show the playlist and what's \ncoming next\n"
             + "Skip the song.\n"
             + "Get the information of the \ncurrent playing song.\n"
             + "Set the volume of the bot.\n"
