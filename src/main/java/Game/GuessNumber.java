@@ -75,6 +75,10 @@ public class GuessNumber implements Game{
             e.getChannel().sendMessage("Lower! " + Emoji.down + "\nYou got " + count + " chances left.").queue();
         }
     }
+    
+    public int getNumber() {
+        return number;
+    }
 
     @Override
     public void switchTurn() {
