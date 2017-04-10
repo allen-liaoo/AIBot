@@ -71,5 +71,5 @@ These commands are for **Server Owner** or **Bot Owner** only. <br />
 - @Mention the bot with commands will also trigger the respond. <br />
 - Adding the command/module name after help will show the command/module usage. <br />
 - Adding `-h` after a command will show the command usage. <br />
-- * - Available directly from Private Message. (Private Channel) <br />
+- \* - Available directly from Private Message. (Private Channel) <br />
 - ^ - Available directly from Console. <br />
