@@ -29,10 +29,10 @@
 - weather (w) - Get the weather. *
 * search - Search sites using Google Search Engine. *
  * google (g)* - Google Search. 
-⋅⋅* wiki - Search Wikipedia. 
-⋅⋅*urban - Search Urban Dictionary. 
-⋅⋅*github (git) - Search Github. 
-⋅⋅*imdb - Search IMDb.
+ * wiki - Search Wikipedia. 
+ * urban - Search Urban Dictionary. 
+ * github (git) - Search Github. 
+ * imdb - Search IMDb.
 - image - Search images from Imgur, Giphy, and KnowYourMeme. * 
 ⋅⋅*imgur - Search from Imgur.
 ⋅⋅*gif - Search from Giphy.
