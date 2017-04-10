@@ -50,8 +50,9 @@ public class GameCommand implements Command {
         {
             e.getChannel().sendMessage("Choose a game below to get its help message:\n"
                                     + "1: Rock Paper Scissors\n"
-                                    + "2: Tic Tac Toe\n"
-                                    + "3: Hang Man\n"
+                                    + "2: Guess Number\n"
+                                    + "3: Tic Tac Toe\n"
+                                    + "4: Hang Man\n"
                                     + "Hint: Use `" + Prefix.getDefaultPrefix() + "game [Number]` to choose.").queue();
         }
         
@@ -69,10 +70,16 @@ public class GameCommand implements Command {
             }
             else if("2".equals(args[0]))
             {
-                TicTacToeCommand ttt = new TicTacToeCommand();
+                GuessNumberCommand ttt = new GuessNumberCommand();
                 ttt.help(e);
             }
             else if("3".equals(args[0]))
+            {
+                TicTacToeCommand ttt = new TicTacToeCommand();
+                ttt.help(e);
+            }
+            
+            else if("4".equals(args[0]))
             {
                 HangManCommand hm = new HangManCommand();
                 hm.help(e);
