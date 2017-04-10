@@ -83,7 +83,7 @@ public final static  String HELP = "This command is for letting a bot say someth
             }
             
             if(e.getChannelType() != e.getChannelType().PRIVATE)
-            {    if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE))
+            {    if (e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE))
                 {
                     //Delete the command message.
                     e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
@@ -126,7 +126,7 @@ public final static  String HELP = "This command is for letting a bot say someth
             
             if(e.getChannelType() != e.getChannelType().PRIVATE)
             {
-                if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE))
+                if (e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE))
                 {
                     try {
                         //Delete the command message.

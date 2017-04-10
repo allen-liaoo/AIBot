@@ -111,6 +111,7 @@ public class Emoji {
     //-Game
     public static String game = EmojiParser.parseToUnicode(":video_game:");
     public static String hanged_face = EmojiParser.parseToUnicode(":confounded:");
+    public static String eight_ball = EmojiParser.parseToUnicode(":8ball:");
     //--RPSCommand
     public static String rock = EmojiParser.parseToUnicode(":last_quarter_moon:");
     public static String paper = EmojiParser.parseToUnicode(":rolled_up_newspaper:");
