@@ -90,7 +90,7 @@ public class RPSCommand implements Command {
     public String getHand()
     {
         String hand = "";
-        int choice = (int) Math.floor(Math.random() * 4);
+        int choice = (int) Math.floor(Math.random() * 3 + 1);
         switch(choice)
         {
             case 1: hand = "rock";
