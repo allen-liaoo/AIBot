@@ -9,6 +9,7 @@ import Command.Command;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Resource.Emoji;
 import java.awt.Color;
 import java.util.List;
 import java.time.Instant;
@@ -27,8 +28,10 @@ import net.dv8tion.jda.core.entities.Guild;
 public class InfoServerCommand implements Command{
     public final static String HELP = "This command is for getting informations about this server.\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "serverinfo` or `" + Prefix.getDefaultPrefix() + "si` \n"
-                                    + "Parameter: `-h | -m | null`\n"
-                                    + "-m: Get more info.";
+                                    + "Parameter: `-h | -m | [ID] | -m [ID] | null`\n"
+                                    + "-m: Get more info about the current server.\n"
+                                    + "[ID]: Get a server by ID (The Bot must be in that server).\n"
+                                    + "-m [ID]: Get more info about a server by ID.\n";
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embedsi = new EmbedBuilder();
     
@@ -52,11 +55,28 @@ public class InfoServerCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-m".equals(args[0]))
+        if(args.length >= 0 || "-m".equals(args[0]))
         {
             Guild guild = e.getGuild();
+            
+            //Detects ID
+            if(args.length > 0)
+            {
+                if("-m".equals(args[0]) && args[1].length() == 18)
+                    guild = e.getJDA().getGuildById(args[1]);
+                else if(args[0].length() == 18)
+                    guild = e.getJDA().getGuildById(args[0]);
+            }
+            
             String name, id, owner, region, icon, verify;
             int txtChannel, audioChannel, member, role, online = 0, human = 0, bot = 0;
+            
+            if(guild == null)
+            {
+                e.getChannel().sendMessage(Emoji.error + " Cannot find this guild.\n"
+                        + "Either I am not in this guild or the ID you provided is invalid.").queue();
+                return;
+            }
             
             name = guild.getName();
             id = guild.getId();

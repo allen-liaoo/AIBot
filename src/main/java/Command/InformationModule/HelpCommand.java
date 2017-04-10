@@ -18,12 +18,10 @@ import Command.UtilityModule.*;
 import Command.MusicModule.*;
 import Command.FunModule.*;
 import Command.RestrictedModule.*;
-import Main.*;
 import Setting.SmartLogger;
 
 import java.awt.Color;
 import java.time.Instant;
-import java.util.Random;
 
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -103,7 +101,7 @@ public class HelpCommand implements Command {
     public static void helpText(MessageReceivedEvent e)
     {
         embed.setColor(Info.setColor());
-        embed.setAuthor("AIBot Help", null, Info.I_HELP);
+        embed.setAuthor("AIBot Help", Info.B_GITHUB, Info.I_HELP);
 
         embed.addField("Information Module", HelpText.INFO_CMD, true);
         embed.addField("Description", HelpText.INFO_DES, true);
@@ -358,7 +356,7 @@ public class HelpCommand implements Command {
             cmdtitle += " -Help";
         }
 
-        embedHelp.setTitle("AIBot Help -" + morc, null); //Set title for command
+        embedHelp.setAuthor("AIBot Help -" + morc, Info.B_GITHUB,null); //Set title for command
         embedHelp.setColor(Info.setColor());
 
         embedHelp.addField(cmdtitle, cmdhelp, true);

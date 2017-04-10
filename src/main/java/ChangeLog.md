@@ -49,6 +49,6 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 #### [0.1.9] - 2017-04-09
 ##### Added 
 - Number to Emoji Function for Number#RollADice
-- IMDbCommand: Get specific informations about a movie/tv-show
-- Emojis for IMDbCommand
-- EmojisCommand: Add SayEmoji
+- IMDbCommand: Get specific informations about a movie/tv-show. Added Emojis
+- EmojisCommand: Add SayEmoji Function in which the bot will talk in Emoji Language.
+- InfoServerCommand: Get Server Info By ID.
