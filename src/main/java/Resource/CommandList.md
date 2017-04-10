@@ -1,4 +1,4 @@
-##Information Commands
+## Information Commands
 - help (h) - Get a list of commands. *
 - invite - Get a invite link for this bot. *
 - botinfo (bi) - Get bot info. *
@@ -11,13 +11,13 @@
 - status - Bot status or uptime. *
 - support - Related servers and bots. *
 
-##Moderation Commands
+## Moderation Commands
 - prune (p) - Delete messages.
 - kick (k) - Kick member(s).
 - ban (b) - Ban member(s) by Mention.
 - unban (ub) - Unban member(s) by ID.
 
-##Utility Commands
+## Utility Commands
 - number (n) - Generate random numbers, roll a dice, or flip a coin. *
 ⋅⋅*num random (n r) - Generate random numbers.
 ⋅⋅*num count (n c) - Count numbers.
@@ -27,9 +27,9 @@
 - say - Let the bot say something for you. Support Embed Message. * 
 - emoji (e)- Translate words into the Emoji language. *
 - weather (w) - Get the weather. *
-- search - Search sites using Google Search Engine. *
-⋅⋅*google (g)* - Google Search. 
-⋅⋅*wiki - Search Wikipedia. 
+* search - Search sites using Google Search Engine. *
+⋅⋅* google (g)* - Google Search. 
+⋅⋅* wiki - Search Wikipedia. 
 ⋅⋅*urban - Search Urban Dictionary. 
 ⋅⋅*github (git) - Search Github. 
 ⋅⋅*imdb - Search IMDb.
@@ -38,7 +38,7 @@
 ⋅⋅*gif - Search from Giphy.
 ⋅⋅*meme - Search from KnowYourMeme.
 
-##Fun Commands
+## Fun Commands
 - 8ball - Ask the magic 8ball a question. *
 - face - Lenny * 
 * game - Play a game. 
@@ -48,7 +48,7 @@
 ⋅⋅* hangman (hm) - Play HangMan. * 
  - hangmancheater (hmc) - Hang Man Cheater base on the unknown word and missed letters. *
 
-##Music Commands
+## Music Commands
 - join (j) - Add bot to a voice channel.
 - leave (l) - Remove bot from a voice channel. 
 - play - Play a song from YouTube.
@@ -60,14 +60,14 @@
 - stop - Stop the player.
 - lyrics - Show the lyrics of a song. *
 
-##Restricted Commands <br />
+## Restricted Commands <br />
 These commands are for **Server Owner** or **Bot Owner** only.
 - shutdown - Shut down the bot remotely. (Bot Owner) * ^
 - source - Get the source code of a command class. * 
 - setStatus - Set the status of the bot. * ^
 - setGame - Set the game of the bot. * ^
 
-##Note: <br />
+## Note: <br />
 @Mention the bot with commands will also trigger the respond. <br />
 Adding the command/module name after help will show the command/module usage. <br />
 Adding `-h` after a command will show the command usage. <br />
