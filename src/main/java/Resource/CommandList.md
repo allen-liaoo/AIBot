@@ -28,7 +28,7 @@
 - emoji (e)- Translate words into the Emoji language. *
 - weather (w) - Get the weather. *
 * search - Search sites using Google Search Engine. *
-⋅⋅* google (g)* - Google Search. 
+ * google (g)* - Google Search. 
 ⋅⋅* wiki - Search Wikipedia. 
 ⋅⋅*urban - Search Urban Dictionary. 
 ⋅⋅*github (git) - Search Github. 
