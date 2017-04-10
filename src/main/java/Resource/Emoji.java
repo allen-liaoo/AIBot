@@ -111,7 +111,11 @@ public class Emoji {
     public static String scissors = EmojiParser.parseToUnicode(":scissors:");
     public static String tie = EmojiParser.parseToUnicode(":necktie:");
     
-    
+    /**
+     * Change the String of letters mixed with numbers into a String of emojis
+     * @param input the String to be change to emoji
+     * @return String of emojis
+     */
     public static String stringToEmoji(String input)
     {
         String output = "";
