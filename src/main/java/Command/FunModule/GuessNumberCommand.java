@@ -53,7 +53,12 @@ public class GuessNumberCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || (args.length > 0 && "start".equals(args[0])))
+        if(args.length > 0 && "-h".equals(args[0]))
+        {
+            help(e);
+        }
+        
+        else if(args.length == 0 || (args.length > 0 && "start".equals(args[0])))
         {
             gn = new GuessNumber(e);
         }
@@ -61,7 +66,7 @@ public class GuessNumberCommand implements Command{
         else if(args.length > 0 && "end".equals(args[0]))
         {
             gn.endGame();
-            e.getChannel().sendMessage("Game ended!").queue();
+            e.getChannel().sendMessage("Game ended! The number was " + gn.getNumber() + ".").queue();
         }
         
         else

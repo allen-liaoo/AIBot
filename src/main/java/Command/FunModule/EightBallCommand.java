@@ -9,6 +9,7 @@ import Command.Command;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Resource.Emoji;
 import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -47,9 +48,14 @@ public class EightBallCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        String msg = e.getAuthor().getAsMention() + " " + eightball(e);
+        String msg = e.getAuthor().getAsMention() + " " + Emoji.eight_ball + " " + eightball(e);
         if(args.length > 0 && !"-h".equals(args[0]))
         {
+            if(!e.getMessage().getContent().endsWith("?"))
+            {
+                e.getChannel().sendMessage(e.getAuthor().getAsMention() + " " + Emoji.eight_ball + " That doesn't sounds like a question...").queue();
+                return;
+            }
             e.getChannel().sendMessage(msg).queue();
         }
             
