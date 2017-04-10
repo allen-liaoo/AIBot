@@ -7,7 +7,8 @@ Defualt Prefix: `=`<br />
 [Invite Link Without Permissions](https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=0) <br />
 [Discord Support Server](https://discord.gg/EABc8Kc)
 
-## Brief Command List
+## Brief Command List <br />
+For a full command list, go to [Full Command List](AIBot/src/main/java/Resource/FullHelpText.txt) <br />
 __**Information Commands**__ 
 - help (h) - Get a list of commands. * 
 - invite - Get a invite link for this bot. * 

@@ -66,7 +66,7 @@ public class NumberCommand implements Command {
                 int from = 1;
                 int to = 4;
                 while(from != to+1){ //Counting
-                    e.getChannel().sendMessage(from + "\n").queue();
+                    e.getChannel().sendMessage(from + "\n").complete();
                     from ++;
                 }
             }
