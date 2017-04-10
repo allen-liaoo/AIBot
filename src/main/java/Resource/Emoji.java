@@ -82,6 +82,12 @@ public class Emoji {
     public static String free = EmojiParser.parseToUnicode(":free:");
     public static String mark_question = EmojiParser.parseToUnicode(":grey_question:");
     public static String mark_exclamation = EmojiParser.parseToUnicode(":exclamation:");
+    public static String mark_hash = EmojiParser.parseToUnicode(":hash:");
+    public static String mark_asterisk = EmojiParser.parseToUnicode(":keycap_asterisk:");
+    public static String mark_dollar_sign = EmojiParser.parseToUnicode(":heavy_dollar_sign:");
+    public static String mark_plus_sign = EmojiParser.parseToUnicode(":heavy_plus_sign:");
+    public static String mark_minus_sign = EmojiParser.parseToUnicode(":heavy_minus_sign:");
+    public static String mark_divide_sign = EmojiParser.parseToUnicode(":heavy_division_sign:");
     public static String dot = EmojiParser.parseToUnicode(":black_circle_for_record:");
     
     //-SearchCommand
@@ -165,6 +171,12 @@ public class Emoji {
                 i+=1;
                 continue;
             }
+            if(input.length() >= i+5 && "music".equalsIgnoreCase(input.substring(i,i+5)))
+            {
+                output += Emoji.notes;
+                i+=4;
+                continue;
+            }
             if(input.length() >= i+4 && "cool".equalsIgnoreCase(input.substring(i,i+4)))
             {
                 output += Emoji.cool;
@@ -224,8 +236,26 @@ public class Emoji {
                     case "!":
                         output += Emoji.mark_exclamation;
                         break;
-                    default:
+                    case "#":
+                        output += Emoji.mark_hash;
+                        break;
+                    case "*":
+                        output += Emoji.mark_asterisk;
+                        break;
+                    case "&":
+                    case "%":
                         output += Emoji.symbols;
+                        break;
+                    case "+":
+                        output += Emoji.mark_plus_sign;
+                        break;
+                    case "-":
+                        output += Emoji.mark_minus_sign;
+                        break;
+                    case "/":
+                        output += Emoji.mark_divide_sign;
+                        break;
+                    default:
                         break;
                 }
             }
