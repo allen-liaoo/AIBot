@@ -25,7 +25,7 @@ __**Moderation Commands**__
 __**Utility Commands**__ 
 - number (n) - Generate random numbers, roll a dice, or flip a coin. * 
 - say - Let the bot say something for you. Support Embed Message. * 
-- emoji - Translate words into the Emoji language. *
+- emoji (e) - Translate words into the Emoji language. *
 - math (m) - Let the bot to solve a math operation for you. * 
 - weather (w) - Get the weather. * 
 - search - Search Google, Wikipedia, Urban Dictionary, Github, IMDb and custom sites.* 

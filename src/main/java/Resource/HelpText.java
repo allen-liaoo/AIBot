@@ -68,7 +68,7 @@ public class HelpText {
             + "*num coinflip (n cf)*\n"
             + "**math (m)**\n\n"
             + "**say**\n\n"
-            + "**emoji**\n"
+            + "**emoji (e)**\n"
             + "**weather (w)**\n"
             //Command Group- Search 
             + "***search***\n"
