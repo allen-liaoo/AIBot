@@ -214,6 +214,7 @@ public class HelpCommand implements Command {
                 break;
             case "emoji":
             case "emote":
+            case "e":
                 cmdhelp = EmojiCommand.HELP;
                 break;
             case "weather":

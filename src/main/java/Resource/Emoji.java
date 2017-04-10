@@ -34,6 +34,7 @@ public class Emoji {
     public static String eight = EmojiParser.parseToUnicode(":eight:");
     public static String nine = EmojiParser.parseToUnicode(":nine:");
     public static String zero = EmojiParser.parseToUnicode(":zero:");
+    public static String hundred = EmojiParser.parseToUnicode(":100:");
     
     //Information Commands
     public static String envelope = EmojiParser.parseToUnicode(":incoming_envelope:");
@@ -47,7 +48,7 @@ public class Emoji {
     //-NumberCommand
     public static String success = EmojiParser.parseToUnicode(":white_check_mark:");
     public static String number = EmojiParser.parseToUnicode(":1234:");
-    public static String output = EmojiParser.parseToUnicode(":printer:");
+    public static String print = EmojiParser.parseToUnicode(":printer:");
     public static String roll = EmojiParser.parseToUnicode(":game_die:");
     
     //-WeatherCommand
@@ -69,6 +70,19 @@ public class Emoji {
     public static String sweat = EmojiParser.parseToUnicode(":sweat:");
     public static String press = EmojiParser.parseToUnicode(":compression:");
     public static String eyes = EmojiParser.parseToUnicode(":eyes:");
+    
+    //-EmojiCommmand
+    public static String abc = EmojiParser.parseToUnicode(":abc:");
+    public static String abcd = EmojiParser.parseToUnicode(":abcd:");
+    public static String vs = EmojiParser.parseToUnicode(":vs:");
+    public static String cool = EmojiParser.parseToUnicode(":cool:");
+    public static String ok = EmojiParser.parseToUnicode(":ok:");
+    public static String symbols = EmojiParser.parseToUnicode(":symbols:");
+    public static String new_word = EmojiParser.parseToUnicode(":new:");
+    public static String free = EmojiParser.parseToUnicode(":free:");
+    public static String mark_question = EmojiParser.parseToUnicode(":grey_question:");
+    public static String mark_exclamation = EmojiParser.parseToUnicode(":exclamation:");
+    public static String dot = EmojiParser.parseToUnicode(":black_circle_for_record:");
     
     //-SearchCommand
     public static String search = EmojiParser.parseToUnicode(":mag:");
@@ -97,51 +111,176 @@ public class Emoji {
     public static String scissors = EmojiParser.parseToUnicode(":scissors:");
     public static String tie = EmojiParser.parseToUnicode(":necktie:");
     
-    /**
-     * Change the input number into a String of emojis
-     * @param num the number to be change to emoji
-     */
-    public static String numToEmoji(int num)
-    {   
-        String number = num + "";
+    
+    public static String stringToEmoji(String input)
+    {
         String output = "";
-        for (int i = 0; i < number.length(); i++) 
+        for (int i = 0; i < input.length(); i++) 
         {
-            int digit = Integer.parseInt(number.substring(i, i+1));
+            String letters = input.substring(i,i+1);
+            char letterc = input.charAt(i);
             
-            switch(digit) {
-                case 1:
-                    output += Emoji.one;
-                    break;
-                case 2:
-                    output += Emoji.two;
-                    break;
-                case 3:
-                    output += Emoji.three;
-                    break;
-                case 4:
-                    output += Emoji.four;
-                    break;
-                case 5:
-                    output += Emoji.five;
-                    break;
-                case 6:
-                    output += Emoji.six;
-                    break;
-                case 7:
-                    output += Emoji.seven;
-                    break;
-                case 8:
-                    output += Emoji.eight;
-                    break;
-                case 9:
-                    output += Emoji.nine;
-                    break;
-                default:
-                    output += Emoji.zero;
-                    break;
+            /*
+            * Number More than one digit
+            */
+            //1234
+            if(input.length() >= i+4 && "1234".equals(input.substring(i,i+4)))
+            {
+                output += Emoji.number;
+                i+=3;
+                continue;
+            }
+            //100
+            if(input.length() >= i+3 && "100".equals(input.substring(i,i+3)))
+            {
+                output += hundred;
+                i+=2;
+                continue;
+            }
+            
+            /*
+            * Character more than one digit
+            */
+            //ABCD or abcd
+            if(input.length() >= i+4 && "abcd".equalsIgnoreCase(input.substring(i,i+4)))
+            {
+                output += Emoji.abcd;
+                i+=3;
+                continue;
+            }
+            //ABC or abc
+            else if(input.length() >= i+3 && "abc".equalsIgnoreCase(input.substring(i,i+3)))
+            {
+                output += Emoji.abc;
+                i+=2;
+                continue;
+            }
+            if(input.length() >= i+2 && "vs".equalsIgnoreCase(input.substring(i,i+2)))
+            {
+                output += Emoji.vs;
+                i+=1;
+                continue;
+            }
+            if(input.length() >= i+4 && "cool".equalsIgnoreCase(input.substring(i,i+4)))
+            {
+                output += Emoji.cool;
+                i+=3;
+                continue;
+            }
+            if(input.length() >= i+3 && "new".equalsIgnoreCase(input.substring(i,i+3)))
+            {
+                output += Emoji.new_word;
+                i+=2;
+                continue;
+            }
+            if(input.length() >= i+4 && "free".equalsIgnoreCase(input.substring(i,i+4)))
+            {
+                output += Emoji.free;
+                i+=3;
+                continue;
+            }
+            if(input.length() >= i+2 && "ok".equalsIgnoreCase(input.substring(i,i+2)))
+            {
+                output += Emoji.ok;
+                i+=1;
+                continue;
+            }
+            if(input.length() >= i+2 && ".n".equalsIgnoreCase(input.substring(i,i+2)))
+            {
+                output += "\n";
+                i+=1;
+                continue;
+            }
+            
+            /*
+            * Check One Letter at a Time
+            */
+            if(Character.isAlphabetic(letterc))
+            {
+                output += lettersToEmoji(letters);
+            }
+            else if(Character.isDigit(letterc))
+            {
+                output += numToEmoji(Integer.parseInt(letters));
+            }
+            //Spacing
+            else if(Character.isWhitespace(letterc))
+            {
+                output += " ";
+            }
+            else if(!Character.isAlphabetic(letterc))
+            {
+                switch(letters) {
+                    case ".":
+                        output += Emoji.dot;
+                        break;
+                    case "?":
+                        output += Emoji.mark_question;
+                        break;
+                    case "!":
+                        output += Emoji.mark_exclamation;
+                        break;
+                    default:
+                        output += Emoji.symbols;
+                        break;
+                }
             }
         }
+        return output;
+    }
+    
+    /**
+     * Change the letter(s) into a String of emojis
+     * @param input the letter(s) to be change to emoji
+     * @return String of letter(s) in emojis form
+     */
+    public static String lettersToEmoji(String input)
+    {
+        String output = ":regional_indicator_" + input.toLowerCase() + ":";
+        return output;
+    }
+    
+    /**
+     * Change the input number into a String of emojis
+     * @param num the number to be change to emojis
+     * @return String of a number in emojis from
+     */
+    public static String numToEmoji(int digit)
+    {
+        String output = "";
+        switch(digit) {
+            case 1:
+                output += Emoji.one;
+                break;
+            case 2:
+                output += Emoji.two;
+                break;
+            case 3:
+                output += Emoji.three;
+                break;
+            case 4:
+                output += Emoji.four;
+                break;
+            case 5:
+                output += Emoji.five;
+                break;
+            case 6:
+                output += Emoji.six;
+                break;
+            case 7:
+                output += Emoji.seven;
+                break;
+            case 8:
+                output += Emoji.eight;
+                break;
+            case 9:
+                output += Emoji.nine;
+                break;
+            default:
+                output += Emoji.zero;
+                break;
+        }
+        
         return output;
     }
 }

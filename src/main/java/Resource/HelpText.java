@@ -91,7 +91,7 @@ public class HelpText {
             + "Flip a coin.\n"
             + "Let the bot to solve a \nmath operation for you. *\n"
             + "Let the bot say something \nfor you. Support Embed Message. *\n"
-            + "Getting informations about an emoji. *\n"
+            + "Translate words into the Emoji language. *\n"
             + "Get the weather. *\n"
             //Command Group- Search 
             + "Search Custom sites. *\n"

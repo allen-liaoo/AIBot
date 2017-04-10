@@ -117,7 +117,7 @@ public class NumberCommand implements Command {
                 else if(args.length == 1) //Defualt random range 1~100
                 {
                     num = (int)(Math.random() * 100 + 0);
-                    String number = Emoji.numToEmoji(num);
+                    String number = Emoji.stringToEmoji(num + "");
                     e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + number
                     + "\nBy default range `0~100`").queue();
                 }
@@ -136,7 +136,7 @@ public class NumberCommand implements Command {
                     
                     int range = (high - low) + 1;
                     num = (int)(Math.random() * range + low);
-                    String number = Emoji.numToEmoji(num);
+                    String number = Emoji.stringToEmoji(num + "");
                         
                     e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + number
                     + "\nBy specified range ` " + low + "~" + high + "`").queue();

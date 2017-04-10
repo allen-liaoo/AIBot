@@ -146,6 +146,7 @@ public class Main {
         commands.put("say", new SayCommand());
         commands.put("emoji", new EmojiCommand());
         commands.put("emote", new EmojiCommand());
+        commands.put("e", new EmojiCommand());
         commands.put("weather", new WeatherCommand());
         commands.put("w", new WeatherCommand());
         

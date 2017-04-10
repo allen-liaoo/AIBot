@@ -51,3 +51,4 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - Number to Emoji Function for Number#RollADice
 - IMDbCommand: Get specific informations about a movie/tv-show
 - Emojis for IMDbCommand
+- EmojisCommand: Add SayEmoji

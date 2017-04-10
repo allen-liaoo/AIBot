@@ -85,14 +85,14 @@ public class MathCommand implements Command{
                 
                 else if(result % 1 == 0)
                 {
-                    e.getChannel().sendMessage(Emoji.output + Emoji.number + "  `" + input + "` is  `" 
+                    e.getChannel().sendMessage(Emoji.print + Emoji.number + "  `" + input + "` is  `" 
                     + integer + "`").queue();
                     
                         
                 }
                 else
                 {
-                    e.getChannel().sendMessage(Emoji.output + Emoji.number + "  `" + input + "` is  `"
+                    e.getChannel().sendMessage(Emoji.print + Emoji.number + "  `" + input + "` is  `"
                     + result + "`").queue();
                 }
                 

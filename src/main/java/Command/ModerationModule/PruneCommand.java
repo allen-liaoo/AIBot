@@ -77,16 +77,17 @@ public class PruneCommand implements Command{
             try {
                 e.getChannel().getHistory().retrievePast(msgs + 1).queue((List<Message> messages) -> messages.forEach((Message msg) ->
                 {
-                        try {
-                            msg.delete().queue();
-                        } catch (PermissionException pe) {
-                            e.getChannel().sendMessage(Emoji.error + " I need to have **Manage Messages** Permission to delete messages.").queue();
-                        }
+                    try {
+                        msg.delete().queue();
+                    } catch (PermissionException pe) {
+                        e.getChannel().sendMessage(Emoji.error + " I need to have **Manage Messages** Permission to delete messages.").queue();
+                        return;
+                    }
                 })
                 );
             } catch (IllegalArgumentException iae) { //Detect if the number is in range.
                 e.getChannel().sendMessage(Emoji.error + " Please enter a number between **1 ~ 100**.").queue();
-            }
+            } 
             
             //Delay the message deletion.
             try {

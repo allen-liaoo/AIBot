@@ -13,8 +13,6 @@ import Resource.Prefix;
 import com.vdurmont.emoji.EmojiManager;
 import java.awt.Color;
 import java.time.Instant;
-import java.util.List;
-import java.util.Set;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -24,9 +22,11 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class EmojiCommand implements Command {
-    public final static String HELP = "This command is for getting informations about an emoji.\n"
+    public final static String HELP = "This command is for emoji utilities.\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "emoji`\n"
-                                    + "Parameter: `-h | [Emoji Name] | null`\n";
+                                    + "Parameter: `-h | [Words and Letters] | -m [Emoji Name] | null`\n"
+                                    + "[Words and Letters]: Let the bot say [Words and Letters] in emoji language for you.\n"
+                                    + "-m [Emoji Name]: Get infotmations about an emoji.";
     
     EmbedBuilder embedemo = new EmbedBuilder();
     
@@ -50,18 +50,18 @@ public class EmojiCommand implements Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-h".equals(args[0])) 
+        if(args.length > 0 && "-h".equals(args[0])) 
         {
             help(e);
         }
         
-        else if(args.length > 0)
+        else if("-m".equals(args[0]))
         {
             try{
                 
                 System.out.print("Emoji input -> " + args[0] + "\n");
                     
-                com.vdurmont.emoji.Emoji emo = EmojiManager.getForAlias(":" + args[0] + ":");
+                com.vdurmont.emoji.Emoji emo = EmojiManager.getForAlias(":" + args[1] + ":");
 
                 String emoji = emo.getUnicode() + " `" + emo.getUnicode() + "`";
                 String description = emo.getDescription().substring(0, 1).toUpperCase() + emo.getDescription().substring(1);
@@ -100,6 +100,23 @@ public class EmojiCommand implements Command {
                 e.getChannel().sendMessage(Emoji.error + " Please enter a valid alias for that emoji.").queue();
                 return;
             }
+        }
+        
+        else 
+        {
+            String input = "";
+            for(int i = 0; i < args.length; i++)
+            {
+                input += args[i] + " ";
+            }
+            
+            if(input.length() != 0)
+            {
+                String output = Emoji.stringToEmoji(input);
+                e.getChannel().sendMessage(output).queue();
+            }
+            else
+                help(e);
         }
     }
 
