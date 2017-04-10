@@ -41,12 +41,12 @@
 ##Fun Commands
 - 8ball - Ask the magic 8ball a question. *
 - face - Lenny * 
-- game - Play a game. 
-⋅⋅*rockpaperscissors (rps) - Play Rock Paper Scissors with the bot. * 
-⋅⋅*guessnum (gn) - Guess a number! *
-⋅⋅*tictactoe (ttt) - Play a Tic Tac Toe Game XO!! 
-⋅⋅*hangman (hm) - Play HangMan. * 
-⋅⋅*hangmancheater (hmc) - Hang Man Cheater base on the unknown word and missed letters. *
+* game - Play a game. 
+  - * rockpaperscissors (rps) - Play Rock Paper Scissors with the bot. * 
+⋅⋅* guessnum (gn) - Guess a number! *
+⋅⋅* tictactoe (ttt) - Play a Tic Tac Toe Game XO!! 
+⋅⋅* hangman (hm) - Play HangMan. * 
+ - hangmancheater (hmc) - Hang Man Cheater base on the unknown word and missed letters. *
 
 ##Music Commands
 - join (j) - Add bot to a voice channel.
