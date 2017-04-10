@@ -19,34 +19,34 @@
 
 ## Utility Commands
 - number (n) - Generate random numbers, roll a dice, or flip a coin. *
-⋅⋅*num random (n r) - Generate random numbers.
-⋅⋅*num count (n c) - Count numbers.
-⋅⋅*num roll - Roll the dice.
-⋅⋅*num coinflip (n cf) - Flip a coin.
+ - - num random (n r) - Generate random numbers.
+ - - num count (n c) - Count numbers.
+ - - num roll - Roll the dice.
+ - - num coinflip (n cf) - Flip a coin.
 - math (m) - Let the bot to solve a math operation for you. *
 - say - Let the bot say something for you. Support Embed Message. * 
 - emoji (e)- Translate words into the Emoji language. *
 - weather (w) - Get the weather. *
-* search - Search sites using Google Search Engine. *
- * google (g)* - Google Search. 
- * wiki - Search Wikipedia. 
- * urban - Search Urban Dictionary. 
- * github (git) - Search Github. 
- * imdb - Search IMDb.
+- search - Search sites using Google Search Engine. *
+ - - google (g) - Google Search. 
+ - - wiki - Search Wikipedia. 
+ - - urban - Search Urban Dictionary. 
+ - - github (git) - Search Github. 
+ - - imdb - Search IMDb.
 - image - Search images from Imgur, Giphy, and KnowYourMeme. * 
-⋅⋅*imgur - Search from Imgur.
-⋅⋅*gif - Search from Giphy.
-⋅⋅*meme - Search from KnowYourMeme.
+ - - imgur - Search from Imgur.
+ - - gif - Search from Giphy.
+ - - meme - Search from KnowYourMeme.
 
 ## Fun Commands
 - 8ball - Ask the magic 8ball a question. *
 - face - Lenny * 
 * game - Play a game. 
-  - * rockpaperscissors (rps) - Play Rock Paper Scissors with the bot. * 
-⋅⋅* guessnum (gn) - Guess a number! *
-⋅⋅* tictactoe (ttt) - Play a Tic Tac Toe Game XO!! 
-⋅⋅* hangman (hm) - Play HangMan. * 
- - hangmancheater (hmc) - Hang Man Cheater base on the unknown word and missed letters. *
+ - - rockpaperscissors (rps) - Play Rock Paper Scissors with the bot. * 
+ - - guessnum (gn) - Guess a number! *
+ - - tictactoe (ttt) - Play a Tic Tac Toe Game XO!! 
+ - - hangman (hm) - Play HangMan. * 
+ - - hangmancheater (hmc) - Hang Man Cheater base on the unknown word and missed letters. *
 
 ## Music Commands
 - join (j) - Add bot to a voice channel.
