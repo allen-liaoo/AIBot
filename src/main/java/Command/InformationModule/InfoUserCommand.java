@@ -77,7 +77,7 @@ public class InfoUserCommand implements Command{
             }
         }
                 
-        else if(e.getChannelType() != e.getChannelType().PRIVATE && args.length > 1 || ("-m".equals(args[0])))
+        else if(e.getChannelType() != e.getChannelType().PRIVATE && args.length > 0 || ("-m".equals(args[0])))
         {
             List <User> userMention = e.getMessage().getMentionedUsers();
             
@@ -115,9 +115,10 @@ public class InfoUserCommand implements Command{
         icon = user.getEffectiveAvatarUrl();
         
         
-        status = user.getJDA().getPresence().getStatus().toString();
+        status = member.getOnlineStatus().getKey();
+        status = status.substring(0, 1).toUpperCase() + status.substring(1);
         try {
-            game = user.getJDA().getPresence().getGame().getName();
+            game = member.getGame().getName();
         } catch (NullPointerException npe) {
             game = "None";
         }

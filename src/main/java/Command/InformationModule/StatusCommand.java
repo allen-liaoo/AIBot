@@ -59,32 +59,6 @@ public class StatusCommand implements Command{
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
         
-        JDA bot = e.getJDA();
-        String avatar, status, game, shard, upinfo, more;
-        int guild;
-        long timeCurrent = System.currentTimeMillis(), uptime;
-
-        avatar = bot.getSelfUser().getAvatarUrl();
-        status = bot.getPresence().getStatus().getKey();
-        status = status.substring(0, 1).toUpperCase() + status.substring(1);
-        guild = bot.getGuilds().size();
-        try{shard = bot.getShardInfo().getShardString();} catch(NullPointerException ne) {shard = "None";}
-        uptime = timeCurrent - Main.timeStart;
-        upinfo = uptime/3600000 + " hours, " + (uptime/60000)%60 + " minutes, and " + (uptime/1000)%60 + " seconds.";
-        
-        OperatingSystemMXBean os = (OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
-        double loadAverage = os.getSystemLoadAverage();
-        int processors = os.getAvailableProcessors();
-        String osversion = os.getVersion();
-        
-        MemoryUsage osx = (MemoryUsage)ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
-        String memory = osx.getUsed() + "/" + osx.getCommitted() + " bytes";
-        
-        more = "Load Average: " + loadAverage
-               + "\nAvailable Processors: " + processors 
-               + "\nOperating System Version: Mac Sierra " + osversion
-               + "\nUsed Memory: " + memory;
-        
         if(args.length > 0 && "-h".equals(args[0]))
         {
             help(e);
@@ -92,6 +66,11 @@ public class StatusCommand implements Command{
         
         if(args.length == 0)
         {
+            long timeCurrent = System.currentTimeMillis(), uptime;
+            String upinfo;
+            uptime = timeCurrent - Main.timeStart;
+            upinfo = uptime/3600000 + " hours, " + (uptime/60000)%60 + " minutes, and " + (uptime/1000)%60 + " seconds.";
+            
             if("uptime".equals(type))
             {
                 e.getChannel().sendMessage(Emoji.stopwatch + " AIBot has been up for: " + upinfo).queue();
@@ -99,6 +78,33 @@ public class StatusCommand implements Command{
 
             else if("status".equals(type))
             {
+                JDA bot = e.getJDA();
+                String avatar, status, game, shard, more;
+                int guild;
+                
+
+                avatar = bot.getSelfUser().getAvatarUrl();
+                status = bot.getPresence().getStatus().getKey();
+                status = status.substring(0, 1).toUpperCase() + status.substring(1);
+                guild = bot.getGuilds().size();
+                try{shard = bot.getShardInfo().getShardString();} catch(NullPointerException ne) {shard = "None";}
+                
+
+                OperatingSystemMXBean os = (OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
+                double loadAverage = Math.round(os.getSystemLoadAverage()*1000)/1000;
+                int processors = os.getAvailableProcessors();
+                String osversion = os.getVersion();
+
+                MemoryUsage osx = (MemoryUsage)ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
+                String used = convertBytes(osx.getUsed(), true);
+                String available = convertBytes(osx.getCommitted(), true);
+                String memory = used + "/" + available;
+
+                more = "Operating System Version: Mac Sierra " + osversion
+                       + "\nUsed Memory: " + memory
+                       + "\nAvailable Processors: " + processors 
+                       + "\nLoad Average: " + loadAverage;
+                
                 embedstatus.setColor(Color.blue);
                 embedstatus.setTitle("AIBot Status", null);
                 embedstatus.setThumbnail(avatar);
@@ -121,6 +127,21 @@ public class StatusCommand implements Command{
     @Override
     public void executed(boolean success, MessageReceivedEvent e) {
         
+    }
+    
+    /**
+     * Convert bytes value to human readable form.
+     * See: http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
+     * @param bytes for the bytes value to be converted
+     * @param si Choose between SI or Binary
+     * @return
+     */
+    public static String convertBytes(long bytes, boolean si) {
+        int unit = si ? 1000 : 1024;
+        if (bytes < unit) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
     
 }

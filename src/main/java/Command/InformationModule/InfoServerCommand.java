@@ -8,7 +8,6 @@ package Command.InformationModule;
 import Command.Command;
 import Resource.Info;
 import Resource.Prefix;
-import Main.*;
 import Resource.Emoji;
 import java.awt.Color;
 import java.util.List;
@@ -55,14 +54,19 @@ public class InfoServerCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length >= 0 || "-m".equals(args[0]))
+        if(args.length > 0 && "-h".equals(args[0]))
+        {
+            help(e);
+        }
+        
+        else if(args.length >= 0 || "-m".equals(args[0]))
         {
             Guild guild = e.getGuild();
             
             //Detects ID
             if(args.length > 0)
             {
-                if("-m".equals(args[0]) && args[1].length() == 18)
+                if("-m".equals(args[0]) || ("-m".equals(args[0]) && args[1].length() == 18))
                     guild = e.getJDA().getGuildById(args[1]);
                 else if(args[0].length() == 18)
                     guild = e.getJDA().getGuildById(args[0]);
@@ -140,11 +144,6 @@ public class InfoServerCommand implements Command{
             e.getTextChannel().sendMessage(mer).queue();
             embedsi.clearFields();
             
-        }
-        
-        else if("-h".equals(args[0]))
-        {
-            help(e);
         }
     }
 

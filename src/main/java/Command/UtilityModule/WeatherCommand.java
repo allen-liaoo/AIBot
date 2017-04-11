@@ -111,7 +111,7 @@ public class WeatherCommand implements Command{
                 date = city.getItem().getCondition().getDate().toString();
                 
                 // Temperature in degree F
-                double temper = city.getItem().getCondition().getTemp() * 1.8 + 32;
+                double temper = (double) Math.round((city.getItem().getCondition().getTemp() * 1.8 + 32)*100)/100;
                 tempF = temper + "°F";
                 
                 String EmojiCon = setConditionEmoji(concode);

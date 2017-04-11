@@ -72,6 +72,8 @@ public class PlayCommand implements Command{
                     result.clear();
                 } catch (IOException ioe) {
                     SmartLogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result.");
+                } catch (IndexOutOfBoundsException ioobe) {
+                    SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly. Input: " + input);
                 }
             }
             else

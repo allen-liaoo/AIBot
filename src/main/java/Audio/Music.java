@@ -121,7 +121,7 @@ public class Music  {
         AudioTrackInfo trackInfo = track.getInfo();
         Long duration = track.getDuration();
         String trackTime = (duration/60000)%60 + ":" + (duration/1000)%60;
-        String requester = Main.guilds.get(e.getGuild().getId()).getScheduler().getRequester().get(0).getName();
+        //String requester = Main.guilds.get(e.getGuild().getId()).getScheduler().getRequester().get(0).getName();
         
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setAuthor("Now Playing", trackInfo.uri, null);
@@ -129,7 +129,7 @@ public class Music  {
         embedBuilder.addField("Song Title:", trackInfo.title, false);
         embedBuilder.addField("Song Link:", trackInfo.uri, false);
         embedBuilder.addField("Song Duration:", trackTime, false);
-        embedBuilder.addField("Requested by:", requester, false);
+        embedBuilder.addField("Requested by:", "IDK", false);
         embedBuilder.setTimestamp(Instant.now());
         embedBuilder.setThumbnail(Info.B_AVATAR);
         e.getTextChannel().sendMessage(embedBuilder.build()).queue();

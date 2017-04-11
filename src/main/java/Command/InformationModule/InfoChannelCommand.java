@@ -9,7 +9,6 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
-import Main.*;
 import Setting.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;

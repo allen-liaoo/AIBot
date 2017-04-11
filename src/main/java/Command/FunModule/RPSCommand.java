@@ -122,7 +122,7 @@ public class RPSCommand implements Command {
         }
         else if(hand.equals("paper"))
         {
-            if(hand2.equals("scissor"))
+            if(hand2.equals("scissors"))
                 result = "I won!";
             if(hand2.equals("rock"))
                 result = "You won!";
