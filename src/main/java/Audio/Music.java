@@ -5,7 +5,6 @@
  */
 package Audio;
 
-import Command.InformationModule.HelpCommand;
 import Main.Main;
 import Resource.Emoji;
 import Resource.Info;
@@ -24,7 +23,6 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed.Field;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -52,6 +50,8 @@ public class Music  {
         if(!e.getMember().getVoiceState().inVoiceChannel())
             return;
         
+        SmartLogger.commandLog(e, "Music#Play", "Music played for " + link);
+        
         if(m.find()){
             Music.playerManager.loadItemOrdered(Music.playerManager, link, new AudioLoadResultHandler() {
                 public void trackLoaded(AudioTrack track) {
@@ -76,7 +76,7 @@ public class Music  {
 
                 public void loadFailed(FriendlyException exception) {
                     e.getTextChannel().sendMessage(Emoji.error + " Fail to load the video.").queue();
-                    SmartLogger.errorLog(exception, e, this.getClass().getName(), "Playing Load Failed.");
+                    SmartLogger.errorLog(exception, e, this.getClass().getName(), "Failed to load this video: " + link);
                     return;
                 }
             });
