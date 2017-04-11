@@ -29,7 +29,7 @@ public class CommandListener extends ListenerAdapter {
     
     @Override
     public void onMessageReceived(MessageReceivedEvent e){
-        //Reject Commands from Bots
+        //Reject Commands from Bots and Fake Users
         if(e.getAuthor().isBot() || e.getAuthor().isFake())
             return;
         

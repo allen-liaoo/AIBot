@@ -17,8 +17,11 @@ import Command.FunModule.*;
 import Command.RestrictedModule.*;
 import Listener.*;
 import Audio.*;
+import static Audio.Music.playerManager;
 import Resource.Info;
 import Setting.SmartLogger;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 
 
 import net.dv8tion.jda.core.AccountType;
@@ -50,6 +53,7 @@ public class Main {
      */
     public static void main(String[] args) {
         try {
+            Music.musicStartup();
             jda = new JDABuilder(AccountType.BOT)
                     .addListener(new CommandListener())
                     .setToken(Private.BOT_TOKEN)
@@ -57,19 +61,18 @@ public class Main {
             jda.getPresence().setGame(Game.of(Info.B_GAME));
             jda.setAutoReconnect(true);
             
+            startUp();
+            
             timeStart = System.currentTimeMillis();
             
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
             e.printStackTrace();
             SmartLogger.updateLog("Exception thrown while logging.");
         }
-        
-        startUp();
     }
     
     public static void startUp()
     {
-        Music.musicStartup();
         addCommands();
         ConsoleListener console = new ConsoleListener();
         
@@ -96,7 +99,7 @@ public class Main {
         if(!"".equals(game))
             jda.getPresence().setGame(Game.of(game));
         else if("default".equals(game))
-            game = game;
+            game = Info.B_GAME;
         SmartLogger.updateLog("Bot Game set to " + game);
     }
         

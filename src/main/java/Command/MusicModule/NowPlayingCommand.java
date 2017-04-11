@@ -54,14 +54,13 @@ public class NowPlayingCommand implements Command{
         }
         else
         {
-            AudioTrack nowplaying = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack();
-            //System.out.println(nowplaying.getInfo().title);
-            //try {
+            try {
+                AudioTrack nowplaying = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack();
                 Music.trackInfo(e, nowplaying);
-            //} catch (NullPointerException npe) {
+            } catch (NullPointerException npe) {
                 e.getChannel().sendMessage(Emoji.error + " No song is playing.").queue();
                 return;
-            //}
+            }
         }
     }
 

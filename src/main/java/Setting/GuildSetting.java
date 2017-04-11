@@ -23,11 +23,11 @@ public class GuildSetting {
   /**
    * Audio player for the guild.
    */
-  public static AudioPlayer player;
+  private final AudioPlayer player;
   /**
    * Track scheduler for the player.
    */
-  public final TrackScheduler scheduler;
+  private final TrackScheduler scheduler;
 
   /**
    * @param voteSkip The vote for skipping current song

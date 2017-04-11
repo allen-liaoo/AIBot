@@ -124,13 +124,15 @@ public class Music  {
         String trackTime = (duration/60000)%60 + ":" + (duration/1000)%60;
         //String requester = Main.guilds.get(e.getGuild().getId()).getScheduler().getRequester().get(0).getName();
         
+        ArrayList<User> queuer = Main.guilds.get(e.getGuild().getId()).getScheduler().getRequester();
+        
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setAuthor("Now Playing", trackInfo.uri, null);
         embedBuilder.setColor(Info.setColor());
         embedBuilder.addField("Song Title:", trackInfo.title, false);
         embedBuilder.addField("Song Link:", trackInfo.uri, false);
         embedBuilder.addField("Song Duration:", trackTime, false);
-        embedBuilder.addField("Requested by:", "IDK", false);
+        embedBuilder.addField("Requested by:", queuer.get(0).getName(), false);
         embedBuilder.setTimestamp(Instant.now());
         embedBuilder.setThumbnail(Info.B_AVATAR);
         e.getTextChannel().sendMessage(embedBuilder.build()).queue();
@@ -142,11 +144,6 @@ public class Music  {
         BlockingQueue<AudioTrack> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
         Iterator<AudioTrack> list = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueueIterator();
         ArrayList<User> queuer = Main.guilds.get(e.getGuild().getId()).getScheduler().getRequester();
-        if(queue.peek() == null)
-        {
-            e.getChannel().sendMessage("The queue is curently empty.").queue();
-            return;
-        }
         
         EmbedBuilder embed = new EmbedBuilder();
         embed.setAuthor("Queue List", Info.B_INVITE, Info.B_AVATAR);
@@ -165,24 +162,38 @@ public class Music  {
         {
             String ptitle = playing.getInfo().title;
             String purl = playing.getInfo().uri;
-            long pduration = playing.getDuration();
-            embed.addField("Now Playing", "[" + ptitle + "](" + purl + ")  Duration: " + pduration, false);
+            embed.addField("Now Playing", "[" + ptitle + "](" + purl + ")  \n"
+                    + " Requested by " + queuer.get(0).getName(), false);
         }
         
         int count = 0;
         String songs = "";
         
-        //Queue
-        while(list.hasNext())
+        if(queue.peek() == null)
         {
-            count++;
-            
-            AudioTrack track = list.next();
-            String title = track.getInfo().title;
-            String url = track.getInfo().uri;
-            String requester = queuer.get(count-1).getName();
-            songs += "**" + count + ".** [" + title + "](" + url + ")  Requested by " + requester + "\n";
+            songs += "The queue is curently empty.";
+            if(playing == null)
+            {
+                e.getChannel().sendMessage("The queue is currently empty, and there is no song playing.").queue();
+                return;
+            }
         }
+        else
+        {
+            //Queue
+            while(list.hasNext())
+            {
+                count++;
+
+                AudioTrack track = list.next();
+                String title = track.getInfo().title;
+                String url = track.getInfo().uri;
+                String requester = queuer.get(count).getName();
+                songs += "**" + count + ".** [" + title + "](" + url + ")  Requested by " + requester + "\n";
+            }
+        }
+        
+        
         embed.addField("Coming Next", songs, false);
         
         e.getChannel().sendMessage(embed.build()).queue();
