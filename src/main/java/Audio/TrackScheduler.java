@@ -80,7 +80,12 @@ public class TrackScheduler extends AudioEventAdapter {
         }
     }
     
-    public Iterator getQueue()
+    public BlockingQueue<AudioTrack> getQueue()
+    {
+        return queue;
+    }
+    
+    public Iterator getQueueIterator()
     {
         return queue.iterator();
     }

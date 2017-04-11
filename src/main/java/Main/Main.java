@@ -72,7 +72,6 @@ public class Main {
         Music.musicStartup();
         addCommands();
         ConsoleListener console = new ConsoleListener();
-        Music.musicStartup();
         
         SmartLogger.updateLog("Bot Start Up. Commands Added.");
     }

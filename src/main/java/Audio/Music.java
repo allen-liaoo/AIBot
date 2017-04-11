@@ -20,6 +20,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -138,9 +139,10 @@ public class Music  {
     
     public static void queueList(MessageReceivedEvent e)
     {
-        Iterator<AudioTrack> list = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
+        BlockingQueue<AudioTrack> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
+        Iterator<AudioTrack> list = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueueIterator();
         ArrayList<User> queuer = Main.guilds.get(e.getGuild().getId()).getScheduler().getRequester();
-        if(!list.hasNext())
+        if(queue.peek() == null)
         {
             e.getChannel().sendMessage("The queue is curently empty.").queue();
             return;
@@ -175,9 +177,9 @@ public class Music  {
         {
             count++;
             
-            AudioTrack queue = list.next();
-            String title = queue.getInfo().title;
-            String url = queue.getInfo().uri;
+            AudioTrack track = list.next();
+            String title = track.getInfo().title;
+            String url = track.getInfo().uri;
             String requester = queuer.get(count-1).getName();
             songs += "**" + count + ".** [" + title + "](" + url + ")  Requested by " + requester + "\n";
         }
