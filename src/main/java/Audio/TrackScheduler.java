@@ -15,6 +15,7 @@ import java.util.Iterator;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -30,6 +31,8 @@ public class TrackScheduler extends AudioEventAdapter {
     private final AudioPlayer player;
     private final BlockingQueue<AudioTrack> queue;
     private final ArrayList<User> requester;
+    
+    private static TextChannel tc;
 
   /**
    * @param player The audio player this scheduler uses
@@ -67,7 +70,7 @@ public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
         super.onTrackStart(player, track);
-        //event.getTextChannel().sendMessage(Emoji.success + " Now playing `" + track.getInfo().title + "`. Track loaded successfully!").queue();
+        tc.sendMessage(Emoji.notes + " Now playing `" + track.getInfo().title + "`").queue();
     }
 
   @Override
@@ -98,6 +101,10 @@ public class TrackScheduler extends AudioEventAdapter {
     public ArrayList<User> getRequester()
     {
         return requester;
+    }
+
+    public void setTc(TextChannel tc) {
+        this.tc = tc;
     }
 }
 

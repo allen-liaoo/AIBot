@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
+### V[0.1.0]
 #### [0.1.0] - 2017-04-03
 ##### Changed
 - Reconstruct the full HelpCommand from one crunch of String to two fields.
@@ -53,9 +54,14 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - EmojisCommand: Add SayEmoji Function in which the bot will talk in Emoji Language.
 - InfoServerCommand: Get Server Info By ID.
 
+
+### V[0.2.0]
 #### [0.2.0] - 2017-04-11
 ##### Added 
-- 
+- GuildSetting: Added TextChannel and VoiceChannel instance so the bot is able to detect 
+  onTrackStart() event and send a message saying "Now playing ...".
+- PlayCommand dynamic command for YouTube search (Show top 5 results)
+- MusicCommand for getting a list of music commands.
 ##### Fixed
 - NowPlayingCommand and QueueCommand was not able to get current track information.
 - Several NullPointerExceptions from Music Module. Moved Music.musicStartup before jda start up.

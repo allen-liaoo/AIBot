@@ -21,20 +21,23 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
  */
 public class AudioConnection {
     
-    public static VoiceChannel vc;
-    public static AudioManager am;
+    private static VoiceChannel vc;
+    private static AudioManager am;
     
     public static void connect(MessageReceivedEvent e, boolean inform)
     {
         try {
-            vc = e.getMember().getVoiceState().getChannel();
+            Main.guilds.get(e.getGuild().getId()).setVc(e.getMember().getVoiceState().getChannel());
+            Main.guilds.get(e.getGuild().getId()).setTc(e.getTextChannel());
+            
+            vc = Main.guilds.get(e.getGuild().getId()).getVc();
             am = e.getGuild().getAudioManager();
-            am.openAudioConnection(vc);
+            am.openAudioConnection(Main.guilds.get(e.getGuild().getId()).getVc());
         } catch (IllegalArgumentException iea) {
             e.getChannel().sendMessage(Emoji.error + " You must connect to a voice channel first.").queue();
             return;
         } catch (PermissionException pe) {
-            e.getChannel().sendMessage(Emoji.error + " I don't have the permission to join `" + vc.getName() + "`.").queue();
+            e.getChannel().sendMessage(Emoji.error + " I don't have the permission to join `" + Main.guilds.get(e.getGuild().getId()).getVc().getName() + "`.").queue();
             SmartLogger.errorLog(pe, e, "AudioConnection", "Do not have permission to join a voice channel");
             return;
         }
@@ -55,7 +58,7 @@ public class AudioConnection {
         
         //Inform the users that the bot joined a voice channel
         if(inform)
-            e.getChannel().sendMessage(Emoji.globe + " Left Voice Channel `" + vc.getName() + "`").queue();
+            e.getChannel().sendMessage(Emoji.globe + " Left Voice Channel `" + Main.guilds.get(e.getGuild().getId()).getVc().getName() + "`").queue();
     }
     
     

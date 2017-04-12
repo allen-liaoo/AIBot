@@ -55,26 +55,30 @@ public class Music  {
         
         if(m.find()){
             Music.playerManager.loadItemOrdered(Music.playerManager, link, new AudioLoadResultHandler() {
+                @Override
                 public void trackLoaded(AudioTrack track) {
                     if(Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack() != null)
                         e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getInfo().title + "`").queue();
-                    else
-                        e.getTextChannel().sendMessage(Emoji.notes + " Now playing `" + track.getInfo().title + "`").queue();
+                    //else
+                    //    e.getTextChannel().sendMessage(Emoji.notes + " Now playing `" + track.getInfo().title + "`").queue();
                     
                     Main.guilds.get(e.getGuild().getId()).getScheduler().queue(track, e);
                     return;
                 }
 
+                @Override
                 public void playlistLoaded(AudioPlaylist playlist) {
                     e.getTextChannel().sendMessage(Emoji.success + " Playlist loaded successfully!").queue();
                     return;
                 }
 
+                @Override
                 public void noMatches() {
                     e.getTextChannel().sendMessage(Emoji.error + " No match found.").queue();
                     return;
                 }
 
+                @Override
                 public void loadFailed(FriendlyException exception) {
                     e.getTextChannel().sendMessage(Emoji.error + " Fail to load the video.").queue();
                     SmartLogger.errorLog(exception, e, this.getClass().getName(), "Failed to load this video: " + link);

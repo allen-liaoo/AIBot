@@ -7,6 +7,7 @@ package Command.MusicModule;
 
 import Audio.Music;
 import Command.Command;
+import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Resource.SearchResult;
@@ -111,6 +112,7 @@ public class PlayCommand implements Command{
                 } catch (IOException ioe) {
                     SmartLogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result.");
                 } catch (IndexOutOfBoundsException ioobe) {
+                    e.getChannel().sendMessage(Emoji.error + " No results.").queue();
                     SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly. Input: " + input);
                 }
             }

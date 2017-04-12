@@ -7,9 +7,10 @@ package Setting;
 
 import Audio.AudioPlayerSendHandler;
 import Audio.TrackScheduler;
-import Audio.TrackScheduler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.VoiceChannel;
 
 /**
  *
@@ -28,6 +29,12 @@ public class GuildSetting {
    * Track scheduler for the player.
    */
   private final TrackScheduler scheduler;
+  /**
+   * Binded Voice Channel for the guild.
+   */
+  private VoiceChannel vc;
+  
+  private TextChannel tc;
 
   /**
    * @param voteSkip The vote for skipping current song
@@ -69,6 +76,23 @@ public class GuildSetting {
     public AudioPlayer getPlayer()
     {
         return player;
+    }
+    
+    public VoiceChannel getVc() {
+        return vc;
+    }
+
+    public void setVc(VoiceChannel vc) {
+        this.vc = vc;
+    }
+
+    public TextChannel getTc() {
+        return tc;
+    }
+    
+    public void setTc(TextChannel tc) {
+        this.tc = tc;
+        scheduler.setTc(tc);
     }
 
     public String getPrefix()
