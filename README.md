@@ -42,6 +42,7 @@ __**Fun Commands**__
 - hangmancheater (hmc) - Hang Man Cheater base on the unknown word and missed letters. *
 
 __**Music Commands**__ 
+- music (m) - Get a list of music commands.
 - play - Play a song from YouTube. 
 - pause - Pause the current playing song. 
 - skip - Skip the song. 

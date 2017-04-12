@@ -23,7 +23,7 @@
     - num count (n c) - Count numbers.
     - num roll - Roll the dice.
     - num coinflip (n cf) - Flip a coin.
-- math (m) - Let the bot to solve a math operation for you. *
+- math - Let the bot to solve a math operation for you. *
 - say - Let the bot say something for you. Support Embed Message. * 
 - emoji (e)- Translate words into the Emoji language. *
 - weather (w) - Get the weather. *
@@ -49,6 +49,7 @@
     - hangmancheater (hmc) - Hang Man Cheater base on the unknown word and missed letters. *
 
 ## Music Commands
+- music (m) - Get a list of music commands.
 - join (j) - Add bot to a voice channel.
 - leave (l) - Remove bot from a voice channel. 
 - play - Play a song from YouTube.

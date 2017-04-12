@@ -35,10 +35,9 @@ public class HelpCommand implements Command {
     
     public final static String HELP = "This command is for getting this bot's commands.\n"
                                + "Command Usage: `" + Prefix.getDefaultPrefix() + "help` or `" + Prefix.getDefaultPrefix() + "h`\n"
-                               + "Parameter: `-h | -dm | Command/Module Name  | -m | null`\n"
+                               + "Parameter: `-h | -dm [Page Number] | Command/Module Name  | [Page Number] | null`\n"
                                + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
     
-    public static EmbedBuilder embed = new EmbedBuilder();
     public static MessageEmbed me = embed.build();
     private final EmbedBuilder embedusage = new EmbedBuilder();
     private final EmbedBuilder embedHelp = new EmbedBuilder();
@@ -65,24 +64,42 @@ public class HelpCommand implements Command {
     public void action(String[] args, MessageReceivedEvent e) {
         SmartLogger.commandLog(e, this.getClass().getName(), "Triggered!");
         
-        if(args.length == 0) //Parameter null
+        //Default
+        if(args.length == 0 || args.length == 1 && Character.isDigit(args[0].charAt(0))) //Parameter null
         {
-            helpText(e);
-            me = embed.build();
+            int page = 1;
+            if(args.length != 0)
+               page = Integer.parseInt(args[0]);
+            
+            EmbedBuilder emhelp = helpText(e, page);
+            me = emhelp.build();
             e.getChannel().sendMessage(me).queue();
-            embed.clearFields();
+            emhelp.clearFields();
         }
         
-        else if("-dm".equals(args[0]) && e.getChannelType() != e.getChannelType().PRIVATE) //Parameter -dm
+        //Parameter -dm
+        else if("-dm".equals(args[0]) && e.getChannelType() != e.getChannelType().PRIVATE) 
         {
-            helpText(e);
-            e.getTextChannel().sendMessage(Emoji.envelope + " A list of AIBot commands has been sent. Check your Direct Message.").queue();
-            me = embed.build();
-            e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().editMessage(me).submit());
-            embedHelp.clearFields();
+            e.getTextChannel().sendMessage(Emoji.envelope + " A full list of AIBot commands has been sent. Check your Direct Message.").queue();
+            
+            int page = 1;
+            if(args.length == 2 && Character.isDigit(args[1].charAt(0)))
+                page = Integer.parseInt(args[1]);
+            else
+            {
+                for(int i = 0; i < 4; i++)
+                {
+                    EmbedBuilder emhelp = helpText(e, i+1);
+                    
+                    me = emhelp.build();
+                    e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().editMessage(me).submit());
+                    emhelp.clearFields();
+                }
+            }
         }
         
-        else if("-h".equals(args[0])) //Parameter -h
+        //Parameter -h
+        else if("-h".equals(args[0])) 
         {
             help(e);
         }
@@ -98,32 +115,47 @@ public class HelpCommand implements Command {
         
     }
     
-    public static void helpText(MessageReceivedEvent e)
+    public static EmbedBuilder helpText(MessageReceivedEvent e, int page)
     {
+        EmbedBuilder embed = new EmbedBuilder();
+        
+        //Assign fields to a certain page
+        switch (page) {
+            case 2:
+                embed.addField("Utility Module", HelpText.UTIL_CMD, true);
+                embed.addField("Description", HelpText.UTIL_DES, true);
+                break;
+            case 3:
+                embed.addField("Fun Module", HelpText.FUN_CMD, true);
+                embed.addField("Description", HelpText.FUN_DES, true);
+
+                embed.addField("Music Module", HelpText.MUSIC_CMD, true);
+                embed.addField("Description", HelpText.MUSIC_DES, true);
+                break;
+            case 4:
+                embed.addField("Restricted Module", HelpText.RESTRICT_CMD, true);
+                embed.addField("Description", HelpText.RESTRICT_DES, true);
+                
+                embed.addField("Notes", HelpText.NOTE, false);
+                break;
+            default:
+            case 1:
+                page = 1;
+                embed.addField("Information Module", HelpText.INFO_CMD, true);
+                embed.addField("Description", HelpText.INFO_DES, true);
+                
+                embed.addField("Moderation Module", HelpText.MOD_CMD, true);
+                embed.addField("Description", HelpText.MOD_DES, true);
+                break;
+        }
+        
         embed.setColor(Info.setColor());
-        embed.setAuthor("AIBot Help", Info.B_GITHUB, Info.I_HELP);
-
-        embed.addField("Information Module", HelpText.INFO_CMD, true);
-        embed.addField("Description", HelpText.INFO_DES, true);
-
-        embed.addField("Moderation Module", HelpText.MOD_CMD, true);
-        embed.addField("Description", HelpText.MOD_DES, true);
-
-        embed.addField("Utility Module", HelpText.UTIL_CMD, true);
-        embed.addField("Description", HelpText.UTIL_DES, true);
-
-        embed.addField("Fun Module", HelpText.FUN_CMD, true);
-        embed.addField("Description", HelpText.FUN_DES, true);
-
-        embed.addField("Music Module", HelpText.MUSIC_CMD, true);
-        embed.addField("Description", HelpText.MUSIC_DES, true);
-
-        embed.addField("Restricted Module", HelpText.RESTRICT_CMD, true);
-        embed.addField("Description", HelpText.RESTRICT_DES, true);
-
+        embed.setAuthor("AIBot Command List | Page " + page, Info.B_GITHUB, Info.I_HELP);
         embed.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
-        embed.setFooter("Commands List", null);
         embed.setTimestamp(Instant.now());
+        embed.setFooter("Commands List", null);
+        
+        return embed;
     }
     
     public void helpCustom(String cmdtitle, MessageReceivedEvent e)

@@ -66,9 +66,9 @@ public class HelpText {
             + "*num count (n c)*\n"
             + "*num roll*\n"
             + "*num coinflip (n cf)*\n"
-            + "**math (m)**\n\n"
+            + "**math**\n\n"
             + "**say**\n\n"
-            + "**emoji (e)**\n"
+            + "**emoji (e)**\n\n"
             + "**weather (w)**\n"
             //Command Group- Search 
             + "***search***\n"
@@ -135,7 +135,8 @@ public class HelpText {
     * Music Module
     */
     public final static String MUSIC_CMD = 
-            "**join (j)**\n"
+            "**music (m)**"
+            + "**join (j)**\n"
             + "**leave  (l)**\n"
             + "**play**\n"
             + "**pause**\n"
@@ -147,7 +148,8 @@ public class HelpText {
             + "**lyrics**\n";
     
     public final static String MUSIC_DES = 
-            "Add bot to a voice channel.\n"
+            "Get a list of music commands."
+            + "Add bot to a voice channel.\n"
             + "Remove bot from a voice channel.\n"
             + "Play a song from YouTube.\n"
             + "Pause the current playing song.\n"
