@@ -108,7 +108,7 @@ public class PresenceCommand implements Command {
                 else if("game".equals(type))
                 {
                     String game = "";
-                    for(String g : args) { game += g;}
+                    for(String g : args) { game += g + " ";}
 
                     Main.setGame(game);
                     SmartLogger.updateLog("Bot setGame Attempt");

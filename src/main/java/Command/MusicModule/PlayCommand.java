@@ -14,10 +14,11 @@ import Resource.Search;
 import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
 import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -26,6 +27,9 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class PlayCommand implements Command{
 
+    public static HashMap<String, User> selecter = new HashMap<String, User>(); //Guild ID and User
+    private static List<SearchResult> results;
+    
     public final static  String HELP = "This command is for playing an youtube music in the voice channel.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"play`\n"
                                      + "Parameter: `-h | [Youtube Url] | null`";
@@ -55,6 +59,38 @@ public class PlayCommand implements Command{
         {
             help(e);
         }
+        
+        else if(args.length > 0 && "-m".equals(args[0]))
+        {
+            String input = "";
+            for(int i = 0; i < args.length; i++){
+                if(i != 0)
+                    input += args[i] + "+";
+            }
+            
+            try {
+                results = Search.youtubeSearch(num, input);
+                
+                String choices = "Top 5 results for `" + input.replaceAll("\\+", " ") + "` on YouTube:\n";
+                
+                for(int i = 0; i < 5; i++)
+                {
+                    SearchResult choice = results.get(i);
+                    choices += "\n**" + (i+1) + ":** " + choice.getTitle();
+                }
+                
+                choices += "\nUse `=play num` to select the song to play.";
+                
+                e.getChannel().sendMessage(choices).queue();
+                
+                selecter.put(e.getGuild().getId(), e.getAuthor());
+            } catch (IOException ioe) {
+                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result (-m).");
+            } catch (IndexOutOfBoundsException ioobe) {
+                SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly (-m). Input: " + input);
+            }
+        }
+        
         else
         {
             if(!args[0].startsWith("http"))
@@ -83,6 +119,16 @@ public class PlayCommand implements Command{
 
     @Override
     public void executed(boolean success, MessageReceivedEvent e) {
+        
+    }
+    
+    public static void selector(char message, MessageReceivedEvent e) {
+        int i = Character.getNumericValue(message);
+        SmartLogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());
+        
+        Music.play(results.get(i - 1).getLink(), e);
+        selecter.remove(e.getGuild().getId(), e.getAuthor());
+        results.clear();
         
     }
     

@@ -83,18 +83,22 @@ public class Search {
         Document doc = Jsoup.connect(ytsite + input).timeout(0).get();
         String title = doc.title();
         
-        Elements p = doc.select("div#results").select("ol.item-section").select("li");
+        Elements p = doc.select("div#results").select("ol.item-section").select("li:not([class])");
         
         for( Element n : p )
         {
             Elements block = n.select("div.yt-lockup-content");
             String urltitle = block.select(".yt-lockup-title").select(".yt-uix-tile-link").text();
-            String url = "https://www.youtube.com" + block.select(".yt-lockup-title").select("a").attr("href");
+            String url = "https://www.youtube.com" + block.select(".yt-lockup-title").select(".yt-uix-tile-link").select("a").attr("href");
             String author = block.select(".yt-lockup-byline").select("a").text();
             String text = block.select(".yt-lockup-description").text();
+            if("".equals(urltitle))
+                continue;
             
             results.add(new SearchResult(urltitle, author, url, text, null));
+            //System.out.println("title" + urltitle + "\t" + url);
             count++;
+            if(count == Integer.parseInt(num)) break;
         }
         
         System.out.println("** YouTube Search --> " + input + " : " + count +" results");

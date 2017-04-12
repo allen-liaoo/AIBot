@@ -52,3 +52,11 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - IMDbCommand: Get specific informations about a movie/tv-show. Added Emojis
 - EmojisCommand: Add SayEmoji Function in which the bot will talk in Emoji Language.
 - InfoServerCommand: Get Server Info By ID.
+
+#### [0.2.0] - 2017-04-11
+##### Added 
+- 
+##### Fixed
+- NowPlayingCommand and QueueCommand was not able to get current track information.
+- Several NullPointerExceptions from Music Module. Moved Music.musicStartup before jda start up.
+- RPSCommand bugged switch statement
