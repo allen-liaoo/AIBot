@@ -28,16 +28,14 @@ public class SelectorListener extends ListenerAdapter {
         if(e.getMessage().getContent().length() > 0)
             choice = e.getMessage().getContent().charAt(0);
         
-        if(e.getMessage().getContent().length() == 1 && Character.isDigit(choice))
+        if(e.getMessage().getContent().length() == 1 && (choice == 'c' || Character.isDigit(choice)))
         {
             //PlayCommand
-            if(PlayCommand.selecter.containsKey(e.getGuild().getId()))
+            if(PlayCommand.selecter.containsKey(e.getGuild().getId()) 
+                    && PlayCommand.selecter.containsValue(e.getAuthor()))
             {
-                if(PlayCommand.selecter.containsValue(e.getAuthor()))
-                {
-                    PlayCommand.selector(choice, e);
+                PlayCommand.selector(choice, e);
                     System.out.println("got here");
-                }
             }
         }
     }

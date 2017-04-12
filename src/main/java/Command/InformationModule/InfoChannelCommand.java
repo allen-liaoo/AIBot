@@ -55,7 +55,7 @@ public class InfoChannelCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0)
+        if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE)
         {
             TextChannel txtchannel = e.getTextChannel();
             
@@ -102,7 +102,8 @@ public class InfoChannelCommand implements Command{
             e.getTextChannel().sendMessage(meci).queue();
             embedci.clearFields();
         }
-        else if("audio".equals(args[0]) || "voice".equals(args[0]) || "vc".equals(args[0]))
+        else if("audio".equals(args[0]) || "voice".equals(args[0]) || "vc".equals(args[0]) 
+                && e.getChannelType() != e.getChannelType().PRIVATE)
         {
             try {
                 VoiceChannel voichannel = e.getMember().getVoiceState().getChannel();

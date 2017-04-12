@@ -139,6 +139,7 @@ public class WeatherCommand implements Command{
             } catch (IOException ex) {
                 SmartLogger.errorLog(ex, e, this.getClass().getName(), "Occurs communicating with the service.");
             } catch (IndexOutOfBoundsException ioobe) {
+                e.getChannel().sendMessage(Emoji.error + " No result.").queue();
                 SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Could not get an variable.");
             }
 

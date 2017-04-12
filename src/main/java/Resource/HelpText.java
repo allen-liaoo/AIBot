@@ -148,7 +148,7 @@ public class HelpText {
             + "**lyrics**\n";
     
     public final static String MUSIC_DES = 
-            "Get a list of music commands."
+            "Get a list of music commands.\n"
             + "Add bot to a voice channel.\n"
             + "Remove bot from a voice channel.\n"
             + "Play a song from YouTube.\n"
