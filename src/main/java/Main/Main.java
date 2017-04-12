@@ -7,7 +7,6 @@ package Main;
 
 import Setting.GuildSetting;
 import Private.Private;
-import Resource.Prefix;
 import Command.*;
 import Command.InformationModule.*;
 import Command.ModerationModule.*;
@@ -17,11 +16,8 @@ import Command.FunModule.*;
 import Command.RestrictedModule.*;
 import Listener.*;
 import Audio.*;
-import static Audio.Music.playerManager;
 import Resource.Info;
 import Setting.SmartLogger;
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 
 
 import net.dv8tion.jda.core.AccountType;
@@ -33,7 +29,6 @@ import net.dv8tion.jda.core.entities.Game;
 import java.util.HashMap;
 import javax.security.auth.login.LoginException;
 import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 
 /**
@@ -56,6 +51,7 @@ public class Main {
             Music.musicStartup();
             jda = new JDABuilder(AccountType.BOT)
                     .addListener(new CommandListener())
+                    .addListener(new SelectorListener())
                     .setToken(Private.BOT_TOKEN)
                     .buildBlocking();
             jda.getPresence().setGame(Game.of(Info.B_GAME));

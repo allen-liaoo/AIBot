@@ -5,12 +5,10 @@
  */
 package Listener;
 
-import Resource.Emoji;
 import Resource.Prefix;
 import Main.*;
 import Setting.GuildSetting;
 import Audio.Music;
-import Command.InformationModule.HelpCommand;
 import static Main.Main.commands;
 import Setting.SmartLogger;
 
@@ -39,7 +37,7 @@ public class CommandListener extends ListenerAdapter {
             GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=", 50);
             Main.guilds.put(e.getGuild().getId(), newGuild);
             e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
-            SmartLogger.updateLog("\tNew Server: " + Main.jda.getGuildById(e.getGuild().getId()).getId() + " " + Main.jda.getGuildById(e.getGuild().getId()).getName());
+            SmartLogger.updateLog("\tNew Server: " + e.getGuild().getId() + " " + e.getGuild().getName());
         }
         
         // Detect Command
