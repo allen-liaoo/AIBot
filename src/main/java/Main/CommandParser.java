@@ -14,6 +14,12 @@ import java.util.ArrayList;
  * @author liaoyilin
  */
 public class CommandParser {
+
+    /**
+     * Parsing normal commands
+     * @param rw the raw message
+     * @param e the MessageReceivedEvent
+     */
     public CommandContainer parse(String rw, MessageReceivedEvent e) {
         ArrayList<String> split = new ArrayList<String>();
         String raw = rw;
@@ -32,6 +38,11 @@ public class CommandParser {
         return new CommandContainer(raw, beheaded, splitBeheaded, invoke, args, e);
     }
     
+    /**
+     * Parsing @mention commands
+     * @param rw the raw message
+     * @param e the MessageReceivedEvent
+     */
     public CommandContainer parseMention(String rw, MessageReceivedEvent e) {
         ArrayList<String> split = new ArrayList<String>();
         String raw = rw;
@@ -48,6 +59,28 @@ public class CommandParser {
         split.subList(1, split.size()).toArray(args);
         
         return new CommandContainer(raw, beheaded, splitBeheaded, invoke, args, e);
+    }
+    
+    /**
+     * Parsing PrivateChannel commands
+     * @param rw the raw message
+     * @param e the MessageReceivedEvent
+     */
+    public CommandContainer parsePrivate(String rw, MessageReceivedEvent e) {
+        ArrayList<String> split = new ArrayList<String>();
+        String raw = rw;
+        String[] splitBeheaded = rw.split(" ");
+        
+        for(String s : splitBeheaded) 
+        {
+            split.add(s);
+        }
+        
+        String invoke = split.get(0);
+        String[] args = new String[split.size() - 1];
+        split.subList(1, split.size()).toArray(args);
+        
+        return new CommandContainer(raw, null, splitBeheaded, invoke, args, e);
     }
     
     public class CommandContainer {

@@ -66,14 +66,11 @@ public class InfoServerCommand implements Command{
             //Detects ID
             if(args.length > 0)
             {
-                if("-m".equals(args[0]) || ("-m".equals(args[0]) && args[1].length() == 18))
+                if("-m".equals(args[0]) && args.length > 1 && args[1].length() == 18)
                     guild = e.getJDA().getGuildById(args[1]);
                 else if(args[0].length() == 18)
                     guild = e.getJDA().getGuildById(args[0]);
             }
-            
-            String name, id, owner, region, icon, verify;
-            int txtChannel, audioChannel, member, role, online = 0, human = 0, bot = 0;
             
             if(guild == null)
             {
@@ -81,6 +78,9 @@ public class InfoServerCommand implements Command{
                         + "Either I am not in this guild or the ID you provided is invalid.").queue();
                 return;
             }
+            
+            String name, id, owner, region, icon, verify;
+            int txtChannel, audioChannel, member, role, online = 0, human = 0, bot = 0;
             
             name = guild.getName();
             id = guild.getId();

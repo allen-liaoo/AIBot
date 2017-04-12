@@ -32,7 +32,9 @@ public class PlayCommand implements Command{
     
     public final static  String HELP = "This command is for playing an youtube music in the voice channel.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"play`\n"
-                                     + "Parameter: `-h | [Youtube Url] | null`";
+                                     + "Parameter: `-h | [Keywords or Youtube Url] | -m [Keywords] | null`\n"
+                                     + "[Keywords or Youtube Url]: Play the first video of a YouTube search or a specified YouTube video.\n"
+                                     + "-m [Keywords]: Get the top 5 search results and choose one to play.\n";
     private String num = "5";
     
     @Override

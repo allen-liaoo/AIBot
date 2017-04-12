@@ -27,11 +27,15 @@ public class CommandListener extends ListenerAdapter {
     
     @Override
     public void onMessageReceived(MessageReceivedEvent e){
-        //Reject Commands from Bots and Fake Users
+        /*
+        * Reject Commands from Bots and Fake Users
+        */
         if(e.getAuthor().isBot() || e.getAuthor().isFake())
             return;
         
-        // Create GuildSetting for each Guild
+        /*
+        * Create GuildSetting for each Guild
+        */
         if(!e.isFromType(e.getChannelType().PRIVATE) && !Main.guilds.containsKey(e.getGuild().getId()))
         {
             GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=", 50);
@@ -40,12 +44,24 @@ public class CommandListener extends ListenerAdapter {
             SmartLogger.updateLog("\tNew Server: " + e.getGuild().getId() + " " + e.getGuild().getName());
         }
         
-        // Detect Command
+        /*
+        * Detect commands
+        */
+        
+        //Private Message Without Prefix or mention
+        if(e.getChannelType() == e.getChannelType().PRIVATE && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
+        {
+            handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
+        }
+        
+        //Message starts with Prefix
         if(e.getMessage().getContent().startsWith(Prefix.getDefaultPrefix()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
             handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
         }
-        else if(e.getMessage().getRawContent().startsWith(e.getJDA().getSelfUser().getAsMention()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
+        
+        //Message starts with Mention
+        if(e.getMessage().getRawContent().startsWith(e.getJDA().getSelfUser().getAsMention()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
             handleCommand(Main.parser.parseMention(e.getMessage().getContent(), e));
         }

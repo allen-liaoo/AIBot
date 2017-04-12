@@ -23,9 +23,14 @@ public class SelectorListener extends ListenerAdapter {
         if(e.getAuthor().isBot() || e.getAuthor().isFake())
             return;
         
-        char choice = e.getMessage().getContent().charAt(0);
+        //Selector
+        char choice = '\u0000';
+        if(e.getMessage().getContent().length() > 0)
+            choice = e.getMessage().getContent().charAt(0);
+        
         if(e.getMessage().getContent().length() == 1 && Character.isDigit(choice))
         {
+            //PlayCommand
             if(PlayCommand.selecter.containsKey(e.getGuild().getId()))
             {
                 if(PlayCommand.selecter.containsValue(e.getAuthor()))

@@ -140,7 +140,6 @@ public class Main {
         commands.put("n", new NumberCommand());
         commands.put("math", new MathCommand());
         commands.put("calc", new MathCommand());
-        commands.put("m", new MathCommand());
         
         commands.put("say", new SayCommand());
         commands.put("emoji", new EmojiCommand());
@@ -182,6 +181,8 @@ public class Main {
         commands.put("hmc", new HangManCheaterCommand());
         
         // Music Commands
+        commands.put("music", new MusicCommand());
+        commands.put("m", new MusicCommand());
         commands.put("join", new JoinCommand());
         commands.put("summon", new JoinCommand());
         commands.put("j", new JoinCommand());
