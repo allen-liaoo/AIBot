@@ -11,7 +11,7 @@ import Command.Command;
 import static Command.Command.embed;
 import Resource.Emoji;
 import Resource.Info;
-import Resource.Prefix;
+import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;

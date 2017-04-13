@@ -5,8 +5,10 @@
  * 
  * 2017 (c) AIBot
  */
-package Resource;
+package Utility;
 
+import Resource.Emoji;
+import Resource.Info;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

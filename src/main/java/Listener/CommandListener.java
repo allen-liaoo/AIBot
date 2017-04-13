@@ -5,12 +5,12 @@
  */
 package Listener;
 
-import Resource.Prefix;
+import Setting.Prefix;
 import Main.*;
 import Setting.GuildSetting;
 import Audio.Music;
 import static Main.Main.commands;
-import Setting.SmartLogger;
+import Utility.SmartLogger;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

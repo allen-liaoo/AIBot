@@ -5,7 +5,7 @@
  * 
  * 2017 (c) AIBot
  */
-package Resource;
+package Utility;
 
 import com.mashape.unirest.http.Unirest;
 import java.awt.Color;

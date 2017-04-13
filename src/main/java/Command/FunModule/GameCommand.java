@@ -8,7 +8,7 @@ package Command.FunModule;
 import Command.Command;
 import static Command.Command.embed;
 import Resource.Info;
-import Resource.Prefix;
+import Setting.Prefix;
 import Game.*;
 import java.awt.Color;
 import java.time.Instant;

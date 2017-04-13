@@ -7,7 +7,7 @@ package Command.InformationModule;
 
 import Command.Command;
 import Resource.Info;
-import Resource.Prefix;
+import Setting.Prefix;
 import Resource.Emoji;
 import java.awt.Color;
 import java.util.List;

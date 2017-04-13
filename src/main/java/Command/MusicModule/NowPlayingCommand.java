@@ -11,7 +11,7 @@ import static Command.Command.embed;
 import Main.Main;
 import Resource.Emoji;
 import Resource.Info;
-import Resource.Prefix;
+import Setting.Prefix;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import java.awt.Color;
 import java.time.Instant;

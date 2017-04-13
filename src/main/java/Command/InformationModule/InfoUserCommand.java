@@ -5,7 +5,7 @@
  */
 package Command.InformationModule;
 
-import Resource.Prefix;
+import Setting.Prefix;
 import Resource.Info;
 import Command.Command;
 import Main.*;

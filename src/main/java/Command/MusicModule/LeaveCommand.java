@@ -5,7 +5,7 @@
  */
 package Command.MusicModule;
 
-import Resource.Prefix;
+import Setting.Prefix;
 import Resource.Info;
 import Audio.*;
 import Command.Command;

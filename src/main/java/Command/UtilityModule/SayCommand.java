@@ -7,9 +7,9 @@ package Command.UtilityModule;
 
 import Command.Command;
 import Resource.Info;
-import Resource.Prefix;
+import Setting.Prefix;
 import Main.*;
-import Setting.SmartLogger;
+import Utility.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;

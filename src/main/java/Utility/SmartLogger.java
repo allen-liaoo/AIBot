@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Setting;
+package Utility;
 
 import Main.Main;
 import Resource.FilePath;

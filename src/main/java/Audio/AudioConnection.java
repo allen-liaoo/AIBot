@@ -8,7 +8,7 @@ package Audio;
 import Resource.Emoji;
 import Command.*;
 import Main.*;
-import Setting.SmartLogger;
+import Utility.SmartLogger;
 
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.managers.AudioManager;

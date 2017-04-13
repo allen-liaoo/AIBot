@@ -7,11 +7,11 @@ package Command.FunModule;
 
 import Command.Command;
 import Resource.Info;
-import Resource.Prefix;
+import Setting.Prefix;
 import Main.*;
 import Resource.Emoji;
 import Resource.FilePath;
-import Setting.SmartLogger;
+import Utility.SmartLogger;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;

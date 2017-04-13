@@ -6,13 +6,13 @@
 package Command.UtilityModule;
 
 import Resource.Emoji;
-import Resource.Search;
-import Resource.Prefix;
+import Utility.Search;
+import Setting.Prefix;
 import Resource.Info;
-import Resource.SearchResult;
+import Utility.SearchResult;
 import Command.Command;
 import Main.*;
-import Setting.SmartLogger;
+import Utility.SmartLogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;

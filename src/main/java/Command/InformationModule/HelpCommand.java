@@ -9,7 +9,7 @@ package Command.InformationModule;
 
 import Resource.Emoji;
 import Resource.HelpText;
-import Resource.Prefix;
+import Setting.Prefix;
 import Resource.Info;
 import Command.FunModule.EightBallCommand;
 import Command.*;
@@ -18,8 +18,8 @@ import Command.UtilityModule.*;
 import Command.MusicModule.*;
 import Command.FunModule.*;
 import Command.RestrictedModule.*;
-import Resource.UtilTool;
-import Setting.SmartLogger;
+import Utility.UtilTool;
+import Utility.SmartLogger;
 
 import java.awt.Color;
 import java.time.Instant;

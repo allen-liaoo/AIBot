@@ -9,8 +9,8 @@ package Audio;
 
 import Main.Main;
 import Resource.Emoji;
-import Resource.Prefix;
-import Setting.SmartLogger;
+import Setting.Prefix;
+import Utility.SmartLogger;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

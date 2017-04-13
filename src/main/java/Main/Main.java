@@ -17,7 +17,7 @@ import Command.RestrictedModule.*;
 import Listener.*;
 import Audio.*;
 import Resource.Info;
-import Setting.SmartLogger;
+import Utility.SmartLogger;
 
 
 import net.dv8tion.jda.core.AccountType;

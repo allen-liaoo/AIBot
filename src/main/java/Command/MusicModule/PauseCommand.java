@@ -10,7 +10,7 @@ import Audio.Music;
 import static Command.MusicModule.JoinCommand.HELP;
 import Resource.Emoji;
 import Resource.Info;
-import Resource.Prefix;
+import Setting.Prefix;
 import Main.Main;
 import java.awt.Color;
 import java.time.Instant;

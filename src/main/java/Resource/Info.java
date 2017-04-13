@@ -5,6 +5,7 @@
  */
 package Resource;
 
+import Setting.Prefix;
 import Main.Main;
 import java.awt.Color;
 import java.util.Random;

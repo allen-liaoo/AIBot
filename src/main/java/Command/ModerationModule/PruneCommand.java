@@ -6,11 +6,11 @@
 package Command.ModerationModule;
 
 import Resource.Emoji;
-import Resource.Prefix;
+import Setting.Prefix;
 import Resource.Info;
 import Command.Command;
 import Main.*;
-import Setting.SmartLogger;
+import Utility.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;

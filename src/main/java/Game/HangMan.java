@@ -8,7 +8,7 @@ package Game;
 import Main.Main;
 import Resource.Emoji;
 import Resource.FilePath;
-import Setting.SmartLogger;
+import Utility.SmartLogger;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

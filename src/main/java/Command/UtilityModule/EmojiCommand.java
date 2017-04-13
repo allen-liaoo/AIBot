@@ -9,7 +9,7 @@ import Command.Command;
 import Command.Command;
 import Resource.Emoji;
 import Resource.Info;
-import Resource.Prefix;
+import Setting.Prefix;
 import com.vdurmont.emoji.EmojiManager;
 import java.awt.Color;
 import java.time.Instant;
