@@ -135,10 +135,11 @@ public class HelpText {
     * Music Module
     */
     public final static String MUSIC_CMD = 
-            "**music (m)**"
+            "**music (m)**\n"
             + "**join (j)**\n"
-            + "**leave  (l)**\n"
+            + "**leave (l)**\n"
             + "**play**\n"
+            + "**fm**\n"
             + "**pause**\n"
             + "**queue**\n\n"
             + "**skip**\n"
@@ -152,6 +153,7 @@ public class HelpText {
             + "Add bot to a voice channel.\n"
             + "Remove bot from a voice channel.\n"
             + "Play a song from YouTube.\n"
+            + "Play automatic playlists.\n"
             + "Pause the current playing song.\n"
             + "Show the playlist and what's \ncoming next\n"
             + "Skip the song.\n"

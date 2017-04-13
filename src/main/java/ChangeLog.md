@@ -66,3 +66,14 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - NowPlayingCommand and QueueCommand was not able to get current track information.
 - Several NullPointerExceptions from Music Module. Moved Music.musicStartup before jda start up.
 - RPSCommand bugged switch statement
+
+#### [0.2.0] - 2017-04-11
+##### Added 
+- Vote Skip System
+- YouTube Thumbnails for NowPlayingCommand
+##### Fixed
+- Several bugs in Music Module and Information Module
+
+#### [0.2.0] - 2017-04-11
+##### Added 
+- FM System which play automatic loaded play lists

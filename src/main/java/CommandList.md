@@ -53,6 +53,7 @@
 - join (j) - Add bot to a voice channel.
 - leave (l) - Remove bot from a voice channel. 
 - play - Play a song from YouTube.
+- fm - Play automatic playlists.
 - pause - Pause the current playing song.
 - queue - Show the playlist and what's coming next.
 - skip - Skip the song.
