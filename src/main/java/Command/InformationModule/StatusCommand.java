@@ -11,7 +11,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Main.Main;
-import Resource.Utils;
+import Resource.UtilTool;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -111,8 +111,8 @@ public class StatusCommand implements Command{
                 String osversion = os.getVersion();
 
                 MemoryUsage osx = (MemoryUsage)ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
-                String used = Utils.convertBytes(osx.getUsed(), true);
-                String available = Utils.convertBytes(osx.getCommitted(), true);
+                String used = UtilTool.convertBytes(osx.getUsed(), true);
+                String available = UtilTool.convertBytes(osx.getCommitted(), true);
                 String memory = used + "/" + available;
 
                 more = "Operating System Version: Mac Sierra " + osversion

@@ -96,10 +96,9 @@ public class PresenceCommand implements Command {
                     
                     try {
                         Main.setStatus(status);
-                        SmartLogger.updateLog("Bot setStatus Attempt");
                     } catch (IllegalArgumentException iae) {
                         e.getChannel().sendMessage(Emoji.error + " Please enter a valid status.").queue();
-                        SmartLogger.errorLog(iae, e, "PresenceCommand", "Unknown Status");
+                        SmartLogger.errorLog(iae, e, this.getClass().getName(), "Unknown Status");
                         return;
                     }
                     
@@ -109,9 +108,8 @@ public class PresenceCommand implements Command {
                 {
                     String game = "";
                     for(String g : args) { game += g + " ";}
-
+                    
                     Main.setGame(game);
-                    SmartLogger.updateLog("Bot setGame Attempt");
                     e.getChannel().sendMessage(Emoji.success + " Game set to `"+ e.getJDA().getPresence().getGame().getName() + "`").queue();
                 }
             }

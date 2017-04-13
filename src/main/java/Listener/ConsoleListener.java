@@ -5,10 +5,13 @@
  */
 package Listener;
 
+import Audio.FM;
 import Main.Main;
 import Resource.WebScraper;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,12 +49,7 @@ public class ConsoleListener extends Thread {
             //Test Commands
             else if(input.startsWith("test"))
             {
-                try {
-                    //System.out.println("Test wot?");
-                    System.out.println(WebScraper.getYouTubeThumbNail("https://www.youtube.com/watch?v=P95_pCbCPZw"));
-                } catch (IOException ex) {
-                    Logger.getLogger(ConsoleListener.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                System.out.println("Test wot?");
             }
             
             //Presence

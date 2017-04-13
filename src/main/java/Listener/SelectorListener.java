@@ -8,6 +8,7 @@
 package Listener;
 
 import Command.MusicModule.PlayCommand;
+import Main.Main;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -27,16 +28,8 @@ public class SelectorListener extends ListenerAdapter {
         char choice = '\u0000';
         if(e.getMessage().getContent().length() > 0)
             choice = e.getMessage().getContent().charAt(0);
+        String message = e.getMessage().getContent();
         
-        if(e.getMessage().getContent().length() == 1 && (choice == 'c' || Character.isDigit(choice)))
-        {
-            //PlayCommand
-            if(PlayCommand.selecter.containsKey(e.getGuild().getId()) 
-                    && PlayCommand.selecter.containsValue(e.getAuthor()))
-            {
-                PlayCommand.selector(choice, e);
-                    System.out.println("got here");
-            }
-        }
+        PlayCommand.selector(message, choice, e);
     }
 }
