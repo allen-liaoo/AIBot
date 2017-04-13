@@ -137,7 +137,7 @@ public class WebScraper {
         
         //Build MessageEmbed
         EmbedBuilder imdb = new EmbedBuilder();
-        imdb.setColor(Info.setColor());
+        imdb.setColor(UtilTool.setColor());
         imdb.setThumbnail(result.getThumbnail());
         imdb.setAuthor(Emoji.search + " IMDb Search", result.getLink(), null);
         imdb.addField(Emoji.film_projector + " Title", title, true);
@@ -190,8 +190,6 @@ public class WebScraper {
         Document doc = Jsoup.parse(link);
         
         String img = doc.select("img").attr("src");
-        
-        System.out.print(doc.html());
         return link;
     }
 }

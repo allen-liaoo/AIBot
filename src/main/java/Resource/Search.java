@@ -64,7 +64,7 @@ public class Search {
             count++;
         }
         
-        System.out.println("** Web Search --> " + input + " : " + count +" results");
+        System.out.println("Search#search --> " + input + " : " + count +" results");
         return results;
     }
     
@@ -101,7 +101,7 @@ public class Search {
             if(count == Integer.parseInt(num)) break;
         }
         
-        System.out.println("** YouTube Search --> " + input + " : " + count +" results");
+        System.out.println("Search#youtubeSearch --> " + input + " : " + count +" results");
         return results;
     }
     
@@ -130,7 +130,7 @@ public class Search {
             count++;
         }
         
-        System.out.println("** Lyrics Search --> " + input + " : " + count +" results");
+        System.out.println("Search#lyricsSearch --> " + input + " : " + count +" results");
         return results;
     }
     
@@ -173,7 +173,7 @@ public class Search {
             totalcount++;
         }
         
-        System.out.println("** IMDB Search --> " + input + " : " + totalcount +" results");
+        System.out.println("Search#IMDbSearch --> " + input + " : " + totalcount +" results");
         totalcount = 0;
         return results;
     }
