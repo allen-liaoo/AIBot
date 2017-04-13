@@ -14,6 +14,7 @@ import Resource.Info;
 import Resource.Prefix;
 import Resource.Search;
 import Resource.SearchResult;
+import Resource.UtilTool;
 import Resource.WebScraper;
 import Setting.SmartLogger;
 import java.awt.Color;
@@ -133,7 +134,7 @@ public class IMDbCommand implements Command {
                 
                 //Build EMbed Message
                 EmbedBuilder embeds = new EmbedBuilder();
-                embeds.setColor(Info.setColor());
+                embeds.setColor(UtilTool.setColor());
                 embeds.setAuthor("IMDb Search Results for \"" + input + "\"", 
                         "http://www.imdb.com/find?q=" + input.replaceAll(" ", "+"), null);
                 embeds.addField("Titles", titles, false);
