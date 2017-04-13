@@ -6,6 +6,7 @@
 package Setting;
 
 import Main.Main;
+import Resource.FilePath;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,9 +25,6 @@ public class SmartLogger {
     public static Logger startLogger = Logger.getLogger(Main.class.getName());
     public static Logger errorLogger = Logger.getLogger("Error");
     public static Logger commandLogger = Logger.getLogger("Command");
-    public static String LogMain = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Private/LogMain.txt";
-    public static String LogError = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Private/LogError.txt";
-    public static String LogCommand = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Private/LogCommand.txt";
     
     /**
      * Logging when bot status changed
@@ -34,7 +32,7 @@ public class SmartLogger {
      */
     public static void updateLog(String msg) {
         try {
-            FileHandler fh = new FileHandler(LogMain, true);
+            FileHandler fh = new FileHandler(FilePath.LogMain, true);
             startLogger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -58,7 +56,7 @@ public class SmartLogger {
      */
     public static void errorLog(Exception ex, MessageReceivedEvent event, String at, String cause) {
         try {
-            FileHandler fhe = new FileHandler(LogError, true);
+            FileHandler fhe = new FileHandler(FilePath.LogError, true);
             errorLogger.addHandler(fhe);
             SimpleFormatter formatter = new SimpleFormatter();
             fhe.setFormatter(formatter);
@@ -92,7 +90,7 @@ public class SmartLogger {
      */
     public static void commandLog(MessageReceivedEvent event, String command, String description) {
          try {
-            FileHandler fhc = new FileHandler(LogCommand, true);
+            FileHandler fhc = new FileHandler(FilePath.LogCommand, true);
             commandLogger.addHandler(fhc);
             SimpleFormatter formatter = new SimpleFormatter();
             fhc.setFormatter(formatter);

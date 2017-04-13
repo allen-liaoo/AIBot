@@ -128,6 +128,9 @@ public class PlayCommand implements Command{
     }
     
     public static void selector(String message, char character, MessageReceivedEvent e) {
+        if(e.getChannelType() == e.getChannelType().PRIVATE)
+            return;
+        
         if(!selecter.containsKey(e.getGuild().getId()) 
                     || !selecter.containsValue(e.getAuthor()))
             return;

@@ -7,6 +7,7 @@ package Game;
 
 import Main.Main;
 import Resource.Emoji;
+import Resource.FilePath;
 import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -62,7 +63,7 @@ public class HangMan implements Game{
         starter = e.getAuthor();
         
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/WordBank.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(FilePath.HangMan));
             
             String ranword;
             long random = (long) (Math.random() * 58109) + 1;

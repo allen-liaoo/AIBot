@@ -10,6 +10,7 @@ import Resource.Info;
 import Resource.Prefix;
 import Main.*;
 import Resource.Emoji;
+import Resource.FilePath;
 import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -77,7 +78,7 @@ public class EightBallCommand implements Command{
         
         //Generate Random Number base on the lines in 8Ball.txt
         try {
-                BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/8Ball.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader(FilePath.EightBall));
                 
                 while((output = reader.readLine()) != null)
                 {
@@ -90,7 +91,7 @@ public class EightBallCommand implements Command{
         int magic = (int) Math.ceil(Math.random() * totalline), line = 0;
         
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/8Ball.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(FilePath.EightBall));
 
             while((respond = reader.readLine()) != null)
             {

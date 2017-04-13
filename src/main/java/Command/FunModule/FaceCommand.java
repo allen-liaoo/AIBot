@@ -10,6 +10,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Main.*;
+import Resource.FilePath;
 import Setting.SmartLogger;
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -43,6 +44,7 @@ public class FaceCommand implements Command{
     public static HashMap<String, String> faces = new HashMap<String, String>(); //K: Fave Name, Value: Face String
     private static String output = "";
     private static String facelist = "";
+    private static String facelistc = "";
     
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
@@ -70,7 +72,7 @@ public class FaceCommand implements Command{
             
             //Generate Random Number base on the lines in FaceList.txt
             try {
-                BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/FaceList.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader(FilePath.FaceList));
                 
                 while((output = reader.readLine()) != null)
                 {
@@ -84,7 +86,7 @@ public class FaceCommand implements Command{
             }
             
             try {
-                BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/FaceList.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader(FilePath.FaceList));
                 
                 while((output = reader.readLine()) != null)
                 {
@@ -111,7 +113,7 @@ public class FaceCommand implements Command{
             int count = 0;
             
             try {
-                BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/FaceList.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader(FilePath.FaceList));
                 
                 while((output = reader.readLine()) != null)
                 {
@@ -119,7 +121,7 @@ public class FaceCommand implements Command{
                     if(count % 2 == 0) //Put tab and nextLine into place
                         facelist += output + "\n";
                     else
-                        facelist += output + "\t";
+                        facelistc += output + "\n";
                 }
             } catch (IOException ioe) {
                 SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at -list.");
@@ -127,8 +129,10 @@ public class FaceCommand implements Command{
             
             EmbedBuilder embedfl = new EmbedBuilder();
             embedfl.setColor(Color.red);
-            embedfl.setTitle("Face Command", null);
-            embedfl.addField("Lenny Faces List", facelist, true);
+            embedfl.setTitle("Lenny Faces List", null);
+            embedfl.addField("Name", facelist, true);
+            embedfl.addBlankField(true);
+            embedfl.addField("Face", facelistc, true);
             embedfl.setFooter("( ͡° ͜ʖ ͡°)", null);
             embedfl.setTimestamp(Instant.now());
 
@@ -153,7 +157,7 @@ public class FaceCommand implements Command{
             String input = args[0];
             
             try {
-                BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/FaceList.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader(FilePath.FaceList));
                 
                 while((output = reader.readLine()) != null)
                 {
