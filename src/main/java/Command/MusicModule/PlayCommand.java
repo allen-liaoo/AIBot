@@ -90,6 +90,7 @@ public class PlayCommand implements Command{
             } catch (IOException ioe) {
                 SmartLogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result (-m).");
             } catch (IndexOutOfBoundsException ioobe) {
+                e.getChannel().sendMessage(Emoji.error + " No results.").queue();
                 SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly (-m). Input: " + input);
             }
         }
@@ -127,13 +128,21 @@ public class PlayCommand implements Command{
     }
     
     public static void selector(char message, MessageReceivedEvent e) {
-        int i = Character.getNumericValue(message);
-        SmartLogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());
+        if(message == 'c')
+        {
+            e.getChannel().sendMessage("Selection Cancelled.").queue();
+            SmartLogger.commandLog(e, "PlayCommand#selector", "Video selection cancelled.");
+        }
+        else
+        {
+            int i = Character.getNumericValue(message);
+            SmartLogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());
         
-        Music.play(results.get(i - 1).getLink(), e);
+            Music.play(results.get(i - 1).getLink(), e);
+        }
+        
         selecter.remove(e.getGuild().getId(), e.getAuthor());
         results.clear();
-        
     }
     
 }

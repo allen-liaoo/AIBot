@@ -33,6 +33,7 @@ public class TrackScheduler extends AudioEventAdapter {
     private final ArrayList<User> requester;
     
     private static TextChannel tc;
+    public final ArrayList<User> skipper;
 
   /**
    * @param player The audio player this scheduler uses
@@ -41,6 +42,7 @@ public class TrackScheduler extends AudioEventAdapter {
         this.player = player;
         this.queue = new LinkedBlockingQueue<>();
         this.requester = new ArrayList<User>();
+        this.skipper = new ArrayList<User>();
   }
 
   /**
@@ -76,6 +78,7 @@ public class TrackScheduler extends AudioEventAdapter {
   @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
+        skipper.clear();
         requester.remove(0);
         if (endReason.mayStartNext) {
             nextTrack();
@@ -105,6 +108,24 @@ public class TrackScheduler extends AudioEventAdapter {
 
     public void setTc(TextChannel tc) {
         this.tc = tc;
+    }
+
+    public ArrayList<User> getVote() {
+        return skipper;
+    }
+
+    public boolean addVote(User vote) {
+        if(!skipper.contains(vote))
+        {
+            skipper.add(vote);
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    public void clearVote() {
+        skipper.clear();
     }
 }
 

@@ -46,7 +46,12 @@ public class ConsoleListener extends Thread {
             //Test Commands
             else if(input.startsWith("test"))
             {
-                System.out.println("Test wot?");
+                try {
+                    //System.out.println("Test wot?");
+                    System.out.println(WebScraper.getYouTubeThumbNail("https://www.youtube.com/watch?v=P95_pCbCPZw"));
+                } catch (IOException ex) {
+                    Logger.getLogger(ConsoleListener.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
             //Presence

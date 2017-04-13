@@ -11,6 +11,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Resource.Prefix;
 import Main.Main;
+import Resource.Utils;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -69,7 +70,21 @@ public class StatusCommand implements Command{
             long timeCurrent = System.currentTimeMillis(), uptime;
             String upinfo;
             uptime = timeCurrent - Main.timeStart;
-            upinfo = uptime/3600000 + " hours, " + (uptime/60000)%60 + " minutes, and " + (uptime/1000)%60 + " seconds.";
+            String hours = Long.toString(uptime/3600000), minutes = Long.toString((uptime/60000)%60), seconds = Long.toString((uptime/1000)%60);
+            if(Integer.parseInt(hours) < 10)
+            {
+                hours = "0" + hours;
+            }
+            if(Integer.parseInt(minutes) < 10)
+            {
+                minutes = "0" + minutes;
+            }
+            if(Integer.parseInt(seconds) < 10)
+            {
+                seconds = "0" + seconds;
+            }
+            
+            upinfo = hours + " hours, " + minutes + " minutes, and " + seconds + " seconds.";
             
             if("uptime".equals(type))
             {
@@ -96,8 +111,8 @@ public class StatusCommand implements Command{
                 String osversion = os.getVersion();
 
                 MemoryUsage osx = (MemoryUsage)ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
-                String used = convertBytes(osx.getUsed(), true);
-                String available = convertBytes(osx.getCommitted(), true);
+                String used = Utils.convertBytes(osx.getUsed(), true);
+                String available = Utils.convertBytes(osx.getCommitted(), true);
                 String memory = used + "/" + available;
 
                 more = "Operating System Version: Mac Sierra " + osversion
@@ -129,19 +144,5 @@ public class StatusCommand implements Command{
         
     }
     
-    /**
-     * Convert bytes value to human readable form.
-     * See: http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
-     * @param bytes for the bytes value to be converted
-     * @param si Choose between SI or Binary
-     * @return
-     */
-    public static String convertBytes(long bytes, boolean si) {
-        int unit = si ? 1000 : 1024;
-        if (bytes < unit) return bytes + " B";
-        int exp = (int) (Math.log(bytes) / Math.log(unit));
-        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
-        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
-    }
     
 }

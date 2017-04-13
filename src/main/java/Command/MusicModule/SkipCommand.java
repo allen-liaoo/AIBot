@@ -45,14 +45,31 @@ public class SkipCommand implements Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        
         if(args.length == 1 && "-h".equals(args[0])) 
         {
             help(e);
         }
-        else
+        
+        else if(args.length == 0)
         {
-            Music.skip(e);
-            e.getChannel().sendMessage(Emoji.success + " Track skipped.").queue();
+            int skip = Music.skip(e, 0, false);
+            if(skip > 0)
+                e.getChannel().sendMessage(Emoji.success + " Added your vote. Still require " + skip + " votes to skip the song.").queue();
+            else if(skip == 0)
+                e.getChannel().sendMessage(Emoji.success + " Track skipped.").queue();
+            else if(skip == -1)
+                e.getChannel().sendMessage(Emoji.error + " Your vote is already added.").queue();
+        }
+        
+        else if("-f".equals(args[0]))
+        {
+            Music.skip(e, 0, true);
+        }
+        
+        else if(args[0].length() == 1 && Character.isDigit(args[0].charAt(0)))
+        {
+            int skip = Music.skip(e, Integer.parseInt(args[0]), false);
         }
     }
 

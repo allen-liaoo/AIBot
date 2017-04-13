@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
-import org.jsoup.Connection.Response;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -178,5 +177,21 @@ public class WebScraper {
             }
         }
         result.setThumbnail(pic);
-    }    
+    }  
+    
+    /**
+     * YouTube Thumbnail Getter
+     * @param link
+     * @throws IOException
+     */
+    public static String getYouTubeThumbNail(String link) throws IOException {
+        link = link.split("\\?v=")[1];
+        link = "http://img.youtube.com/vi/" + link + "/0.jpg";
+        Document doc = Jsoup.parse(link);
+        
+        String img = doc.select("img").attr("src");
+        
+        System.out.print(doc.html());
+        return link;
+    }
 }
