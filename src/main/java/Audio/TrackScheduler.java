@@ -6,8 +6,11 @@
 package Audio;
 
 import Resource.Emoji;
+import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
+import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ import java.util.Iterator;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.regex.Matcher;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -30,10 +34,14 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class TrackScheduler extends AudioEventAdapter {
     private final AudioPlayer player;
     private final BlockingQueue<AudioTrack> queue;
-    private final ArrayList<User> requester;
+    private final ArrayList<String> requester;
     
     private static TextChannel tc;
     public final ArrayList<User> skipper;
+    
+    public static String[] fmSongs;
+    private boolean isFm;
+    private int auto = -1, previous = -1;
 
   /**
    * @param player The audio player this scheduler uses
@@ -41,7 +49,7 @@ public class TrackScheduler extends AudioEventAdapter {
     public TrackScheduler(AudioPlayer player) {
         this.player = player;
         this.queue = new LinkedBlockingQueue<>();
-        this.requester = new ArrayList<User>();
+        this.requester = new ArrayList<String>();
         this.skipper = new ArrayList<User>();
   }
 
@@ -54,7 +62,7 @@ public class TrackScheduler extends AudioEventAdapter {
     // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
     // something is playing, it returns false and does nothing. In that case the player was already playing so this
     // track goes to the queue instead.
-        requester.add(e.getAuthor());
+        requester.add(e.getAuthor().getName());
         if (!player.startTrack(track, true)) {
             queue.offer(track);
         }
@@ -66,7 +74,13 @@ public class TrackScheduler extends AudioEventAdapter {
     public void nextTrack() {
         // Start the next track, regardless of if something is already playing or not. In case queue was empty, we are
         // giving null to startTrack, which is a valid argument and will simply stop the player.
-        player.startTrack(queue.poll(), false);
+        if(isFm && queue.peek() == null){
+            autoPlay();
+            player.startTrack(queue.poll(), false);
+        }else{
+            player.startTrack(queue.poll(), false);
+        }
+        
     }
 
     @Override
@@ -81,7 +95,12 @@ public class TrackScheduler extends AudioEventAdapter {
         skipper.clear();
         requester.remove(0);
         if (endReason.mayStartNext) {
-            nextTrack();
+            if(isFm && queue.peek() == null){
+                autoPlay();
+            }
+            else{
+                nextTrack();
+            }
         }
     }
     
@@ -101,7 +120,7 @@ public class TrackScheduler extends AudioEventAdapter {
         requester.clear();
     }
     
-    public ArrayList<User> getRequester()
+    public ArrayList<String> getRequester()
     {
         return requester;
     }
@@ -126,6 +145,39 @@ public class TrackScheduler extends AudioEventAdapter {
     
     public void clearVote() {
         skipper.clear();
+    }
+    
+    public void autoPlay() {
+        isFm = true;
+        
+        while (auto == previous) {
+            auto = (int) (Math.random() * fmSongs.length + 1);
+        }
+        previous = auto;
+        String url = fmSongs[auto];
+        
+        Matcher m = Music.urlPattern.matcher(url);
+        if (m.find()) {
+            Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
+                public void trackLoaded(AudioTrack track) {
+                    requester.add("AIBot FM");
+                    player.playTrack(track);
+                    return;
+                }
+
+                public void playlistLoaded(AudioPlaylist playlist) {
+                    //Will never be triggered.
+                }
+
+                public void noMatches() {
+                    System.out.println("No match found :c");
+                }
+
+                public void loadFailed(FriendlyException exception) {
+                    System.out.println(exception.getMessage());
+                }
+            });
+        }
     }
 }
 

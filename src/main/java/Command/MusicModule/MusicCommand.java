@@ -13,6 +13,7 @@ import static Command.MusicModule.PlayCommand.HELP;
 import Resource.HelpText;
 import Resource.Info;
 import Resource.Prefix;
+import Resource.UtilTool;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -51,7 +52,7 @@ public class MusicCommand implements Command{
         {
             EmbedBuilder embedm = new EmbedBuilder();
             
-            embedm.setColor(Info.setColor());
+            embedm.setColor(UtilTool.setColor());
             embedm.setAuthor("Music Module", null, Info.I_HELP);
             embedm.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
             embedm.setTimestamp(Instant.now());

@@ -127,15 +127,23 @@ public class PlayCommand implements Command{
         
     }
     
-    public static void selector(char message, MessageReceivedEvent e) {
-        if(message == 'c')
+    public static void selector(String message, char character, MessageReceivedEvent e) {
+        if(!selecter.containsKey(e.getGuild().getId()) 
+                    || !selecter.containsValue(e.getAuthor()))
+            return;
+        
+        if("cancel".equals(message) || character == 'c')
         {
             e.getChannel().sendMessage("Selection Cancelled.").queue();
             SmartLogger.commandLog(e, "PlayCommand#selector", "Video selection cancelled.");
         }
+        
+        else if(!Character.isDigit(character))
+            return;
+        
         else
         {
-            int i = Character.getNumericValue(message);
+            int i = Character.getNumericValue(character);
             SmartLogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());
         
             Music.play(results.get(i - 1).getLink(), e);
