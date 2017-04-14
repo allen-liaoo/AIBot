@@ -29,55 +29,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -169,19 +120,12 @@ public class Music  {
      */
     public static int skip(MessageReceivedEvent e, int position, boolean force)
     {
-        /*
         if(force)
         {
-            Iterator it = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueueIterator();
-            int count = 0;
-            while(it.hasNext())
-            {
-                count++;
-                if(count == position)
-                    it.remove();
-            }
+            Main.guilds.get(e.getGuild().getId()).getScheduler().nextTrack();
+            Main.guilds.get(e.getGuild().getId()).getScheduler().clearVote();
             return 0;
-        }*/
+        }
         
         //Vote Skip for current song
         if(position == 0)
@@ -216,6 +160,17 @@ public class Music  {
         else if(position != 0)
         {
             return -1;
+            /*
+            Iterator it = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueueIterator();
+            int count = 0;
+            while(it.hasNext())
+            {
+                count++;
+                if(count == position)
+                    it.remove();
+            }
+            return 0;
+            */
         }
         return 0;
     }

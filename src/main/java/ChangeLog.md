@@ -74,7 +74,9 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 ##### Fixed
 - Several bugs in Music Module and Information Module
 
-#### [0.2.0] - 2017-04-11
+#### [0.2.3] - 2017-04-11
 ##### Added 
 - FM System which play automatic loaded play lists
 - Radio System which stream a radio station
+##### Fixed
+- Force Skip for server owners and administrators

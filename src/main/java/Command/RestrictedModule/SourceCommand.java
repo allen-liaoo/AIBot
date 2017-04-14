@@ -62,7 +62,7 @@ public class SourceCommand implements Command{
         
         else if(args.length >= 1) 
         {
-            if(!"248214880379863041".equals(e.getAuthor().getId()))// || !e.getMember().equals(e.getGuild().getOwner()))
+            if(!Info.D_ID.equals(e.getAuthor().getId()) || !e.getMember().isOwner())
             {
                 e.getChannel().sendMessage(Emoji.error + " This command is for **Server Owner** or **Bot Owner** only.").queue();
             }

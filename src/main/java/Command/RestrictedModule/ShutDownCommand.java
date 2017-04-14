@@ -52,7 +52,7 @@ public class ShutDownCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0) 
         {
-            if("248214880379863041".equals(e.getAuthor().getId()))
+            if(Info.D_ID.equals(e.getAuthor().getId()))
             {
                 e.getChannel().sendMessage(Emoji.success + " Shutting down...").queue();
 

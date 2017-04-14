@@ -66,6 +66,7 @@ public class FMCommand implements Command{
                 {
                     dfm += l + ", ";
                 }
+                dfm = dfm.substring(0, dfm.length() - 2);
                 
                 embedpl.setAuthor("AIBot FM", FM.FM_base_url, Info.B_AVATAR);
                 embedpl.setDescription("Usage: `" + Prefix.DIF_PREFIX + "fm [Playlist Name]`\n");
@@ -91,7 +92,7 @@ public class FMCommand implements Command{
                 if(i == 0)
                     input += args[i];
                 else
-                     input += args[i] + " ";
+                     input += " " + args[i];
             }
             
             try {

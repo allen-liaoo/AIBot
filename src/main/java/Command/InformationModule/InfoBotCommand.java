@@ -64,7 +64,7 @@ public class InfoBotCommand implements Command{
             if(e.getChannelType() != e.getChannelType().PRIVATE)
                 nickname = e.getGuild().getSelfMember().getEffectiveName();
             
-            owner = bot.getUserById("248214880379863041").getName();
+            owner = bot.getUserById(Info.D_ID).getName();
             avatar = bot.getSelfUser().getAvatarUrl();
             id = bot.getSelfUser().getId();
             register = bot.getSelfUser().getCreationTime().toString();

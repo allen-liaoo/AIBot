@@ -27,6 +27,9 @@ public class AudioConnection {
     public static void connect(MessageReceivedEvent e, boolean inform)
     {
         try {
+            if(e.getChannelType() == e.getChannelType().PRIVATE)
+                return;
+            
             Main.guilds.get(e.getGuild().getId()).setVc(e.getMember().getVoiceState().getChannel());
             Main.guilds.get(e.getGuild().getId()).setTc(e.getTextChannel());
             

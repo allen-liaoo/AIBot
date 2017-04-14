@@ -78,7 +78,7 @@ public class RadioCommand implements Command{
                 if(i == 0)
                     input += args[i];
                 else
-                    input += args[i] + " ";
+                    input += " " + args[i];
             }
             
             Radio.loadRadio(input, e);

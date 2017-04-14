@@ -67,7 +67,7 @@ public class PresenceCommand implements Command {
         
         else if(args.length > 0) 
         {
-            if("248214880379863041".equals(e.getAuthor().getId()))
+            if(Info.D_ID.equals(e.getAuthor().getId()))
             {
                 if("status".equals(type))
                 {

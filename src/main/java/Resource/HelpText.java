@@ -170,7 +170,7 @@ public class HelpText {
     public final static String RESTRICT_CMD = 
             "**Server Owner** or\n"
             + "**shutdown**\n\n"
-            + "**source**\n"
+            + "**source**\n\n"
             + "**setStatus**\n"
             + "**setGame**\n";
     

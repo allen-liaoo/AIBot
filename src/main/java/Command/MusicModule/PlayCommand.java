@@ -6,6 +6,7 @@
 package Command.MusicModule;
 
 import Audio.Music;
+import Main.Main;
 import Command.Command;
 import Resource.Emoji;
 import Resource.Info;
@@ -58,7 +59,15 @@ public class PlayCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-h".equals(args[0])) 
+        if(args.length == 0)
+        {
+            if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
+                Music.pause(e);
+            else
+                Music.resume(e);
+        }
+        
+        else if ("-h".equals(args[0]))
         {
             help(e);
         }
