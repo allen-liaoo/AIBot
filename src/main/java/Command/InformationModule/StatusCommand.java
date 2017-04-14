@@ -96,7 +96,6 @@ public class StatusCommand implements Command{
                 JDA bot = e.getJDA();
                 String avatar, status, game, shard, more;
                 int guild;
-                
 
                 avatar = bot.getSelfUser().getAvatarUrl();
                 status = bot.getPresence().getStatus().getKey();

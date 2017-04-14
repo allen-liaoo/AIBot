@@ -13,13 +13,16 @@ package Resource;
  */
 public class FilePath {
     
-    public static final String RadioStations = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/RadioStations.toml";
+    public static final String BasePath = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/";
     
-    public static final String FaceList = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/FaceList.txt";
-    public static final String EightBall = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/8Ball.txt";
-    public static final String HangMan = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Game/WordBank.txt";
+    public static final String RadioStations = BasePath + "Resource/RadioStations.toml";
     
-    public static String LogError = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Private/LogError.txt";
-    public static String LogCommand = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Private/LogCommand.txt";
-    public static String LogMain = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Private/LogMain.txt";
+    public static final String FaceList = BasePath + "Game/FaceList.txt";
+    public static final String EightBall = BasePath + "Game/8Ball.txt";
+    public static final String HangMan = BasePath + "Game/WordBank.txt";
+    
+    public static String LogError = BasePath + "Private/LogError.txt";
+    public static String LogCommand = BasePath + "/Private/LogCommand.txt";
+    public static String LogMain = BasePath + "Private/LogMain.txt";
+    
 }

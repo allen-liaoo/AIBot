@@ -49,4 +49,36 @@ public class UtilTool {
         return new Color(red, green, blue);
     }
     
+    /**
+     * Return a string of formatted duration in Hour/Min/Sec format
+     * @param duration
+     * @return
+     */
+    public static String formatDuration(Long duration)
+    {
+        String formatted = "";
+        if(duration != null)
+        {
+            String hours = Long.toString(duration/3600000), 
+                    minutes = Long.toString((duration/60000)%60), 
+                    seconds = Long.toString((duration/1000)%60);
+            
+            if(Integer.parseInt(hours) < 10){
+                hours = "0" + hours + ":";
+            }
+            if(Integer.parseInt(minutes) < 10){
+                minutes = "0" + minutes + ":";
+            }
+            if(Integer.parseInt(seconds) < 10){
+                seconds = "0" + seconds;
+            }
+            
+            if("00:".equals(hours))
+                hours = "";
+            
+            formatted = hours + minutes + seconds;
+        }
+        return formatted;
+    }
+    
 }

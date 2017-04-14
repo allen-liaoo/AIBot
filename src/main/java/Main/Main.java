@@ -50,8 +50,8 @@ public class Main {
         try {
             Music.musicStartup();
             jda = new JDABuilder(AccountType.BOT)
-                    .addListener(new CommandListener())
-                    .addListener(new SelectorListener())
+                    .addEventListener(new CommandListener())
+                    .addEventListener(new SelectorListener())
                     .setToken(Private.BOT_TOKEN)
                     .buildBlocking();
             jda.getPresence().setGame(Game.of(Info.B_GAME));
@@ -189,19 +189,20 @@ public class Main {
         commands.put("leave", new LeaveCommand());
         commands.put("l", new LeaveCommand());
         commands.put("play", new PlayCommand());
+        commands.put("fm", new FMCommand());
+        commands.put("radio", new RadioCommand());
         commands.put("pause", new PauseCommand("pause"));
         commands.put("resume", new PauseCommand("resume"));
         commands.put("unpause", new PauseCommand("resume"));
         commands.put("skip", new SkipCommand());
-        commands.put("nowplaying", new NowPlayingCommand());
-        commands.put("current", new NowPlayingCommand());
-        commands.put("np", new NowPlayingCommand());
+        commands.put("nowplaying", new SongCommand());
+        commands.put("song", new SongCommand());
+        commands.put("np", new SongCommand());
         commands.put("queue", new QueueCommand());
         commands.put("q", new QueueCommand());
         commands.put("volume", new VolumeCommand());
         commands.put("stop", new StopCommand());
         commands.put("lyrics", new LyricsCommand());
-        commands.put("fm", new FMCommand());
         
         //Restricted Commands
         commands.put("shutdown", new ShutDownCommand());
