@@ -14,7 +14,6 @@ import com.moandjiezana.toml.Toml;
 import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**

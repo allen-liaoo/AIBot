@@ -15,7 +15,10 @@ public class FilePath {
     
     public static final String BasePath = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/";
     
-    public static final String RadioStations = BasePath + "Resource/RadioStations.toml";
+    public static final String RadioStations = BasePath + "Audio/RadioStations.toml";
+    public static final String LP = BasePath + "Audio/LocalPlaylist/";
+    public static final String LP_List = BasePath + "Audio/LocalPlaylist/Playlists.txt";
+    public static final String LP_ChristinaPerri = BasePath + "Audio/LocalPlaylist/Christina Perri.txt";
     
     public static final String FaceList = BasePath + "Game/FaceList.txt";
     public static final String EightBall = BasePath + "Game/8Ball.txt";

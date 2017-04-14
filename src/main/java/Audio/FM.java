@@ -9,10 +9,16 @@ package Audio;
 
 import Main.Main;
 import Resource.Emoji;
+import Resource.FilePath;
 import Setting.Prefix;
 import Utility.SmartLogger;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.CookieSpecs;
@@ -32,28 +38,42 @@ public class FM {
     public final static String FM_libraries_url = FM_base_url + "/libraries/json";
     public final static String FM_library_url = FM_base_url + "/libraries/?/json";
     
-    public static void loadFm(String input, MessageReceivedEvent e) throws UnirestException
+    public static void loadFm(String input, MessageReceivedEvent e) throws UnirestException, IOException
     {
-        //Parse JSON string using JSON parser. 
         JSONArray array = loadLibrary(input);
-        if(array == null)
+        String[] local = loadLocalLibrary(input);
+        
+        if(array == null && local == null)
         {
             e.getChannel().sendMessage(Emoji.error + " Cannot find playlist called `" + input + "`.").queue();
             return;
         }
         
-        Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs = new String[array.length()];
-        for(int i = 0; i < array.length(); i ++)
+        if(local != null)
         {
-            JSONObject jo = array.getJSONObject(i);
-            
-            try {
-                Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs[i] = "https://www.youtube.com/watch?v=" + jo.get("identifier").toString();
-            } catch (org.json.JSONException jsex) {
-                e.getChannel().sendMessage(Emoji.error + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "fm` for available playlists.").queue();
-                return;
+            Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs = new String[local.length];
+            for(int i = 0; i < local.length; i ++)
+            {
+                Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs[i] = local[i];
             }
         }
+        
+        else if(array != null)
+        {
+            Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs = new String[array.length()];
+            for(int i = 0; i < array.length(); i ++)
+            {
+                JSONObject jo = array.getJSONObject(i);
+
+                try {
+                    Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs[i] = "https://www.youtube.com/watch?v=" + jo.get("identifier").toString();
+                } catch (org.json.JSONException jsex) {
+                    e.getChannel().sendMessage(Emoji.error + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "fm` for available playlists.").queue();
+                    return;
+                }
+            }
+        }
+        
         AudioConnection.connect(e, false);
         Main.guilds.get(e.getGuild().getId()).getScheduler().autoPlay();
         
@@ -111,6 +131,51 @@ public class FM {
         }
         
         return libs;
+    }
+    
+    public static String[] loadLocalLibrary(String input) throws IOException
+    {
+        //Load A List of Play Lists
+        BufferedReader br = new BufferedReader(new FileReader(FilePath.LP_List));
+        String pl;
+        
+        while((pl = br.readLine()) != null)
+        {
+            if(pl.toLowerCase().contains(input.toLowerCase()))
+                break;
+        }
+        
+        try {
+            //Load Play Lists
+            BufferedReader br2 = new BufferedReader(new FileReader(FilePath.LP + pl + ".txt"));
+            int count = 0;
+            String line, songString = "";
+
+            while((line = br2.readLine()) != null)
+            {
+                count++;
+                songString += line + " ";
+            }
+
+            String[] songs = songString.split(" ");
+            return songs;
+        } catch (FileNotFoundException fnfe) {
+            return null;
+        }
+    }
+    
+    public static String getLocalLibrary() throws IOException
+    {
+        BufferedReader br = new BufferedReader(new FileReader(FilePath.LP_List));
+        String pl = "", plString = "";
+        
+        while((pl = br.readLine()) != null)
+        {
+            plString += pl + ", ";
+        }
+        plString = plString.substring(0, plString.length() - 2);
+        
+        return plString;
     }
     
     public static void setUnirestCookie()

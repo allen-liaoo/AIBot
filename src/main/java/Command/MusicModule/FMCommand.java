@@ -16,7 +16,10 @@ import Utility.UtilTool;
 import Utility.SmartLogger;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.awt.Color;
+import java.io.IOException;
 import java.time.Instant;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -68,10 +71,12 @@ public class FMCommand implements Command{
                 }
                 dfm = dfm.substring(0, dfm.length() - 2);
                 
+                String localLib = FM.getLocalLibrary();
+                
                 embedpl.setAuthor("AIBot FM", FM.FM_base_url, Info.B_AVATAR);
                 embedpl.setDescription("Usage: `" + Prefix.DIF_PREFIX + "fm [Playlist Name]`\n");
                 embedpl.addField("Discord FM", dfm, true);
-                embedpl.addField("Local Playlists", "Nothing yet", true);
+                embedpl.addField("Local Playlists", localLib, true);
                 embedpl.setThumbnail(Info.B_AVATAR);
                 embedpl.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embedpl.setColor(UtilTool.setColor());
@@ -81,6 +86,8 @@ public class FMCommand implements Command{
                 embedpl.clearFields();
             } catch (UnirestException ex) {
                 SmartLogger.errorLog(ex, e, this.getClass().getName(), "UnirestException when getting libraries");
+            } catch (IOException ex) {
+                SmartLogger.errorLog(ex, e, this.getClass().getName(), "IOException when getting libraries");
             }
         }
         
@@ -99,6 +106,8 @@ public class FMCommand implements Command{
                 FM.loadFm(input, e);
             } catch (UnirestException ex) {
                 SmartLogger.errorLog(ex, e, this.getClass().getName(), "UnirestException when loading FM");
+            } catch (IOException ex) {
+                SmartLogger.errorLog(ex, e, this.getClass().getName(), "IoException when loading FM");
             }
         }
     }

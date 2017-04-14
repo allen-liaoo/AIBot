@@ -58,7 +58,7 @@ public class RadioCommand implements Command{
         {
             String stations = Radio.getStations();
             
-            embedpl.setAuthor("AIBot Radio", FM.FM_base_url, Info.B_AVATAR);
+            embedpl.setAuthor("AIBot Radio", null, Info.B_AVATAR);
             embedpl.setDescription("Usage: `" + Prefix.DIF_PREFIX + "radio [Station Name]`\n");
             embedpl.addField("Available Radio Stations", stations, true);
             embedpl.setThumbnail(Info.B_AVATAR);
