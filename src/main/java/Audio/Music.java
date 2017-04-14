@@ -232,18 +232,18 @@ public class Music  {
         Main.guilds.get(e.getGuild().getId()).getPlayer().setVolume(in);
     }
     
-    public static void trackInfo(MessageReceivedEvent e, AudioTrack track)
+    public static void trackInfo(MessageReceivedEvent e, AudioTrack track, String title)
     {
         AudioTrackInfo trackInfo = track.getInfo();
         Long position = track.getPosition();
         Long duration = track.getDuration();
-        String trackTime = (position/60000)%60 + ":" + (position/1000)%60 + 
-                " / " + (duration/60000)%60 + ":" + (duration/1000)%60;
+        String trackTime = UtilTool.formatDuration(position) + 
+                " / " + UtilTool.formatDuration(duration);
         
         ArrayList<String> queuer = Main.guilds.get(e.getGuild().getId()).getScheduler().getRequester();
         
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setAuthor("Now Playing", trackInfo.uri, null);
+        embedBuilder.setAuthor(title, trackInfo.uri, Info.B_AVATAR);
         embedBuilder.setColor(UtilTool.setColor());
         embedBuilder.addField("Song Title:", trackInfo.title, false);
         embedBuilder.addField("Song Link:", trackInfo.uri, false);
@@ -256,6 +256,8 @@ public class Music  {
             embedBuilder.setImage(WebScraper.getYouTubeThumbNail(track.getInfo().uri));
         } catch (IOException ex) {
             SmartLogger.errorLog(ex, e, "Music#trackInfo", "IOException on getting thumbnail of " + track.getInfo().uri);
+        } catch (ArrayIndexOutOfBoundsException aiuobe) {
+            
         }
         
         e.getTextChannel().sendMessage(embedBuilder.build()).queue();
@@ -319,8 +321,8 @@ public class Music  {
         }
         
         embed.setAuthor("Queue List (" + 
-                (position/60000)%60 + ":" + (position/1000)%60 + " / " +
-                + (duration/60000)%60 + ":" + (duration/1000)%60 + ")"
+                UtilTool.formatDuration(position) + " / " +
+                UtilTool.formatDuration(duration) + ")"
                 , Info.B_INVITE, Info.B_AVATAR);
         embed.setColor(UtilTool.setColor());
         embed.setThumbnail(Info.B_AVATAR);

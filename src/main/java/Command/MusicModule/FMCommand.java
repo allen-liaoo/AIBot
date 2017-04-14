@@ -10,7 +10,6 @@ package Command.MusicModule;
 import Audio.FM;
 import Command.Command;
 import static Command.Command.embed;
-import static Command.MusicModule.PlayCommand.HELP;
 import Resource.Info;
 import Setting.Prefix;
 import Utility.UtilTool;
@@ -18,8 +17,6 @@ import Utility.SmartLogger;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.awt.Color;
 import java.time.Instant;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -33,7 +30,7 @@ public class FMCommand implements Command{
     public final static String HELP = "This command is for loading an automatic playlist.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"fm`\n"
                                     + "Parameter: `-h | [Playlist Name] | null`\n"
-                                    + "[Playlist Name]: Load the playlist and play sogns randomly.\n"
+                                    + "[Playlist Name]: Load the playlist and play songs randomly.\n"
                                     + "null: Get a list of available playlists.\n";
     
     private EmbedBuilder embedpl = new EmbedBuilder();
@@ -71,7 +68,7 @@ public class FMCommand implements Command{
                 }
                 
                 embedpl.setAuthor("AIBot FM", FM.FM_base_url, Info.B_AVATAR);
-                embedpl.setDescription("Usage: `" + Prefix.DIF_PREFIX + "fm <Playlist Name>`\n");
+                embedpl.setDescription("Usage: `" + Prefix.DIF_PREFIX + "fm [Playlist Name]`\n");
                 embedpl.addField("Discord FM", dfm, true);
                 embedpl.addField("Local Playlists", "Nothing yet", true);
                 embedpl.setThumbnail(Info.B_AVATAR);

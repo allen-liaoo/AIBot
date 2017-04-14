@@ -77,3 +77,4 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 #### [0.2.0] - 2017-04-11
 ##### Added 
 - FM System which play automatic loaded play lists
+- Radio System which stream a radio station

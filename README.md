@@ -45,6 +45,7 @@ __**Music Commands**__
 - music (m) - Get a list of music commands.
 - play - Play a song from YouTube. 
 - fm - Play automatic playlists.
+- radio - Stream from a radio station.
 - pause - Pause the current playing song. 
 - skip - Skip the song. 
 - queue - Show the playlist and what's coming next.

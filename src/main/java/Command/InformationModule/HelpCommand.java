@@ -164,7 +164,7 @@ public class HelpCommand implements Command {
         String cmdhelp = Emoji.error + " Cannot find such command/module.", cmdhelp2 = "";
         boolean isMod = false; //Check if this is module or command.
 
-        switch (cmdtitle) {
+        switch (cmdtitle.toLowerCase()) {
             //Information Module
             case "information":
             case "info":
@@ -327,6 +327,12 @@ public class HelpCommand implements Command {
             case "play":
                 cmdhelp = PlayCommand.HELP;
                 break;
+            case "fm":
+                cmdhelp = FMCommand.HELP;
+                break;
+            case "radio":
+                cmdhelp = RadioCommand.HELP;
+                break;
             case "pause":
             case "resume":
             case "unpause":
@@ -338,7 +344,7 @@ public class HelpCommand implements Command {
             case "nowplaying":
             case "current":
             case "np":
-                cmdhelp = NowPlayingCommand.HELP;
+                cmdhelp = SongCommand.HELP;
                 break;
             case "queue":
                 cmdhelp = QueueCommand.HELP;
