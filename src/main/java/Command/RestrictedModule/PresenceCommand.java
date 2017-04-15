@@ -70,32 +70,10 @@ public class PresenceCommand implements Command {
             if(Info.D_ID.equals(e.getAuthor().getId()))
             {
                 if("status".equals(type))
-                {
-                    OnlineStatus status = OnlineStatus.ONLINE;
-
-                    switch(args[0]) {
-                        case "online":
-                            status = OnlineStatus.ONLINE;
-                            break;
-                        case "idle":
-                            status = OnlineStatus.IDLE;
-                            break;
-                        case "dnd":
-                            status = OnlineStatus.DO_NOT_DISTURB;
-                            break;
-                        case "invisible":
-                            status = OnlineStatus.INVISIBLE;
-                            break;
-                        case "offline":
-                            status = OnlineStatus.OFFLINE;
-                            break;
-                        default:
-                            status = OnlineStatus.UNKNOWN;
-                            break;
-                    }
-                    
+                {   
+                    OnlineStatus status;
                     try {
-                        Main.setStatus(status);
+                        status = Main.setStatus(args[0]);
                     } catch (IllegalArgumentException iae) {
                         e.getChannel().sendMessage(Emoji.error + " Please enter a valid status.").queue();
                         SmartLogger.errorLog(iae, e, this.getClass().getName(), "Unknown Status");
@@ -108,9 +86,7 @@ public class PresenceCommand implements Command {
                 {
                     String game = "";
                     for(String g : args) { game += g + " ";}
-                    
-                    Main.setGame(game);
-                    e.getChannel().sendMessage(Emoji.success + " Game set to `"+ e.getJDA().getPresence().getGame().getName() + "`").queue();
+                    e.getChannel().sendMessage(Emoji.success + " Game set to `"+ Main.setGame(game) + "`").queue();
                 }
             }
             else

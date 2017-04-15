@@ -49,18 +49,16 @@ public class Main {
     public static void main(String[] args) {
         try {
             Music.musicStartup();
+            
             jda = new JDABuilder(AccountType.BOT)
                     .addEventListener(new CommandListener())
                     .addEventListener(new SelectorListener())
                     .setToken(Private.BOT_TOKEN)
                     .buildBlocking();
-            jda.getPresence().setGame(Game.of(Info.B_GAME));
+            jda.getPresence().setGame(Game.of(Info.B_GAME_DEFAULT));
             jda.setAutoReconnect(true);
             
             startUp();
-            
-            timeStart = System.currentTimeMillis();
-            
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
             e.printStackTrace();
             SmartLogger.updateLog("Exception thrown while logging.");
@@ -69,6 +67,7 @@ public class Main {
     
     public static void startUp()
     {
+        timeStart = System.currentTimeMillis();
         addCommands();
         ConsoleListener console = new ConsoleListener();
         
@@ -84,19 +83,68 @@ public class Main {
         System.exit(0);
     }
     
-    public static void setStatus(OnlineStatus stat)
+    public static OnlineStatus setStatus(String stat)
     {
-        jda.getPresence().setStatus(stat);
-        SmartLogger.updateLog("Bot Status set to " + stat.toString());
+        
+        OnlineStatus status = OnlineStatus.ONLINE;
+
+        switch(stat) {
+            case "online":
+                status = OnlineStatus.ONLINE;
+                break;
+            case "idle":
+                status = OnlineStatus.IDLE;
+                break;
+            case "dnd":
+                status = OnlineStatus.DO_NOT_DISTURB;
+                break;
+            case "invisible":
+                status = OnlineStatus.INVISIBLE;
+                break;
+            case "offline":
+                status = OnlineStatus.OFFLINE;
+                break;
+            default:
+                status = OnlineStatus.UNKNOWN;
+                break;
+        }
+
+        jda.getPresence().setStatus(status);
+        SmartLogger.updateLog("Bot Status set to " + status.toString());
+        return status;
     }
     
-    public static void setGame(String game)
+    public static String setGame(String game)
     {
-        if(!"".equals(game))
-            jda.getPresence().setGame(Game.of(game));
-        else if("default".equals(game))
-            game = Info.B_GAME;
-        SmartLogger.updateLog("Bot Game set to " + game);
+        String set;
+        switch(game.replaceAll(" ", "").toLowerCase()) {
+            case "default":
+                set = Info.B_GAME_DEFAULT;
+                break;
+            case "update":
+                set = Info.B_GAME_UPDATE;
+                break;
+            case "fix":
+                set = Info.B_GAME_FIXING;
+                break;
+            case "null":
+                set = null;
+                break;
+            default:
+                set = game;
+        }
+        
+        //If-else for no game
+        Game g = null;
+        if(set != null)
+            g = Game.of(set);
+        else
+            set = "No Game";
+        
+        jda.getPresence().setGame(g);
+            
+        SmartLogger.updateLog("Bot Game set to " + set);
+        return set;
     }
         
     private static void addCommands() {

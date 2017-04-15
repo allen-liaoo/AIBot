@@ -9,7 +9,6 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;
-import Main.*;
 import Utility.SmartLogger;
 import com.github.fedy2.weather.*;
 import com.github.fedy2.weather.data.*;
@@ -18,8 +17,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -162,7 +159,9 @@ public class WeatherCommand implements Command{
         String condition = "";
         switch (code) {
             //Sunny
-            case 32: condition = Emoji.sunny;
+            case 34:
+            case 32: 
+                condition = Emoji.sunny;
                 break;
                 
             //Cloudy

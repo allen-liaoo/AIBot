@@ -5,31 +5,32 @@
  */
 package Listener;
 
-import Audio.FM;
-import Audio.Radio;
 import Main.Main;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.dv8tion.jda.core.OnlineStatus;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class ConsoleListener extends Thread {
+public class ConsoleListener implements Runnable {
     
-    private final File mainLog = new File("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/LogMain.txt");
-    private final File errorLog = new File("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/Resource/LogError.txt");
+    private Thread t;
+    private final String threadName = "Console Listener Thread";
     
     public ConsoleListener()
     {
-        run();
+        t = new Thread(this,threadName);
+        t.start();
+    }
+    
+    public void start()
+    {
+        if (t == null) {
+         t = new Thread (this, threadName);
+         t.start ();
+      }
     }
     
     @Override
@@ -57,37 +58,18 @@ public class ConsoleListener extends Thread {
             //-SetGame
             else if(input.startsWith("setGame"))
             {
-                Main.setGame(input.substring(8));
-                System.out.println("Game set to " + input.substring(8));
+                System.out.println("Game set to " + Main.setGame(input.substring(8)));
             }
             
             //-SetStatus
             else if(input.startsWith("setStatus"))
             {
-                OnlineStatus status;
-                switch(input.substring(10)) {
-                        case "online":
-                            status = OnlineStatus.ONLINE;
-                            break;
-                        case "idle":
-                            status = OnlineStatus.IDLE;
-                            break;
-                        case "dnd":
-                            status = OnlineStatus.DO_NOT_DISTURB;
-                            break;
-                        case "invisible":
-                            status = OnlineStatus.INVISIBLE;
-                            break;
-                        case "offline":
-                            status = OnlineStatus.OFFLINE;
-                            break;
-                        default:
-                            System.out.println("Unknown Status");
-                            return;
-                    }
-                
-                System.out.println("Status set to " + status.toString());
-                Main.setStatus(status);
+                try {
+                    OnlineStatus status = Main.setStatus(input.substring(10));
+                    System.out.println("Status set to " + status.toString());
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("Please enter a valid status.");
+                }
             }
         }
     }

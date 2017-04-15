@@ -28,7 +28,9 @@ public class Info {
     public static String B_AVATAR = Main.jda.getSelfUser().getEffectiveAvatarUrl();
     public static String B_DISCRIMINATOR = Main.jda.getSelfUser().getDiscriminator();
     public static String B_ID = Main.jda.getSelfUser().getId();
-    public static String B_GAME = Prefix.DIF_PREFIX + "help | Dev: Ayy\u2122";
+    public static String B_GAME_DEFAULT = Prefix.DIF_PREFIX + "help | Dev: Ayy\u2122";
+    public static String B_GAME_UPDATE = "\u203C Updating AIBot";
+    public static String B_GAME_FIXING = "\u2049 Fixing AIBot";
     
     //-Bot Links
     public static String B_DISCORD_BOT = "https://bots.discord.pw/bots/294327785512763392";

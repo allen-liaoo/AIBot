@@ -62,9 +62,32 @@ public class UtilTool {
         long seconds = u.toSeconds(duration) % 60;
 
         if (hours > 0)
-          return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
         else
-          return String.format("%02d:%02d", minutes, seconds);
+            return String.format("%02d:%02d", minutes, seconds);
+    }
+    
+    /**
+     * Return a string of formatted time in "00 Hour, 00 Minutes, 00 Seconds" format
+     * @param time
+     * @return 
+     */
+    public static String formatTime(Long time) 
+    {
+        TimeUnit u = TimeUnit.MILLISECONDS;
+        long days = u.toDays(time) % 7;
+        long hours = u.toHours(time) % 24;
+        long minutes = u.toMinutes(time) % 60;
+        long seconds = u.toSeconds(time) % 60;
+
+        if (days > 0)
+            return String.format("%2d days, %02d hours, %02d minutes, and %02d seconds", days, hours, minutes, seconds);
+        else if (hours > 0)
+            return String.format("%02d hours, %02d minutes, and %02d seconds", hours, minutes, seconds);
+        else if (minutes > 0)
+            return String.format("%02d minutes and %02d seconds", minutes, seconds);
+        else
+            return String.format("%02d seconds", seconds);
     }
     
 }

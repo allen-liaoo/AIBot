@@ -68,23 +68,9 @@ public class StatusCommand implements Command{
         if(args.length == 0)
         {
             long timeCurrent = System.currentTimeMillis(), uptime;
-            String upinfo;
             uptime = timeCurrent - Main.timeStart;
-            String hours = Long.toString(uptime/3600000), minutes = Long.toString((uptime/60000)%60), seconds = Long.toString((uptime/1000)%60);
-            if(Integer.parseInt(hours) < 10)
-            {
-                hours = "0" + hours;
-            }
-            if(Integer.parseInt(minutes) < 10)
-            {
-                minutes = "0" + minutes;
-            }
-            if(Integer.parseInt(seconds) < 10)
-            {
-                seconds = "0" + seconds;
-            }
+            String upinfo = UtilTool.formatTime(uptime);
             
-            upinfo = hours + " hours, " + minutes + " minutes, and " + seconds + " seconds.";
             
             if("uptime".equals(type))
             {
