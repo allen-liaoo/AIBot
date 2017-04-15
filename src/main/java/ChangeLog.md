@@ -8,6 +8,9 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - AudioTrackWrapper, remove requester array
 ##### Fixed
 - When FM, normal request, radio all mix together, cannot skip, queue, or get song info properly.
+- setStatus and setGame reduce cose
+- 2 Weather Emojis to proper switch-case
+- Uptime hours to proper readable form
 
 #### [0.2.3] - 2017-04-11
 ##### Added 
