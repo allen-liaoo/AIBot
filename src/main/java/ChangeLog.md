@@ -6,11 +6,13 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 ##### Added 
 - FM Local Play lists: Christina Perri, Favorite, and Troll
 - AudioTrackWrapper, remove requester array
+- Bot is now Rate Limited. Not finished yet.
 ##### Fixed
 - When FM, normal request, radio all mix together, cannot skip, queue, or get song info properly.
 - setStatus and setGame reduce cose
 - 2 Weather Emojis to proper switch-case
 - Uptime hours to proper readable form
+- @Mention Prefix now support server nickname.
 
 #### [0.2.3] - 2017-04-11
 ##### Added 

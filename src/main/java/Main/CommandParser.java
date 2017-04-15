@@ -46,7 +46,7 @@ public class CommandParser {
     public CommandContainer parseMention(String rw, MessageReceivedEvent e) {
         ArrayList<String> split = new ArrayList<String>();
         String raw = rw;
-        String beheaded = raw.replaceFirst("@AIBot ", "");
+        String beheaded = raw.replaceFirst("@" + e.getGuild().getSelfMember().getEffectiveName() + " ", "");
         String[] splitBeheaded = beheaded.split(" ");
         
         for(String s : splitBeheaded) 

@@ -9,7 +9,6 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;
-import Main.*;
 import Utility.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
@@ -131,12 +130,13 @@ public class NumberCommand implements Command {
                     {
                         int temp = low;
                         low = high;
-                        high = temp;  
+                        high = temp;
                     }
                     
-                    int range = (high - low) + 1;
-                    num = (int)(Math.random() * range + low);
-                    String number = Emoji.stringToEmoji(num + "");
+                    long range = (high - low) + 1;
+                    long numlong = (long) Math.floor(Math.random() * range + low);
+                    System.out.println(range);
+                    String number = Emoji.stringToEmoji(numlong + "");
                         
                     e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + number
                     + "\nBy specified range ` " + low + "~" + high + "`").queue();

@@ -10,6 +10,7 @@ import Main.*;
 import Setting.GuildSetting;
 import Audio.Music;
 import static Main.Main.commands;
+import Setting.RateLimiter;
 import Utility.SmartLogger;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -51,18 +52,21 @@ public class CommandListener extends ListenerAdapter {
         //Private Message Without Prefix or mention
         if(e.getChannelType() == e.getChannelType().PRIVATE && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
+            if(RateLimiter.isSpam(e)) return;
             handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
         }
         
         //Message starts with Prefix
         if(e.getMessage().getContent().startsWith(Prefix.getDefaultPrefix()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
-            handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
+            if(RateLimiter.isSpam(e)) return;
+            handleCommand(Main.parser.parse(e.getMessage().getContent(), e));   
         }
         
         //Message starts with Mention
-        if(e.getMessage().getRawContent().startsWith(e.getJDA().getSelfUser().getAsMention()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
+        if(e.getMessage().getStrippedContent().startsWith("@" + e.getGuild().getSelfMember().getEffectiveName()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
+            if(RateLimiter.isSpam(e)) return;
             handleCommand(Main.parser.parseMention(e.getMessage().getContent(), e));
         }
     }

@@ -55,13 +55,13 @@ public class AudioConnection {
         try {
             am = e.getGuild().getAudioManager();
             am.closeAudioConnection();
-        } catch (NullPointerException npe) {
-            e.getChannel().sendMessage(Emoji.error + " You are not in a voice channel.").queue();
-        }
         
         //Inform the users that the bot joined a voice channel
         if(inform)
             e.getChannel().sendMessage(Emoji.globe + " Left Voice Channel `" + Main.guilds.get(e.getGuild().getId()).getVc().getName() + "`").queue();
+        } catch (NullPointerException npe) {
+            e.getChannel().sendMessage(Emoji.error + " I am not in a voice channel.").queue();
+        }
     }
     
     
