@@ -7,6 +7,7 @@
  */
 package Audio;
 
+import Audio.TrackScheduler.PlayerMode;
 import Main.Main;
 import Resource.Emoji;
 import Resource.FilePath;
@@ -43,30 +44,31 @@ public class FM {
         JSONArray array = loadLibrary(input);
         String[] local = loadLocalLibrary(input);
         
-        if(array == null && local == null)
-        {
-            e.getChannel().sendMessage(Emoji.error + " Cannot find playlist called `" + input + "`.").queue();
+        if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.NORMAL) {
+            e.getChannel().sendMessage(Emoji.error + " There is already music playing!\nTo reset it, use `" + Prefix.getDefaultPrefix() + "stop`.").queue();
             return;
         }
         
-        if(local != null)
-        {
-            Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs = new String[local.length];
+        if(array == null && local == null) {
+            e.getChannel().sendMessage(Emoji.error + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "fm` for available playlists.").queue();
+            return;
+        }
+        
+        if(local != null) {
             for(int i = 0; i < local.length; i ++)
             {
-                Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs[i] = local[i];
+                Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs.add(local[i]);
             }
         }
         
         else if(array != null)
         {
-            Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs = new String[array.length()];
             for(int i = 0; i < array.length(); i ++)
             {
                 JSONObject jo = array.getJSONObject(i);
 
                 try {
-                    Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs[i] = "https://www.youtube.com/watch?v=" + jo.get("identifier").toString();
+                    Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs.add("https://www.youtube.com/watch?v=" + jo.get("identifier").toString());
                 } catch (org.json.JSONException jsex) {
                     e.getChannel().sendMessage(Emoji.error + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "fm` for available playlists.").queue();
                     return;

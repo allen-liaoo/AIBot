@@ -96,7 +96,7 @@ public class LyricsCommand implements Command{
                 }
                 
                 EmbedBuilder embedly = new EmbedBuilder();
-                embedly.setColor(UtilTool.setColor());
+                embedly.setColor(UtilTool.randomColor());
                 embedly.setTitle(results.get(0).getTitle() + " by " + results.get(0).getAuthor(), results.get(0).getLink());
                 embedly.setFooter("From Genius.com", null);
                 MessageEmbed mely = embedly.build();

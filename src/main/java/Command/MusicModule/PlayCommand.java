@@ -5,6 +5,7 @@
  */
 package Command.MusicModule;
 
+import Audio.AudioTrackWrapper;
 import Audio.Music;
 import Main.Main;
 import Command.Command;
@@ -91,7 +92,7 @@ public class PlayCommand implements Command{
                     choices += "\n**" + (i+1) + ":** " + choice.getTitle();
                 }
                 
-                choices += "\nUse `=play num` to select the song to play.";
+                choices += "\nUse `=1~5` to select the song to play. Type `c` or `cancel` to cancel this selection.";
                 
                 e.getChannel().sendMessage(choices).queue();
                 
@@ -117,7 +118,7 @@ public class PlayCommand implements Command{
             
                 try {
                     List<SearchResult> result = Search.youtubeSearch(num, input);
-                    Music.play(result.get(0).getLink(), e);
+                    Music.play(result.get(0).getLink(), e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
                     result.clear();
                 } catch (IOException ioe) {
                     SmartLogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result.");
@@ -127,7 +128,7 @@ public class PlayCommand implements Command{
                 }
             }
             else
-                Music.play(args[0], e);
+                Music.play(args[0], e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
         }
     }
 
@@ -158,7 +159,7 @@ public class PlayCommand implements Command{
             int i = Character.getNumericValue(character);
             SmartLogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());
         
-            Music.play(results.get(i - 1).getLink(), e);
+            Music.play(results.get(i - 1).getLink(), e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
         }
         
         selecter.remove(e.getGuild().getId(), e.getAuthor());

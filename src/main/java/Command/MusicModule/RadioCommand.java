@@ -7,7 +7,6 @@
  */
 package Command.MusicModule;
 
-import Audio.FM;
 import Audio.Radio;
 import Command.Command;
 import static Command.Command.embed;
@@ -63,7 +62,7 @@ public class RadioCommand implements Command{
             embedpl.addField("Available Radio Stations", stations, true);
             embedpl.setThumbnail(Info.B_AVATAR);
             embedpl.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
-            embedpl.setColor(UtilTool.setColor());
+            embedpl.setColor(UtilTool.randomColor());
             embedpl.setTimestamp(Instant.now());
             
             e.getChannel().sendMessage(embedpl.build()).queue();

@@ -6,6 +6,7 @@
 package Audio;
 
 import Resource.Emoji;
+import Utility.SmartLogger;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
@@ -32,40 +33,78 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * This class schedules tracks for the audio player. It contains the queue of tracks.
  */
 public class TrackScheduler extends AudioEventAdapter {
-    private final AudioPlayer player;
-    private final BlockingQueue<AudioTrack> queue;
-    private final ArrayList<String> requester;
     
     private static TextChannel tc;
+    
+    /*
+    * Track fields
+    */
+    private final AudioPlayer player;
+    private final BlockingQueue<AudioTrackWrapper> queue;
+    private AudioTrackWrapper NowPlayingTrack;
+    
+    /*
+    * Skip System fields
+    */
     public final ArrayList<User> skipper;
     
-    public static String[] fmSongs;
-    private boolean isFm;
+    /*
+    * FM fields
+    */
+    public static ArrayList<String> fmSongs = new ArrayList<String>();
     private int auto = -1, previous = -1;
+    
+    /*
+    * Enum type of the playing mode
+    */
+    private PlayerMode Mode;
+    
+    public enum PlayerMode {
+        DEFAULT,
+        NORMAL,
+        FM;
+        
+        @Override
+        public String toString() {
+            return name().charAt(0) + name().substring(1).toLowerCase();
+        }
+    }
 
   /**
-   * @param player The audio player this scheduler uses
+   * @param player The audio player this scheduler uses=
    */
     public TrackScheduler(AudioPlayer player) {
         this.player = player;
         this.queue = new LinkedBlockingQueue<>();
-        this.requester = new ArrayList<String>();
-        this.skipper = new ArrayList<User>();
+        this.NowPlayingTrack = new AudioTrackWrapper();
+        this.skipper = new ArrayList<>();
+        this.Mode = PlayerMode.DEFAULT;
   }
 
   /**
    * Add the next track to queue or play right away if nothing is in the queue.
    *
    * @param track The track to play or add to queue.
+   * @param e
    */
-    public void queue(AudioTrack track, MessageReceivedEvent e) {
+    public void queue(AudioTrackWrapper track, MessageReceivedEvent e) {
     // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
     // something is playing, it returns false and does nothing. In that case the player was already playing so this
     // track goes to the queue instead.
-        requester.add(e.getAuthor().getName());
-        if (!player.startTrack(track, true)) {
-            queue.offer(track);
+    
+        if(this.Mode == PlayerMode.FM) {
+            e.getChannel().sendMessage(Emoji.error + " FM mode is ON! Only request radio or songs when FM is not playing.").queue();
+            return;
         }
+        
+        this.Mode = PlayerMode.NORMAL;
+        
+        if (!player.startTrack(track.getTrack(), true)) {
+            queue.offer(track);
+            e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getTrack().getInfo().title + "`").queue();
+            return;
+        }
+        NowPlayingTrack = track;
   }
 
     /**
@@ -74,13 +113,17 @@ public class TrackScheduler extends AudioEventAdapter {
     public void nextTrack() {
         // Start the next track, regardless of if something is already playing or not. In case queue was empty, we are
         // giving null to startTrack, which is a valid argument and will simply stop the player.
-        if(isFm && queue.peek() == null){
-            autoPlay();
-            player.startTrack(queue.poll(), false);
-        }else{
-            player.startTrack(queue.poll(), false);
-        }
         
+        clearVote();
+        
+        if(Mode == PlayerMode.FM){
+            autoPlay();
+        } else if (queue.peek() != null) {
+            NowPlayingTrack = queue.peek();
+            player.startTrack(queue.poll().getTrack(), false);
+        } else {
+            stopPlayer();
+        }
     }
 
     @Override
@@ -89,40 +132,96 @@ public class TrackScheduler extends AudioEventAdapter {
         tc.sendMessage(Emoji.notes + " Now playing `" + track.getInfo().title + "`").queue();
     }
 
-  @Override
+    @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
         skipper.clear();
-        requester.remove(0);
         if (endReason.mayStartNext) {
-            if(isFm && queue.peek() == null){
+            if(Mode == PlayerMode.FM) {
                 autoPlay();
             }
-            else{
+            else {
                 nextTrack();
             }
         }
     }
     
-    public BlockingQueue<AudioTrack> getQueue()
-    {
+    public void autoPlay() {
+        Mode = PlayerMode.FM;
+        
+        while (auto == previous) {
+            auto = (int) (Math.random() * fmSongs.size() - 1);
+        }
+        previous = auto;
+        String url = fmSongs.get(auto);
+        
+        Matcher m = Music.urlPattern.matcher(url);
+        if (m.find()) {
+            Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
+                @Override
+                public void trackLoaded(AudioTrack track) {
+                    NowPlayingTrack = new AudioTrackWrapper(track, "AIBot FM", AudioTrackWrapper.TrackType.FM);
+                    player.startTrack(track, false);
+                }
+
+                @Override
+                public void playlistLoaded(AudioPlaylist playlist) {
+                    tc.sendMessage(Emoji.success + " Playlist loaded successfully! `" + playlist.getName() + "`").queue();
+                }
+
+                @Override
+                public void noMatches() {
+                    tc.sendMessage(Emoji.error + " No match found.").queue();
+                }
+
+                @Override
+                public void loadFailed(FriendlyException exception) {
+                    tc.sendMessage(Emoji.error + " Fail to load the video.").queue();
+                    SmartLogger.errorLog(exception, null, this.getClass().getName(), "Failed to load fm");
+                }
+            });
+        }
+    }
+    
+    public void stopPlayer() {
+        clearNowPlayingTrack();
+        clearQueue();
+        clearFM();
+        clearVote();
+        player.stopTrack();
+    }
+    
+    public PlayerMode getMode() {
+        return Mode;
+    }
+
+    public void setMode(PlayerMode Mode) {
+        this.Mode = Mode;
+    }
+    
+    public BlockingQueue<AudioTrackWrapper> getQueue() {
         return queue;
     }
     
-    public Iterator getQueueIterator()
-    {
+    public Iterator getQueueIterator() {
         return queue.iterator();
     }
     
-    public void clearQueue()
-    {
+    public void clearQueue() {
         queue.clear();
-        requester.clear();
     }
     
-    public ArrayList<String> getRequester()
-    {
-        return requester;
+    public void clearFM() {
+        fmSongs.clear();
+        Mode = PlayerMode.DEFAULT;
+    }
+
+    public AudioTrackWrapper getNowPlayingTrack() {
+        return NowPlayingTrack;
+    }
+    
+    public void clearNowPlayingTrack() {
+        NowPlayingTrack = null;
     }
 
     public void setTc(TextChannel tc) {
@@ -147,37 +246,5 @@ public class TrackScheduler extends AudioEventAdapter {
         skipper.clear();
     }
     
-    public void autoPlay() {
-        isFm = true;
-        
-        while (auto == previous) {
-            auto = (int) (Math.random() * fmSongs.length - 1);
-        }
-        previous = auto;
-        String url = fmSongs[auto];
-        
-        Matcher m = Music.urlPattern.matcher(url);
-        if (m.find()) {
-            Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
-                public void trackLoaded(AudioTrack track) {
-                    requester.add("AIBot FM");
-                    player.playTrack(track);
-                    return;
-                }
-
-                public void playlistLoaded(AudioPlaylist playlist) {
-                    //Will never be triggered.
-                }
-
-                public void noMatches() {
-                    System.out.println("No match found :c");
-                }
-
-                public void loadFailed(FriendlyException exception) {
-                    System.out.println(exception.getMessage());
-                }
-            });
-        }
-    }
 }
 

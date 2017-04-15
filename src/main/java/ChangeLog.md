@@ -80,3 +80,9 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - Radio System which stream a radio station
 ##### Fixed
 - Force Skip for server owners and administrators
+
+#### [0.2.3] - 2017-04-15
+##### Added 
+- FM Local Play lists: Christina Perri, Favorite, and Troll
+##### Fixed
+- When FM, normal request, radio all mix together, cannot skip, queue, or get song info properly.

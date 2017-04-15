@@ -7,13 +7,9 @@
  */
 package Utility;
 
-import com.mashape.unirest.http.Unirest;
+import java.util.concurrent.TimeUnit;
 import java.awt.Color;
 import java.util.Random;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.CookieSpecs;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.HttpClients;
 
 /**
  *
@@ -38,7 +34,11 @@ public class UtilTool {
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
-    public static Color setColor() {
+    /**
+     * Generate Random Color
+     * @return Color
+     */
+    public static Color randomColor() {
         Random colorpicker = new Random();
         int red;
         int green;
@@ -52,33 +52,19 @@ public class UtilTool {
     /**
      * Return a string of formatted duration in Hour/Min/Sec format
      * @param duration
-     * @return
+     * @return 
      */
-    public static String formatDuration(Long duration)
+    public static String formatDuration(Long duration) 
     {
-        String formatted = "";
-        if(duration != null)
-        {
-            String hours = Long.toString(duration/3600000), 
-                    minutes = Long.toString((duration/60000)%60), 
-                    seconds = Long.toString((duration/1000)%60);
-            
-            if(Integer.parseInt(hours) < 10){
-                hours = "0" + hours + ":";
-            }
-            if(Integer.parseInt(minutes) < 10){
-                minutes = "0" + minutes + ":";
-            }
-            if(Integer.parseInt(seconds) < 10){
-                seconds = "0" + seconds;
-            }
-            
-            if("00:".equals(hours))
-                hours = "";
-            
-            formatted = hours + minutes + seconds;
-        }
-        return formatted;
+        TimeUnit u = TimeUnit.MILLISECONDS;
+        long hours = u.toHours(duration) % 24;
+        long minutes = u.toMinutes(duration) % 60;
+        long seconds = u.toSeconds(duration) % 60;
+
+        if (hours > 0)
+          return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        else
+          return String.format("%02d:%02d", minutes, seconds);
     }
     
 }

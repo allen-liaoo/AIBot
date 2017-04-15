@@ -8,6 +8,8 @@ package Listener;
 import Audio.FM;
 import Audio.Radio;
 import Main.Main;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

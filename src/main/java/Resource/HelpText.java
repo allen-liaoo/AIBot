@@ -142,7 +142,7 @@ public class HelpText {
             + "**fm**\n"
             + "**radio**\n"
             + "**pause**\n"
-            + "**queue**\n\n"
+            + "**queue (q)**\n\n"
             + "**skip**\n"
             + "**nowplaying**\n\n"
             + "**volume**\n"

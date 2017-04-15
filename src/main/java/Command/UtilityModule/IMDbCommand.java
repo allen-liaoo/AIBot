@@ -134,7 +134,7 @@ public class IMDbCommand implements Command {
                 
                 //Build EMbed Message
                 EmbedBuilder embeds = new EmbedBuilder();
-                embeds.setColor(UtilTool.setColor());
+                embeds.setColor(UtilTool.randomColor());
                 embeds.setAuthor("IMDb Search Results for \"" + input + "\"", 
                         "http://www.imdb.com/find?q=" + input.replaceAll(" ", "+"), null);
                 embeds.addField("Titles", titles, false);

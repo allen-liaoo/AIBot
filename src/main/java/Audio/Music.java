@@ -5,6 +5,8 @@
  */
 package Audio;
 
+import Audio.AudioTrackWrapper.TrackType;
+import static Audio.AudioTrackWrapper.TrackType.NORMAL_REQUEST;
 import Main.Main;
 import Resource.Emoji;
 import Resource.Info;
@@ -49,8 +51,9 @@ public class Music  {
      * Play the song
      * @param link the link to play the song
      * @param e
+     * @param type Track Type: NORMAL_REQUEST, RADIO
      */
-    public static void play(String link, MessageReceivedEvent e)
+    public static void play(String link, MessageReceivedEvent e, TrackType type)
     {
         Matcher m = Music.urlPattern.matcher(link);
         AudioConnection.connect(e, false);
@@ -64,33 +67,26 @@ public class Music  {
             Music.playerManager.loadItemOrdered(Music.playerManager, link, new AudioLoadResultHandler() {
                 @Override
                 public void trackLoaded(AudioTrack track) {
-                    if(Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack() != null)
-                        e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getInfo().title + "`").queue();
-                    
-                    Main.guilds.get(e.getGuild().getId()).getScheduler().queue(track, e);
-                    return;
+                    Main.guilds.get(e.getGuild().getId()).getScheduler().queue
+                            (new AudioTrackWrapper(track, e.getAuthor().getName(), type), e);
                 }
 
                 @Override
                 public void playlistLoaded(AudioPlaylist playlist) {
-                    e.getTextChannel().sendMessage(Emoji.success + " Playlist loaded successfully!").queue();
-                    return;
+                    e.getTextChannel().sendMessage(Emoji.success + " Playlist loaded successfully! `" + playlist.getName() + "`").queue();
                 }
 
                 @Override
                 public void noMatches() {
                     e.getTextChannel().sendMessage(Emoji.error + " No match found.").queue();
-                    return;
                 }
 
                 @Override
                 public void loadFailed(FriendlyException exception) {
                     e.getTextChannel().sendMessage(Emoji.error + " Fail to load the video.").queue();
                     SmartLogger.errorLog(exception, e, this.getClass().getName(), "Failed to load this video: " + link);
-                    return;
                 }
             });
-            return;
         }
         else
         {
@@ -109,6 +105,17 @@ public class Music  {
         Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(false);
     }
     
+    public static void stop(MessageReceivedEvent e)
+    {
+        Main.guilds.get(e.getGuild().getId()).getScheduler().stopPlayer();
+        AudioConnection.disconnect(e, false);
+    }
+    
+    public static void setVolume(MessageReceivedEvent e, int in)
+    {
+        Main.guilds.get(e.getGuild().getId()).getPlayer().setVolume(in);
+    }
+    
     /**
      * Vote Skip System
      * @param e
@@ -117,9 +124,14 @@ public class Music  {
      * @return 0 if the song is skipped
      * @return a number more than 0 for the required votes
      * @return -1 if the voter already voted
+     * @return -2 if there is no song playing
      */
     public static int skip(MessageReceivedEvent e, int position, boolean force)
     {
+        if(Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack() == null) {
+            return -2;
+        }
+        
         if(force)
         {
             Main.guilds.get(e.getGuild().getId()).getScheduler().nextTrack();
@@ -172,46 +184,45 @@ public class Music  {
             return 0;
             */
         }
-        return 0;
+        return -1;
     }
     
-    public static void stop(MessageReceivedEvent e)
-    {
-        Main.guilds.get(e.getGuild().getId()).getPlayer().stopTrack();
-        Main.guilds.get(e.getGuild().getId()).getScheduler().clearQueue();
-        AudioConnection.disconnect(e, false);
-    }
-    
-    public static void setVolume(MessageReceivedEvent e, int in)
-    {
-        Main.guilds.get(e.getGuild().getId()).getPlayer().setVolume(in);
-    }
-    
-    public static void trackInfo(MessageReceivedEvent e, AudioTrack track, String title)
-    {
-        AudioTrackInfo trackInfo = track.getInfo();
-        Long position = track.getPosition();
-        Long duration = track.getDuration();
-        String trackTime = UtilTool.formatDuration(position) + 
-                " / " + UtilTool.formatDuration(duration);
-        
-        ArrayList<String> queuer = Main.guilds.get(e.getGuild().getId()).getScheduler().getRequester();
-        
+    /**
+     * Track Information Getter
+     * @param e
+     * @param track Wrapper class for getting basic informations and requesters
+     * @param title 
+     */
+    public static void trackInfo(MessageReceivedEvent e, AudioTrackWrapper track, String title)
+    {   
+        AudioTrackInfo trackInfo = track.getTrack().getInfo();
+        String trackTime = UtilTool.formatDuration(track.getTrack().getPosition());
+
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setAuthor(title, trackInfo.uri, Info.B_AVATAR);
-        embedBuilder.setColor(UtilTool.setColor());
-        embedBuilder.addField("Song Title:", trackInfo.title, false);
+        embedBuilder.setColor(UtilTool.randomColor());
+        embedBuilder.addField("Song Title:", trackInfo.title, true);
+        embedBuilder.addField("Author:", trackInfo.author, true);
         embedBuilder.addField("Song Link:", trackInfo.uri, false);
-        embedBuilder.addField("Song Duration:", trackTime, false);
-        embedBuilder.addField("Requested by:", queuer.get(0), false);
+        
+        if(track.getType() != AudioTrackWrapper.TrackType.RADIO)
+        {
+            trackTime += " / " + UtilTool.formatDuration(track.getTrack().getDuration());
+        }
+        
+        embedBuilder.addField("Song Duration:", trackTime, true);
+        embedBuilder.addField("Track Type:", track.getType().toString(), true);
+        embedBuilder.addField("Stream:", trackInfo.isStream + "", true);
+        embedBuilder.addField("Requested by:", track.getRequester(), true);
         embedBuilder.setThumbnail(Info.B_AVATAR);
         embedBuilder.setTimestamp(Instant.now());
-        
+            
+            
         try {
-            embedBuilder.setImage(WebScraper.getYouTubeThumbNail(track.getInfo().uri));
+            embedBuilder.setImage(WebScraper.getYouTubeThumbNail(track.getTrack().getInfo().uri));
         } catch (IOException ex) {
-            SmartLogger.errorLog(ex, e, "Music#trackInfo", "IOException on getting thumbnail of " + track.getInfo().uri);
-        } catch (ArrayIndexOutOfBoundsException aiuobe) {
+            SmartLogger.errorLog(ex, e, "Music#trackInfo", "IOException on getting thumbnail of " + track.getTrack().getInfo().uri);
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
             
         }
         
@@ -221,30 +232,30 @@ public class Music  {
     
     public static void queueList(MessageReceivedEvent e)
     {
-        BlockingQueue<AudioTrack> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
-        Iterator<AudioTrack> list = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueueIterator();
-        ArrayList<String> queuer = Main.guilds.get(e.getGuild().getId()).getScheduler().getRequester();
+        BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
+        Iterator<AudioTrackWrapper> list = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueueIterator();
         
         EmbedBuilder embed = new EmbedBuilder();
         
         //Now Playing
-        AudioTrack playing = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack();
+        AudioTrackWrapper playing = Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack();
         Long position = 0L, duration = 0L;
         
-        if(playing == null)
-        {
+        if(playing == null) {
             embed.addField("Now Playing", "None", false);   
         }
         else
         {
-            String ptitle = playing.getInfo().title;
-            String purl = playing.getInfo().uri;
+            String ptitle = playing.getTrack().getInfo().title;
+            String purl = playing.getTrack().getInfo().uri;
             embed.addField("Now Playing", "[" + ptitle + "](" + purl + ")  \n"
-                    + "Requested by " + queuer.get(0), false);
+                    + "Requested by " + playing.getRequester(), false);
             
             //Current Position / Total Duration
-            position = playing.getPosition();
-            duration += playing.getDuration();
+            position = playing.getTrack().getPosition();
+            TrackType TrackType = null;
+            if(playing.getType() != TrackType.RADIO)
+                duration += playing.getTrack().getDuration();
         }
         
         int count = 0;
@@ -253,8 +264,7 @@ public class Music  {
         if(queue.peek() == null)
         {
             songs += "The queue is curently empty.";
-            if(playing == null)
-            {
+            if(playing == null) {
                 e.getChannel().sendMessage("The queue is currently empty, and there is no song playing.").queue();
                 return;
             }
@@ -266,20 +276,30 @@ public class Music  {
             {
                 count++;
 
-                AudioTrack track = list.next();
+                AudioTrackWrapper trackwrapper = list.next();
+                AudioTrack track = trackwrapper.getTrack();
                 String title = track.getInfo().title;
                 String url = track.getInfo().uri;
-                String requester = queuer.get(count);
+                String requester = trackwrapper.getRequester();
                 songs += "**" + count + ".** [" + title + "](" + url + ")  Requested by " + requester + "\n";
-                duration += track.getDuration();
+                
+                if(trackwrapper.getType() != TrackType.RADIO)
+                    duration += track.getDuration();
             }
         }
         
-        embed.setAuthor("Queue List (" + 
-                UtilTool.formatDuration(position) + " / " +
-                UtilTool.formatDuration(duration) + ")"
+        
+        String durationWithoutRadio = "";
+        if("00:00".equals(UtilTool.formatDuration(duration)))
+            durationWithoutRadio = "";
+        else
+            durationWithoutRadio = " / " + UtilTool.formatDuration(duration);
+        
+        embed.setAuthor("Queue List " + 
+                UtilTool.formatDuration(position) + 
+                durationWithoutRadio
                 , Info.B_INVITE, Info.B_AVATAR);
-        embed.setColor(UtilTool.setColor());
+        embed.setColor(UtilTool.randomColor());
         embed.setThumbnail(Info.B_AVATAR);
         embed.setFooter("Reqested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
         embed.setTimestamp(Instant.now());

@@ -5,6 +5,7 @@
  */
 package Command.MusicModule;
 
+import Audio.AudioTrackWrapper;
 import Audio.Music;
 import Command.Command;
 import static Command.Command.embed;
@@ -59,7 +60,7 @@ public class SongCommand implements Command{
             if(args.length == 0)
             {
                 try {
-                   AudioTrack nowplaying = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack();
+                   AudioTrackWrapper nowplaying = Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack();
                    Music.trackInfo(e, nowplaying, "Now Playing");
                 } catch (NullPointerException npe) {
                     e.getChannel().sendMessage(Emoji.error + " No song is playing.").queue();
@@ -68,9 +69,9 @@ public class SongCommand implements Command{
             }
             else if(args.length >= 1 && Character.isDigit(args[0].charAt(0)))
             {
-                BlockingQueue<AudioTrack> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
+                BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
                 int count = 0, target = Integer.parseInt(args[0]);
-                AudioTrack songinfo = null;
+                AudioTrackWrapper songinfo = null;
                 
                 if(target > queue.size()) 
                 {
@@ -78,7 +79,7 @@ public class SongCommand implements Command{
                     return;
                 }
 
-                for(AudioTrack song : queue)
+                for(AudioTrackWrapper song : queue)
                 {
                     count++;
                     if(count == target)

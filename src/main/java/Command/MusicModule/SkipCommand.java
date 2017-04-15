@@ -63,6 +63,8 @@ public class SkipCommand implements Command {
                 e.getChannel().sendMessage(Emoji.success + " Track skipped.").queue();
             else if(skip == -1)
                 e.getChannel().sendMessage(Emoji.error + " Your vote is already added.").queue();
+            else if(skip == -2)
+                e.getChannel().sendMessage(Emoji.error + " There is no song playing.\nSkip what? Don't skip school.").queue();
         }
         
         else if("-f".equals(args[0]))

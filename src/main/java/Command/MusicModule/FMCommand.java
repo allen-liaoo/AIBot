@@ -18,8 +18,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -79,7 +77,7 @@ public class FMCommand implements Command{
                 embedpl.addField("Local Playlists", localLib, true);
                 embedpl.setThumbnail(Info.B_AVATAR);
                 embedpl.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
-                embedpl.setColor(UtilTool.setColor());
+                embedpl.setColor(UtilTool.randomColor());
                 embedpl.setTimestamp(Instant.now());
                 
                 e.getChannel().sendMessage(embedpl.build()).queue();

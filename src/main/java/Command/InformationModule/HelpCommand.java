@@ -150,7 +150,7 @@ public class HelpCommand implements Command {
                 break;
         }
         
-        embed.setColor(UtilTool.setColor());
+        embed.setColor(UtilTool.randomColor());
         embed.setAuthor("AIBot Command List | Page " + page, Info.B_GITHUB, Info.I_HELP);
         embed.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
         embed.setTimestamp(Instant.now());
@@ -396,7 +396,7 @@ public class HelpCommand implements Command {
         }
 
         embedHelp.setAuthor("AIBot Help -" + morc, Info.B_GITHUB,null); //Set title for command
-        embedHelp.setColor(UtilTool.setColor());
+        embedHelp.setColor(UtilTool.randomColor());
 
         embedHelp.addField(cmdtitle, cmdhelp, true);
         if(isMod == true)

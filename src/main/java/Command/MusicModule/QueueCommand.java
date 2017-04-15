@@ -7,9 +7,7 @@ package Command.MusicModule;
 
 import Audio.Music;
 import Command.Command;
-import Main.Main;
 import static Command.Command.embed;
-import static Command.MusicModule.PlayCommand.HELP;
 import Resource.Info;
 import Setting.Prefix;
 import java.awt.Color;

@@ -56,7 +56,7 @@
 - fm - Play automatic playlists.
 - radio - Stream from a radio station.
 - pause - Pause the current playing song.
-- queue - Show the playlist and what's coming next.
+- queue (q) - Show the playlist and what's coming next.
 - skip - Skip the song.
 - nowplaying - Get the information of the current playing song.
 - volume - Set the volume of the bot.

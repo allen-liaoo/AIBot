@@ -7,8 +7,10 @@
  */
 package Audio;
 
+import Audio.AudioTrackWrapper.TrackType;
 import Resource.Emoji;
 import Resource.FilePath;
+import Setting.Prefix;
 import Utility.SmartLogger;
 import com.moandjiezana.toml.Toml;
 import java.io.File;
@@ -28,11 +30,11 @@ public class Radio {
         
         if(link == null)
         {
-            e.getChannel().sendMessage(Emoji.error + " Cannot find radio station called `" + input + "`.").queue();
+            e.getChannel().sendMessage(Emoji.error + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "radio` for available playlists.").queue();
             return;
         }
         
-        Music.play(link, e);
+        Music.play(link, e, TrackType.RADIO);
         
         //Log
         SmartLogger.commandLog(e, "FM#loadFM", "Fm loaded");

@@ -52,7 +52,7 @@ public class MusicCommand implements Command{
         {
             EmbedBuilder embedm = new EmbedBuilder();
             
-            embedm.setColor(UtilTool.setColor());
+            embedm.setColor(UtilTool.randomColor());
             embedm.setAuthor("Music Module", null, Info.I_HELP);
             embedm.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
             embedm.setTimestamp(Instant.now());
