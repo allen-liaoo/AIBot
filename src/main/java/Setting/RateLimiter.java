@@ -44,9 +44,13 @@ public class RateLimiter {
                 delay = 0l;
             }
             else {
-                if(inform % 2 == 0)
+                if(inform == 0) {
                     e.getChannel().sendMessage(Emoji.error + " Rapping? A little too fast there.\nCool down: "
                             + UtilTool.formatTime(10000 - diff)).complete();
+                }
+                else if(inform % 2 == 0) {
+                    e.getChannel().sendMessage(Emoji.error + "Cool down: " + UtilTool.formatTime(10000 - diff)).complete();
+                }
                 inform ++;
             }
         }
