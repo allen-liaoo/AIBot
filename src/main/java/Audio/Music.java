@@ -6,7 +6,6 @@
 package Audio;
 
 import Audio.AudioTrackWrapper.TrackType;
-import static Audio.AudioTrackWrapper.TrackType.NORMAL_REQUEST;
 import Main.Main;
 import Resource.Emoji;
 import Resource.Info;
@@ -73,7 +72,8 @@ public class Music  {
 
                 @Override
                 public void playlistLoaded(AudioPlaylist playlist) {
-                    e.getTextChannel().sendMessage(Emoji.success + " Playlist loaded successfully! `" + playlist.getName() + "`").queue();
+                    Main.guilds.get(e.getGuild().getId()).getScheduler().addPlayList(playlist, e.getAuthor().getName());
+                    e.getTextChannel().sendMessage(Emoji.success + " Queued Playlist: `" + playlist.getName() + "`").queue();
                 }
 
                 @Override

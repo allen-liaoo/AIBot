@@ -5,6 +5,8 @@
  */
 package Audio;
 
+import Audio.AudioTrackWrapper.TrackType;
+import Main.Main;
 import Resource.Emoji;
 import Utility.SmartLogger;
 import Utility.UtilTool;
@@ -17,6 +19,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -167,7 +170,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
                 @Override
                 public void playlistLoaded(AudioPlaylist playlist) {
-                    tc.sendMessage(Emoji.success + " Playlist loaded successfully! `" + playlist.getName() + "`").queue();
+                    addPlayList(playlist, "AIBot FM");
                 }
 
                 @Override
@@ -181,6 +184,19 @@ public class TrackScheduler extends AudioEventAdapter {
                     SmartLogger.errorLog(exception, null, this.getClass().getName(), "Failed to load fm");
                 }
             });
+        }
+    }
+    
+    public void addPlayList(AudioPlaylist list, String requester) {
+        List<AudioTrack> tracklist = list.getTracks();
+        
+        for(AudioTrack track : tracklist) {
+            AudioTrackWrapper wrapper = new AudioTrackWrapper(track, requester, TrackType.PLAYLIST);
+            if (!player.startTrack(wrapper.getTrack(), true)) {
+                queue.offer(wrapper);
+                continue;
+            }
+            NowPlayingTrack = wrapper;
         }
     }
     

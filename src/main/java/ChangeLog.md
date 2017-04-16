@@ -9,6 +9,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - Bot is now Rate Limited. Not finished yet.
 ##### Fixed
 - When FM, normal request, radio all mix together, cannot skip, queue, or get song info properly.
+- Load Youtube Playlist Successfully
 - setStatus and setGame reduce cose
 - 2 Weather Emojis to proper switch-case
 - Uptime hours to proper readable form

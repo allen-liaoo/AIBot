@@ -116,13 +116,13 @@ public class UtilTool {
         String day = "", hour = "", minute = "", second = "";
 
         if(days > 0)
-            day = String.format("%2d day(s)", days);
+            day = String.format("%2d day(s), ", days);
         if(hours > 0)
-            hour = String.format(", %2d hour(s)", hours);
+            hour = String.format("%2d hour(s), ", hours);
         if(minutes > 0)
-            minute = String.format(", %2d minute(s)", minutes);
+            minute = String.format("%2d minute(s), ", minutes);
         if(seconds > 0)
-            second = String.format(", %2d second(s)", seconds);
+            second = String.format("%2d second(s)", seconds);
         
         return day + hour + minute + second + " ";
     }

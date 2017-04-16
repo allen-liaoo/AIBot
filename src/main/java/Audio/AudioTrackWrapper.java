@@ -20,6 +20,7 @@ public class AudioTrackWrapper {
     
     public enum TrackType {
         NORMAL_REQUEST,
+        PLAYLIST,
         FM,
         RADIO;
         
