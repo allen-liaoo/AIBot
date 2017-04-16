@@ -1,9 +1,8 @@
-/*
+/* 
+ * AIBot by AlienIdeology
  * 
- * AIBot, a Discord bot made by AlienIdeology
- * 
- * 
- * 2017 (c) AIBot
+ * UtilTool
+ * All utilities required for this bot
  */
 package Utility;
 

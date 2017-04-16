@@ -1,13 +1,13 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AIBot by AlienIdeology
+ * 
+ * SmartLogger
+ * Log when commands called, error occured, or bot joined a server
  */
 package Utility;
 
 import Main.Main;
 import Resource.FilePath;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.FileHandler;

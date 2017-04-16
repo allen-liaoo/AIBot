@@ -1,14 +1,13 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AIBot by AlienIdeology
+ * 
+ * Info
+ * All informations and links about the bot and developer
  */
 package Resource;
 
 import Setting.Prefix;
 import Main.Main;
-import java.awt.Color;
-import java.util.Random;
 
 /**
  *

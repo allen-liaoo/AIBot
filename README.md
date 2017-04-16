@@ -72,5 +72,5 @@ Adding the command/module name after help will show the command/module usage. <b
 5. Exp4j http://www.objecthunter.net/exp4j/ (For MathCommand)
 6. Yahoo Weather Java API https://github.com/fedy2/yahoo-weather-java-api (For WeatherCommand)
 7. Jsoup https://jsoup.org/ (For searching and screen scraping)
-8. Json http://jsoup.org/ (For automatic playlists)
+8. Json http://json.org/ (For automatic playlists)
 7. Unirest http://unirest.io/ (For HTML Connections)

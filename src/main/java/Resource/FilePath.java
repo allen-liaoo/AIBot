@@ -1,9 +1,8 @@
-/*
+/* 
+ * AIBot by AlienIdeology
  * 
- * AIBot, a Discord bot made by AlienIdeology
- * 
- * 
- * 2017 (c) AIBot
+ * FilePath
+ * All file paths goes here
  */
 package Resource;
 

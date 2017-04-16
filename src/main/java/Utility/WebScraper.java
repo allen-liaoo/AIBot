@@ -1,9 +1,8 @@
-/*
+/* 
+ * AIBot by AlienIdeology
  * 
- * AIBot, a Discord bot made by AlienIdeology
- * 
- * 
- * 2017 (c) AIBot
+ * WebScraper
+ * Jsoup web scraping for lyrics and IMDb informations
  */
 package Utility;
 
