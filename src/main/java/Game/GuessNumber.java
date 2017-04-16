@@ -6,6 +6,7 @@
 package Game;
 
 import Resource.Emoji;
+import Utility.UtilTool;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -28,7 +29,7 @@ public class GuessNumber implements Game{
     
     @Override
     public void startGame() {
-        number = (int) Math.floor(Math.random() * 100);
+        number = UtilTool.randomNum(0, 100);
         
         e.getChannel().sendMessage(Emoji.number + " Guess a number between 0 and 100! You have " + count  + " chances.").queue();
     }

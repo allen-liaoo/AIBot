@@ -30,7 +30,6 @@ public class RateLimiter {
      */
     public static boolean isSpam(MessageReceivedEvent e)
     {
-        boolean isSpam = false;
         
         //Detect if the bot is spammed
         currentMessage = System.currentTimeMillis();
@@ -44,19 +43,16 @@ public class RateLimiter {
             if(diff >= 10000) {
                 spam = false;
                 delay = 0l;
-                
-                isSpam = false;
             }
             else {
                 if(inform % 2 == 0)
                     e.getChannel().sendMessage(Emoji.error + " Rapping? A little too fast there.\nCool down: "
                             + UtilTool.formatTime(10000 - diff)).complete();
                 inform ++;
-                isSpam = true;
             }
         }
         lastMessage = currentMessage;
         
-        return isSpam;
+        return spam;
     }
 }

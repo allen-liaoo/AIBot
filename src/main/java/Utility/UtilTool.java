@@ -50,6 +50,40 @@ public class UtilTool {
     }
     
     /**
+     * Generate a number between start and end
+     * @param start
+     * @param end
+     * @return
+     */
+    public static int randomNum(int start, int end) {
+        
+        if(end < start) {
+            int temp = end;
+            end = start;
+            start = temp;
+        }
+        
+        return (int) Math.floor(Math.random() * (end - start + 1) + start);
+    }
+    
+    /**
+     * Generate a number between start and end
+     * @param start
+     * @param end
+     * @return
+     */
+    public static Long randomNum(Long start, Long end) {
+        
+        if(end < start) {
+            Long temp = end;
+            end = start;
+            start = temp;
+        }
+        
+        return (long) (Math.random() * (end - start + 1) + start);
+    }
+    
+    /**
      * Return a string of formatted duration in Hour/Min/Sec format
      * @param duration
      * @return 
@@ -79,15 +113,18 @@ public class UtilTool {
         long hours = u.toHours(time) % 24;
         long minutes = u.toMinutes(time) % 60;
         long seconds = u.toSeconds(time) % 60;
+        String day = "", hour = "", minute = "", second = "";
 
-        if (days > 0)
-            return String.format("%2d days, %02d hours, %02d minutes, and %02d seconds", days, hours, minutes, seconds);
-        else if (hours > 0)
-            return String.format("%02d hours, %02d minutes, and %02d seconds", hours, minutes, seconds);
-        else if (minutes > 0)
-            return String.format("%02d minutes and %02d seconds", minutes, seconds);
-        else
-            return String.format("%02d seconds", seconds);
+        if(days > 0)
+            day = String.format("%2d day(s)", days);
+        if(hours > 0)
+            hour = String.format(", %2d hour(s)", hours);
+        if(minutes > 0)
+            minute = String.format(", %2d minute(s)", minutes);
+        if(seconds > 0)
+            second = String.format(", %2d second(s)", seconds);
+        
+        return day + hour + minute + second + " ";
     }
     
 }

@@ -54,6 +54,7 @@ public class CommandListener extends ListenerAdapter {
         {
             if(RateLimiter.isSpam(e)) return;
             handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
+            return;
         }
         
         //Message starts with Prefix

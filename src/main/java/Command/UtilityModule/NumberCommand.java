@@ -10,6 +10,7 @@ import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;
 import Utility.SmartLogger;
+import Utility.UtilTool;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -108,14 +109,14 @@ public class NumberCommand implements Command {
                 
                 if("roll".equals(args[0])) //Roll the dice
                 {
-                    num = (int)(Math.random() * 6 + 1);
+                    num = UtilTool.randomNum(1, 6);
                     String number = Emoji.numToEmoji(num);
                     e.getChannel().sendMessage(Emoji.roll + " Dice Rolled: " + number).queue();
                 }
                     
                 else if(args.length == 1) //Defualt random range 1~100
                 {
-                    num = (int)(Math.random() * 100 + 0);
+                    num = UtilTool.randomNum(1, 100);
                     String number = Emoji.stringToEmoji(num + "");
                     e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + number
                     + "\nBy default range `0~100`").queue();
@@ -126,16 +127,7 @@ public class NumberCommand implements Command {
                     Integer low = Integer.parseInt(args[1]);
                     Integer high = Integer.parseInt(args[2]);
                     
-                    if(low > high)  
-                    {
-                        int temp = low;
-                        low = high;
-                        high = temp;
-                    }
-                    
-                    long range = (high - low) + 1;
-                    long numlong = (long) Math.floor(Math.random() * range + low);
-                    System.out.println(range);
+                    int numlong = UtilTool.randomNum(high, low);
                     String number = Emoji.stringToEmoji(numlong + "");
                         
                     e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + number

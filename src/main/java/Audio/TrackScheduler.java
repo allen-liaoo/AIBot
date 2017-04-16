@@ -7,6 +7,7 @@ package Audio;
 
 import Resource.Emoji;
 import Utility.SmartLogger;
+import Utility.UtilTool;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
@@ -150,7 +151,7 @@ public class TrackScheduler extends AudioEventAdapter {
         Mode = PlayerMode.FM;
         
         while (auto == previous) {
-            auto = (int) (Math.random() * fmSongs.size() - 1);
+            auto = UtilTool.randomNum(0, fmSongs.size()-1);
         }
         previous = auto;
         String url = fmSongs.get(auto);

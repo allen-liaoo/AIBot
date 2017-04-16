@@ -9,6 +9,7 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;
+import Utility.UtilTool;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -90,7 +91,7 @@ public class RPSCommand implements Command {
     public String getHand()
     {
         String hand = "";
-        int choice = (int) Math.floor(Math.random() * 3 + 1);
+        int choice = UtilTool.randomNum(1, 3);
         switch(choice)
         {
             case 1: hand = "rock";

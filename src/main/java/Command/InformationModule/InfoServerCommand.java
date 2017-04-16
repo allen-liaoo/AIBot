@@ -19,6 +19,8 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Invite;
+import net.dv8tion.jda.core.requests.restaction.InviteAction;
 
 /**
  *
@@ -33,6 +35,8 @@ public class InfoServerCommand implements Command{
                                     + "-m [ID]: Get more info about a server by ID.\n";
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embedsi = new EmbedBuilder();
+    private InviteAction invite;
+    private String link;
     
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
@@ -92,7 +96,13 @@ public class InfoServerCommand implements Command{
             member = guild.getMembers().size();
             role = guild.getRoles().size();
             
-            embedsi.setAuthor(name, null, Info.I_INFO);
+            //Get Invite of the server
+            e.getJDA().getGuildById(guild.getId()).getPublicChannel().createInvite()
+                    .setMaxAge(120).setMaxUses(1).setTemporary(true)
+                    .queue(
+                        (Invite i) -> embedsi.setAuthor(name, "https://discord.gg/" + i.getCode(), Info.I_INFO)
+                    );
+                    
             embedsi.setColor(Color.blue);
             embedsi.setThumbnail(icon);
             embedsi.setTimestamp(Instant.now());

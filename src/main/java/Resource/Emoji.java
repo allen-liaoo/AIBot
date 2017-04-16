@@ -43,6 +43,7 @@ public class Emoji {
     public static String status = EmojiParser.parseToUnicode(":vertical_traffic_light:");
     public static String guilds = EmojiParser.parseToUnicode(":card_file_box:");
     public static String shards = EmojiParser.parseToUnicode(":file_cabinet:");
+    public static String spy = EmojiParser.parseToUnicode("spy");
     
     //Utility Commands
     //-NumberCommand
