@@ -16,7 +16,6 @@ import Utility.SmartLogger;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -141,8 +140,7 @@ public class FM {
         BufferedReader br = new BufferedReader(new FileReader(FilePath.LP_List));
         String pl;
         
-        while((pl = br.readLine()) != null)
-        {
+        while((pl = br.readLine()) != null) {
             if(pl.toLowerCase().contains(input.toLowerCase()))
                 break;
         }
@@ -150,12 +148,9 @@ public class FM {
         try {
             //Load Play Lists
             BufferedReader br2 = new BufferedReader(new FileReader(FilePath.LP + pl + ".txt"));
-            int count = 0;
             String line, songString = "";
 
-            while((line = br2.readLine()) != null)
-            {
-                count++;
+            while((line = br2.readLine()) != null) {
                 songString += line + " ";
             }
 

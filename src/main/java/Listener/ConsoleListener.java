@@ -7,7 +7,10 @@
 package Listener;
 
 import Main.Main;
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.dv8tion.jda.core.OnlineStatus;
 
 /**
@@ -45,7 +48,11 @@ public class ConsoleListener implements Runnable {
             //ShutDown
             if (input.equals("shutdown")) 
             {
-                Main.shutdown();
+                try {
+                    Main.shutdown();
+                } catch (IOException ex) {
+                    Logger.getLogger(ConsoleListener.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
             //Test Commands
