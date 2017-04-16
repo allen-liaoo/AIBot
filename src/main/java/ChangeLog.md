@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
+#### [0.2.5] - 2017-04-16
+##### Fixed
+- Prevent the bot to do any action when an member is not in the same voice channel 
+  as the bot, but request the bot to skip, stop, join, or leave.
+
 #### [0.2.5] - 2017-04-15
 ##### Added 
 - FM Local Play lists: Christina Perri, Favorite, and Troll

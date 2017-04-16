@@ -6,7 +6,6 @@
 package Audio;
 
 import Audio.AudioTrackWrapper.TrackType;
-import Main.Main;
 import Resource.Emoji;
 import Utility.SmartLogger;
 import Utility.UtilTool;

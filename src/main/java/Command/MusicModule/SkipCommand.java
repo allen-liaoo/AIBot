@@ -56,6 +56,12 @@ public class SkipCommand implements Command {
         
         else if(args.length == 0)
         {
+            //Prevent users that is not in the same voice channel from skipping the song
+            if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel()) {
+                e.getChannel().sendMessage(Emoji.error + " You and I are not in the same voice channel.").queue();
+                return;
+            }
+            
             int skip = Music.skip(e, 0, false);
             if(skip > 0)
                 e.getChannel().sendMessage(Emoji.success + " Added your vote. Still require " + skip + " votes to skip the song.").queue();

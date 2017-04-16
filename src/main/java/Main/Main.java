@@ -19,6 +19,8 @@ import Listener.*;
 import Audio.*;
 import Resource.Info;
 import Utility.SmartLogger;
+import com.mashape.unirest.http.Unirest;
+import java.io.IOException;
 
 
 import net.dv8tion.jda.core.AccountType;
@@ -75,11 +77,12 @@ public class Main {
         SmartLogger.updateLog("Bot Start Up. Commands Added.");
     }
     
-    public static void shutdown()
+    public static void shutdown() throws IOException
     {
         System.out.println("Bot Shut Down Successfully");
         SmartLogger.updateLog("Bot Shut Down Successfully");
         
+        Unirest.shutdown();
         jda.shutdown();
         System.exit(0);
     }

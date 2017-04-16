@@ -91,7 +91,6 @@ public class Music  {
         else
         {
             e.getTextChannel().sendMessage(Emoji.error + " No match found.").queue();
-            return;
         }
     }
     
@@ -107,8 +106,15 @@ public class Music  {
     
     public static void stop(MessageReceivedEvent e)
     {
+        //Prevent user that is not in the same voice channel from stopping the player
+        if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel()) {
+            e.getChannel().sendMessage(Emoji.error + " You and I are not in the same voice channel.").queue();
+            return;
+        }
+        
         Main.guilds.get(e.getGuild().getId()).getScheduler().stopPlayer();
         AudioConnection.disconnect(e, false);
+        e.getChannel().sendMessage(Emoji.success + " Stopped the player, left the voice channel and cleared queue.").queue();
     }
     
     public static void setVolume(MessageReceivedEvent e, int in)

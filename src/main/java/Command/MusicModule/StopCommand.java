@@ -10,7 +10,6 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;
-import Main.Main;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -53,7 +52,6 @@ public class StopCommand implements Command{
         else
         {
             Music.stop(e);
-            e.getChannel().sendMessage(Emoji.success + " Track stopped.").queue();
         }
     }
 

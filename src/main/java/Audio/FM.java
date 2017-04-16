@@ -84,7 +84,7 @@ public class FM {
     }
     
     
-    public static JSONArray loadLibrary(String input) throws UnirestException 
+    public static JSONArray loadLibrary(String input) throws UnirestException, IOException 
     {
         String id = "";
         

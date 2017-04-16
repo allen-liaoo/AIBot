@@ -7,7 +7,6 @@ package Command.MusicModule;
 
 import Command.*;
 import Audio.Music;
-import static Command.MusicModule.JoinCommand.HELP;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;

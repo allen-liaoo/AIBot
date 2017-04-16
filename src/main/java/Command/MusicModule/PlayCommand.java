@@ -63,8 +63,6 @@ public class PlayCommand implements Command{
         if(args.length == 0)
         {
             if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
-                Music.pause(e);
-            else
                 Music.resume(e);
         }
         
