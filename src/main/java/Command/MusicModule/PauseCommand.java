@@ -64,7 +64,7 @@ public class PauseCommand implements Command{
             else
             {
                 Music.pause(e);
-                e.getChannel().sendMessage(Emoji.success + " Track paused.").queue();
+                e.getChannel().sendMessage(Emoji.pause + " Player paused.").queue();
             }
         }
         else if("resume".equals(type))
@@ -74,7 +74,7 @@ public class PauseCommand implements Command{
             else
             {
                 Music.resume(e);
-                e.getChannel().sendMessage(Emoji.success + " Track resumed.").queue();
+                e.getChannel().sendMessage(Emoji.resume + " Player resumed.").queue();
             }
         }
         

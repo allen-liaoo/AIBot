@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
 #### [0.2.5] - 2017-04-16
+##### Added
+- The bot will automatically resume or pause when a user join or leave the Voice Channel
 ##### Fixed
 - Prevent the bot to do any action when an member is not in the same voice channel 
   as the bot, but request the bot to skip, stop, join, or leave.

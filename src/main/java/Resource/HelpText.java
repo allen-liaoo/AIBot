@@ -37,7 +37,7 @@ public class HelpText {
             + "Get server info.\n"
             + "Get channel info. \n(Text/Voice Channel)\n"
             + "Get user info. *\n"
-            + "Set the server prefix. \n~~(Under Development)~~\n"
+            + "Get the bot's prefix. *\n"
             + "Pong. *\n"
             + "Bot description. *\n"
             + "Bot status and uptime. *\n"

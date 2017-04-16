@@ -114,7 +114,7 @@ public class Music  {
         
         Main.guilds.get(e.getGuild().getId()).getScheduler().stopPlayer();
         AudioConnection.disconnect(e, false);
-        e.getChannel().sendMessage(Emoji.success + " Stopped the player, left the voice channel and cleared queue.").queue();
+        e.getChannel().sendMessage(Emoji.stop + " Stopped the player, left the voice channel and cleared queue.").queue();
     }
     
     public static void setVolume(MessageReceivedEvent e, int in)

@@ -26,8 +26,6 @@ import net.dv8tion.jda.core.events.guild.GuildAvailableEvent;
  */
 public class CommandListener extends ListenerAdapter {
     
-    private String prefix;
-    
     @Override
     public void onMessageReceived(MessageReceivedEvent e){
         /*

@@ -55,6 +55,7 @@ public class Main {
             
             jda = new JDABuilder(AccountType.BOT)
                     .addEventListener(new CommandListener())
+                    .addEventListener(new VoiceChannelListener())
                     .addEventListener(new SelectorListener())
                     .setToken(Private.BOT_TOKEN)
                     .buildBlocking();

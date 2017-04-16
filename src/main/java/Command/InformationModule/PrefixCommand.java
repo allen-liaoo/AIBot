@@ -49,7 +49,7 @@ public class PrefixCommand implements Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE)
+        if(args.length == 0)
         {
             e.getChannel().sendMessage("Current prefix: `" + Prefix.getDefaultPrefix() + "`").queue();
         }

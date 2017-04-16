@@ -5,8 +5,6 @@
  */
 package Command.InformationModule;
 
-//Set to SUPPORT PRIVATE CHANNEL.
-
 import Resource.Emoji;
 import Resource.HelpText;
 import Setting.Prefix;
@@ -119,6 +117,7 @@ public class HelpCommand implements Command {
     public static EmbedBuilder helpText(MessageReceivedEvent e, int page)
     {
         EmbedBuilder embed = new EmbedBuilder();
+        embed.setDescription("**There are more commands! Do `=help 1, 2, 3, or 4`**");
         
         //Assign fields to a certain page
         switch (page) {

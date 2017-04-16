@@ -199,6 +199,9 @@ public class TrackScheduler extends AudioEventAdapter {
         }
     }
     
+    /**
+    * Clear methods
+    */
     public void stopPlayer() {
         clearNowPlayingTrack();
         clearQueue();
@@ -207,6 +210,18 @@ public class TrackScheduler extends AudioEventAdapter {
         player.stopTrack();
     }
     
+    public void clearQueue() {
+        queue.clear();
+    }
+    
+    public void clearFM() {
+        fmSongs.clear();
+        Mode = PlayerMode.DEFAULT;
+    }
+    
+    /**
+     * Getter and Setter
+     */
     public PlayerMode getMode() {
         return Mode;
     }
@@ -222,15 +237,6 @@ public class TrackScheduler extends AudioEventAdapter {
     public Iterator getQueueIterator() {
         return queue.iterator();
     }
-    
-    public void clearQueue() {
-        queue.clear();
-    }
-    
-    public void clearFM() {
-        fmSongs.clear();
-        Mode = PlayerMode.DEFAULT;
-    }
 
     public AudioTrackWrapper getNowPlayingTrack() {
         return NowPlayingTrack;
@@ -240,6 +246,10 @@ public class TrackScheduler extends AudioEventAdapter {
         NowPlayingTrack = null;
     }
 
+    public static TextChannel getTc() {
+        return tc;
+    }
+    
     public void setTc(TextChannel tc) {
         this.tc = tc;
     }
