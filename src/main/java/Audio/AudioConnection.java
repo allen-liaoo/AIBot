@@ -82,7 +82,6 @@ public class AudioConnection {
             
             am = e.getGuild().getAudioManager();
             am.closeAudioConnection();
-            Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(true);
         
         //Inform the users that the bot joined a voice channel
         if(inform)

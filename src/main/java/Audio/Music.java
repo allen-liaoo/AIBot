@@ -106,7 +106,8 @@ public class Music  {
     public static void stop(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from stopping the player
-        if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel()) {
+        if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
+                !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
             e.getChannel().sendMessage(Emoji.error + " You and I are not in the same voice channel.").queue();
             return;
         }
