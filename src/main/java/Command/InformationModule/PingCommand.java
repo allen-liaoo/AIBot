@@ -11,7 +11,6 @@ import Resource.Emoji;
 import Setting.Prefix;
 import Resource.Info;
 import Command.Command;
-import Main.*;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.entities.MessageEmbed;

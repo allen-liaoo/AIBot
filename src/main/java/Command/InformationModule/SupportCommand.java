@@ -9,7 +9,6 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;
-import Main.*;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;

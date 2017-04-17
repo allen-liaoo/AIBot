@@ -8,7 +8,6 @@ package Command.InformationModule;
 import Command.Command;
 import Resource.Info;
 import Setting.Prefix;
-import Main.*;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -21,7 +20,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class AboutCommand implements Command{
 
-    public final static  String HELP = "This command is for getting the bot's discription.\n"
+    public final static  String HELP = "This command is for getting the bot's description.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"about`\n"
                                      + "Parameter: `-h | null`";
     

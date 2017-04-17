@@ -8,7 +8,6 @@ package Command.InformationModule;
 import Setting.Prefix;
 import Resource.Info;
 import Command.Command;
-import Main.*;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;

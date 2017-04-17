@@ -6,7 +6,6 @@
 package Command.InformationModule;
 
 import Command.*;
-import static Command.InformationModule.InfoBotCommand.HELP;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;

@@ -1,4 +1,5 @@
 ## Information Commands
+[Information Commands Description](src/main/java/Command/FunModule/InformationModuleCommands.md) <br />
 - help (h) - Get a list of commands. *
 - invite - Get a invite link for this bot. *
 - botinfo (bi) - Get bot info. *
@@ -39,6 +40,7 @@
     - meme - Search from KnowYourMeme.
 
 ## Fun Commands
+[Fun Commands Description](src/main/java/Command/FunModule/FunModuleCommands.md) <br />
 - 8ball - Ask the magic 8ball a question. *
 - face - Lenny * 
 - game - Play a game. 
