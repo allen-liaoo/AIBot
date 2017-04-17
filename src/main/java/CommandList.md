@@ -1,5 +1,5 @@
 ## Information Commands
-[Information Commands Description](src/main/java/Command/FunModule/InformationModuleCommands.md) <br />
+[Information Commands Description](Command/FunModule/InformationModuleCommands.md) <br />
 - help (h) - Get a list of commands. *
 - invite - Get a invite link for this bot. *
 - botinfo (bi) - Get bot info. *
