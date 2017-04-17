@@ -260,6 +260,7 @@ public class Main {
         //Restricted Commands
         commands.put("shutdown", new ShutDownCommand());
         commands.put("source", new SourceCommand());
+        commands.put("setNick", new PresenceCommand("setNick"));
         commands.put("setStatus", new PresenceCommand("setStatus"));
         commands.put("setGame", new PresenceCommand("setGame"));
     }

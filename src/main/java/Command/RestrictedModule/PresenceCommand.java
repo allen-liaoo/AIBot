@@ -15,7 +15,7 @@ import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -24,11 +24,12 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class PresenceCommand implements Command {
-    public final static  String HELP = "This command is for setting the bot's status and game. **(Bot Owner Only)**\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"setStatus` or `"+ Prefix.getDefaultPrefix() +"setGame`\n"
-                                     + "Parameter: `-h | [Status] | [Game | default] | null`\n"
-                                     + "[Status]: Online, idle, dnd, invisible, offline.\n"
-                                     + "[Game]: String of the game or default\n";
+    public final static String HELP = "This command is for setting the bot's nickname, status and game.\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "setNick` or `"+ Prefix.getDefaultPrefix() + "setStatus` or `"+ Prefix.getDefaultPrefix() + "setGame`\n"
+                                    + "Parameter: `-h | [Status] | [Game | default] | null`\n"
+                                    + "[NickName]: String of the nickname or null.\n"
+                                    + "[Status]: Online, idle, dnd, invisible, offline. (Bot Owner Only)\n"
+                                    + "[Game]: String of the game, default, fix, update or null. (Bot Owner Only)\n";
     
     private final EmbedBuilder embed = new EmbedBuilder();
     private String type = "";
@@ -37,6 +38,7 @@ public class PresenceCommand implements Command {
     {
         if("setStatus".equals(invoke)) type = "status";
         else if("setGame".equals(invoke)) type = "game";
+        else if("setNick".equals(invoke)) type = "nick";
 
     }
     
@@ -67,10 +69,34 @@ public class PresenceCommand implements Command {
         
         else if(args.length > 0) 
         {
-            if(Info.D_ID.equals(e.getAuthor().getId()))
+            //Set NickName
+            if("nick".equals(type))
             {
-                if("status".equals(type))
-                {   
+                if((Info.D_ID.equals(e.getAuthor().getId()) ||
+                    e.getMember().isOwner() ||
+                    e.getMember().hasPermission(Permission.NICKNAME_MANAGE)) &&
+                    (e.getGuild().getSelfMember().hasPermission(Permission.NICKNAME_CHANGE)))
+                {
+                    String nick = "";
+
+                    if(args.length == 1 && "null".equals(args[0]))
+                        nick = null;
+                    else
+                        for(String g : args) { nick += g + " ";}
+                    e.getGuild().getController().setNickname(e.getGuild().getSelfMember(), nick).queue();
+
+                    if(nick == null) nick = "null";
+                    e.getChannel().sendMessage(Emoji.success + " NickName set to `"+ nick + "`").queue();
+                }
+                else
+                e.getChannel().sendMessage(Emoji.error + " This command is for `Bot Owner`, `Server Owner` or members with `NickName Change Permission` only!").queue();
+            }
+            
+            //Set Status
+            if("status".equals(type))
+            {   
+                if(Info.D_ID.equals(e.getAuthor().getId()))
+                {
                     OnlineStatus status;
                     try {
                         status = Main.setStatus(args[0]);
@@ -79,19 +105,24 @@ public class PresenceCommand implements Command {
                         SmartLogger.errorLog(iae, e, this.getClass().getName(), "Unknown Status");
                         return;
                     }
-                    
                     e.getChannel().sendMessage(Emoji.success + " Status set to `"+ status.toString() + "`").queue();
                 }
-                else if("game".equals(type))
+                else
+                    e.getChannel().sendMessage(Emoji.error + " This command is for `Bot Owner` only!").queue();
+            }
+            
+            //Set Game
+            if("game".equals(type))
+            {
+                if(Info.D_ID.equals(e.getAuthor().getId()))
                 {
                     String game = "";
                     for(String g : args) { game += g + " ";}
                     e.getChannel().sendMessage(Emoji.success + " Game set to `"+ Main.setGame(game) + "`").queue();
                 }
-            }
-            else
-                e.getChannel().sendMessage(Emoji.error + " This command is for **Bot Owner** only!").queue();
-                
+                else
+                    e.getChannel().sendMessage(Emoji.error + " This command is for `Bot Owner` only!").queue();
+            }   
         }
     }
 

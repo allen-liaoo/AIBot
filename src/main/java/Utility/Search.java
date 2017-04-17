@@ -137,6 +137,7 @@ public class Search {
     /**
      * IMDb Titles, Names, Characters Search
      * @param input the String to search in IMDb
+     * @return 
      * @throws UnsupportedEncodingException
      * @throws IOException
      */
@@ -162,7 +163,7 @@ public class Search {
             //Avoid Array IndexOutOfBoundsException which causes infinite printStackTrace
             while(count < t.select("tbody").select("tr").size() && count < 4) //Max: 4 results for a type
             {
-                String type = t.select(".findSectionHeader").text(); //Titles, ames, or Characters
+                String type = t.select(".findSectionHeader").text(); //Titles, names, or Characters
                 String urltitle = t.select("tbody").select("tr").get(count).select("td.result_text").text(); 
                 String url = "http://www.imdb.com" + t.select("tbody").select("tr").get(count).select("td.result_text>a").attr("href");
 

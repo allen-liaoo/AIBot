@@ -66,14 +66,18 @@ public class HelpCommand implements Command {
         //Default
         if(args.length == 0 || args.length == 1 && Character.isDigit(args[0].charAt(0))) //Parameter null
         {
-            int page = 1;
-            if(args.length != 0)
-               page = Integer.parseInt(args[0]);
-            
-            EmbedBuilder emhelp = helpText(e, page);
-            me = emhelp.build();
-            e.getChannel().sendMessage(me).queue();
-            emhelp.clearFields();
+            try {
+                int page = 1;
+                if(args.length != 0)
+                   page = Integer.parseInt(args[0]);
+
+                EmbedBuilder emhelp = helpText(e, page);
+                me = emhelp.build();
+                e.getChannel().sendMessage(me).queue();
+                emhelp.clearFields();
+            } catch (NumberFormatException nfe) {
+                e.getChannel().sendMessage(Emoji.error + " Invalid page number! Use `=help 1, 2, 3, or 4`").queue();
+            }
         }
         
         //Parameter -dm

@@ -169,16 +169,18 @@ public class HelpText {
     * Restricted Module
     */
     public final static String RESTRICT_CMD = 
-            "**Server Owner** or\n"
+            "Require Special Permissions\n"
             + "**shutdown**\n\n"
             + "**source**\n\n"
+            + "**setNick**\n"
             + "**setStatus**\n"
             + "**setGame**\n";
     
     public final static String RESTRICT_DES = 
-            "**Bot Owner** only.\n"
+            "Bot Owner, Server Owner, etc.\n"
             + "Shut down the bot remotely. \n(Bot Owner Only) * ^\n"
             + "Get the source code of a \ncommand class. *\n"
+            + "Set the NickName of the bot. *\n"
             + "Set the status of the bot. * ^\n"
             + "Set the game of the bot. * ^\n";
     

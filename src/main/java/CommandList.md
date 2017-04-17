@@ -41,7 +41,7 @@
 ## Fun Commands
 - 8ball - Ask the magic 8ball a question. *
 - face - Lenny * 
-* game - Play a game. 
+- game - Play a game. 
     - rockpaperscissors (rps) - Play Rock Paper Scissors with the bot. * 
     - guessnum (gn) - Guess a number! *
     - tictactoe (ttt) - Play a Tic Tac Toe Game XO!! 
@@ -65,10 +65,12 @@
 
 ## Restricted Commands <br />
 These commands are for **Server Owner** or **Bot Owner** only. <br />
-- shutdown - Shut down the bot remotely. (Bot Owner) * ^
+-  shutdown - Shut down the bot remotely. (Bot Owner) * ^
 - source - Get the source code of a command class. * 
-- setStatus - Set the status of the bot. * ^
-- setGame - Set the game of the bot. * ^
+- Presence - Set the nickname, status or game of the bot. * ^
+    - setNick - Set the nickname of the bot. * ^ 
+    - setStatus - Set the status of the bot. * ^
+    - setGame - Set the game of the bot. * ^
 
 ## Note: <br />
 - @Mention the bot with commands will also trigger the respond. <br />

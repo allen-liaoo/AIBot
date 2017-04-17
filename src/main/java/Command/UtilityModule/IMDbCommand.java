@@ -8,7 +8,6 @@
 package Command.UtilityModule;
 
 import Command.Command;
-import static Command.UtilityModule.SearchCommand.HELP;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;
@@ -21,13 +20,8 @@ import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.MessageReaction;
-import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -102,23 +96,28 @@ public class IMDbCommand implements Command {
                 String names = "";
                 String characters = "";
                 
-                //Get Titles, Names, Characters and make the texts
+                //Get Titles, Names, Characters and generate the texts
                 for(int i = 0; i < results.size(); i ++)
                 {
                     SearchResult sr = results.get(i);
-                    if("Titles".equals(sr.getText()))
-                    {
-                        titles += "**" + (i+1) + ".** [" + sr.getTitle() + "](" + sr.getLink() + ")\n";
+                    if(null != sr.getText())
+                    switch (sr.getText()) {
+                        case "Titles":
+                            titles += "**" + (i+1) + ".** [" + sr.getTitle() + "](" + sr.getLink() + ")\n";
+                            break;
+                        case "Names":
+                            names += "**" + (i+1) + ".** [" + sr.getTitle() + "](" + sr.getLink() + ")\n";
+                            break;
+                        case "Characters":
+                            characters += "**" + (i+1) + ".** [" + sr.getTitle() + "](" + sr.getLink() + ")\n";
+                            break;
+                        default:
+                            break;
                     }
-                    else if("Names".equals(sr.getText()))
-                        names += "**" + (i+1) + ".** [" + sr.getTitle() + "](" + sr.getLink() + ")\n";
-                    else if("Characters".equals(sr.getText()))
-                        characters += "**" + (i+1) + ".** [" + sr.getTitle() + "](" + sr.getLink() + ")\n";
                 }
                 
                 //Prevent null Messages
-                if(results.isEmpty())
-                {
+                if(results.isEmpty()) {
                     e.getChannel().sendMessage(Emoji.error + " No results.").queue();
                     return;
                 }
