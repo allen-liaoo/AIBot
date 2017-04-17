@@ -7,7 +7,6 @@ package Command.FunModule;
 
 import Command.Command;
 import static Command.Command.embed;
-import static Command.FunModule.RPSCommand.HELP;
 import Game.GuessNumber;
 import Resource.Emoji;
 import Resource.Info;
@@ -29,7 +28,7 @@ public class GuessNumberCommand implements Command{
                                     + "Parameter: `-h | start | end | [Number] | null`\n"
                                     + "start or null: Start the game.\n"
                                     + "end: End the game.\n"
-                                    + "[Number]: Guess a nmber.\n";
+                                    + "[Number]: Guess a number.\n";
     
     private GuessNumber gn;
     

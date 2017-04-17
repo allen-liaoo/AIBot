@@ -7,7 +7,6 @@ package Command.FunModule;
 
 import Command.*;
 import static Command.Command.embed;
-import Main.Main;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;

@@ -28,7 +28,7 @@ public class TicTacToeCommand implements Command {
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "tictactoe` or `" + Prefix.getDefaultPrefix() + "ttt`\n"
                                     + "Parameter: `-h | start @mention | x y | end | null`\n"
                                     + "start @mention: Mention an opponent to start the game.\n"
-                                    + "x y: Type in the cordinate of the Tic Tac Toe board\n"
+                                    + "x y: Type in the cordinate of the Tic Tac Toe board.\n"
                                     + "end: End the game.";
     TicTacToe game;
     

@@ -10,7 +10,6 @@ import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;
 import Game.HangMan;
-import Main.Main;
 import Utility.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
