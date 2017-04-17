@@ -5,14 +5,17 @@
  */
 package Command.MusicModule;
 
+import Audio.AudioTrackWrapper;
 import Audio.Music;
 import Command.Command;
 import static Command.Command.embed;
+import Main.Main;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
+import java.util.concurrent.BlockingQueue;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -24,9 +27,11 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class SkipCommand implements Command {
     public final static String HELP = "This command is for skipping the current song.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"skip`\n"
-                                    + "Parameter: `-h | -f | null`\n"
+                                    + "Parameter: `-h | -f | [Number/Index of the queue] | null`\n"
                                     + "null: Vote to skipp current song.\n"
-                                    + "-f: Force skipp current song. Requires Administrator or Manage Channel Permission.";
+                                    + "-f: Force skipp current song. Requires Administrator, Manage Channel Permission or Server Owner.\n"
+                                    + "[Number/Index of the queue]: Skip a song in the queue. Only Server Owner, members with Administrator"
+                                    + "Permission, or song requester can skip.\n";
     
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
@@ -64,9 +69,9 @@ public class SkipCommand implements Command {
             
             int skip = Music.skip(e, 0, false);
             if(skip > 0)
-                e.getChannel().sendMessage(Emoji.success + " Added your vote. Still require " + skip + " votes to skip the song.").queue();
+                e.getChannel().sendMessage(Emoji.up_vote + " Added your vote. Still require " + skip + " votes to skip the song.").queue();
             else if(skip == 0)
-                e.getChannel().sendMessage(Emoji.success + " Track skipped.").queue();
+                e.getChannel().sendMessage(Emoji.next_track + " Skipped current song.").queue();
             else if(skip == -1)
                 e.getChannel().sendMessage(Emoji.error + " Your vote is already added.").queue();
             else if(skip == -2)
@@ -76,23 +81,48 @@ public class SkipCommand implements Command {
         else if("-f".equals(args[0]))
         {
             if(e.getMember().isOwner() || 
-                    e.getMember().hasPermission(Permission.ADMINISTRATOR) || 
-                    e.getMember().hasPermission(Permission.MANAGE_CHANNEL) || 
-                    Info.D_ID.equals(e.getAuthor().getId()))
+                e.getMember().hasPermission(Permission.ADMINISTRATOR) || 
+                e.getMember().hasPermission(Permission.MANAGE_SERVER) || 
+                Info.D_ID.equals(e.getAuthor().getId()))
             {
                 Music.skip(e, 0, true);
-                e.getChannel().sendMessage(Emoji.success + " Track skipped.").queue();
-            }
-            else
-            {
+                e.getChannel().sendMessage(Emoji.next_track + " Force skipped current song.").queue();
+            } else {
                 e.getChannel().sendMessage(Emoji.error + " Only server owner and members with \n"
-                        + "`Administrator` or `Manage Channel` permission can force skip a song.").queue();
+                        + "`Administrator` or `Manage Server` permission can force skip a song.").queue();
             }
         }
         
-        else if(args[0].length() == 1 && Character.isDigit(args[0].charAt(0)))
-        {
-            int skip = Music.skip(e, Integer.parseInt(args[0]), false);
+        else if(args[0].length() == 1)
+        {   
+            BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
+            int count = 0, target = Integer.parseInt(args[0]);
+            AudioTrackWrapper rapsong = null;
+
+            if(target > queue.size()) {
+                e.getChannel().sendMessage(Emoji.error + " The position exceeds the range of this queue.").queue();
+                return;
+            }
+            
+            for(AudioTrackWrapper song : queue) {
+                count++;
+                if(count == target) {
+                    rapsong = song;
+                }   
+            }
+            
+            if((rapsong.getRequester() != null && rapsong.getRequester().equals(e.getAuthor().getId())) ||
+                e.getMember().isOwner() || 
+                e.getMember().hasPermission(Permission.ADMINISTRATOR) ||
+                Info.D_ID.equals(e.getAuthor().getId()))
+            {
+                if(Music.skip(e, target, false) == 0) {
+                    e.getChannel().sendMessage(Emoji.next_track + " Skipped track in queue index " + target + ".").queue();
+                }
+            } else {
+                e.getChannel().sendMessage(Emoji.error + " Only server owner, members with `Administrator` permission "
+                        + "\nand the song requester can skip a song at the given queue place.").queue();
+            }
         }
     }
 

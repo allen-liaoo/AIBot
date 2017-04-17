@@ -74,7 +74,7 @@ public class AudioConnection {
                 return;
             }
             
-            //Prevent user from commanding the bot too leave a voice channel
+            //Prevent user from commanding the bot to leave a voice channel
             if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel()) {
                 e.getChannel().sendMessage(Emoji.error + " Do not tell me to leave a voice channel when you are not in it.").queue();
                 return;
@@ -82,6 +82,7 @@ public class AudioConnection {
             
             am = e.getGuild().getAudioManager();
             am.closeAudioConnection();
+            Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(true);
         
         //Inform the users that the bot joined a voice channel
         if(inform)
@@ -90,6 +91,5 @@ public class AudioConnection {
             e.getChannel().sendMessage(Emoji.error + " I am not in a voice channel.").queue();
         }
     }
-    
     
 }

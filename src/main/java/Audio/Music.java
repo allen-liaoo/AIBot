@@ -22,7 +22,6 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -137,9 +136,8 @@ public class Music  {
         if(Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack() == null) {
             return -2;
         }
-        
-        if(force)
-        {
+        //Force skip the current song
+        if(force) {
             Main.guilds.get(e.getGuild().getId()).getScheduler().nextTrack();
             Main.guilds.get(e.getGuild().getId()).getScheduler().clearVote();
             return 0;
@@ -155,15 +153,14 @@ public class Music  {
                 int mem = 0;
                 //Only count non-Bot Users
                 List<Member> members = Main.guilds.get(e.getGuild().getId()).getVc().getMembers();
-                for(Member m : members)
-                {
+                for(Member m : members) {
                     if(!m.getUser().isBot())
                         mem++;
                 }
                 
+                //Check if majority of the members agree to skip
                 mem = (int) Math.ceil(mem / 2);
-                if(votes >= mem)
-                {
+                if(votes >= mem) {
                     Main.guilds.get(e.getGuild().getId()).getScheduler().nextTrack();
                     Main.guilds.get(e.getGuild().getId()).getScheduler().clearVote();
                     return 0;
@@ -177,18 +174,15 @@ public class Music  {
         //Skip a song in the queue
         else if(position != 0)
         {
-            return -1;
-            /*
-            Iterator it = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueueIterator();
-            int count = 0;
-            while(it.hasNext())
-            {
-                count++;
-                if(count == position)
-                    it.remove();
+            BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
+            int countindex = 0;
+            for(AudioTrackWrapper song : queue) {
+                countindex++;
+                if(countindex == position) {
+                    queue.remove(song);
+                }
             }
             return 0;
-            */
         }
         return -1;
     }
@@ -254,8 +248,8 @@ public class Music  {
         {
             String ptitle = playing.getTrack().getInfo().title;
             String purl = playing.getTrack().getInfo().uri;
-            embed.addField("Now Playing", "[" + ptitle + "](" + purl + ")  \n"
-                    + "Requested by " + playing.getRequester(), false);
+            embed.addField("Now Playing", "[" + ptitle + "](" + purl + ")\n"
+                    + "Requested by " + playing.getRequester() + "  Type: " + playing.getType().toString() + "\n", false);
             
             //Current Position / Total Duration
             position = playing.getTrack().getPosition();
@@ -287,7 +281,8 @@ public class Music  {
                 String title = track.getInfo().title;
                 String url = track.getInfo().uri;
                 String requester = trackwrapper.getRequester();
-                songs += "**" + count + ".** [" + title + "](" + url + ")  Requested by " + requester + "\n";
+                songs += "**" + count + ".** [" + title + "](" + url + ")\nRequested by " + requester + "  Type: " 
+                        + trackwrapper.getType().toString() + "\n";
                 
                 if(trackwrapper.getType() != TrackType.RADIO)
                     duration += track.getDuration();

@@ -7,6 +7,7 @@
  */
 package Audio;
 
+import Utility.UtilTool;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 /**
@@ -26,7 +27,7 @@ public class AudioTrackWrapper {
         
         @Override
         public String toString() {
-            return name().charAt(0) + name().substring(1).toLowerCase();
+            return UtilTool.capSplits("_", name());
         }
     }
     

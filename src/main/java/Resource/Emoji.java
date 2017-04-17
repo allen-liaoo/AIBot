@@ -103,11 +103,14 @@ public class Emoji {
     public static String book = EmojiParser.parseToUnicode(":book:");
     
     //Music
+    public static String player = EmojiParser.parseToUnicode(":black_right_pointing_triangle_with_double_vertical_bar:");
     public static String globe = EmojiParser.parseToUnicode(":globe_with_meridians:");
     public static String notes = EmojiParser.parseToUnicode(":notes:");
-    public static String pause = EmojiParser.parseToUnicode(":black_right_pointing_triangle_with_double_vertical_bar:");
+    public static String pause = EmojiParser.parseToUnicode(":double_vertical_bar:");
     public static String resume = EmojiParser.parseToUnicode(":arrow_forward:");
     public static String stop = EmojiParser.parseToUnicode(":black_square_for_stop:");
+    public static String next_track = EmojiParser.parseToUnicode(":black_right_pointing_double_triangle_with_vertical_bar:");
+    public static String up_vote = EmojiParser.parseToUnicode(":arrow_up_small:");
     public static String volume_low = EmojiParser.parseToUnicode(":sound:");
     public static String volume_high = EmojiParser.parseToUnicode(":loud_sound:");
     

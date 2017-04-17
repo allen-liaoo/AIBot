@@ -8,6 +8,7 @@ package Utility;
 
 import java.util.concurrent.TimeUnit;
 import java.awt.Color;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -80,6 +81,21 @@ public class UtilTool {
         }
         
         return (long) (Math.random() * (end - start + 1) + start);
+    }
+    
+    /**
+     * Capitalize every split tokens
+     * @param regex
+     * @param input
+     * @return
+     */
+    public static String capSplits(String regex, String input) {
+        String[] splitting = input.split(regex);
+        String splitted = "";
+        for (String s : splitting) {
+            splitted += s.substring(0, 1).toUpperCase(Locale.ENGLISH) + s.substring(1).toLowerCase(Locale.ENGLISH) + " ";
+        }
+        return splitted;
     }
     
     /**
