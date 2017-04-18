@@ -15,6 +15,7 @@
 ## Moderation Commands
 - prune (p) - Delete messages.
 - kick (k) - Kick member(s).
+- warn - Warn a user in direct message.
 - ban (b) - Ban member(s) by Mention.
 - unban (ub) - Unban member(s) by ID.
 

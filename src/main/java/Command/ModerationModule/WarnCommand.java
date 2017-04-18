@@ -11,6 +11,7 @@ import Command.Command;
 import static Command.ModerationModule.BanCommand.HELP;
 import Resource.Emoji;
 import Resource.Info;
+import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -24,7 +25,11 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class WarnCommand implements Command {
-
+    public final static String HELP = "This command is for banning members.\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"warn`\n"
+                                    + "Parameter: `-h | @Member(s) [Reason]\n`"
+                                    + "@Member(s) [Reason]: Mention members to warn, then give a reason.\n";
+    
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
         return true;

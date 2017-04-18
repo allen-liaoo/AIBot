@@ -49,12 +49,14 @@ public class HelpText {
     public final static String MOD_CMD = 
             "**prune (p)**\n"
             + "**kick (k)**\n"
+            + "**warn**\n"
             + "**ban (b)**\n**"
             + "unban (ub)**\n";
     
     public final static String MOD_DES = 
             "Delete messages.\n"
             + "Kick member(s).\n"
+            + "Warn a user in dm.\n"
             + "Ban member(s) by Mention.\n"
             + "Unban member(s) by ID.\n";
     
