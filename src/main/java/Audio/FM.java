@@ -75,7 +75,11 @@ public class FM {
             }
         }
         
+        //Prevent user from calling FM ouside of voice channel
         AudioConnection.connect(e, false);
+        if(!e.getMember().getVoiceState().inVoiceChannel())
+            return;
+        
         Main.guilds.get(e.getGuild().getId()).getScheduler().autoPlay();
         
         //Log

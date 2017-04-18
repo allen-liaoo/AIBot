@@ -90,7 +90,7 @@ public class PlayCommand implements Command{
                     choices += "\n**" + (i+1) + ":** " + choice.getTitle();
                 }
                 
-                choices += "\nUse `=1~5` to select the song to play. Type `c` or `cancel` to cancel this selection.";
+                choices += "\nUse `1~5` to select the song to play. Type `c` or `cancel` to cancel this selection.";
                 
                 e.getChannel().sendMessage(choices).queue();
                 

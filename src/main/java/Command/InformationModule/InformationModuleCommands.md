@@ -43,7 +43,7 @@ Parameter: `-h | -m | @mention(s) | null
 
 - prefix - Set the server prefix. (Under Development)
 ```This command is for setting the prefix.
-Command Usage: prefix
+Command Usage: =prefix
 Parameter: -h | Prefix
 ```
 
@@ -61,7 +61,7 @@ Parameter: `-h | null
 
 - status - Bot status or uptime. *
 ```This command is for getting this bot's status.
-Command Usage: status or =uptime
+Command Usage: =status or =uptime
 Parameter: `-h | null
 ```
 
