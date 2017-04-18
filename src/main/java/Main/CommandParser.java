@@ -7,9 +7,11 @@
 package Main;
 
 import Setting.Prefix;
+import Utility.SmartLogger;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
+import java.util.regex.PatternSyntaxException;
 /**
  *
  * @author liaoyilin
@@ -47,18 +49,19 @@ public class CommandParser {
     public CommandContainer parseMention(String rw, MessageReceivedEvent e) {
         ArrayList<String> split = new ArrayList<String>();
         String raw = rw;
+
         String beheaded = raw.replaceFirst("@" + e.getGuild().getSelfMember().getEffectiveName() + " ", "");
+
         String[] splitBeheaded = beheaded.split(" ");
-        
+
         for(String s : splitBeheaded) 
         {
             split.add(s);
         }
-        
+
         String invoke = split.get(0);
         String[] args = new String[split.size() - 1];
         split.subList(1, split.size()).toArray(args);
-        
         return new CommandContainer(raw, beheaded, splitBeheaded, invoke, args, e);
     }
     

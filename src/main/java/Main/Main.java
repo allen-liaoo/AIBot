@@ -181,6 +181,7 @@ public class Main {
         
         commands.put("kick", new KickCommand());
         commands.put("k", new KickCommand());
+        commands.put("warn", new WarnCommand());
         
         commands.put("ban", new BanCommand());
         commands.put("b", new BanCommand());
