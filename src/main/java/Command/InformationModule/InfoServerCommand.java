@@ -6,7 +6,7 @@
 package Command.InformationModule;
 
 import Command.Command;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Resource.Emoji;
 import java.awt.Color;
@@ -48,7 +48,7 @@ public class InfoServerCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Server Information -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -100,10 +100,10 @@ public class InfoServerCommand implements Command{
             e.getJDA().getGuildById(guild.getId()).getPublicChannel().createInvite()
                     .setMaxAge(120).setMaxUses(1).setTemporary(true)
                     .queue(
-                        (Invite i) -> embedsi.setAuthor(name, "https://discord.gg/" + i.getCode(), Info.I_INFO)
+                        (Invite i) -> embedsi.setAuthor(name, "https://discord.gg/" + i.getCode(), Constants.I_INFO)
                     );*/
 
-            embedsi.setAuthor(name, null, Info.I_INFO);
+            embedsi.setAuthor(name, null, Constants.I_INFO);
             embedsi.setColor(Color.blue);
             embedsi.setThumbnail(icon);
             embedsi.setTimestamp(Instant.now());

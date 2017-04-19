@@ -7,9 +7,8 @@ package Command.FunModule;
 
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
-import Main.*;
 import Resource.FilePath;
 import Utility.SmartLogger;
 import Utility.UtilTool;
@@ -19,13 +18,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.exceptions.PermissionException;
 
 /**
  *
@@ -57,7 +52,7 @@ public class FaceCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("Number -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

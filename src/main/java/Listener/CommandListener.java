@@ -28,15 +28,24 @@ public class CommandListener extends ListenerAdapter {
     
     @Override
     public void onMessageReceived(MessageReceivedEvent e){
-        /*
-        * Reject Commands from Bots and Fake Users
-        */
+        /**
+         * Reject Commands from Bots and Fake Users.
+         */
         if(e.getAuthor().isBot() || e.getAuthor().isFake())
             return;
         
-        /*
-        * Create GuildSetting for each Guild
-        */
+        /**
+         * Reject Commands from unavailable guild, Text Channels that the bot 
+         * does not have permission to send message or fake Private Channels.
+         */
+        if(e.getChannelType().isGuild() && !e.getGuild().isAvailable() ||
+            (e.getChannelType().isGuild() && !e.getTextChannel().canTalk()) || 
+            (!e.getChannelType().isGuild() && e.getPrivateChannel().isFake()))
+            return;
+        
+        /**
+         * Create GuildSetting for each Guild
+         */
         if(!e.isFromType(e.getChannelType().PRIVATE) && !Main.guilds.containsKey(e.getGuild().getId()))
         {
             GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=", 50);

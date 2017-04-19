@@ -8,7 +8,7 @@ package Command.UtilityModule;
 import Resource.Emoji;
 import Utility.Search;
 import Setting.Prefix;
-import Resource.Info;
+import Resource.Constants;
 import Utility.SearchResult;
 import Command.Command;
 import Main.*;
@@ -56,7 +56,7 @@ public class ImageCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Utility Module", null);
         embed.addField("Image -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

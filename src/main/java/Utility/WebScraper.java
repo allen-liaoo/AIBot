@@ -7,7 +7,7 @@
 package Utility;
 
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class WebScraper {
      */
     public static String[] getSongLyrics(String input) throws IOException, HttpStatusException {
         List<String> lyrics = new ArrayList<String>();
-        String lyricsURL = Info.LYRICSURL + input.substring(0, 1).toUpperCase() + input.substring(1).replace(" ", "-").toLowerCase();
+        String lyricsURL = Constants.LYRICSURL + input.substring(0, 1).toUpperCase() + input.substring(1).replace(" ", "-").toLowerCase();
         Document doc = Jsoup.connect(input).get();
         int count = 0;
         Element p = doc.select(".lyrics").select("p").get(0);

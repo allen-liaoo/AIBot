@@ -17,7 +17,7 @@ import Command.FunModule.*;
 import Command.RestrictedModule.*;
 import Listener.*;
 import Audio.*;
-import Resource.Info;
+import Resource.Constants;
 import Utility.SmartLogger;
 import com.mashape.unirest.http.Unirest;
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class Main {
                     .setMaxReconnectDelay(300)
                     .buildBlocking();
             
-            jda.getPresence().setGame(Game.of(Info.B_GAME_DEFAULT + " | " + jda.getGuilds().size() + " Servers"));
+            jda.getPresence().setGame(Game.of(Constants.B_GAME_DEFAULT + " | " + jda.getGuilds().size() + " Servers"));
             
             startUp();
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
@@ -133,13 +133,13 @@ public class Main {
         String set;
         switch(game.replaceAll(" ", "").toLowerCase()) {
             case "default":
-                set = Info.B_GAME_DEFAULT + " | " + jda.getGuilds().size() + " Servers";
+                set = Constants.B_GAME_DEFAULT + " | " + jda.getGuilds().size() + " Servers";
                 break;
             case "update":
-                set = Info.B_GAME_UPDATE;
+                set = Constants.B_GAME_UPDATE;
                 break;
             case "fix":
-                set = Info.B_GAME_FIXING;
+                set = Constants.B_GAME_FIXING;
                 break;
             case "null":
             case "":
@@ -267,9 +267,10 @@ public class Main {
         
         //Restricted Commands
         commands.put("shutdown", new ShutDownCommand());
-        commands.put("source", new SourceCommand());
         commands.put("setNick", new PresenceCommand("setNick"));
         commands.put("setStatus", new PresenceCommand("setStatus"));
         commands.put("setGame", new PresenceCommand("setGame"));
+        commands.put("source", new SourceCommand());
+        commands.put("log", new LogCommand());
     }
 }

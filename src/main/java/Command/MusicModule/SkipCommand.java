@@ -11,7 +11,7 @@ import Command.Command;
 import static Command.Command.embed;
 import Main.Main;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
@@ -43,7 +43,7 @@ public class SkipCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Music Module", null);
         embed.addField("Skip -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -83,7 +83,7 @@ public class SkipCommand implements Command {
             if(e.getMember().isOwner() || 
                 e.getMember().hasPermission(Permission.ADMINISTRATOR) || 
                 e.getMember().hasPermission(Permission.MANAGE_SERVER) || 
-                Info.D_ID.equals(e.getAuthor().getId()))
+                Constants.D_ID.equals(e.getAuthor().getId()))
             {
                 Music.skip(e, 0, true);
                 e.getChannel().sendMessage(Emoji.next_track + " Force skipped current song.").queue();
@@ -114,7 +114,7 @@ public class SkipCommand implements Command {
             if((rapsong.getRequester() != null && rapsong.getRequester().equals(e.getAuthor().getId())) ||
                 e.getMember().isOwner() || 
                 e.getMember().hasPermission(Permission.ADMINISTRATOR) ||
-                Info.D_ID.equals(e.getAuthor().getId()))
+                Constants.D_ID.equals(e.getAuthor().getId()))
             {
                 if(Music.skip(e, target, false) == 0) {
                     e.getChannel().sendMessage(Emoji.next_track + " Skipped track in queue index " + target + ".").queue();

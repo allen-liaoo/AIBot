@@ -11,7 +11,7 @@ import Command.Command;
 import static Command.Command.embed;
 import static Command.MusicModule.PlayCommand.HELP;
 import Resource.HelpText;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Utility.UtilTool;
 import java.awt.Color;
@@ -39,7 +39,7 @@ public class MusicCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Music Module", null);
         embed.addField("Play -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
         
         e.getChannel().sendMessage(embed.build()).queue();
@@ -53,7 +53,7 @@ public class MusicCommand implements Command{
             EmbedBuilder embedm = new EmbedBuilder();
             
             embedm.setColor(UtilTool.randomColor());
-            embedm.setAuthor("Music Module", null, Info.I_HELP);
+            embedm.setAuthor("Music Module", null, Constants.I_HELP);
             embedm.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
             embedm.setTimestamp(Instant.now());
             embedm.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());

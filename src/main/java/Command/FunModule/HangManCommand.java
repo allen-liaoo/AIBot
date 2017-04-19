@@ -7,7 +7,7 @@ package Command.FunModule;
 
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Game.HangMan;
 import Utility.SmartLogger;
@@ -39,7 +39,7 @@ public class HangManCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("HangMan -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

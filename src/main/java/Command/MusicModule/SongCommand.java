@@ -11,7 +11,7 @@ import Command.Command;
 import static Command.Command.embed;
 import Main.Main;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
@@ -39,7 +39,7 @@ public class SongCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Music Module", null);
         embed.addField("Song -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

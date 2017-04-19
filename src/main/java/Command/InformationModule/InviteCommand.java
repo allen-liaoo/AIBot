@@ -7,7 +7,7 @@ package Command.InformationModule;
 
 import Resource.Emoji;
 import Setting.Prefix;
-import Resource.Info;
+import Resource.Constants;
 import Command.Command;
 import Main.*;
 
@@ -39,7 +39,7 @@ public class InviteCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
         embed.addField("Invite -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -50,8 +50,8 @@ public class InviteCommand implements Command {
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
         String msg = Emoji.invite + " Invite me to your server here:\n"
-                + Info.B_DISCORD_BOT + "\n"
-                + "You can also join my Discord Server if you require support here: " + Info.B_SERVER;
+                + Constants.B_DISCORD_BOT + "\n"
+                + "You can also join my Discord Server if you require support here: " + Constants.B_SERVER;
         
         if(args.length == 0) 
         {

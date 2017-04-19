@@ -8,7 +8,7 @@
 package Listener;
 
 import Main.Main;
-import Resource.Info;
+import Resource.Constants;
 import Utility.UtilTool;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -51,10 +51,10 @@ public class GuildListener extends ListenerAdapter {
     }
     
     public void welcome(TextChannel c) {
-        embedmsg.setAuthor("Thanks for Adding AIBot!!", Info.B_GITHUB, Info.B_AVATAR);
+        embedmsg.setAuthor("Thanks for Adding AIBot!!", Constants.B_GITHUB, Constants.B_AVATAR);
         embedmsg.setColor(UtilTool.randomColor());
         embedmsg.setDescription(welcome);
-        embedmsg.setThumbnail(Info.B_AVATAR);
+        embedmsg.setThumbnail(Constants.B_AVATAR);
         embedmsg.addField("Links", links, false);
         c.sendMessage(embedmsg.build()).queue();
     }

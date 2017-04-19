@@ -8,7 +8,7 @@ package Command.InformationModule;
 import Resource.Emoji;
 import Resource.HelpText;
 import Setting.Prefix;
-import Resource.Info;
+import Resource.Constants;
 import Command.FunModule.EightBallCommand;
 import Command.*;
 import Command.ModerationModule.*;
@@ -51,7 +51,7 @@ public class HelpCommand implements Command {
         embedusage.setColor(Color.red);
         embedusage.setTitle("Information Module", null);
         embedusage.addField("Help -Help", HELP, true);
-        embedusage.setFooter("Command Help/Usage", Info.I_HELP);
+        embedusage.setFooter("Command Help/Usage", Constants.I_HELP);
         embedusage.setTimestamp(Instant.now());
 
         MessageEmbed eu = embedusage.build();
@@ -154,7 +154,7 @@ public class HelpCommand implements Command {
         }
         
         embed.setColor(UtilTool.randomColor());
-        embed.setAuthor("AIBot Command List | Page " + page, Info.B_GITHUB, Info.I_HELP);
+        embed.setAuthor("AIBot Command List | Page " + page, Constants.B_GITHUB, Constants.I_HELP);
         embed.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
         embed.setTimestamp(Instant.now());
         embed.setFooter("Commands List", null);
@@ -398,13 +398,13 @@ public class HelpCommand implements Command {
             cmdtitle += " -Help";
         }
 
-        embedHelp.setAuthor("AIBot Help -" + morc, Info.B_GITHUB,null); //Set title for command
+        embedHelp.setAuthor("AIBot Help -" + morc, Constants.B_GITHUB,null); //Set title for command
         embedHelp.setColor(UtilTool.randomColor());
 
         embedHelp.addField(cmdtitle, cmdhelp, true);
         if(isMod == true)
             embedHelp.addField("Discription", cmdhelp2, true);
-        embedHelp.setFooter(morc + " Help/Usage", Info.I_HELP);
+        embedHelp.setFooter(morc + " Help/Usage", Constants.I_HELP);
         embedHelp.setTimestamp(Instant.now());
 
         MessageEmbed meh = embedHelp.build();

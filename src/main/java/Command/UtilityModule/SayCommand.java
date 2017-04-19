@@ -6,7 +6,7 @@
 package Command.UtilityModule;
 
 import Command.Command;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Utility.SmartLogger;
 import java.awt.Color;
@@ -43,7 +43,7 @@ public final static  String HELP = "This command is for letting a bot say someth
         embed.setColor(Color.red);
         embed.setTitle("Utility Module", null);
         embed.addField("Say -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

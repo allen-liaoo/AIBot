@@ -6,7 +6,7 @@
 package Command.InformationModule;
 
 import Setting.Prefix;
-import Resource.Info;
+import Resource.Constants;
 import Command.Command;
 import java.awt.Color;
 import java.time.Instant;
@@ -42,7 +42,7 @@ public class InfoUserCommand implements Command{
         embed.setTitle("Information Module", null);
         embed.setTitle("UserInfo -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -128,7 +128,7 @@ public class InfoUserCommand implements Command{
             register = user.getCreationTime().toString();
         }
         
-        embedui.setAuthor(name, null, Info.I_INFO);
+        embedui.setAuthor(name, null, Constants.I_INFO);
         embedui.setColor(Color.blue);
         embedui.setThumbnail(icon);
         embedui.setTimestamp(Instant.now());

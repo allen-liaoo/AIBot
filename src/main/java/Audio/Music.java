@@ -8,7 +8,7 @@ package Audio;
 import Audio.AudioTrackWrapper.TrackType;
 import Main.Main;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Utility.UtilTool;
 import Utility.WebScraper;
 import Utility.SmartLogger;
@@ -16,6 +16,20 @@ import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;;
 import java.io.IOException;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+import java.time.Instant;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
@@ -200,7 +214,7 @@ public class Music  {
         String trackTime = UtilTool.formatDuration(track.getTrack().getPosition());
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setAuthor(title, trackInfo.uri, Info.B_AVATAR);
+        embedBuilder.setAuthor(title, trackInfo.uri, Constants.B_AVATAR);
         embedBuilder.setColor(UtilTool.randomColor());
         embedBuilder.addField("Song Title:", trackInfo.title, true);
         embedBuilder.addField("Author:", trackInfo.author, true);
@@ -215,7 +229,7 @@ public class Music  {
         embedBuilder.addField("Track Type:", track.getType().toString(), true);
         embedBuilder.addField("Stream:", trackInfo.isStream + "", true);
         embedBuilder.addField("Requested by:", track.getRequester(), true);
-        embedBuilder.setThumbnail(Info.B_AVATAR);
+        embedBuilder.setThumbnail(Constants.B_AVATAR);
         embedBuilder.setTimestamp(Instant.now());
             
             
@@ -300,9 +314,9 @@ public class Music  {
         embed.setAuthor("Queue List " + 
                 UtilTool.formatDuration(position) + 
                 durationWithoutRadio
-                , Info.B_INVITE, Info.B_AVATAR);
+                , Constants.B_INVITE, Constants.B_AVATAR);
         embed.setColor(UtilTool.randomColor());
-        embed.setThumbnail(Info.B_AVATAR);
+        embed.setThumbnail(Constants.B_AVATAR);
         embed.setFooter("Reqested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
         embed.setTimestamp(Instant.now());
         embed.addField("Coming Next", songs, false);

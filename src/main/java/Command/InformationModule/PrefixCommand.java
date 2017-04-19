@@ -7,7 +7,7 @@ package Command.InformationModule;
 
 import Resource.Emoji;
 import Setting.Prefix;
-import Resource.Info;
+import Resource.Constants;
 import Command.Command;
 import Main.*;
 import java.awt.Color;
@@ -39,7 +39,7 @@ public class PrefixCommand implements Command {
         embed.setTitle("Information Module", null);
         embed.setTitle("Prefix -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

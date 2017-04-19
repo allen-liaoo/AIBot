@@ -6,7 +6,7 @@
 package Command.MusicModule;
 
 import Setting.Prefix;
-import Resource.Info;
+import Resource.Constants;
 import Audio.*;
 import Command.Command;
 import Main.*;
@@ -37,7 +37,7 @@ public class LeaveCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Music Module", null);
         embed.addField("Leave -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

@@ -7,7 +7,7 @@ package Command.ModerationModule;
 
 import Resource.Emoji;
 import Setting.Prefix;
-import Resource.Info;
+import Resource.Constants;
 import Command.Command;
 import Main.*;
 import Utility.SmartLogger;
@@ -44,7 +44,7 @@ public class PruneCommand implements Command{
         embed.setTitle("Utility Module", null);
         embed.setTitle("Prune -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

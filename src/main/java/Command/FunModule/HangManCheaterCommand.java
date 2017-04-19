@@ -8,7 +8,7 @@ package Command.FunModule;
 import Command.*;
 import static Command.Command.embed;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Utility.SmartLogger;
 import java.awt.Color;
@@ -49,7 +49,7 @@ public class HangManCheaterCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("HangMan Cheater -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

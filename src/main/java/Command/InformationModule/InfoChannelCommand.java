@@ -7,7 +7,7 @@ package Command.InformationModule;
 
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Utility.SmartLogger;
 import java.awt.Color;
@@ -45,7 +45,7 @@ public class InfoChannelCommand implements Command{
         embed.setTitle("Information Module", null);
         embed.setTitle("InfoInfo -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -83,7 +83,7 @@ public class InfoChannelCommand implements Command{
                     bot ++;
             }
             
-            embedci.setAuthor(name, null, Info.I_INFO);
+            embedci.setAuthor(name, null, Constants.I_INFO);
             embedci.setColor(Color.blue);
             embedci.setThumbnail(icon);
             embedci.setTimestamp(Instant.now());
@@ -130,7 +130,7 @@ public class InfoChannelCommand implements Command{
                     else
                         bot ++;
                 }
-                embedci.setAuthor(name, null, Info.I_INFO);
+                embedci.setAuthor(name, null, Constants.I_INFO);
                 embedci.setColor(Color.blue);
                 embedci.setThumbnail(icon);
                 embedci.setTimestamp(Instant.now());

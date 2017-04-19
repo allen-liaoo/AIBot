@@ -8,7 +8,7 @@ package Command.RestrictedModule;
 import Main.Main;
 import Command.*;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Utility.SmartLogger;
 import java.awt.Color;
@@ -52,7 +52,7 @@ public class PresenceCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Restricted Module", null);
         embed.addField("SetPresence -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -72,7 +72,7 @@ public class PresenceCommand implements Command {
             //Set NickName
             if("nick".equals(type))
             {
-                if((Info.D_ID.equals(e.getAuthor().getId()) ||
+                if((Constants.D_ID.equals(e.getAuthor().getId()) ||
                     e.getMember().isOwner() ||
                     e.getMember().hasPermission(Permission.NICKNAME_MANAGE)) &&
                     (e.getGuild().getSelfMember().hasPermission(Permission.NICKNAME_CHANGE)))
@@ -95,7 +95,7 @@ public class PresenceCommand implements Command {
             //Set Status
             if("status".equals(type))
             {   
-                if(Info.D_ID.equals(e.getAuthor().getId()))
+                if(Constants.D_ID.equals(e.getAuthor().getId()))
                 {
                     OnlineStatus status;
                     try {
@@ -114,7 +114,7 @@ public class PresenceCommand implements Command {
             //Set Game
             if("game".equals(type))
             {
-                if(Info.D_ID.equals(e.getAuthor().getId()))
+                if(Constants.D_ID.equals(e.getAuthor().getId()))
                 {
                     String game = "";
                     for(String g : args) { game += g + " ";}

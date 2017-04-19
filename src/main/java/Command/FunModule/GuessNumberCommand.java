@@ -9,7 +9,7 @@ import Command.Command;
 import static Command.Command.embed;
 import Game.GuessNumber;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Utility.SmartLogger;
 import java.awt.Color;
@@ -42,7 +42,7 @@ public class GuessNumberCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Fun Module", null);
         embed.addField("Guess Number -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

@@ -7,7 +7,7 @@ package Command.FunModule;
 
 import Command.Command;
 import static Command.Command.embed;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Game.*;
 import java.awt.Color;
@@ -36,7 +36,7 @@ public class GameCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("Game -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

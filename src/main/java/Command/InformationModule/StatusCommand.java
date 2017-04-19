@@ -7,7 +7,7 @@ package Command.InformationModule;
 
 import Command.*;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Main.Main;
 import Utility.UtilTool;
@@ -48,7 +48,7 @@ public class StatusCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
         embed.addField("Status -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

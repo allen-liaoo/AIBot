@@ -7,7 +7,7 @@ package Command.RestrictedModule;
 
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Main.*;
 import Utility.SmartLogger;
@@ -45,7 +45,7 @@ public class SourceCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Restricted Module", null);
         embed.addField("Source -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -62,7 +62,7 @@ public class SourceCommand implements Command{
         
         else if(args.length >= 1) 
         {
-            if(!Info.D_ID.equals(e.getAuthor().getId()) && !e.getMember().isOwner())
+            if(!Constants.D_ID.equals(e.getAuthor().getId()) && !e.getMember().isOwner())
             {
                 e.getChannel().sendMessage(Emoji.error + " This command is for **Server Owner** or **Bot Owner** only.").queue();
             }

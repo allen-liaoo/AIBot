@@ -10,7 +10,7 @@ package Command.MusicModule;
 import Audio.Radio;
 import Command.Command;
 import static Command.Command.embed;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Utility.UtilTool;
 import java.awt.Color;
@@ -43,7 +43,7 @@ public class RadioCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Music Module", null);
         embed.addField("FM -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -57,10 +57,10 @@ public class RadioCommand implements Command{
         {
             String stations = Radio.getStations();
             
-            embedpl.setAuthor("AIBot Radio", null, Info.B_AVATAR);
+            embedpl.setAuthor("AIBot Radio", null, Constants.B_AVATAR);
             embedpl.setDescription("Usage: `" + Prefix.DIF_PREFIX + "radio [Station Name]`\n");
             embedpl.addField("Available Radio Stations", stations, true);
-            embedpl.setThumbnail(Info.B_AVATAR);
+            embedpl.setThumbnail(Constants.B_AVATAR);
             embedpl.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
             embedpl.setColor(UtilTool.randomColor());
             embedpl.setTimestamp(Instant.now());

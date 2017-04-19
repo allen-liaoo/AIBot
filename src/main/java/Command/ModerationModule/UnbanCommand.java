@@ -7,7 +7,7 @@ package Command.ModerationModule;
 
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Main.*;
 import Utility.SmartLogger;
@@ -45,7 +45,7 @@ public class UnbanCommand implements Command{
         embed.setTitle("Moderation Module", null);
         embed.setTitle("Unban -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

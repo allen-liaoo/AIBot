@@ -32,7 +32,7 @@
 - search - Search sites using Google Search Engine. *
     - google (g) - Google Search. 
     - wiki - Search Wikipedia. 
-    - urban - Search Urban Dictionary. 
+    - urban (ub) - Search Urban Dictionary. 
     - github (git) - Search Github. 
     - imdb - Search IMDb.
 - image - Search images from Imgur, Giphy, and KnowYourMeme. * 
@@ -69,11 +69,11 @@
 ## Restricted Commands <br />
 These commands are for **Server Owner** or **Bot Owner** only. <br />
 -  shutdown - Shut down the bot remotely. (Bot Owner) * ^
-- source - Get the source code of a command class. * 
 - Presence - Set the nickname, status or game of the bot. * ^
     - setNick - Set the nickname of the bot. * ^ 
     - setStatus - Set the status of the bot. * ^
     - setGame - Set the game of the bot. * ^
+- source - Get the source code of a command class. * 
 
 ## Note: <br />
 - @Mention the bot with commands will also trigger the respond. <br />

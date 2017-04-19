@@ -9,7 +9,7 @@ package Command.UtilityModule;
 
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Utility.Search;
 import Utility.SearchResult;
@@ -46,7 +46,7 @@ public class IMDbCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Utility Module", null);
         embed.addField("IMDB -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

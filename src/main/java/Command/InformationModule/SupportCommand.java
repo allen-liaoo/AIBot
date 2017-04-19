@@ -7,7 +7,7 @@ package Command.InformationModule;
 
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
@@ -35,7 +35,7 @@ public class SupportCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
         embed.addField("Support -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
         
         MessageEmbed me = embed.build();
@@ -48,7 +48,7 @@ public class SupportCommand implements Command{
         if(args.length == 0) 
         {
             String msg = Emoji.invite + " Join this server for music!\n"
-                                        + Info.L_MUSIC_HUB;
+                                        + Constants.L_MUSIC_HUB;
             
             e.getChannel().sendMessage(msg).queue();
         }

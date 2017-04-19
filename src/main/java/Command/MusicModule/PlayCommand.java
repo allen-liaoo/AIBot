@@ -10,7 +10,7 @@ import Audio.Music;
 import Main.Main;
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Utility.SearchResult;
 import Utility.Search;
@@ -50,7 +50,7 @@ public class PlayCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Music Module", null);
         embed.addField("Play -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

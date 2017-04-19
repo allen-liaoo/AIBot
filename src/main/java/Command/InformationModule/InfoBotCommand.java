@@ -8,7 +8,7 @@ package Command.InformationModule;
 //Set to SUPPORT PRIVATE CHANNEL.
 
 import Setting.Prefix;
-import Resource.Info;
+import Resource.Constants;
 import Command.Command;
 import java.awt.Color;
 import java.time.Instant;
@@ -41,7 +41,7 @@ public class InfoBotCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Information Module", null);
         embed.addField("BotInfo -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -64,7 +64,7 @@ public class InfoBotCommand implements Command{
             if(e.getChannelType() != e.getChannelType().PRIVATE)
                 nickname = e.getGuild().getSelfMember().getEffectiveName();
             
-            owner = bot.getUserById(Info.D_ID).getName();
+            owner = bot.getUserById(Constants.D_ID).getName();
             avatar = bot.getSelfUser().getAvatarUrl();
             id = bot.getSelfUser().getId();
             register = bot.getSelfUser().getCreationTime().toString();
@@ -75,7 +75,7 @@ public class InfoBotCommand implements Command{
             //Bot Status
             game = bot.getPresence().getGame().getName();
             
-            //Bot /w Guild Info
+            //Bot /w Guild Constants
             if(e.getChannelType() != e.getChannelType().PRIVATE)
             {
                 perm = e.getGuild().getSelfMember().getPermissions(e.getTextChannel()).toString();
@@ -88,11 +88,11 @@ public class InfoBotCommand implements Command{
                 permString = permString.substring(0, permString.length()-2);
             }
             
-            embedinfo.setAuthor(name, null, Info.I_INFO);
+            embedinfo.setAuthor(name, null, Constants.I_INFO);
             embedinfo.setColor(Color.blue);
             embedinfo.setThumbnail(avatar);
             embedinfo.setTimestamp(Instant.now());
-            embedinfo.setFooter("AIBot Information", Info.B_DISCORD_BOT);
+            embedinfo.setFooter("AIBot Information", Constants.B_DISCORD_BOT);
             
             embedinfo.addField("ID", id, true);
             if(e.getChannelType() != e.getChannelType().PRIVATE)

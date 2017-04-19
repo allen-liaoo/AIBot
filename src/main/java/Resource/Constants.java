@@ -1,7 +1,7 @@
 /* 
  * AIBot by AlienIdeology
  * 
- * Info
+ * Constants
  * All informations and links about the bot and developer
  */
 package Resource;
@@ -13,16 +13,16 @@ import Main.Main;
  *
  * @author liaoyilin
  */
-public class Info {
+public class Constants {
     //Main
-    public static String VERSION = "[0.1.9]";
+    public static String VERSION = "[0.2.0]";
     
     //Icon
     public static String I_INFO = "https://maxcdn.icons8.com/Share/icon/Very_Basic//info1600.png";
     public static String I_HELP = "https://maxcdn.icons8.com/Share/icon/Programming//help1600.png";
     
     //Bot
-    //-Bot Info
+    //-Bot Constants
     public static String B_NAME = Main.jda.getSelfUser().getName();
     public static String B_AVATAR = Main.jda.getSelfUser().getEffectiveAvatarUrl();
     public static String B_DISCRIMINATOR = Main.jda.getSelfUser().getDiscriminator();

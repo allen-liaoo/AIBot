@@ -7,7 +7,7 @@ package Command.FunModule;
 
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Utility.UtilTool;
 import java.awt.Color;
@@ -37,7 +37,7 @@ public class RPSCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("Rock Paper Scissors -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

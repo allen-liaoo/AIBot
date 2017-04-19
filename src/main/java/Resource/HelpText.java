@@ -173,18 +173,20 @@ public class HelpText {
     public final static String RESTRICT_CMD = 
             "Require Special Permissions\n"
             + "**shutdown**\n\n"
-            + "**source**\n\n"
             + "**setNick**\n"
             + "**setStatus**\n"
-            + "**setGame**\n";
+            + "**setGame**\n"
+            + "**source**\n"
+            + "**log**\n";
     
     public final static String RESTRICT_DES = 
             "Bot Owner, Server Owner, etc.\n"
             + "Shut down the bot remotely. \n(Bot Owner Only) * ^\n"
-            + "Get the source code of a \ncommand class. *\n"
-            + "Set the NickName of the bot. *\n"
+            + "Set the server nickname of the bot. *\n"
             + "Set the status of the bot. * ^\n"
-            + "Set the game of the bot. * ^\n";
+            + "Set the game of the bot. * ^\n"
+            + "Get the source code. *\n"
+            + "Get the logs of this bot. *\n";
     
     /*
     * Note

@@ -8,7 +8,7 @@ package Command.UtilityModule;
 import Command.Command;
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import com.vdurmont.emoji.EmojiManager;
 import java.awt.Color;
@@ -40,7 +40,7 @@ public class EmojiCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Utility Module", null);
         embed.addField("Emoji -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

@@ -6,7 +6,7 @@
 package Command.FunModule;
 
 import Command.Command;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Main.*;
 import Resource.Emoji;
@@ -40,7 +40,7 @@ public class EightBallCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("EightBall -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();

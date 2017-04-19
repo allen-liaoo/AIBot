@@ -19,8 +19,19 @@ public class SelectorListener extends ListenerAdapter {
     
     @Override
     public void onMessageReceived(MessageReceivedEvent e){
-        //Reject Commands from Bots and Fake Users
+        /**
+         * Reject Commands from Bots and Fake Users.
+         */
         if(e.getAuthor().isBot() || e.getAuthor().isFake())
+            return;
+        
+        /**
+         * Reject Commands from unavailable guild, Text Channels that the bot 
+         * does not have permission to send message or fake Private Channels.
+         */
+        if(e.getChannelType().isGuild() && !e.getGuild().isAvailable() ||
+            (e.getChannelType().isGuild() && !e.getTextChannel().canTalk()) || 
+            (!e.getChannelType().isGuild() && e.getPrivateChannel().isFake()))
             return;
         
         //Selector

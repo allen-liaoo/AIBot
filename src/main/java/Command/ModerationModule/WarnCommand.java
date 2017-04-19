@@ -9,7 +9,7 @@ package Command.ModerationModule;
 
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
@@ -39,17 +39,21 @@ public class WarnCommand implements Command {
         embed.setColor(Color.red);
         embed.setTitle("Moderation Module", null);
         embed.addField("Warn -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(e.getMember().isOwner() || 
+        if(args.length > 0 && "-h".equals(args[0])) {
+            help(e);
+        }
+        
+        else if(e.getMember().isOwner() || 
                 e.getMember().hasPermission(Permission.ADMINISTRATOR) || 
                 e.getMember().hasPermission(Permission.MANAGE_SERVER) || 
                 e.getMember().hasPermission(Permission.MANAGE_CHANNEL) || 
-                Info.D_ID.equals(e.getAuthor().getId()))
+                Constants.D_ID.equals(e.getAuthor().getId()))
         {
             List<User> mention = e.getMessage().getMentionedUsers();
             
@@ -72,7 +76,7 @@ public class WarnCommand implements Command {
                 
                 EmbedBuilder warn = new EmbedBuilder();
                 warn.setColor(Color.red);
-                warn.setAuthor("Warning from Server: " + e.getGuild().getName(), null, Info.B_AVATAR);
+                warn.setAuthor("Warning from Server: " + e.getGuild().getName(), null, Constants.B_AVATAR);
                 warn.addField("To:", names + e.getAuthor().getDiscriminator(), false);
                 warn.addField("Moderator:", e.getMember().getEffectiveName() + e.getAuthor().getDiscriminator(), false);
                 warn.addField("Reason:", reason, false);

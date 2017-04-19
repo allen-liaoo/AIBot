@@ -7,7 +7,7 @@ package Command.RestrictedModule;
 
 import Command.Command;
 import Resource.Emoji;
-import Resource.Info;
+import Resource.Constants;
 import Setting.Prefix;
 import Main.*;
 import Utility.SmartLogger;
@@ -41,7 +41,7 @@ public class ShutDownCommand implements Command{
         embed.setColor(Color.red);
         embed.setTitle("Restricted Module", null);
         embed.addField("ShutDown -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Info.I_HELP);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
         MessageEmbed me = embed.build();
@@ -53,7 +53,7 @@ public class ShutDownCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0) 
         {
-            if(Info.D_ID.equals(e.getAuthor().getId()))
+            if(Constants.D_ID.equals(e.getAuthor().getId()))
             {
                 e.getChannel().sendMessage(Emoji.success + " Shutting down...").queue();
 
