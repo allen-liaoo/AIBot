@@ -54,7 +54,7 @@ public class Main {
             Music.musicStartup();
             
             jda = new JDABuilder(AccountType.BOT)
-                    .addEventListener(new StatusListener())
+                    .addEventListener(new GuildListener())
                     .addEventListener(new CommandListener())
                     .addEventListener(new VoiceChannelListener())
                     .addEventListener(new SelectorListener())
@@ -188,15 +188,11 @@ public class Main {
         // Moderation Commands
         commands.put("prune", new PruneCommand());
         commands.put("p", new PruneCommand());
-        
         commands.put("kick", new KickCommand());
-        commands.put("k", new KickCommand());
         commands.put("warn", new WarnCommand());
         
         commands.put("ban", new BanCommand());
-        commands.put("b", new BanCommand());
         commands.put("unban", new UnbanCommand());
-        commands.put("ub", new UnbanCommand());
         
         //Utility Commands
         commands.put("number", new NumberCommand());
@@ -217,6 +213,7 @@ public class Main {
         commands.put("g", new SearchCommand("google"));
         commands.put("wiki", new SearchCommand("wiki"));
         commands.put("urban", new SearchCommand("ub"));
+        commands.put("ub", new SearchCommand("ub"));
         commands.put("github", new SearchCommand("git"));
         commands.put("git", new SearchCommand("git"));
         commands.put("imdb", new IMDbCommand());

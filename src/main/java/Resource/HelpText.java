@@ -24,7 +24,7 @@ public class HelpText {
             + "**serverinfo (si)**\n"
             + "**channelinfo (ci)**\n\n"
             + "**userinfo (ui)**\n"
-            + "**prefix**\n\n"
+            + "**prefix**\n"
             + "**ping**\n"
             + "**about**\n"
             + "**status**\n"
@@ -48,10 +48,10 @@ public class HelpText {
     */
     public final static String MOD_CMD = 
             "**prune (p)**\n"
-            + "**kick (k)**\n"
+            + "**kick**\n"
             + "**warn**\n"
-            + "**ban (b)**\n**"
-            + "unban (ub)**\n";
+            + "**ban**\n"
+            + "**unban**\n";
     
     public final static String MOD_DES = 
             "Delete messages.\n"
@@ -67,7 +67,7 @@ public class HelpText {
             "***number (n)***\n\n"
             + "*num random (n r)*\n"
             + "*num count (n c)*\n"
-            + "*num roll*\n"
+            + "*num roll  (n roll)*\n"
             + "*num coinflip (n cf)*\n"
             + "**math**\n\n"
             + "**say**\n\n"
@@ -77,7 +77,7 @@ public class HelpText {
             + "***search***\n"
             + "*google (g)*\n"
             + "*wiki*\n"
-            + "*urban*\n"
+            + "*urban (ub)*\n"
             + "*github (git)*\n"
             + "*imdb*\n"
             //Command Group- Image

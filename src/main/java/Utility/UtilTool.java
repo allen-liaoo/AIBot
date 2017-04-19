@@ -84,7 +84,7 @@ public class UtilTool {
     }
     
     /**
-     * Capitalize every split tokens
+     * Capitalize every split tokens. Use capSplits("_", Enum.type) to format Enum
      * @param regex
      * @param input
      * @return
