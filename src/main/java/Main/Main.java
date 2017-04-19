@@ -54,13 +54,16 @@ public class Main {
             Music.musicStartup();
             
             jda = new JDABuilder(AccountType.BOT)
+                    .addEventListener(new StatusListener())
                     .addEventListener(new CommandListener())
                     .addEventListener(new VoiceChannelListener())
                     .addEventListener(new SelectorListener())
                     .setToken(Private.BOT_TOKEN)
+                    .setAutoReconnect(true)
+                    .setMaxReconnectDelay(300)
                     .buildBlocking();
-            jda.getPresence().setGame(Game.of(Info.B_GAME_DEFAULT));
-            jda.setAutoReconnect(true);
+            
+            jda.getPresence().setGame(Game.of(Info.B_GAME_DEFAULT + " | " + jda.getGuilds().size() + " Servers"));
             
             startUp();
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
@@ -96,21 +99,27 @@ public class Main {
         switch(stat) {
             case "online":
                 status = OnlineStatus.ONLINE;
+                setGame("default");
                 break;
             case "idle":
                 status = OnlineStatus.IDLE;
+                setGame("update");
                 break;
             case "dnd":
                 status = OnlineStatus.DO_NOT_DISTURB;
+                setGame("fix");
                 break;
             case "invisible":
                 status = OnlineStatus.INVISIBLE;
+                setGame("null");
                 break;
             case "offline":
                 status = OnlineStatus.OFFLINE;
+                setGame("null");
                 break;
             default:
                 status = OnlineStatus.UNKNOWN;
+                setGame("null");
                 break;
         }
 
@@ -124,7 +133,7 @@ public class Main {
         String set;
         switch(game.replaceAll(" ", "").toLowerCase()) {
             case "default":
-                set = Info.B_GAME_DEFAULT;
+                set = Info.B_GAME_DEFAULT + " | " + jda.getGuilds().size() + " Servers";
                 break;
             case "update":
                 set = Info.B_GAME_UPDATE;
@@ -133,6 +142,7 @@ public class Main {
                 set = Info.B_GAME_FIXING;
                 break;
             case "null":
+            case "":
                 set = null;
                 break;
             default:

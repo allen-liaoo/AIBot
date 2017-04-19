@@ -8,7 +8,6 @@
 package Command.ModerationModule;
 
 import Command.Command;
-import static Command.ModerationModule.BanCommand.HELP;
 import Resource.Emoji;
 import Resource.Info;
 import Setting.Prefix;
