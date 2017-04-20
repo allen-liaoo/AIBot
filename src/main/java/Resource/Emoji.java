@@ -44,6 +44,8 @@ public class Emoji {
     public static String status = EmojiParser.parseToUnicode(":vertical_traffic_light:");
     public static String guilds = EmojiParser.parseToUnicode(":card_file_box:");
     public static String shards = EmojiParser.parseToUnicode(":file_cabinet:");
+    public static String text = EmojiParser.parseToUnicode(":speech_balloon:");
+    public static String privatespy = EmojiParser.parseToUnicode(":spy:");
     
     //Utility Commands
     //-NumberCommand
@@ -67,11 +69,9 @@ public class Emoji {
     public static String snow = EmojiParser.parseToUnicode(":cloud_snow:");
     public static String windy = EmojiParser.parseToUnicode(":blowing_wind:");
     public static String snowman = EmojiParser.parseToUnicode(":snowing_snowman:");
-    
     public static String sweat = EmojiParser.parseToUnicode(":sweat:");
     public static String press = EmojiParser.parseToUnicode(":compression:");
     public static String eyes = EmojiParser.parseToUnicode(":eyes:");
-    
     //-EmojiCommmand
     public static String abc = EmojiParser.parseToUnicode(":abc:");
     public static String abcd = EmojiParser.parseToUnicode(":abcd:");
@@ -103,6 +103,7 @@ public class Emoji {
     public static String book = EmojiParser.parseToUnicode(":book:");
     
     //Music
+    public static String music = EmojiParser.parseToUnicode(":musical_keyboard:");
     public static String player = EmojiParser.parseToUnicode(":black_right_pointing_triangle_with_double_vertical_bar:");
     public static String globe = EmojiParser.parseToUnicode(":globe_with_meridians:");
     public static String notes = EmojiParser.parseToUnicode(":notes:");
@@ -113,7 +114,6 @@ public class Emoji {
     public static String up_vote = EmojiParser.parseToUnicode(":arrow_up_small:");
     public static String volume_low = EmojiParser.parseToUnicode(":sound:");
     public static String volume_high = EmojiParser.parseToUnicode(":loud_sound:");
-    
     
     //Fun
     //-Game

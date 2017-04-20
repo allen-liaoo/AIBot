@@ -27,7 +27,7 @@ public class GuildListener extends ListenerAdapter {
                                 + "Use `=about` to see the basic informations about this bot.\n"
                                 + "Want to invite me to your server? type `=invite` to get the invite link.\n"
                                 + "By the way, if you wanna see some awesome servers, just type in `=support`!\n"
-                                + "Enjoy the awesome features like hangman, fm(automatic playlist, or radio~~\n";
+                                + "Enjoy the awesome features like hangman, fm(automatic playlist), or radio~~\n";
     
     private final String links = "[Discord Bots Link](https://bots.discord.pw/bots/294327785512763392)\n"
                                 + "[Invite Link](https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=368573567)\n"
@@ -51,6 +51,9 @@ public class GuildListener extends ListenerAdapter {
     }
     
     public void welcome(TextChannel c) {
+        if(!c.canTalk())
+            return;
+        
         embedmsg.setAuthor("Thanks for Adding AIBot!!", Constants.B_GITHUB, Constants.B_AVATAR);
         embedmsg.setColor(UtilTool.randomColor());
         embedmsg.setDescription(welcome);

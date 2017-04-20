@@ -1,16 +1,17 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/*
+ * 
+ * AIBot, a Discord bot made by AlienIdeology
+ * 
+ * 
+ * 2017 (c) AIBot
  */
 package Command.MusicModule;
 
-import Audio.AudioConnection;
-import Audio.Music;
 import Command.Command;
+import static Command.Command.embed;
 import Main.Main;
-import Resource.Emoji;
 import Resource.Constants;
+import Resource.Emoji;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
@@ -24,9 +25,9 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class StopCommand implements Command{
+public class DumpCommand implements Command {
 
-    public final static String HELP = "This command is for stopping the bot from playing music and unbind to the voice channel.\n"
+    public final static String HELP = "This command is for clearing the queue and skip votes.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"stop`\n"
                                     + "Parameter: `-h | null`";
     
@@ -39,7 +40,7 @@ public class StopCommand implements Command{
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
         embed.setTitle("Music Module", null);
-        embed.addField("Stop -Help", HELP, true);
+        embed.addField("Dump -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
@@ -55,13 +56,12 @@ public class StopCommand implements Command{
             help(e);
         }
         else
-        {
+        {   
             if(!e.getMember().getVoiceState().inVoiceChannel()) {
                 e.getChannel().sendMessage(Emoji.error + " You are not in a voice channel.").queue();
                 return;
-            } else if (Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue().isEmpty() &&
-                    Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack().isEmpty()) {
-                e.getChannel().sendMessage(Emoji.error + " There is no song to stop.").queue();
+            } else if (Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue().isEmpty()) {
+                e.getChannel().sendMessage(Emoji.error + " There is no song in the queue.").queue();
                 return;
             }
             
@@ -79,9 +79,18 @@ public class StopCommand implements Command{
                 e.getMember().hasPermission(Permission.MANAGE_SERVER) || 
                 Constants.D_ID.equals(e.getAuthor().getId()))
             {
-                Music.stop(e);
+                //Prevent user that is not in the same voice channel from stopping the player
+                if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
+                        !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
+                    e.getChannel().sendMessage(Emoji.error + " You and I are not in the same voice channel.").queue();
+                    return;
+                }
+                Main.guilds.get(e.getGuild().getId()).getScheduler().clearQueue();
+                Main.guilds.get(e.getGuild().getId()).getScheduler().clearVote();
+                
+                e.getChannel().sendMessage(Emoji.stop + " Cleared queue and dumped Trump.").queue();
             }
-            else 
+            else
             {
                 e.getChannel().sendMessage(Emoji.error + " This command is for server owner, bot owner, or "
                         + "members with `Administrator` or `Manage Server` permissions only.\n"

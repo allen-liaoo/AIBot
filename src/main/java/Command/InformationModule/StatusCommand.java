@@ -79,13 +79,16 @@ public class StatusCommand implements Command{
             else if("status".equals(type))
             {
                 JDA bot = e.getJDA();
-                String avatar, status, game, shard, more;
-                int guild;
+                String avatar, status, shard, more;
+                int guild, textchannels, privatechannels, audiochannels;
 
                 avatar = bot.getSelfUser().getAvatarUrl();
                 status = bot.getPresence().getStatus().getKey();
                 status = status.substring(0, 1).toUpperCase() + status.substring(1);
                 guild = bot.getGuilds().size();
+                textchannels = bot.getTextChannels().size();
+                privatechannels = bot.getPrivateChannels().size();
+                audiochannels = bot.getVoiceChannels().size();
                 try{shard = bot.getShardInfo().getShardString();} catch(NullPointerException ne) {shard = "None";}
                 
 
@@ -112,6 +115,9 @@ public class StatusCommand implements Command{
                 embedstatus.addField(Emoji.status + " Status", status, true);
                 embedstatus.addField(Emoji.guilds + " Servers", String.valueOf(guild), true);
                 embedstatus.addField(Emoji.shards + " Shards", shard, true);
+                embedstatus.addField(Emoji.text + " Text Channels", String.valueOf(textchannels), true);
+                embedstatus.addField(Emoji.privatespy + " Private Channels", String.valueOf(privatechannels), true);
+                embedstatus.addField(Emoji.music + " Voice Channels", String.valueOf(audiochannels), true);
                 embedstatus.addField("More...", more, true);
                 embedstatus.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embedstatus.setTimestamp(Instant.now());

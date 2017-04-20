@@ -45,6 +45,12 @@ public class AudioTrackWrapper {
         this.type = null;
     }
 
+    public boolean isEmpty() {
+        if(track == null)
+            return true;
+        return false;
+    }
+    
     public AudioTrack getTrack() {
         return track;
     }

@@ -62,7 +62,6 @@ public class SongCommand implements Command{
                    Music.trackInfo(e, nowplaying, "Now Playing");
                 } catch (NullPointerException npe) {
                     e.getChannel().sendMessage(Emoji.error + " No song is playing.").queue();
-                    return;
                 }
             }
             else if(args.length >= 1 && Character.isDigit(args[0].charAt(0)))
@@ -73,7 +72,7 @@ public class SongCommand implements Command{
                 
                 if(target > queue.size()) 
                 {
-                    e.getChannel().sendMessage(Emoji.error + " The position exceeds the range of this queue.").queue();
+                    e.getChannel().sendMessage(Emoji.error + " The position exceeds the range of this queue (" + queue.size() + ").").queue();
                     return;
                 }
 

@@ -263,6 +263,7 @@ public class Main {
         commands.put("q", new QueueCommand());
         commands.put("volume", new VolumeCommand());
         commands.put("stop", new StopCommand());
+        commands.put("dump", new DumpCommand());
         commands.put("lyrics", new LyricsCommand());
         
         //Restricted Commands

@@ -6,8 +6,6 @@
  */
 package Resource;
 
-import Command.InformationModule.HelpCommand;
-
 /**
  *
  * @author liaoyilin
@@ -150,6 +148,7 @@ public class HelpText {
             + "**nowplaying**\n\n"
             + "**volume**\n"
             + "**stop**\n"
+            + "**dump**\n"
             + "**lyrics**\n";
     
     public final static String MUSIC_DES = 
@@ -164,6 +163,7 @@ public class HelpText {
             + "Skip the song.\n"
             + "Get the information of the \ncurrent playing song.\n"
             + "Set the volume of the bot.\n"
+            + "Dump the queue.\n"
             + "Stop the player.\n"
             + "Show the lyrics of a song.\n";
     

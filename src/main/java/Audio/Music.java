@@ -29,20 +29,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import java.time.Instant;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -91,12 +77,12 @@ public class Music  {
 
                 @Override
                 public void noMatches() {
-                    e.getTextChannel().sendMessage(Emoji.error + " No match found.").queue();
+                    e.getTextChannel().sendMessage(Emoji.error + " No match found for " + link).queue();
                 }
 
                 @Override
                 public void loadFailed(FriendlyException exception) {
-                    e.getTextChannel().sendMessage(Emoji.error + " Fail to load the video.").queue();
+                    e.getTextChannel().sendMessage(Emoji.error + " Fail to load the video " + link).queue();
                     SmartLogger.errorLog(exception, e, this.getClass().getName(), "Failed to load this video: " + link);
                 }
             });
@@ -148,7 +134,7 @@ public class Music  {
      */
     public static int skip(MessageReceivedEvent e, int position, boolean force)
     {
-        if(Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack() == null) {
+        if(Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack().isEmpty()) {
             return -2;
         }
         //Force skip the current song
@@ -256,7 +242,7 @@ public class Music  {
         AudioTrackWrapper playing = Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack();
         Long position = 0L, duration = 0L;
         
-        if(playing == null) {
+        if(playing.isEmpty()) {
             embed.addField("Now Playing", "None", false);   
         }
         else
@@ -279,7 +265,7 @@ public class Music  {
         if(queue.peek() == null)
         {
             songs += "The queue is curently empty.";
-            if(playing == null) {
+            if(playing.isEmpty()) {
                 e.getChannel().sendMessage("The queue is currently empty, and there is no song playing.").queue();
                 return;
             }

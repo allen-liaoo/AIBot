@@ -243,7 +243,7 @@ public class TrackScheduler extends AudioEventAdapter {
     }
     
     public void clearNowPlayingTrack() {
-        NowPlayingTrack = null;
+        NowPlayingTrack = new AudioTrackWrapper();
     }
 
     public static TextChannel getTc() {

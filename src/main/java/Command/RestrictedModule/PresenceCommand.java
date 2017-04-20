@@ -89,7 +89,7 @@ public class PresenceCommand implements Command {
                     e.getChannel().sendMessage(Emoji.success + " NickName set to `"+ nick + "`").queue();
                 }
                 else
-                e.getChannel().sendMessage(Emoji.error + " This command is for `Bot Owner`, `Server Owner` or members with `NickName Change Permission` only!").queue();
+                    e.getChannel().sendMessage(Emoji.error + " This command is for `Bot Owner`, `Server Owner` or members with `NickName Change Permission` only!").queue();
             }
             
             //Set Status
