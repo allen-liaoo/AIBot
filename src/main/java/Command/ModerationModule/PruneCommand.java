@@ -12,7 +12,6 @@ import Command.Command;
 import Utility.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -21,9 +20,6 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.exceptions.PermissionException;
-import net.dv8tion.jda.core.requests.RestAction;
-import net.dv8tion.jda.core.requests.Route.Messages;
 
 /**
  *
@@ -32,7 +28,7 @@ import net.dv8tion.jda.core.requests.Route.Messages;
 public class PruneCommand implements Command{
     
     public final static  String HELP = "This command is for deleting messages.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"prune` or `" + Prefix.getDefaultPrefix() + "p`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"prune`\n"
                                      + "Parameter: `-h | Number`";
     private final EmbedBuilder embed = new EmbedBuilder();
 

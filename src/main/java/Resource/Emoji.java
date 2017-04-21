@@ -128,11 +128,11 @@ public class Emoji {
     public final static String tie = EmojiParser.parseToUnicode(":necktie:");
     
     //Global Server Emojis
-    public final static String online = EmojiParser.parseToUnicode(":vpOnline:212789758110334977");
-    public final static String idle = EmojiParser.parseToUnicode(":vpAway:212789859071426561");
-    public final static String dnd = EmojiParser.parseToUnicode(":vpDnD:236744731088912384");
-    public final static String offline = EmojiParser.parseToUnicode(":vpOffline:212790005943369728");
-    public final static String streaming = EmojiParser.parseToUnicode(":vpStreaming:212789640799846400");
+    public final static String guild_online = EmojiParser.parseToUnicode("<:vpOnline:212789758110334977>");
+    public final static String guild_idle = EmojiParser.parseToUnicode("<:vpAway:212789859071426561>");
+    public final static String guild_dnd = EmojiParser.parseToUnicode("<:vpDnD:236744731088912384>");
+    public final static String guild_offline = EmojiParser.parseToUnicode("<:vpOffline:212790005943369728>");
+    public final static String guild_streaming = EmojiParser.parseToUnicode("<:vpStreaming:212789640799846400>");
     
     /**
      * Change the String of letters mixed with numbers into a String of emojis

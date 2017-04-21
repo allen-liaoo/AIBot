@@ -1,5 +1,5 @@
 ## Information Commands
-[Information Commands Description](Command/InformationModule/InformationModuleCommands.md) <br />
+[Information Commands Description](Command/InformationModule/InformationCommands.md) <br />
 - help (h) - Get a list of commands. *
 - invite - Get a invite link for this bot. *
 - botinfo (bi) - Get bot info. *
@@ -13,6 +13,7 @@
 - support - Related servers and bots. *
 
 ## Moderation Commands
+[Moderation Commands Description](Command/ModerationModule/ModerationCommands.md) <br />
 - prune (p) - Delete messages.
 - kick (k) - Kick member(s).
 - warn - Warn a user in direct message.
@@ -41,7 +42,7 @@
     - meme - Search from KnowYourMeme.
 
 ## Fun Commands
-[Fun Commands Description](Command/FunModule/FunModuleCommands.md) <br />
+[Fun Commands Description](Command/FunModule/FunCommands.md) <br />
 - 8ball - Ask the magic 8ball a question. *
 - face - Lenny * 
 - game - Play a game. 

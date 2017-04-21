@@ -29,7 +29,7 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
 public class BanCommand implements Command{
 
     public final static  String HELP = "This command is for banning members.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"ban` or `" + Prefix.getDefaultPrefix() + "b`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"ban`\n"
                                      + "Parameter: `-h | @Member(s)`";
     private final int delDays = 7;
     private final EmbedBuilder embed = new EmbedBuilder();

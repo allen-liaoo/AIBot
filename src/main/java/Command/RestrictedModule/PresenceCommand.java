@@ -106,7 +106,8 @@ public class PresenceCommand implements Command {
                         SmartLogger.errorLog(iae, e, this.getClass().getName(), "Unknown Status");
                         return;
                     }
-                    e.getChannel().sendMessage(Emoji.success + " Status set to `"+ status.toString() + "`").queue();
+                    
+                    e.getChannel().sendMessage(Emoji.success + " Status set to "+ UtilBot.getStatusString(e.getJDA().getPresence().getStatus())).queue();
                 }
                 else
                     e.getChannel().sendMessage(Emoji.error + " This command is for `Bot Owner` only!").queue();

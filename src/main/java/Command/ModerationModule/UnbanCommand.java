@@ -9,7 +9,6 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
-import Main.*;
 import Utility.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
@@ -28,9 +27,9 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
 public class UnbanCommand implements Command{
 
     public final static  String HELP = "This command is for unbanning members.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"unban` or `" + Prefix.getDefaultPrefix() + "ub`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"unban`\n"
                                      + "Parameter: `-h | Member(s)' ID`\n"
-                                     + "**Note: ** To get ID, put `\\` infront of a @menton.";
+                                     + "**Note: ** To get ID, put `\\` in front of a @menton.";
    
     private final EmbedBuilder embed = new EmbedBuilder();
     

@@ -34,7 +34,7 @@ public class PlayCommand implements Command{
     private static List<SearchResult> results;
     
     public final static  String HELP = "This command is for playing an youtube music in the voice channel.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"play`\n"
+                                     + "Command Usage: `" + Prefix.getDefaultPrefix() +"play` or `" + Prefix.getDefaultPrefix() + "p`\n"
                                      + "Parameter: `-h | [Keywords or Youtube Url] | -m [Keywords] | null`\n"
                                      + "[Keywords or Youtube Url]: Play the first video of a YouTube search or a specified YouTube video.\n"
                                      + "-m [Keywords]: Get the top 5 search results and choose one to play.\n";

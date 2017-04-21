@@ -116,7 +116,6 @@ public class Main {
         
         // Moderation Commands
         commands.put("prune", new PruneCommand());
-        commands.put("p", new PruneCommand());
         commands.put("kick", new KickCommand());
         commands.put("warn", new WarnCommand());
         
@@ -180,6 +179,7 @@ public class Main {
         commands.put("leave", new LeaveCommand());
         commands.put("l", new LeaveCommand());
         commands.put("play", new PlayCommand());
+        commands.put("p", new PlayCommand());
         commands.put("fm", new FMCommand());
         commands.put("radio", new RadioCommand());
         commands.put("pause", new PauseCommand("pause"));

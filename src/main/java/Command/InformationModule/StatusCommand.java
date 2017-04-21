@@ -84,16 +84,15 @@ public class StatusCommand implements Command{
                 int guild, textchannels, privatechannels, audiochannels, voicechannels;
 
                 avatar = bot.getSelfUser().getAvatarUrl();
-                status = bot.getPresence().getStatus().getKey();
-                status = UtilString.capSplits("_", status);
+                status = UtilBot.getStatusString(e.getJDA().getPresence().getStatus()) + ", " + UtilString.capSplits("_", bot.getStatus().name());
                 guild = bot.getGuilds().size();
                 textchannels = bot.getTextChannels().size();
                 privatechannels = bot.getPrivateChannels().size();
                 audiochannels = bot.getVoiceChannels().size();
                 voicechannels = UtilBot.getConnectedVoiceChannels() == null ? 0 : UtilBot.getConnectedVoiceChannels().size();
                 try{shard = bot.getShardInfo().getShardString();} catch(NullPointerException ne) {shard = "None";}
-                
 
+                //More info
                 OperatingSystemMXBean os = (OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
                 double loadAverage = Math.round(os.getSystemLoadAverage()*1000)/1000;
                 int processors = os.getAvailableProcessors();
@@ -120,7 +119,7 @@ public class StatusCommand implements Command{
                 embedstatus.addField(Emoji.text + " Text Channels", String.valueOf(textchannels), true);
                 embedstatus.addField(Emoji.privatespy + " Private Channels", String.valueOf(privatechannels), true);
                 embedstatus.addField(Emoji.music + " Voice Channels", String.valueOf(audiochannels), true);
-                embedstatus.addField(Emoji.notes + " Playing Music in", String.valueOf(voicechannels), true);
+                embedstatus.addField(Emoji.notes + " Playing Music in", String.valueOf(voicechannels) + " voice channels", true);
                 embedstatus.addField("More...", more, true);
                 embedstatus.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embedstatus.setTimestamp(Instant.now());

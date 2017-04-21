@@ -29,7 +29,7 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
  */
 public class KickCommand implements Command{
     public final static  String HELP = "This command is for kicking members.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"kick` or `" + Prefix.getDefaultPrefix() + "k`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"kick`\n"
                                      + "Parameter: `-h | @Member(s)`";
     private final EmbedBuilder embed = new EmbedBuilder();
     @Override

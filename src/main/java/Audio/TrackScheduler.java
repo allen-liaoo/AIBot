@@ -211,6 +211,7 @@ public class TrackScheduler extends AudioEventAdapter {
     * @return TrackScheduler, easier for chaining
     */
     public void stopPlayer() {
+        Mode = PlayerMode.DEFAULT;
         clearNowPlayingTrack()
         .clearQueue()
         .clearVote()

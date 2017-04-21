@@ -45,7 +45,7 @@ public class HelpText {
     * Moderation Module
     */
     public final static String MOD_CMD = 
-            "**prune (p)**\n"
+            "**prune**\n"
             + "**kick**\n"
             + "**warn**\n"
             + "**ban**\n"
@@ -139,7 +139,7 @@ public class HelpText {
             "**music (m)**\n"
             + "**join (j)**\n"
             + "**leave (l)**\n"
-            + "**play**\n"
+            + "**play (p)**\n"
             + "**fm**\n"
             + "**radio**\n"
             + "**pause**\n"

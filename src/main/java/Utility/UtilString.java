@@ -25,7 +25,7 @@ public class UtilString {
         String[] splitting = input.split(regex);
         String splitted = "";
         for (String s : splitting) {
-            splitted += s.substring(0, 1).toUpperCase(Locale.ENGLISH) + s.substring(1).toLowerCase(Locale.ENGLISH) + " ";
+            splitted += s.substring(0, 1).toUpperCase(Locale.ENGLISH) + s.substring(1).toLowerCase(Locale.ENGLISH);
         }
         return splitted;
     }

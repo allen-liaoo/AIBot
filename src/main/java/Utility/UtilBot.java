@@ -8,12 +8,15 @@ package Utility;
 
 import Main.Main;
 import Resource.Constants;
+import Resource.Emoji;
 import java.util.ArrayList;
 import java.util.List;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.VoiceChannel;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
@@ -52,9 +55,14 @@ public class UtilBot {
         return set;
     }
 
+    /**
+     * Set the status of the bot
+     * @param stat
+     * @return
+     */
     public static OnlineStatus setStatus(String stat) {
         OnlineStatus status;
-        switch (stat) {
+        switch (stat.toLowerCase()) {
             case "online":
                 status = OnlineStatus.ONLINE;
                 setGame("default");
@@ -82,6 +90,37 @@ public class UtilBot {
         }
         Main.jda.getPresence().setStatus(status);
         SmartLogger.updateLog("Bot Status set to " + status.toString());
+        return status;
+    }
+    
+    /**
+     * Get the OnlineStatus with Emojis
+     * @param mem
+     * @return
+     */
+    public static String getStatusString(OnlineStatus stat)
+    {
+        String status = "";
+        switch (stat) {
+            case ONLINE:
+                status = Emoji.guild_online;
+                break;
+            case IDLE:
+                status = Emoji.guild_idle;
+                break;
+            case DO_NOT_DISTURB:
+                status = Emoji.guild_dnd;
+                break;
+            case INVISIBLE:
+                status = Emoji.guild_offline;
+                break;
+            case OFFLINE:
+                status = Emoji.guild_offline;
+                break;
+            default:
+                status = Emoji.guild_offline;
+        }
+        status += " " + UtilString.capSplits("_",stat.getKey());
         return status;
     }
     

@@ -65,7 +65,7 @@ public class UtilNum {
     }
 
     /**
-     * Check if a number is between an range
+     * Check if a number is between a range
      * @param x the value of x
      * @param lower the value of lower
      * @param upper the value of upper
