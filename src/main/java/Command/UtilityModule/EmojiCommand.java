@@ -6,7 +6,6 @@
 package Command.UtilityModule;
 
 import Command.Command;
-import Command.Command;
 import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
@@ -14,6 +13,7 @@ import com.vdurmont.emoji.EmojiManager;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -28,7 +28,8 @@ public class EmojiCommand implements Command {
                                     + "[Words and Letters]: Let the bot say [Words and Letters] in emoji language for you.\n"
                                     + "-m [Emoji Name]: Get infotmations about an emoji.";
     
-    EmbedBuilder embedemo = new EmbedBuilder();
+    private EmbedBuilder embedemo = new EmbedBuilder();
+    private String roles = "";
     
     @Override
     public boolean called(String[] args, MessageReceivedEvent e) {
@@ -59,15 +60,13 @@ public class EmojiCommand implements Command {
         {
             try{
                 
-                System.out.print("Emoji input -> " + args[0] + "\n");
-                    
+                System.out.print("Emoji input -> " + args[1] + "\n");
                 com.vdurmont.emoji.Emoji emo = EmojiManager.getForAlias(":" + args[1] + ":");
 
                 String emoji = emo.getUnicode() + " `" + emo.getUnicode() + "`";
                 String description = emo.getDescription().substring(0, 1).toUpperCase() + emo.getDescription().substring(1);
                 String html = "`" + emo.getHtmlDecimal() + "`\n`" + emo.getHtmlHexadecimal() + "`";
                 String alias = "";
-                String image = e.getJDA().getEmotesByName(args[1], true).get(0).getImageUrl();
                 
                 for(String a : emo.getAliases())
                 {
@@ -92,7 +91,6 @@ public class EmojiCommand implements Command {
                 embedemo.addField("Aliases", alias, true);
                 embedemo.addField("Tags", tag, true);
                 embedemo.addField("Html", html, true);
-                embedemo.setImage(image);
                 embedemo.setFooter("Emoji Information", null);
                 embedemo.setTimestamp(Instant.now());
                 MessageEmbed meem = embedemo.build();

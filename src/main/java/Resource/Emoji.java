@@ -7,6 +7,7 @@
 package Resource;
 
 import com.vdurmont.emoji.*;
+import java.util.List;
 
 /**
  *
