@@ -62,12 +62,12 @@ public class BanCommand implements Command{
             e.getTextChannel().sendMessage(Emoji.error + " You need to mention 1 or more members to ban!").queue();
         }
 
-        else if("-h".equals(args[0])) 
+        else if(args.length > 0 && "-h".equals(args[0])) 
         {
             help(e);
         }
         
-        else if(e.getChannelType() != e.getChannelType().PRIVATE)
+        else
         {
             Guild guild = e.getGuild();
             Member selfMember = guild.getSelfMember(); 

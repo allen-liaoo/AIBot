@@ -9,18 +9,21 @@ import Resource.Emoji;
 import Setting.Prefix;
 import Resource.Constants;
 import Command.Command;
-import Main.*;
 import Utility.SmartLogger;
 import java.awt.Color;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
+import net.dv8tion.jda.core.requests.RestAction;
+import net.dv8tion.jda.core.requests.Route.Messages;
 
 /**
  *
@@ -65,39 +68,37 @@ public class PruneCommand implements Command{
         }
         else
         {
+            TextChannel chan = e.getTextChannel();
+            if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE) ||
+                !e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_HISTORY)) {
+                chan.sendMessage(Emoji.error + " I do not have the `Manage Message` and `Message History` Permission!").queue();
+                return;
+            }
+            
             //Parse String to int, detect it the input is valid.
             Integer msgs = new Integer(0);
             try {
                 msgs = Integer.parseInt(args[0]);
                 SmartLogger.commandLog(e, "PruneCommand", "Called to prune " + msgs + " messages.");
             } catch (NumberFormatException nfe) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter a number.").queue();
-            } 
-            
-            try {
-                e.getChannel().getHistory().retrievePast(msgs + 1).queue((List<Message> messages) -> messages.forEach((Message msg) ->
-                {
-                    try {
-                        msg.delete().queue();
-                    } catch (PermissionException pe) {
-                        e.getChannel().sendMessage(Emoji.error + " I need to have **Manage Messages** Permission to delete messages.").queue();
-                        return;
-                    }
-                })
-                );
-            } catch (IllegalArgumentException iae) { //Detect if the number is in range.
-                e.getChannel().sendMessage(Emoji.error + " Please enter a number between **1 ~ 100**.").queue();
-            } 
-            
-            //Delay the message deletion.
-            try {
-                Thread.sleep(1000);
-                //Only show this message when 100 > msgs > 0.
-                if(msgs < 100 && msgs > 0) e.getChannel().sendMessage(Emoji.success + " `" + args[0] + "` messages deleted.").complete().delete().complete();
-                //Thread.sleep(2000);
-            } catch (InterruptedException ite) {
-                SmartLogger.errorLog(ite, e, this.getClass().getName(), "Pruning interrupted.");
+                e.getChannel().sendMessage(Emoji.error + " Please enter a valid number.").queue();
             }
+            
+            if(msgs <= 1 || msgs > 100) {
+                e.getChannel().sendMessage(Emoji.error + " Please enter a number between **2 ~ 100**.").queue();
+                return;
+            }
+            
+            //Delete command call
+            e.getTextChannel().deleteMessageById(e.getMessage().getId()).complete();
+            
+            chan.getHistory().retrievePast(msgs).queue((List<Message> mess) -> {
+                e.getTextChannel().deleteMessages(mess).queue(
+                        success -> chan.sendMessage(Emoji.success + " `" + args[0] + "` messages deleted.")
+                                .queue( message -> {
+                                    message.delete().queueAfter(2,TimeUnit.SECONDS);
+                                }));
+            });
         }
     }
 

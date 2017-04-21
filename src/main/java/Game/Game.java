@@ -26,10 +26,10 @@ public interface Game {
     }*/
     
     public void sendInput(String[] in, MessageReceivedEvent event);  //Set the input called by a Command class
-    
-    public void switchTurn();
+
     
     /*{
+    public void switchTurn();
         if("starter".equals(turn)) 
             turn = opponent;
         else

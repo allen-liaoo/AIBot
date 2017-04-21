@@ -150,7 +150,6 @@ public class TicTacToe implements Game{
         }
     }
     
-    @ Override
     public void switchTurn() //Switch turn between starter to opponent
     {
         if(starter == this.turn) 

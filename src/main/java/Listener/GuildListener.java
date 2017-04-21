@@ -13,6 +13,8 @@ import Utility.UtilBot;
 import Utility.UtilNum;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.events.ReadyEvent;
+import net.dv8tion.jda.core.events.guild.GuildAvailableEvent;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -61,6 +63,17 @@ public class GuildListener extends ListenerAdapter {
         embedmsg.setThumbnail(Constants.B_AVATAR);
         embedmsg.addField("Links", links, false);
         c.sendMessage(embedmsg.build()).queue();
+    }
+    
+    @Override
+    public void onReady(ReadyEvent e) {
+        System.out.println("Status - Logged in as: " + e.getJDA().getSelfUser().getName());
+    }
+    
+    @Override
+    public void onGuildAvailable(GuildAvailableEvent event) {
+        super.onGuildAvailable(event);
+        System.out.println("Guild Avaliable:" + event.getGuild().getName());
     }
     
 }

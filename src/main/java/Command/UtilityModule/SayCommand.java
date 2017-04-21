@@ -14,7 +14,6 @@ import java.time.Instant;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -76,15 +75,10 @@ public final static  String HELP = "This command is for letting a bot say someth
                 }
             }
             
-            if(e.getChannelType() != e.getChannelType().PRIVATE)
-            {    if (e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE))
-                {
-                    //Delete the command message.
-                    e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
-                    {
-                        msg2.delete().queue();
-                    }));
-                }
+            if (e.getChannelType() != e.getChannelType().PRIVATE &&
+                e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE))
+            {
+                e.getTextChannel().deleteMessageById(e.getMessage().getId()).queue();
             }
             
             embedmsg.setColor(Color.red);
@@ -118,22 +112,10 @@ public final static  String HELP = "This command is for letting a bot say someth
                 }
             }
             
-            if(e.getChannelType() != e.getChannelType().PRIVATE)
+            if (e.getChannelType() != e.getChannelType().PRIVATE &&
+                e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE))
             {
-                if (e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE))
-                {
-                    try {
-                        //Delete the command message.
-                        e.getChannel().getHistory().retrievePast(1).queue((List<Message> messages) -> messages.forEach((Message msg2) -> 
-                        {
-                            msg2.delete().queue();
-                        }));
-
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        SmartLogger.errorLog(ex, e, this.getClass().getName(), "Process interrupted.");
-                    }
-                }
+                e.getTextChannel().deleteMessageById(e.getMessage().getId()).queue();
             }
             
             e.getChannel().sendMessage(input).queue();

@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
 
-#### [0.2.5] - 2017-04-16 ~ 2017-04-20
+#### [0.2.5] - 2017-04-16 ~ 2017-04-21
 ##### Added
 - The bot will automatically resume or pause when a user join or leave the Voice Channel
 - UtilTool: capTokens for capitalizing every first letter of the regex split.
@@ -13,6 +13,9 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - Prevent the bot to do any action when an member is not in the same voice channel 
   as the bot, but request the bot to skip, stop, join, or leave.
 - Added isEmpty() for AudioTrackWrapper to fix null pointers
+- Enhance prune command
+- Add npe check for unsupported private messages
+- Enhance delete command call
 
 #### [0.2.5] - 2017-04-15
 ##### Added 

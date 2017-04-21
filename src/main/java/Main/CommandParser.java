@@ -7,11 +7,9 @@
 package Main;
 
 import Setting.Prefix;
-import Utility.SmartLogger;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
-import java.util.regex.PatternSyntaxException;
 /**
  *
  * @author liaoyilin
@@ -19,18 +17,23 @@ import java.util.regex.PatternSyntaxException;
 public class CommandParser {
 
     /**
-     * Parsing normal commands
+     * Parsing normal and mention commands
      * @param rw the raw message
      * @param e the MessageReceivedEvent
      */
     public CommandContainer parse(String rw, MessageReceivedEvent e) {
         ArrayList<String> split = new ArrayList<String>();
         String raw = rw;
-        String beheaded = raw.replaceFirst(Prefix.getDefaultPrefix(), "");
+        
+        String beheaded = "";
+        if(raw.startsWith(Prefix.getDefaultPrefix()))
+            beheaded = raw.replaceFirst(Prefix.getDefaultPrefix(), "");
+        else if(raw.startsWith("@" + e.getGuild().getSelfMember().getEffectiveName()))
+            beheaded = raw.replaceFirst("@" + e.getGuild().getSelfMember().getEffectiveName() + " ", "");
+        
         String[] splitBeheaded = beheaded.split(" ");
         
-        for(String s : splitBeheaded) 
-        {
+        for(String s : splitBeheaded) {
             split.add(s);
         }
         
@@ -38,30 +41,6 @@ public class CommandParser {
         String[] args = new String[split.size() - 1];
         split.subList(1, split.size()).toArray(args);
         
-        return new CommandContainer(raw, beheaded, splitBeheaded, invoke, args, e);
-    }
-    
-    /**
-     * Parsing @mention commands
-     * @param rw the raw message
-     * @param e the MessageReceivedEvent
-     */
-    public CommandContainer parseMention(String rw, MessageReceivedEvent e) {
-        ArrayList<String> split = new ArrayList<String>();
-        String raw = rw;
-
-        String beheaded = raw.replaceFirst("@" + e.getGuild().getSelfMember().getEffectiveName() + " ", "");
-
-        String[] splitBeheaded = beheaded.split(" ");
-
-        for(String s : splitBeheaded) 
-        {
-            split.add(s);
-        }
-
-        String invoke = split.get(0);
-        String[] args = new String[split.size() - 1];
-        split.subList(1, split.size()).toArray(args);
         return new CommandContainer(raw, beheaded, splitBeheaded, invoke, args, e);
     }
     
@@ -73,7 +52,16 @@ public class CommandParser {
     public CommandContainer parsePrivate(String rw, MessageReceivedEvent e) {
         ArrayList<String> split = new ArrayList<String>();
         String raw = rw;
-        String[] splitBeheaded = rw.split(" ");
+        
+        String beheaded = "";
+        if(raw.startsWith(Prefix.getDefaultPrefix()))
+            beheaded = raw.replaceFirst(Prefix.getDefaultPrefix(), "");
+        else if(raw.startsWith("@" + e.getJDA().getSelfUser().getName()))
+            beheaded = raw.replaceFirst("@" + e.getGuild().getSelfMember().getEffectiveName() + " ", "");
+        else
+            beheaded = raw;
+        
+        String[] splitBeheaded = beheaded.split(" ");
         
         for(String s : splitBeheaded) 
         {

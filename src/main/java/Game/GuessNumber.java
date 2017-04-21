@@ -80,10 +80,5 @@ public class GuessNumber implements Game{
     public int getNumber() {
         return number;
     }
-
-    @Override
-    public void switchTurn() {
-        
-    }
     
 }

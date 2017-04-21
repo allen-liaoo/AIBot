@@ -13,6 +13,7 @@ import com.vdurmont.emoji.EmojiManager;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -113,6 +114,11 @@ public class EmojiCommand implements Command {
             
             if(input.length() != 0)
             {
+                if (e.getChannelType() != e.getChannelType().PRIVATE &&
+                e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+                    e.getTextChannel().deleteMessageById(e.getMessage().getId()).queue();
+                }
+                
                 String output = Emoji.stringToEmoji(input);
                 e.getChannel().sendMessage(output).queue();
             }

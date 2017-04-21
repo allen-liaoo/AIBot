@@ -12,8 +12,10 @@ import Main.*;
 import Setting.GuildSetting;
 import Audio.Music;
 import static Main.Main.commands;
+import Resource.Emoji;
 import Setting.RateLimiter;
 import Utility.SmartLogger;
+import net.dv8tion.jda.core.entities.ChannelType;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -46,7 +48,7 @@ public class CommandListener extends ListenerAdapter {
         /**
          * Create GuildSetting for each Guild
          */
-        if(!e.isFromType(e.getChannelType().PRIVATE) && !Main.guilds.containsKey(e.getGuild().getId()))
+        if(!e.isFromType(ChannelType.PRIVATE) && !Main.guilds.containsKey(e.getGuild().getId()))
         {
             GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=", 50);
             Main.guilds.put(e.getGuild().getId(), newGuild);
@@ -58,19 +60,34 @@ public class CommandListener extends ListenerAdapter {
         * Detect commands
         */
         
-        //Private Message Without Prefix or mention
-        if(e.getChannelType() == e.getChannelType().PRIVATE && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
+        if(!e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
-            if(RateLimiter.isSpam(e)) return;
-            handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
-            return;
+            //Message from Guild that starts with Prefix or mention
+            if (e.getChannelType() == ChannelType.TEXT &&
+               (e.getMessage().getContent().startsWith(Prefix.getDefaultPrefix()) ||
+                e.getMessage().getStrippedContent().startsWith("@" + e.getGuild().getSelfMember().getEffectiveName())))
+            {
+                if(RateLimiter.isSpam(e)) return;
+                handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
+            }
+             
+            else if (e.getChannelType() != ChannelType.TEXT)
+            {
+                if(RateLimiter.isSpam(e)) return;
+                try {
+                    handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
+                } catch (NullPointerException npe) {
+                    e.getChannel().sendMessage(Emoji.error + " This command is not supported in dm.").queue();
+                }
+            }
         }
         
+        /*
         //Message starts with Prefix
         if(e.getMessage().getContent().startsWith(Prefix.getDefaultPrefix()) && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
             if(RateLimiter.isSpam(e)) return;
-            handleCommand(Main.parser.parse(e.getMessage().getContent(), e));   
+            handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
         }
         
         //Message starts with Mention
@@ -79,6 +96,14 @@ public class CommandListener extends ListenerAdapter {
             if(RateLimiter.isSpam(e)) return;
             handleCommand(Main.parser.parseMention(e.getMessage().getContent(), e));
         }
+        
+        //Private Message Without Prefix or mention
+        if(e.getChannelType() == ChannelType.PRIVATE && !e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
+        {
+            if(RateLimiter.isSpam(e)) return;
+            handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
+            return;
+        }*/
     }
     
     public static void handleCommand(CommandParser.CommandContainer cmd)
@@ -96,16 +121,5 @@ public class CommandListener extends ListenerAdapter {
                 commands.get(cmd.invoke).executed(safe, cmd.event);
             }
         }
-    }
-    
-    @Override
-    public void onReady(ReadyEvent e) {
-        System.out.println("Status - Logged in as: " + e.getJDA().getSelfUser().getName());
-    }
-    
-    @Override
-    public void onGuildAvailable(GuildAvailableEvent event) {
-        super.onGuildAvailable(event);
-        System.out.println("Guild Avaliable:" + event.getGuild().getName());
     }
 }

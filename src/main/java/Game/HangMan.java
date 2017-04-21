@@ -334,10 +334,5 @@ public class HangMan implements Game{
         }
         return hangman;
     }
-
-    @Override
-    public void switchTurn() {
-        
-    }
     
 }
