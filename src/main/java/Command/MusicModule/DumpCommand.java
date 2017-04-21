@@ -85,8 +85,7 @@ public class DumpCommand implements Command {
                     e.getChannel().sendMessage(Emoji.error + " You and I are not in the same voice channel.").queue();
                     return;
                 }
-                Main.guilds.get(e.getGuild().getId()).getScheduler().clearQueue();
-                Main.guilds.get(e.getGuild().getId()).getScheduler().clearVote();
+                Main.guilds.get(e.getGuild().getId()).getScheduler().clearQueue().clearVote();
                 
                 e.getChannel().sendMessage(Emoji.stop + " Cleared queue and dumped Trump.").queue();
             }

@@ -11,6 +11,7 @@ import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
 import Utility.SmartLogger;
+import Utility.UtilBot;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -99,7 +100,7 @@ public class PresenceCommand implements Command {
                 {
                     OnlineStatus status;
                     try {
-                        status = Main.setStatus(args[0]);
+                        status = UtilBot.setStatus(args[0]);
                     } catch (IllegalArgumentException iae) {
                         e.getChannel().sendMessage(Emoji.error + " Please enter a valid status.").queue();
                         SmartLogger.errorLog(iae, e, this.getClass().getName(), "Unknown Status");
@@ -118,7 +119,7 @@ public class PresenceCommand implements Command {
                 {
                     String game = "";
                     for(String g : args) { game += g + " ";}
-                    e.getChannel().sendMessage(Emoji.success + " Game set to `"+ Main.setGame(game) + "`").queue();
+                    e.getChannel().sendMessage(Emoji.success + " Game set to `"+ UtilBot.setGame(game) + "`").queue();
                 }
                 else
                     e.getChannel().sendMessage(Emoji.error + " This command is for `Bot Owner` only!").queue();

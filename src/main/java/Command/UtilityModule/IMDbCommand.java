@@ -13,7 +13,7 @@ import Resource.Constants;
 import Setting.Prefix;
 import Utility.Search;
 import Utility.SearchResult;
-import Utility.UtilTool;
+import Utility.UtilNum;
 import Utility.WebScraper;
 import Utility.SmartLogger;
 import java.awt.Color;
@@ -133,7 +133,7 @@ public class IMDbCommand implements Command {
                 
                 //Build EMbed Message
                 EmbedBuilder embeds = new EmbedBuilder();
-                embeds.setColor(UtilTool.randomColor());
+                embeds.setColor(UtilNum.randomColor());
                 embeds.setAuthor("IMDb Search Results for \"" + input + "\"", 
                         "http://www.imdb.com/find?q=" + input.replaceAll(" ", "+"), null);
                 embeds.addField("Titles", titles, false);

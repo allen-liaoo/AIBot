@@ -9,9 +9,10 @@ import Audio.AudioTrackWrapper.TrackType;
 import Main.Main;
 import Resource.Emoji;
 import Resource.Constants;
-import Utility.UtilTool;
+import Utility.UtilNum;
 import Utility.WebScraper;
 import Utility.SmartLogger;
+import Utility.UtilString;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;;
@@ -25,6 +26,26 @@ import java.time.Instant;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+import java.time.Instant;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -62,30 +83,36 @@ public class Music  {
         SmartLogger.commandLog(e, "Music#Play", "Music played for " + link);
         
         if(m.find()){
-            Music.playerManager.loadItemOrdered(Music.playerManager, link, new AudioLoadResultHandler() {
-                @Override
-                public void trackLoaded(AudioTrack track) {
-                    Main.guilds.get(e.getGuild().getId()).getScheduler().queue
-                            (new AudioTrackWrapper(track, e.getAuthor().getName(), type), e);
-                }
-
-                @Override
-                public void playlistLoaded(AudioPlaylist playlist) {
-                    Main.guilds.get(e.getGuild().getId()).getScheduler().addPlayList(playlist, e.getAuthor().getName());
-                    e.getTextChannel().sendMessage(Emoji.success + " Queued Playlist: `" + playlist.getName() + "`").queue();
-                }
-
-                @Override
-                public void noMatches() {
-                    e.getTextChannel().sendMessage(Emoji.error + " No match found for " + link).queue();
-                }
-
-                @Override
-                public void loadFailed(FriendlyException exception) {
-                    e.getTextChannel().sendMessage(Emoji.error + " Fail to load the video " + link).queue();
-                    SmartLogger.errorLog(exception, e, this.getClass().getName(), "Failed to load this video: " + link);
-                }
-            });
+            try {
+                Music.playerManager.loadItemOrdered(Music.playerManager, link, new AudioLoadResultHandler() {
+                    @Override
+                    public void trackLoaded(AudioTrack track) {
+                        Main.guilds.get(e.getGuild().getId()).getScheduler().queue
+                                    (new AudioTrackWrapper(track, e.getAuthor().getName(), type), e);
+                    }
+                    
+                    @Override
+                    public void playlistLoaded(AudioPlaylist playlist) {
+                        Main.guilds.get(e.getGuild().getId()).getScheduler().addPlayList(playlist, e.getAuthor().getName());
+                        e.getTextChannel().sendMessage(Emoji.success + " Queued Playlist: `" + playlist.getName() + "`").queue();
+                    }
+                    
+                    @Override
+                    public void noMatches() {
+                        e.getTextChannel().sendMessage(Emoji.error + " No match found for " + link).queue();
+                    }
+                    
+                    @Override
+                    public void loadFailed(FriendlyException exception) {
+                        e.getTextChannel().sendMessage(Emoji.error + " Fail to load the video " + link).queue();
+                        SmartLogger.errorLog(exception, e, this.getClass().getName(), "Failed to load this video: " + link);
+                    }
+                }).get();
+            } catch (InterruptedException ex) {
+                SmartLogger.errorLog(ex, e, "Music#play", "Interrupted when retrieving AudioTrack");
+            } catch (ExecutionException ex) {
+                SmartLogger.errorLog(ex, e, "Music#play", "ExecutionException when retrieving AudioTrack");
+            }
         }
         else
         {
@@ -197,18 +224,18 @@ public class Music  {
     public static void trackInfo(MessageReceivedEvent e, AudioTrackWrapper track, String title)
     {   
         AudioTrackInfo trackInfo = track.getTrack().getInfo();
-        String trackTime = UtilTool.formatDuration(track.getTrack().getPosition());
+        String trackTime = UtilString.formatDuration(track.getTrack().getPosition());
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setAuthor(title, trackInfo.uri, Constants.B_AVATAR);
-        embedBuilder.setColor(UtilTool.randomColor());
+        embedBuilder.setColor(UtilNum.randomColor());
         embedBuilder.addField("Song Title:", trackInfo.title, true);
         embedBuilder.addField("Author:", trackInfo.author, true);
         embedBuilder.addField("Song Link:", trackInfo.uri, false);
         
         if(track.getType() != AudioTrackWrapper.TrackType.RADIO)
         {
-            trackTime += " / " + UtilTool.formatDuration(track.getTrack().getDuration());
+            trackTime += " / " + UtilString.formatDuration(track.getTrack().getDuration());
         }
         
         embedBuilder.addField("Song Duration:", trackTime, true);
@@ -292,16 +319,16 @@ public class Music  {
         
         
         String durationWithoutRadio = "";
-        if("00:00".equals(UtilTool.formatDuration(duration)))
+        if("00:00".equals(UtilString.formatDuration(duration)))
             durationWithoutRadio = "";
         else
-            durationWithoutRadio = " / " + UtilTool.formatDuration(duration);
+            durationWithoutRadio = " / " + UtilString.formatDuration(duration);
         
         embed.setAuthor("Queue List " + 
-                UtilTool.formatDuration(position) + 
+                UtilString.formatDuration(position) + 
                 durationWithoutRadio
                 , Constants.B_INVITE, Constants.B_AVATAR);
-        embed.setColor(UtilTool.randomColor());
+        embed.setColor(UtilNum.randomColor());
         embed.setThumbnail(Constants.B_AVATAR);
         embed.setFooter("Reqested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
         embed.setTimestamp(Instant.now());

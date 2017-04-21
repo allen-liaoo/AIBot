@@ -43,4 +43,13 @@ public class Constants {
     
     //Bot Developer ID
     public static String D_ID = "248214880379863041";
+    
+    /*
+    * Misc Constants
+    */
+    public static String IMAGE_SPAM_1 = "https://upload.wikimedia.org/wikipedia/commons/0/09/Spam_can.png";
+    public static String IMAGE_SPAM_10 = "http://marketingland.com/wp-content/ml-loads/2016/07/ss-spam.jpg";
+    public static String IMAGE_SPAM_50 = "http://laab.cl/blog/wp-content/uploads/2015/08/spam.jpg";
+    public static String IMAGE_SPAM_100 = "http://www.roadpickle.com/wp-content/uploads/wall-of-spam.jpg";
+    
 }

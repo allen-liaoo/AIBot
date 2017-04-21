@@ -7,6 +7,7 @@
 package Listener;
 
 import Main.Main;
+import Utility.UtilBot;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -65,14 +66,14 @@ public class ConsoleListener implements Runnable {
             //-SetGame
             else if(input.startsWith("setGame"))
             {
-                System.out.println("Game set to " + Main.setGame(input.substring(8)));
+                System.out.println("Game set to " + UtilBot.setGame(input.substring(8)));
             }
             
             //-SetStatus
             else if(input.startsWith("setStatus"))
             {
                 try {
-                    OnlineStatus status = Main.setStatus(input.substring(10));
+                    OnlineStatus status = UtilBot.setStatus(input.substring(10));
                     System.out.println("Status set to " + status.toString());
                 } catch (IllegalArgumentException iae) {
                     System.out.println("Please enter a valid status.");

@@ -8,7 +8,7 @@ package Audio;
 import Audio.AudioTrackWrapper.TrackType;
 import Resource.Emoji;
 import Utility.SmartLogger;
-import Utility.UtilTool;
+import Utility.UtilNum;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Matcher;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -153,36 +154,42 @@ public class TrackScheduler extends AudioEventAdapter {
         Mode = PlayerMode.FM;
         
         while (auto == previous) {
-            auto = UtilTool.randomNum(0, fmSongs.size()-1);
+            auto = UtilNum.randomNum(0, fmSongs.size()-1);
         }
         previous = auto;
         String url = fmSongs.get(auto);
         
-        Matcher m = Music.urlPattern.matcher(url);
-        if (m.find()) {
-            Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
-                @Override
-                public void trackLoaded(AudioTrack track) {
-                    NowPlayingTrack = new AudioTrackWrapper(track, "AIBot FM", AudioTrackWrapper.TrackType.FM);
-                    player.startTrack(track, false);
-                }
+        try {
+            Matcher m = Music.urlPattern.matcher(url);
+            if (m.find()) {
+                Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
+                    @Override
+                    public void trackLoaded(AudioTrack track) {
+                        NowPlayingTrack = new AudioTrackWrapper(track, "AIBot FM", AudioTrackWrapper.TrackType.FM);
+                        player.startTrack(track, false);
+                    }
 
-                @Override
-                public void playlistLoaded(AudioPlaylist playlist) {
-                    addPlayList(playlist, "AIBot FM");
-                }
+                    @Override
+                    public void playlistLoaded(AudioPlaylist playlist) {
+                        addPlayList(playlist, "AIBot FM");
+                    }
 
-                @Override
-                public void noMatches() {
-                    tc.sendMessage(Emoji.error + " No match found.").queue();
-                }
+                    @Override
+                    public void noMatches() {
+                        tc.sendMessage(Emoji.error + " No match found.").queue();
+                    }
 
-                @Override
-                public void loadFailed(FriendlyException exception) {
-                    tc.sendMessage(Emoji.error + " Fail to load the video.").queue();
-                    SmartLogger.errorLog(exception, null, this.getClass().getName(), "Failed to load fm");
-                }
-            });
+                    @Override
+                    public void loadFailed(FriendlyException exception) {
+                        tc.sendMessage(Emoji.error + " Fail to load the video.").queue();
+                        SmartLogger.errorLog(exception, null, this.getClass().getName(), "Failed to load fm");
+                    }
+                }).get();
+            }
+        } catch (InterruptedException ex) {
+            SmartLogger.errorLog(ex, null, "Music#play", "Interrupted when retrieving AudioTrack");
+        } catch (ExecutionException ex) {
+            SmartLogger.errorLog(ex, null, "Music#play", "ExecutionException when retrieving AudioTrack");
         }
     }
     
@@ -201,22 +208,34 @@ public class TrackScheduler extends AudioEventAdapter {
     
     /**
     * Clear methods
+    * @return TrackScheduler, easier for chaining
     */
     public void stopPlayer() {
-        clearNowPlayingTrack();
-        clearQueue();
-        clearFM();
-        clearVote();
-        player.stopTrack();
+        clearNowPlayingTrack()
+        .clearQueue()
+        .clearVote()
+        .player.stopTrack();
     }
     
-    public void clearQueue() {
+    public TrackScheduler clearQueue() {
         queue.clear();
+        return this;
     }
     
-    public void clearFM() {
+    public TrackScheduler clearFM() {
         fmSongs.clear();
         Mode = PlayerMode.DEFAULT;
+        return this;
+    }
+    
+    public TrackScheduler clearNowPlayingTrack() {
+        NowPlayingTrack = new AudioTrackWrapper();
+        return this;
+    }
+    
+    public TrackScheduler clearVote() {
+        skipper.clear();
+        return this;
     }
     
     /**
@@ -241,10 +260,6 @@ public class TrackScheduler extends AudioEventAdapter {
     public AudioTrackWrapper getNowPlayingTrack() {
         return NowPlayingTrack;
     }
-    
-    public void clearNowPlayingTrack() {
-        NowPlayingTrack = new AudioTrackWrapper();
-    }
 
     public static TextChannel getTc() {
         return tc;
@@ -266,10 +281,6 @@ public class TrackScheduler extends AudioEventAdapter {
         }
         else
             return false;
-    }
-    
-    public void clearVote() {
-        skipper.clear();
     }
     
 }

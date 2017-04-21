@@ -7,7 +7,8 @@
 package Setting;
 
 import Resource.Emoji;
-import Utility.UtilTool;
+import Utility.UtilNum;
+import Utility.UtilString;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -46,10 +47,10 @@ public class RateLimiter {
             else {
                 if(inform == 0) {
                     e.getChannel().sendMessage(Emoji.error + " Rapping? A little too fast there.\nCool down: "
-                            + UtilTool.formatTime(10000 - diff)).complete();
+                            + UtilString.formatTime(10000 - diff)).complete();
                 }
                 else if(inform % 2 == 0) {
-                    e.getChannel().sendMessage(Emoji.error + "Cool down: " + UtilTool.formatTime(10000 - diff)).complete();
+                    e.getChannel().sendMessage(Emoji.error + "Cool down: " + UtilString.formatTime(10000 - diff)).complete();
                 }
                 inform ++;
             }

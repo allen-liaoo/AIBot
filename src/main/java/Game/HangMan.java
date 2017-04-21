@@ -9,7 +9,7 @@ import Main.Main;
 import Resource.Emoji;
 import Resource.FilePath;
 import Utility.SmartLogger;
-import Utility.UtilTool;
+import Utility.UtilNum;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -67,7 +67,7 @@ public class HangMan implements Game{
             BufferedReader reader = new BufferedReader(new FileReader(FilePath.HangMan));
             
             String ranword;
-            long random = UtilTool.randomNum(1, 58109);
+            long random = UtilNum.randomNum(1, 58109);
             long count = 0;
             
             while((ranword = reader.readLine() ) != null)

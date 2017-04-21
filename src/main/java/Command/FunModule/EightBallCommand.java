@@ -12,7 +12,7 @@ import Main.*;
 import Resource.Emoji;
 import Resource.FilePath;
 import Utility.SmartLogger;
-import Utility.UtilTool;
+import Utility.UtilNum;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -89,7 +89,7 @@ public class EightBallCommand implements Command{
             } catch (IOException io) {
                 SmartLogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at reading line numbers");
         }
-        int magic = UtilTool.randomNum(0, totalline), line = 0;
+        int magic = UtilNum.randomNum(0, totalline), line = 0;
         
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FilePath.EightBall));

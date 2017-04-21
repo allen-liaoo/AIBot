@@ -16,7 +16,7 @@ import Command.UtilityModule.*;
 import Command.MusicModule.*;
 import Command.FunModule.*;
 import Command.RestrictedModule.*;
-import Utility.UtilTool;
+import Utility.UtilNum;
 import Utility.SmartLogger;
 
 import java.awt.Color;
@@ -153,7 +153,7 @@ public class HelpCommand implements Command {
                 break;
         }
         
-        embed.setColor(UtilTool.randomColor());
+        embed.setColor(UtilNum.randomColor());
         embed.setAuthor("AIBot Command List | Page " + page, Constants.B_GITHUB, Constants.I_HELP);
         embed.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
         embed.setTimestamp(Instant.now());
@@ -399,7 +399,7 @@ public class HelpCommand implements Command {
         }
 
         embedHelp.setAuthor("AIBot Help -" + morc, Constants.B_GITHUB,null); //Set title for command
-        embedHelp.setColor(UtilTool.randomColor());
+        embedHelp.setColor(UtilNum.randomColor());
 
         embedHelp.addField(cmdtitle, cmdhelp, true);
         if(isMod == true)

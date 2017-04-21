@@ -67,6 +67,8 @@ public class EmojiCommand implements Command {
                 String description = emo.getDescription().substring(0, 1).toUpperCase() + emo.getDescription().substring(1);
                 String html = "`" + emo.getHtmlDecimal() + "`\n`" + emo.getHtmlHexadecimal() + "`";
                 String alias = "";
+                String image = e.getJDA().getEmotesByName(args[1], true).get(0).getImageUrl();
+                
                 for(String a : emo.getAliases())
                 {
                     alias += a.substring(0, 1).toUpperCase() + a.substring(1) + ", \n";
@@ -90,6 +92,7 @@ public class EmojiCommand implements Command {
                 embedemo.addField("Aliases", alias, true);
                 embedemo.addField("Tags", tag, true);
                 embedemo.addField("Html", html, true);
+                embedemo.setImage(image);
                 embedemo.setFooter("Emoji Information", null);
                 embedemo.setTimestamp(Instant.now());
                 MessageEmbed meem = embedemo.build();

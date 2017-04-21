@@ -89,78 +89,7 @@ public class Main {
         Unirest.shutdown();
         jda.shutdown();
         System.exit(0);
-    }
-    
-    public static OnlineStatus setStatus(String stat)
-    {
-        
-        OnlineStatus status = OnlineStatus.ONLINE;
-
-        switch(stat) {
-            case "online":
-                status = OnlineStatus.ONLINE;
-                setGame("default");
-                break;
-            case "idle":
-                status = OnlineStatus.IDLE;
-                setGame("update");
-                break;
-            case "dnd":
-                status = OnlineStatus.DO_NOT_DISTURB;
-                setGame("fix");
-                break;
-            case "invisible":
-                status = OnlineStatus.INVISIBLE;
-                setGame("null");
-                break;
-            case "offline":
-                status = OnlineStatus.OFFLINE;
-                setGame("null");
-                break;
-            default:
-                status = OnlineStatus.UNKNOWN;
-                setGame("null");
-                break;
-        }
-
-        jda.getPresence().setStatus(status);
-        SmartLogger.updateLog("Bot Status set to " + status.toString());
-        return status;
-    }
-    
-    public static String setGame(String game)
-    {
-        String set;
-        switch(game.replaceAll(" ", "").toLowerCase()) {
-            case "default":
-                set = Constants.B_GAME_DEFAULT + " | " + jda.getGuilds().size() + " Servers";
-                break;
-            case "update":
-                set = Constants.B_GAME_UPDATE;
-                break;
-            case "fix":
-                set = Constants.B_GAME_FIXING;
-                break;
-            case "null":
-            case "":
-                set = null;
-                break;
-            default:
-                set = game;
-        }
-        
-        //If-else for no game
-        Game g = null;
-        if(set != null)
-            g = Game.of(set);
-        else
-            set = "No Game";
-        
-        jda.getPresence().setGame(g);
-            
-        SmartLogger.updateLog("Bot Game set to " + set);
-        return set;
-    }
+    }    
         
     private static void addCommands() {
         // Information Commands
@@ -227,9 +156,10 @@ public class Main {
         //Fun Commands
         commands.put("8ball", new EightBallCommand());
         commands.put("face", new FaceCommand());
-        commands.put("game", new GameCommand());
         commands.put("lenny", new FaceCommand());
         commands.put("f", new FaceCommand());
+        commands.put("spam", new SpamCommand());
+        commands.put("game", new GameCommand());
         commands.put("rockpaperscissors", new RPSCommand());
         commands.put("rps", new RPSCommand());
         commands.put("guessnum", new GuessNumberCommand());

@@ -12,7 +12,7 @@ import Command.Command;
 import static Command.Command.embed;
 import Resource.Constants;
 import Setting.Prefix;
-import Utility.UtilTool;
+import Utility.UtilNum;
 import Utility.SmartLogger;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.awt.Color;
@@ -77,7 +77,7 @@ public class FMCommand implements Command{
                 embedpl.addField("Local Playlists", localLib, true);
                 embedpl.setThumbnail(Constants.B_AVATAR);
                 embedpl.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
-                embedpl.setColor(UtilTool.randomColor());
+                embedpl.setColor(UtilNum.randomColor());
                 embedpl.setTimestamp(Instant.now());
                 
                 e.getChannel().sendMessage(embedpl.build()).queue();

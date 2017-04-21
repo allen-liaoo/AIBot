@@ -59,10 +59,6 @@ public class StopCommand implements Command{
             if(!e.getMember().getVoiceState().inVoiceChannel()) {
                 e.getChannel().sendMessage(Emoji.error + " You are not in a voice channel.").queue();
                 return;
-            } else if (Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue().isEmpty() &&
-                    Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack().isEmpty()) {
-                e.getChannel().sendMessage(Emoji.error + " There is no song to stop.").queue();
-                return;
             }
             
             int mem = 0;

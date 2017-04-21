@@ -9,7 +9,8 @@ package Listener;
 
 import Main.Main;
 import Resource.Constants;
-import Utility.UtilTool;
+import Utility.UtilBot;
+import Utility.UtilNum;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
@@ -40,14 +41,14 @@ public class GuildListener extends ListenerAdapter {
         welcome(event.getGuild().getPublicChannel());
         
         System.out.println("Joined guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
-        Main.setGame("default");
+        UtilBot.setGame("default");
     }
     
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
         super.onGuildLeave(event);
         System.out.println("Left guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
-        Main.setGame("default");
+        UtilBot.setGame("default");
     }
     
     public void welcome(TextChannel c) {
@@ -55,7 +56,7 @@ public class GuildListener extends ListenerAdapter {
             return;
         
         embedmsg.setAuthor("Thanks for Adding AIBot!!", Constants.B_GITHUB, Constants.B_AVATAR);
-        embedmsg.setColor(UtilTool.randomColor());
+        embedmsg.setColor(UtilNum.randomColor());
         embedmsg.setDescription(welcome);
         embedmsg.setThumbnail(Constants.B_AVATAR);
         embedmsg.addField("Links", links, false);

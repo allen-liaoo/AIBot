@@ -10,7 +10,8 @@ import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
 import Main.Main;
-import Utility.UtilTool;
+import Utility.UtilBot;
+import Utility.UtilString;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -68,7 +69,7 @@ public class StatusCommand implements Command{
         {
             long timeCurrent = System.currentTimeMillis(), uptime;
             uptime = timeCurrent - Main.timeStart;
-            String upinfo = UtilTool.formatTime(uptime);
+            String upinfo = UtilString.formatTime(uptime);
             
             
             if("uptime".equals(type))
@@ -80,15 +81,16 @@ public class StatusCommand implements Command{
             {
                 JDA bot = e.getJDA();
                 String avatar, status, shard, more;
-                int guild, textchannels, privatechannels, audiochannels;
+                int guild, textchannels, privatechannels, audiochannels, voicechannels;
 
                 avatar = bot.getSelfUser().getAvatarUrl();
                 status = bot.getPresence().getStatus().getKey();
-                status = status.substring(0, 1).toUpperCase() + status.substring(1);
+                status = UtilString.capSplits("_", status);
                 guild = bot.getGuilds().size();
                 textchannels = bot.getTextChannels().size();
                 privatechannels = bot.getPrivateChannels().size();
                 audiochannels = bot.getVoiceChannels().size();
+                voicechannels = UtilBot.getConnectedVoiceChannels() == null ? 0 : UtilBot.getConnectedVoiceChannels().size();
                 try{shard = bot.getShardInfo().getShardString();} catch(NullPointerException ne) {shard = "None";}
                 
 
@@ -98,8 +100,8 @@ public class StatusCommand implements Command{
                 String osversion = os.getVersion();
 
                 MemoryUsage osx = (MemoryUsage)ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
-                String used = UtilTool.convertBytes(osx.getUsed(), true);
-                String available = UtilTool.convertBytes(osx.getCommitted(), true);
+                String used = UtilString.convertBytes(osx.getUsed(), true);
+                String available = UtilString.convertBytes(osx.getCommitted(), true);
                 String memory = used + "/" + available;
 
                 more = "Operating System Version: Mac Sierra " + osversion
@@ -118,6 +120,7 @@ public class StatusCommand implements Command{
                 embedstatus.addField(Emoji.text + " Text Channels", String.valueOf(textchannels), true);
                 embedstatus.addField(Emoji.privatespy + " Private Channels", String.valueOf(privatechannels), true);
                 embedstatus.addField(Emoji.music + " Voice Channels", String.valueOf(audiochannels), true);
+                embedstatus.addField(Emoji.notes + " Playing Music in", String.valueOf(voicechannels), true);
                 embedstatus.addField("More...", more, true);
                 embedstatus.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embedstatus.setTimestamp(Instant.now());

@@ -11,7 +11,7 @@ import Resource.Constants;
 import Setting.Prefix;
 import Resource.FilePath;
 import Utility.SmartLogger;
-import Utility.UtilTool;
+import Utility.UtilNum;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -75,7 +75,7 @@ public class FaceCommand implements Command{
                     lines++;
                 }
                 reader.close();
-                num = UtilTool.randomNum(1, lines);
+                num = UtilNum.randomNum(1, lines);
                 if(num % 2 != 0) num += 1; //Make the random number always even
             } catch (IOException io) {
                 SmartLogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting sum of line numbers.");

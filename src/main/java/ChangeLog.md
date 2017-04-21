@@ -2,13 +2,17 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
-#### [0.2.5] - 2017-04-16
+
+#### [0.2.5] - 2017-04-16 ~ 2017-04-20
 ##### Added
 - The bot will automatically resume or pause when a user join or leave the Voice Channel
 - UtilTool: capTokens for capitalizing every first letter of the regex split.
+- DumpCommand for clearing the queue.
+- UtilBot for bot utilities like setting status, game or getting connected voice channels
 ##### Fixed
 - Prevent the bot to do any action when an member is not in the same voice channel 
   as the bot, but request the bot to skip, stop, join, or leave.
+- Added isEmpty() for AudioTrackWrapper to fix null pointers
 
 #### [0.2.5] - 2017-04-15
 ##### Added 
@@ -23,18 +27,14 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - Uptime hours to proper readable form
 - @Mention Prefix now support server nickname.
 
-#### [0.2.3] - 2017-04-11
+#### [0.2.3] - 2017-04-12, and 2017-04-13
 ##### Added 
 - FM System which play automatic loaded play lists
 - Radio System which stream a radio station
-##### Fixed
-- Force Skip for server owners and administrators
-
-#### [0.2.1] - 2017-04-11
-##### Added 
 - Vote Skip System
 - YouTube Thumbnails for NowPlayingCommand
 ##### Fixed
+- Force Skip for server owners and administrators
 - Several bugs in Music Module and Information Module
 
 #### [0.2.0] - 2017-04-11
