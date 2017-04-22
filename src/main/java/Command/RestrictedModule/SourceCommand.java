@@ -35,10 +35,6 @@ public class SourceCommand implements Command{
     private static int count = 1, fromOrig = 0, from = 0, to = 0;
     private FileInputStream fstream;
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -175,9 +171,5 @@ public class SourceCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

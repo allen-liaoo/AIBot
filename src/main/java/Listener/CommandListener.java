@@ -19,8 +19,6 @@ import net.dv8tion.jda.core.entities.ChannelType;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.events.ReadyEvent;
-import net.dv8tion.jda.core.events.guild.GuildAvailableEvent;
 
 /**
  *
@@ -86,17 +84,8 @@ public class CommandListener extends ListenerAdapter {
     public static void handleCommand(CommandParser.CommandContainer cmd)
     {
         if(commands.containsKey(cmd.invoke)) {
-            boolean safe = commands.get(cmd.invoke).called(cmd.args, cmd.event);
-            
-            cmd.event.getChannel().sendTyping().queue();
-            
-            if(safe) {
-                commands.get(cmd.invoke).action(cmd.args, cmd.event);
-                commands.get(cmd.invoke).executed(safe, cmd.event);
-            }
-            else {
-                commands.get(cmd.invoke).executed(safe, cmd.event);
-            }
+            cmd.event.getChannel().sendTyping().queue(success -> {commands.get(cmd.invoke).action(cmd.args, cmd.event);});
         }
     }
+    
 }

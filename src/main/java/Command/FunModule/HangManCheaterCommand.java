@@ -39,10 +39,6 @@ public class HangManCheaterCommand implements Command {
     
     private EmbedBuilder embedre = new EmbedBuilder();
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -175,10 +171,6 @@ public class HangManCheaterCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
     private void clearList()
     {

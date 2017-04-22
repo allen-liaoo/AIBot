@@ -41,10 +41,6 @@ public class HelpCommand implements Command {
     private final EmbedBuilder embedusage = new EmbedBuilder();
     private final EmbedBuilder embedHelp = new EmbedBuilder();
 
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -113,10 +109,6 @@ public class HelpCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
     public static EmbedBuilder helpText(MessageReceivedEvent e, int page)
     {

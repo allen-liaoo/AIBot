@@ -33,10 +33,6 @@ public class SkipCommand implements Command {
                                     + "[Number/Index of the queue]: Skip a song in the queue. Only Server Owner, members with Administrator"
                                     + "Permission, or song requester can skip.\n";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -126,8 +122,4 @@ public class SkipCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
 }

@@ -51,10 +51,6 @@ public class SearchCommand implements Command{
         else if("ub".equals(invoke)) site += "urbandictionary.com";
     }
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -127,9 +123,5 @@ public class SearchCommand implements Command{
         
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

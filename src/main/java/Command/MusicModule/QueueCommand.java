@@ -9,6 +9,7 @@ import Audio.Music;
 import Command.Command;
 import static Command.Command.embed;
 import Resource.Constants;
+import Resource.Emoji;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
@@ -23,10 +24,6 @@ public class QueueCommand implements Command{
     public final static  String HELP = "This command is getting a list of queued songs\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"queue`\n"
                                      + "Parameter: `-h | null`";
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -49,13 +46,17 @@ public class QueueCommand implements Command{
         }
         else
         {
-            Music.queueList(e);
+            try {
+                int page = 1;
+                if(args.length != 0)
+                    page = Integer.parseInt(args[0]);
+                Music.queueList(e, page);
+            } catch (NumberFormatException npe) {
+                e.getTextChannel().sendMessage(Emoji.error + " Please enter a valid page number.").queue();
+                return;
+            }
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

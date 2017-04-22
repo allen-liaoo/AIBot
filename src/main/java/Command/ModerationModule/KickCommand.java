@@ -32,10 +32,6 @@ public class KickCommand implements Command{
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"kick`\n"
                                      + "Parameter: `-h | @Member(s)`";
     private final EmbedBuilder embed = new EmbedBuilder();
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -115,9 +111,5 @@ public class KickCommand implements Command{
     }
     
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

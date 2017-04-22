@@ -33,10 +33,6 @@ public class ServerCommand implements Command {
                                      + "Parameter: `-h | null`";
     private final EmbedBuilder embed = new EmbedBuilder();
             
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -79,18 +75,14 @@ public class ServerCommand implements Command {
                 }
                 
                 output += "--------\n\n# Page(s): " + page + " / " + pages.getPages() + "\n\n"
-                        + "#Use " + Prefix.getDefaultPrefix() + "server [Page Number] to show more pages.```";
+                        + "# Use " + Prefix.getDefaultPrefix() + "server [Page Number] to show more pages.```";
                 e.getChannel().sendMessage(output).queue();
-            } catch (IllegalArgumentException ex) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter a valid page number between 1 to " + pages.getPages() +".").queue();
+            } catch (IllegalArgumentException  | IndexOutOfBoundsException ex) {
+                e.getChannel().sendMessage(Emoji.error + " Please enter a valid page number between 1 and " + pages.getPages() +".").queue();
                 return;
             }
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

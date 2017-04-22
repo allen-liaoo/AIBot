@@ -34,10 +34,6 @@ public class MathCommand implements Command{
     
     private static String input = "";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -107,9 +103,5 @@ public class MathCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

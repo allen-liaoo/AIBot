@@ -29,10 +29,6 @@ public class InviteCommand implements Command {
                                      + "Parameter: `-h | null`";
     private final EmbedBuilder embed = new EmbedBuilder();
             
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -64,9 +60,5 @@ public class InviteCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

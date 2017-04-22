@@ -42,10 +42,6 @@ public class FaceCommand implements Command{
     private static String facelist = "";
     private static String facelistc = "";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -174,9 +170,5 @@ public class FaceCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

@@ -32,10 +32,6 @@ public class TicTacToeCommand implements Command {
                                     + "end: End the game.";
     TicTacToe game;
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent event) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -79,8 +75,4 @@ public class TicTacToeCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
 }

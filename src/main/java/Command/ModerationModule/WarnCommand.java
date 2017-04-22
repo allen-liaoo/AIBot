@@ -29,10 +29,6 @@ public class WarnCommand implements Command {
                                     + "Parameter: `-h | @Member(s) [Reason]\n`"
                                     + "@Member(s) [Reason]: Mention members to warn, then give a reason.\n";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -96,9 +92,5 @@ public class WarnCommand implements Command {
                     + "members with `Manage Server` or `Manage Channel` Permissions only.").queue();
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

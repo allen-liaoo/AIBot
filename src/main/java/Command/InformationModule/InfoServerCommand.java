@@ -34,14 +34,7 @@ public class InfoServerCommand implements Command{
                                     + "[ID]: Get a server by ID (The Bot must be in that server).\n"
                                     + "-m [ID]: Get more info about a server by ID.\n";
     private final EmbedBuilder embed = new EmbedBuilder();
-    private final EmbedBuilder embedsi = new EmbedBuilder();
-    private InviteAction invite;
-    private String link;
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -83,6 +76,8 @@ public class InfoServerCommand implements Command{
                 return;
             }
             
+            EmbedBuilder embedsi = new EmbedBuilder();
+            
             String name, id, owner, region, icon, verify;
             int txtChannel, audioChannel, member, role, online = 0, human = 0, bot = 0;
             
@@ -96,14 +91,16 @@ public class InfoServerCommand implements Command{
             member = guild.getMembers().size();
             role = guild.getRoles().size();
             
-            /*//Get Invite of the server
+            //Get Invite of the server
             e.getJDA().getGuildById(guild.getId()).getPublicChannel().createInvite()
                     .setMaxAge(120).setMaxUses(1).setTemporary(true)
                     .queue(
-                        (Invite i) -> embedsi.setAuthor(name, "https://discord.gg/" + i.getCode(), Constants.I_INFO)
-                    );*/
+                        (Invite i) -> {
+                            embedsi.setAuthor(name, "https://discord.gg/" + i.getCode(), Constants.I_INFO);
+                        }
+                    );
 
-            embedsi.setAuthor(name, null, Constants.I_INFO);
+            //embedsi.setAuthor(name, null, Constants.I_INFO);
             embedsi.setColor(Color.blue);
             embedsi.setThumbnail(icon);
             embedsi.setTimestamp(Instant.now());
@@ -158,9 +155,5 @@ public class InfoServerCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

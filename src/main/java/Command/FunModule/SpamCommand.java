@@ -31,10 +31,6 @@ public class SpamCommand implements Command {
     
     private HashMap<String, Integer> spamcount = new HashMap<String, Integer>();
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -107,9 +103,5 @@ public class SpamCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

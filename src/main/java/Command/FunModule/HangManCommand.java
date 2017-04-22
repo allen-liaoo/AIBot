@@ -29,10 +29,6 @@ public class HangManCommand implements Command{
                                     + "end: End the game.";
     
     HangMan game;
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -79,9 +75,5 @@ public class HangManCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

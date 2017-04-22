@@ -36,10 +36,6 @@ public class IMDbCommand implements Command {
                                      + "[Keywords]: Search IMDB with [Keywords].\n"
                                      + "-m [Keywods]: Get the specific information for a title.\n";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -160,8 +156,4 @@ public class IMDbCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
 }

@@ -26,10 +26,6 @@ public class GameCommand implements Command {
                                     + "Parameter: `-h | [Number] | null`\n"
                                     + "[Number]: Choose the games to get help message.";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -87,9 +83,5 @@ public class GameCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

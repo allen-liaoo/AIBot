@@ -35,10 +35,6 @@ public class LogCommand implements Command {
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"log`\n"
                                     + "Parameter: `-h | main | error | command | null`";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -113,9 +109,5 @@ public class LogCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

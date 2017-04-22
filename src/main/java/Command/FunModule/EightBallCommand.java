@@ -30,10 +30,6 @@ public class EightBallCommand implements Command{
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "8ball`\n"
                                     + "Parameter: `-h | question | null`";
 
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -67,10 +63,6 @@ public class EightBallCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
     public String eightball(MessageReceivedEvent e)
     {

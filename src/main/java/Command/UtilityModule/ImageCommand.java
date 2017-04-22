@@ -46,10 +46,6 @@ public class ImageCommand implements Command{
         else if("meme".equals(invoke))   site += "knowyourmeme.com";
     }
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -92,10 +88,6 @@ public class ImageCommand implements Command{
         
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }
 

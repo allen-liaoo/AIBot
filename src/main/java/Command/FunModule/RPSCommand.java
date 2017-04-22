@@ -27,10 +27,6 @@ public class RPSCommand implements Command {
     
     private String emoji2 = "";
 
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -83,10 +79,6 @@ public class RPSCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
     public String getHand()
     {

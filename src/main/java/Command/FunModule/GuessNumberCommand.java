@@ -32,10 +32,6 @@ public class GuessNumberCommand implements Command{
     
     private GuessNumber gn;
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -82,9 +78,5 @@ public class GuessNumberCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

@@ -32,10 +32,6 @@ public final static  String HELP = "This command is for letting a bot say someth
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embedmsg = new EmbedBuilder();
             
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -123,9 +119,5 @@ public final static  String HELP = "This command is for letting a bot say someth
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

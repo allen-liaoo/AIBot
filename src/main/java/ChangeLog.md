@@ -17,6 +17,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - Enhance prune command
 - Add npe check for unsupported private messages
 - Enhance delete command call
+- Deleted `Called()` and `Execute()` because they are never used in any Command Class.
 
 #### [0.2.5] - 2017-04-15
 ##### Added 

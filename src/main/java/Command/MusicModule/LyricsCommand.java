@@ -37,10 +37,6 @@ public class LyricsCommand implements Command{
                                      + "Parameter: `-h | [Artist Name] [Song Name] |null`\n"
                                      + "[Artist Name] [Song Name]: The exact name of the artist(s) and the song.";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -117,9 +113,5 @@ public class LyricsCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

@@ -12,6 +12,7 @@ import Resource.Constants;
 import Utility.UtilNum;
 import Utility.WebScraper;
 import Utility.AILogger;
+import Utility.AIPages;
 import Utility.UtilString;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -23,63 +24,11 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import java.time.Instant;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import java.time.Instant;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import java.time.Instant;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -292,7 +241,7 @@ public class Music  {
         embedBuilder.clearFields();
     }
     
-    public static void queueList(MessageReceivedEvent e)
+    public static void queueList(MessageReceivedEvent e, int page)
     {
         BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
         Iterator<AudioTrackWrapper> list = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueueIterator();
@@ -310,8 +259,8 @@ public class Music  {
         {
             String ptitle = playing.getTrack().getInfo().title;
             String purl = playing.getTrack().getInfo().uri;
-            embed.addField("Now Playing", "[" + ptitle + "](" + purl + ")\n"
-                    + "Requested by " + playing.getRequester() + "  Type: " + playing.getType().toString() + "\n", false);
+            embed.addField("Now Playing", "**[" + ptitle + "](" + purl + ")**\n"
+                    + "Requested by `" + playing.getRequester() + "`  Type: `" + playing.getType().toString() + "`\n", false);
             
             //Current Position / Total Duration
             position = playing.getTrack().getPosition();
@@ -322,6 +271,7 @@ public class Music  {
         
         int count = 0;
         String songs = "";
+        List<AudioTrackWrapper> queueList = new ArrayList();
         
         if(queue.peek() == null)
         {
@@ -332,25 +282,38 @@ public class Music  {
             }
         }
         else
-        {
-            //Queue
+        {   
+            //Initialize QueueList for AIPages. Add duration
             while(list.hasNext())
             {
                 count++;
 
                 AudioTrackWrapper trackwrapper = list.next();
                 AudioTrack track = trackwrapper.getTrack();
-                String title = track.getInfo().title;
-                String url = track.getInfo().uri;
-                String requester = trackwrapper.getRequester();
-                songs += "**" + count + ".** [" + title + "](" + url + ")\nRequested by " + requester + "  Type: " 
-                        + trackwrapper.getType().toString() + "\n";
                 
+                queueList.add(trackwrapper);
                 if(trackwrapper.getType() != TrackType.RADIO)
                     duration += track.getDuration();
             }
+            
+            String mode = Main.guilds.get(e.getGuild().getId()).getScheduler().getMode().toString();
+            embed.addField("Coming Next", "**Player Mode:** " + mode + "\n**Queue Count:** " + count, false);
+            
+            //AIPages
+            AIPages pages = new AIPages(queueList);
+            List<AudioTrackWrapper> song = pages.getPage(page);
+            System.out.println(pages.getList().size() + " " + pages.getPageSize() + " " + pages.getPages() + " " + song.size());
+            String songQueue = "";
+            
+            //Add each queued songs to songQueue
+            for(int i = 0; i < song.size(); i++) {
+                AudioTrackWrapper wrap = song.get(i);
+                String title = wrap.getTrack().getInfo().title;
+                String url = wrap.getTrack().getInfo().uri;
+                songQueue = (i+1)+". **["+title+"]("+url+")**\n";
+            }
+            embed.setDescription(songQueue);
         }
-        
         
         String durationWithoutRadio = "";
         if("00:00".equals(UtilString.formatDuration(duration)))
@@ -366,7 +329,6 @@ public class Music  {
         embed.setThumbnail(Constants.B_AVATAR);
         embed.setFooter("Reqested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
         embed.setTimestamp(Instant.now());
-        embed.addField("Coming Next", songs, false);
         
         e.getChannel().sendMessage(embed.build()).queue();
         embed.clearFields();

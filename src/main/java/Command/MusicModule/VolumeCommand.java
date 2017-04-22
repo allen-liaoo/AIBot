@@ -27,10 +27,6 @@ public class VolumeCommand implements Command {
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"play`\n"
                                      + "Parameter: `-h | [Youtube Url] | null`";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -80,8 +76,4 @@ public class VolumeCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
 }

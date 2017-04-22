@@ -39,10 +39,6 @@ public class StatusCommand implements Command{
         else if("uptime".equals(invoke)) type = "uptime";
     }
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -131,10 +127,6 @@ public class StatusCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
     
 }

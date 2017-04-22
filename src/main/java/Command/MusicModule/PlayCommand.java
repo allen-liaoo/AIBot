@@ -40,10 +40,6 @@ public class PlayCommand implements Command{
                                      + "-m [Keywords]: Get the top 5 search results and choose one to play.\n";
     private String num = "5";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -130,10 +126,6 @@ public class PlayCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
     public static void selector(String message, char character, MessageReceivedEvent e) {
         if(e.getChannelType() == e.getChannelType().PRIVATE)

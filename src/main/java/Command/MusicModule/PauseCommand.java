@@ -33,10 +33,6 @@ public class PauseCommand implements Command{
         else if("resume".equals(invoke)) type = "resume";
     }
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -80,8 +76,4 @@ public class PauseCommand implements Command{
         
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
 }

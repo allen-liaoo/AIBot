@@ -33,10 +33,6 @@ public class RadioCommand implements Command{
     
     private EmbedBuilder embedpl = new EmbedBuilder();
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -84,8 +80,4 @@ public class RadioCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-    
-    }
 }

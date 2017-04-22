@@ -30,10 +30,6 @@ public class StopCommand implements Command{
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"stop`\n"
                                     + "Parameter: `-h | null`";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -86,9 +82,5 @@ public class StopCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

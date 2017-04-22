@@ -32,10 +32,6 @@ public class EmojiCommand implements Command {
     private EmbedBuilder embedemo = new EmbedBuilder();
     private String roles = "";
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -127,9 +123,5 @@ public class EmojiCommand implements Command {
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
 }

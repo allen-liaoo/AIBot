@@ -34,10 +34,6 @@ public class WeatherCommand implements Command{
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embedw = new EmbedBuilder();
     
-    @Override
-    public boolean called(String[] args, MessageReceivedEvent e) {
-        return true;
-    }
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -149,10 +145,6 @@ public class WeatherCommand implements Command{
         }
     }
 
-    @Override
-    public void executed(boolean success, MessageReceivedEvent e) {
-        
-    }
     
     public String setConditionEmoji(int code)
     {
