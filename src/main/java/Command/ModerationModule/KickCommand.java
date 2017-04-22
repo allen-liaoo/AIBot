@@ -10,7 +10,7 @@ import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
 import Main.*;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -73,7 +73,7 @@ public class KickCommand implements Command{
             
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             
-            SmartLogger.commandLog(e, "KickCommand", "Called to kick " + mentionedUsers.size() + " users.");
+            AILogger.commandLog(e, "KickCommand", "Called to kick " + mentionedUsers.size() + " users.");
             
             for (User user : mentionedUsers)
             {

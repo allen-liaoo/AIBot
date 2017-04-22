@@ -9,7 +9,7 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import Utility.UtilNum;
 import java.awt.Color;
 import java.time.Instant;
@@ -58,7 +58,7 @@ public class NumberCommand implements Command {
         //Number Counter
         else if("count".equals(args[0]) | "cunt".equals(args[0]) | "c".equals(args[0]))
         {
-            SmartLogger.commandLog(e, "NumberCommand#Count", "Called");
+            AILogger.commandLog(e, "NumberCommand#Count", "Called");
             
             if(args.length == 1) //Default count from 1 to 4
             {

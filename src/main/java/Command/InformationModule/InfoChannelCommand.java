@@ -9,7 +9,7 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -152,7 +152,7 @@ public class InfoChannelCommand implements Command{
             } catch (RuntimeException rte) {
                 e.getTextChannel().sendMessage(Emoji.error + " You need to join a voice channel first "
                                         + "to see the channel's information.").queue();
-                SmartLogger.errorLog(rte, e, this.getClass().getName(), "Requested AudioChannel Info when the user is not in a VoiceChannel.");
+                AILogger.errorLog(rte, e, this.getClass().getName(), "Requested AudioChannel Info when the user is not in a VoiceChannel.");
             }
         }
         else if("-h".equals(args[0]))

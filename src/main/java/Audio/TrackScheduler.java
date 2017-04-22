@@ -7,7 +7,7 @@ package Audio;
 
 import Audio.AudioTrackWrapper.TrackType;
 import Resource.Emoji;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import Utility.UtilNum;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
@@ -148,6 +148,7 @@ public class TrackScheduler extends AudioEventAdapter {
                 nextTrack();
             }
         }
+        System.out.println("Track Ended: " + track.getInfo().title);
     }
     
     public void autoPlay() {
@@ -182,14 +183,14 @@ public class TrackScheduler extends AudioEventAdapter {
                     @Override
                     public void loadFailed(FriendlyException exception) {
                         tc.sendMessage(Emoji.error + " Fail to load the video.").queue();
-                        SmartLogger.errorLog(exception, null, this.getClass().getName(), "Failed to load fm");
+                        AILogger.errorLog(exception, null, this.getClass().getName(), "Failed to load fm");
                     }
                 }).get();
             }
         } catch (InterruptedException ex) {
-            SmartLogger.errorLog(ex, null, "Music#play", "Interrupted when retrieving AudioTrack");
+            AILogger.errorLog(ex, null, "Music#play", "Interrupted when retrieving AudioTrack");
         } catch (ExecutionException ex) {
-            SmartLogger.errorLog(ex, null, "Music#play", "ExecutionException when retrieving AudioTrack");
+            AILogger.errorLog(ex, null, "Music#play", "ExecutionException when retrieving AudioTrack");
         }
     }
     

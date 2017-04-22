@@ -14,7 +14,7 @@ import Resource.Constants;
 import Setting.Prefix;
 import Utility.SearchResult;
 import Utility.Search;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
@@ -96,10 +96,10 @@ public class PlayCommand implements Command{
                 
                 selecter.put(e.getGuild().getId(), e.getAuthor());
             } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result (-m).");
+                AILogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result (-m).");
             } catch (IndexOutOfBoundsException ioobe) {
                 e.getChannel().sendMessage(Emoji.error + " No results.").queue();
-                SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly (-m). Input: " + input);
+                AILogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly (-m). Input: " + input);
             }
         }
         
@@ -119,10 +119,10 @@ public class PlayCommand implements Command{
                     Music.play(result.get(0).getLink(), e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
                     result.clear();
                 } catch (IOException ioe) {
-                    SmartLogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result.");
+                    AILogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result.");
                 } catch (IndexOutOfBoundsException ioobe) {
                     e.getChannel().sendMessage(Emoji.error + " No results.").queue();
-                    SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly. Input: " + input);
+                    AILogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly. Input: " + input);
                 }
             }
             else
@@ -146,7 +146,7 @@ public class PlayCommand implements Command{
         if("cancel".equals(message) || character == 'c')
         {
             e.getChannel().sendMessage("Selection Cancelled.").queue();
-            SmartLogger.commandLog(e, "PlayCommand#selector", "Video selection cancelled.");
+            AILogger.commandLog(e, "PlayCommand#selector", "Video selection cancelled.");
         }
         
         else if(!Character.isDigit(character))
@@ -155,7 +155,7 @@ public class PlayCommand implements Command{
         else
         {
             int i = Character.getNumericValue(character);
-            SmartLogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());
+            AILogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());
         
             Music.play(results.get(i - 1).getLink(), e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
         }

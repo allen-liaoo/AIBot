@@ -13,7 +13,7 @@ import static Command.Command.embed;
 import Resource.Constants;
 import Setting.Prefix;
 import Utility.UtilNum;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.awt.Color;
 import java.io.IOException;
@@ -83,9 +83,9 @@ public class FMCommand implements Command{
                 e.getChannel().sendMessage(embedpl.build()).queue();
                 embedpl.clearFields();
             } catch (UnirestException ex) {
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "UnirestException when getting libraries");
+                AILogger.errorLog(ex, e, this.getClass().getName(), "UnirestException when getting libraries");
             } catch (IOException ex) {
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "IOException when getting libraries");
+                AILogger.errorLog(ex, e, this.getClass().getName(), "IOException when getting libraries");
             }
         }
         
@@ -103,9 +103,9 @@ public class FMCommand implements Command{
             try {
                 FM.loadFm(input, e);
             } catch (UnirestException ex) {
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "UnirestException when loading FM");
+                AILogger.errorLog(ex, e, this.getClass().getName(), "UnirestException when loading FM");
             } catch (IOException ex) {
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "IoException when loading FM");
+                AILogger.errorLog(ex, e, this.getClass().getName(), "IoException when loading FM");
             }
         }
     }

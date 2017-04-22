@@ -14,7 +14,7 @@ import Audio.Music;
 import static Main.Main.commands;
 import Resource.Emoji;
 import Setting.RateLimiter;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import net.dv8tion.jda.core.entities.ChannelType;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -53,7 +53,7 @@ public class CommandListener extends ListenerAdapter {
             GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=", 50);
             Main.guilds.put(e.getGuild().getId(), newGuild);
             e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
-            SmartLogger.updateLog("\tNew Server: " + e.getGuild().getId() + " " + e.getGuild().getName());
+            AILogger.updateLog("\tNew Server: " + e.getGuild().getId() + " " + e.getGuild().getName());
         }
         
         /*

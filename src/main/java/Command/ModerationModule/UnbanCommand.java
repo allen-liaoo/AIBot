@@ -9,7 +9,7 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -74,7 +74,7 @@ public class UnbanCommand implements Command{
                 if (!selfMember.hasPermission(Permission.BAN_MEMBERS))
                     e.getTextChannel().sendMessage(Emoji.error + " I need to have **Ban Members* Permission to unban members.").queue();
 
-                SmartLogger.commandLog(e, "UnbanCommand", "Called to unban " + args.length + " users.");
+                AILogger.commandLog(e, "UnbanCommand", "Called to unban " + args.length + " users.");
 
                 for (String userId : args)
                 {
@@ -103,7 +103,7 @@ public class UnbanCommand implements Command{
                 }
             } catch (Exception ex) {
                 e.getTextChannel().sendMessage(Emoji.error + " Cannot find this (these) member!\n").queue();
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "Can't find member.");
+                AILogger.errorLog(ex, e, this.getClass().getName(), "Can't find member.");
             }
             
         }

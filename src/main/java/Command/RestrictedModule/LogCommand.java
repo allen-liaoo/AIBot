@@ -12,7 +12,7 @@ import Resource.Emoji;
 import Resource.FilePath;
 import Resource.Constants;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -104,7 +104,7 @@ public class LogCommand implements Command {
                 }
 
             } catch (IOException io) {
-                SmartLogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting logs.");
+                AILogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting logs.");
             }
         }
         else {

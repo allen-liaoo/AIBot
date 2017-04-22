@@ -10,7 +10,7 @@ import static Command.Command.embed;
 import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -66,7 +66,7 @@ public class HangManCheaterCommand implements Command {
         
         else
         {
-            SmartLogger.commandLog(e, this.getClass().getName(), "Called by " + e.getAuthor().getName());
+            AILogger.commandLog(e, this.getClass().getName(), "Called by " + e.getAuthor().getName());
             //Initialize
             String word = args[0], miss = args[1];
             
@@ -107,7 +107,7 @@ public class HangManCheaterCommand implements Command {
                 }
             
                 } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at Checking missed letters.");
+                AILogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at Checking missed letters.");
             }
             
             //Check if the known position has the same letters

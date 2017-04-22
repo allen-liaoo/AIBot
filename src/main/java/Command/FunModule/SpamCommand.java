@@ -10,6 +10,7 @@ package Command.FunModule;
 import Command.Command;
 import Resource.Constants;
 import Resource.Emoji;
+import Setting.Prefix;
 import Utility.UtilNum;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,12 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class SpamCommand implements Command {
 
+    public final static String HELP = "Spam yummy spams!\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "spam`\n"
+                                    + "Parameter: `-h | [Number] | @Mention(s) | null`\n"
+                                    + "[Number]: Spam an amount of spams.\n"
+                                    + "@Mention(s): Spam spams to mentioned member(s) in dm.\n";
+    
     private HashMap<String, Integer> spamcount = new HashMap<String, Integer>();
     
     @Override
@@ -41,9 +48,14 @@ public class SpamCommand implements Command {
             help(e);
         }
         
-        else if(args.length > 0)
+        else
         {
-            if(UtilNum.isInteger(args[0])) {
+            //No number specified
+            if(args.length == 0) {
+                e.getChannel().sendMessage(Constants.IMAGE_SPAM_1).queue();
+            }
+            //Number of spams specified
+            else if(UtilNum.isInteger(args[0])) {
                 int num = Integer.parseInt(args[0]);
                 String image = "";
 
@@ -58,8 +70,9 @@ public class SpamCommand implements Command {
 
                 e.getChannel().sendMessage(image).queue();
             }
-            else {
-                
+            //Target Specified
+            else 
+            {
                 if(spamcount.containsKey(e.getAuthor().getId()) && spamcount.get(e.getAuthor().getId()) > 3) {
                     e.getChannel().sendMessage(Emoji.error + " You can only spam 5 times!\nOtherwise the spam will stink!").queue();
                     return;

@@ -11,7 +11,7 @@ import Audio.AudioTrackWrapper.TrackType;
 import Resource.Emoji;
 import Resource.FilePath;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import com.moandjiezana.toml.Toml;
 import java.io.File;
 import java.util.Iterator;
@@ -37,7 +37,7 @@ public class Radio {
         Music.play(link, e, TrackType.RADIO);
         
         //Log
-        SmartLogger.commandLog(e, "FM#loadFM", "Fm loaded");
+        AILogger.commandLog(e, "FM#loadFM", "Fm loaded");
         System.out.println("Radio#loadRadio --> " + link);
     }
     

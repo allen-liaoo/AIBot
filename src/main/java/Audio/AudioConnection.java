@@ -7,7 +7,7 @@ package Audio;
 
 import Resource.Emoji;
 import Main.*;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackState;
 
 import net.dv8tion.jda.core.entities.VoiceChannel;
@@ -56,7 +56,7 @@ public class AudioConnection {
             return;
         } catch (PermissionException pe) {
             e.getChannel().sendMessage(Emoji.error + " I don't have the permission to join `" + Main.guilds.get(e.getGuild().getId()).getVc().getName() + "`.").queue();
-            SmartLogger.errorLog(pe, e, "AudioConnection", "Do not have permission to join a voice channel");
+            AILogger.errorLog(pe, e, "AudioConnection", "Do not have permission to join a voice channel");
             return;
         }
         

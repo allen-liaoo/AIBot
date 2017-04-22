@@ -9,7 +9,7 @@ import Resource.Emoji;
 import Setting.Prefix;
 import Resource.Constants;
 import Command.Command;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -75,7 +75,7 @@ public class PruneCommand implements Command{
             Integer msgs = new Integer(0);
             try {
                 msgs = Integer.parseInt(args[0]);
-                SmartLogger.commandLog(e, "PruneCommand", "Called to prune " + msgs + " messages.");
+                AILogger.commandLog(e, "PruneCommand", "Called to prune " + msgs + " messages.");
             } catch (NumberFormatException nfe) {
                 e.getChannel().sendMessage(Emoji.error + " Please enter a valid number.").queue();
             }

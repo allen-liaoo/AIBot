@@ -45,6 +45,7 @@
 [Fun Commands Description](Command/FunModule/FunCommands.md) <br />
 - 8ball - Ask the magic 8ball a question. *
 - face - Lenny * 
+- spam - Spam yummy spams! *
 - game - Play a game. 
     - rockpaperscissors (rps) - Play Rock Paper Scissors with the bot. * 
     - guessnum (gn) - Guess a number! *

@@ -12,7 +12,7 @@ import Resource.Constants;
 import Utility.SearchResult;
 import Command.Command;
 import Main.*;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
@@ -83,10 +83,10 @@ public class ImageCommand implements Command{
                 e.getChannel().sendMessage(result.get(0).getLink()).queue();
                 
             } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "IO Exception.");
+                AILogger.errorLog(ioe, e, this.getClass().getName(), "IO Exception.");
             } catch (IndexOutOfBoundsException iobe) {
                 e.getChannel().sendMessage(Emoji.error + " No result.").queue();
-                SmartLogger.errorLog(iobe, e, this.getClass().getName(), "Image Search \""+ args[0] +"\" No Result.");
+                AILogger.errorLog(iobe, e, this.getClass().getName(), "Image Search \""+ args[0] +"\" No Result.");
             }
         }
         

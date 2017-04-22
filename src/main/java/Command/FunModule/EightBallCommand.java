@@ -11,7 +11,7 @@ import Setting.Prefix;
 import Main.*;
 import Resource.Emoji;
 import Resource.FilePath;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import Utility.UtilNum;
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -87,7 +87,7 @@ public class EightBallCommand implements Command{
                 }
                 reader.close();
             } catch (IOException io) {
-                SmartLogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at reading line numbers");
+                AILogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at reading line numbers");
         }
         int magic = UtilNum.randomNum(0, totalline), line = 0;
         
@@ -103,7 +103,7 @@ public class EightBallCommand implements Command{
             reader.close();
                 
         } catch (IOException io) {
-            SmartLogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting response.");
+            AILogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting response.");
         }
         return respond;
     }

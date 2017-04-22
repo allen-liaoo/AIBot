@@ -41,6 +41,12 @@ Command Usage: =userinfo or =ui
 Parameter: `-h | -m | @mention(s) | null
 ```
 
+- servers - Get a list of servers this bot is in. *
+```This command is for getting a list of servers this bot is in.
+Command Usage: =servers
+Parameter: -h | null
+```
+
 - prefix - Set the server prefix. (Under Development)
 ```This command is for setting the prefix.
 Command Usage: =prefix

@@ -51,7 +51,7 @@ public class UtilBot {
             set = "No Game";
         }
         Main.jda.getPresence().setGame(g);
-        SmartLogger.updateLog("Bot Game set to " + set);
+        AILogger.updateLog("Bot Game set to " + set);
         return set;
     }
 
@@ -89,7 +89,7 @@ public class UtilBot {
                 break;
         }
         Main.jda.getPresence().setStatus(status);
-        SmartLogger.updateLog("Bot Status set to " + status.toString());
+        AILogger.updateLog("Bot Status set to " + status.toString());
         return status;
     }
     

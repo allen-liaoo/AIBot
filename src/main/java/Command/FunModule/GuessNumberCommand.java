@@ -11,7 +11,7 @@ import Game.GuessNumber;
 import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -77,7 +77,7 @@ public class GuessNumberCommand implements Command{
                     e.getChannel().sendMessage(Emoji.error + " Game haven't started yet!").queue();
             } catch(NullPointerException en) {
                 e.getChannel().sendMessage(Emoji.error + " Game haven't started yet!").queue();
-                SmartLogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
+                AILogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
             }
         }
     }

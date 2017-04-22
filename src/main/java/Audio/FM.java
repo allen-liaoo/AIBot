@@ -12,7 +12,7 @@ import Main.Main;
 import Resource.Emoji;
 import Resource.FilePath;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.BufferedReader;
@@ -83,7 +83,7 @@ public class FM {
         Main.guilds.get(e.getGuild().getId()).getScheduler().autoPlay();
         
         //Log
-        SmartLogger.commandLog(e, "FM#loadFM", "Fm loaded");
+        AILogger.commandLog(e, "FM#loadFM", "Fm loaded");
     }
     
     

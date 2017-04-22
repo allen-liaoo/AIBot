@@ -10,7 +10,7 @@ import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
 import Main.*;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.io.*;  
 import java.time.Instant;
@@ -164,7 +164,7 @@ public class SourceCommand implements Command{
                     e.getChannel().sendMessage(Emoji.error + " `" + args[0] + "/" + args[1] +  "` does not exist.").queue();
                     
                 } catch(Exception ex){
-                    SmartLogger.errorLog(ex, e, this.getClass().getName(), "Unspecified Exception.");
+                    AILogger.errorLog(ex, e, this.getClass().getName(), "Unspecified Exception.");
                 }  
                 
                 fromOrig = 0;

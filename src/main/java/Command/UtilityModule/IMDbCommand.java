@@ -15,7 +15,7 @@ import Utility.Search;
 import Utility.SearchResult;
 import Utility.UtilNum;
 import Utility.WebScraper;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
@@ -77,7 +77,7 @@ public class IMDbCommand implements Command {
                 e.getChannel().sendMessage("Searching........").complete().editMessage(imdbinfo.build()).complete();
                 imdbinfo.clearFields();
             } catch (IOException ex) {
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "Input is " + input);
+                AILogger.errorLog(ex, e, this.getClass().getName(), "Input is " + input);
             } catch (IndexOutOfBoundsException ioobe) {
                 e.getChannel().sendMessage(Emoji.error + " An error occured. Please enter a valid IMDb **title**.").queue();
             }
@@ -155,7 +155,7 @@ public class IMDbCommand implements Command {
                 characters = "";
                 
             } catch (IOException ex) {
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "Input is " + input);
+                AILogger.errorLog(ex, e, this.getClass().getName(), "Input is " + input);
             }
         }
     }

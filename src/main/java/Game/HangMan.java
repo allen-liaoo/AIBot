@@ -8,7 +8,7 @@ package Game;
 import Main.Main;
 import Resource.Emoji;
 import Resource.FilePath;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import Utility.UtilNum;
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -90,7 +90,7 @@ public class HangMan implements Game{
             ranword = "";
             
         } catch (IOException ioe) {
-            SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferReeader at startGame()");
+            AILogger.errorLog(ioe, e, this.getClass().getName(), "BufferReeader at startGame()");
         }
         
         embedstart.setColor(Color.green);

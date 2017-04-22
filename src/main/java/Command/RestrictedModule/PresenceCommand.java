@@ -10,7 +10,7 @@ import Command.*;
 import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import Utility.UtilBot;
 import java.awt.Color;
 import java.time.Instant;
@@ -103,7 +103,7 @@ public class PresenceCommand implements Command {
                         status = UtilBot.setStatus(args[0]);
                     } catch (IllegalArgumentException iae) {
                         e.getChannel().sendMessage(Emoji.error + " Please enter a valid status.").queue();
-                        SmartLogger.errorLog(iae, e, this.getClass().getName(), "Unknown Status");
+                        AILogger.errorLog(iae, e, this.getClass().getName(), "Unknown Status");
                         return;
                     }
                     

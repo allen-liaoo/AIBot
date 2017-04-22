@@ -10,7 +10,7 @@ import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
 import Resource.FilePath;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import Utility.UtilNum;
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -78,7 +78,7 @@ public class FaceCommand implements Command{
                 num = UtilNum.randomNum(1, lines);
                 if(num % 2 != 0) num += 1; //Make the random number always even
             } catch (IOException io) {
-                SmartLogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting sum of line numbers.");
+                AILogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting sum of line numbers.");
             }
             
             try {
@@ -92,7 +92,7 @@ public class FaceCommand implements Command{
                 reader.close();
                 
             } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at getting face.");
+                AILogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at getting face.");
             }
             
             e.getChannel().sendMessage(output).queue();
@@ -120,7 +120,7 @@ public class FaceCommand implements Command{
                         facelistc += output + "\n";
                 }
             } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at -list.");
+                AILogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at -list.");
             }
             
             EmbedBuilder embedfl = new EmbedBuilder();
@@ -164,7 +164,7 @@ public class FaceCommand implements Command{
                     }
                 }
             } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at specified face.");
+                AILogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at specified face.");
             }
             
             if(output != null)

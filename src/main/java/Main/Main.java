@@ -18,7 +18,7 @@ import Command.RestrictedModule.*;
 import Listener.*;
 import Audio.*;
 import Resource.Constants;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import com.mashape.unirest.http.Unirest;
 import java.io.IOException;
 
@@ -68,7 +68,7 @@ public class Main {
             startUp();
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
             e.printStackTrace();
-            SmartLogger.updateLog("Exception thrown while logging.");
+            AILogger.updateLog("Exception thrown while logging.");
         }
     }
     
@@ -78,13 +78,13 @@ public class Main {
         addCommands();
         ConsoleListener console = new ConsoleListener();
         
-        SmartLogger.updateLog("Bot Start Up. Commands Added.");
+        AILogger.updateLog("Bot Start Up. Commands Added.");
     }
     
     public static void shutdown() throws IOException
     {
         System.out.println("Bot Shut Down Successfully");
-        SmartLogger.updateLog("Bot Shut Down Successfully");
+        AILogger.updateLog("Bot Shut Down Successfully");
         
         Unirest.shutdown();
         jda.shutdown();
@@ -106,6 +106,7 @@ public class Main {
         commands.put("userinfo", new InfoUserCommand());
         commands.put("ui", new InfoUserCommand());
         
+        commands.put("server", new ServerCommand());
         commands.put("prefix", new PrefixCommand());
         commands.put("ping", new PingCommand());
         

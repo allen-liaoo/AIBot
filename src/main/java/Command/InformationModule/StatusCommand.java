@@ -119,7 +119,7 @@ public class StatusCommand implements Command{
                 embedstatus.addField(Emoji.text + " Text Channels", String.valueOf(textchannels), true);
                 embedstatus.addField(Emoji.privatespy + " Private Channels", String.valueOf(privatechannels), true);
                 embedstatus.addField(Emoji.music + " Voice Channels", String.valueOf(audiochannels), true);
-                embedstatus.addField(Emoji.notes + " Playing Music in", String.valueOf(voicechannels) + " voice channels", true);
+                embedstatus.addField(Emoji.notes + " Playing Music in", String.valueOf(voicechannels) + " voice channel(s)", true);
                 embedstatus.addField("More...", more, true);
                 embedstatus.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embedstatus.setTimestamp(Instant.now());

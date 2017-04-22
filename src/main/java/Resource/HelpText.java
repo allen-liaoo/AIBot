@@ -22,6 +22,7 @@ public class HelpText {
             + "**serverinfo (si)**\n"
             + "**channelinfo (ci)**\n\n"
             + "**userinfo (ui)**\n"
+            + "**server**\n"
             + "**prefix**\n"
             + "**ping**\n"
             + "**about**\n"
@@ -35,6 +36,7 @@ public class HelpText {
             + "Get server info.\n"
             + "Get channel info. \n(Text/Voice Channel)\n"
             + "Get user info. *\n"
+            + "Get a list of servers the bot is in. *\n"
             + "Get the bot's prefix. *\n"
             + "Pong. *\n"
             + "Bot description. *\n"
@@ -113,6 +115,7 @@ public class HelpText {
     public final static String FUN_CMD = 
             "**8ball**\n"
             + "**face**\n"
+            + "**spam**\n"
             //Command Group- Game
             + "***game***\n"
             + "*rockpaperscissors (rps)*\n\n"
@@ -124,6 +127,7 @@ public class HelpText {
     public final static String FUN_DES = 
             "Ask the magic 8ball a question. *\n"
             + "( ͡° ͜ʖ ͡°) *\n"
+            + "Spam yummy spams! *\n"
             //Command Group- Game
             + "Play a game. *\n"
             + "Play Rock Paper Scissors \nwith the bot. *\n"

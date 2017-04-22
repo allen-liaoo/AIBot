@@ -9,7 +9,7 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import com.github.fedy2.weather.*;
 import com.github.fedy2.weather.data.*;
 import com.github.fedy2.weather.data.unit.*;
@@ -132,12 +132,12 @@ public class WeatherCommand implements Command{
                 e.getChannel().sendMessage(mew).queue();
                 embedw.clearFields();
             } catch (JAXBException ex) {
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "Occurs parsing the response.");
+                AILogger.errorLog(ex, e, this.getClass().getName(), "Occurs parsing the response.");
             } catch (IOException ex) {
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "Occurs communicating with the service.");
+                AILogger.errorLog(ex, e, this.getClass().getName(), "Occurs communicating with the service.");
             } catch (IndexOutOfBoundsException ioobe) {
                 e.getChannel().sendMessage(Emoji.error + " No result.").queue();
-                SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Could not get an variable.");
+                AILogger.errorLog(ioobe, e, this.getClass().getName(), "Could not get an variable.");
             }
 
             

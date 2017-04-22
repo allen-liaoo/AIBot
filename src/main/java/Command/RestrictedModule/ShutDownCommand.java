@@ -10,7 +10,7 @@ import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
 import Main.*;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
@@ -60,10 +60,10 @@ public class ShutDownCommand implements Command{
                 try {
                     Thread.sleep(2000);
                     
-                    SmartLogger.updateLog("Bot Shut Down Attemp");
+                    AILogger.updateLog("Bot Shut Down Attemp");
                     Main.shutdown();
                 } catch (InterruptedException ite) {
-                    SmartLogger.errorLog(ite, e, this.getClass().getName(), "Thread Sleep process interrupted.");
+                    AILogger.errorLog(ite, e, this.getClass().getName(), "Thread Sleep process interrupted.");
                 } catch (IOException ex) {
                     Logger.getLogger(ShutDownCommand.class.getName()).log(Level.SEVERE, null, ex);
                 }

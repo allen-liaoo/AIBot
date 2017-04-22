@@ -9,6 +9,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - UtilTool: capTokens for capitalizing every first letter of the regex split.
 - DumpCommand for clearing the queue.
 - UtilBot for bot utilities like setting status, game or getting connected voice channels
+- ServerCommand for getting a well organized list of servers the bot is in, in a code block.
 ##### Fixed
 - Prevent the bot to do any action when an member is not in the same voice channel 
   as the bot, but request the bot to skip, stop, join, or leave.

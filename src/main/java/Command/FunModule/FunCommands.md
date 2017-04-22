@@ -14,6 +14,14 @@ null: Get a random face.
 -list: Get a list of faces and their names in your Direct Message.
 ```
 
+- spam - Spam yummy spams! *
+```Spam yummy spams!
+Command Usage: =spam
+Parameter: `-h | [Number] | @Mention(s) | null`\n"
+[Number]: Spam an amount of spams.
+@Mention(s): Spam spams to mentioned member(s) in dm.
+```
+
 - game - Play a game. 
     - rockpaperscissors (rps) - Play Rock Paper Scissors with the bot. * 
     ```Play Rock Paper Scissors with the bot!

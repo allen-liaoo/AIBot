@@ -13,7 +13,7 @@ import Utility.SearchResult;
 import Utility.Search;
 import Utility.UtilNum;
 import Utility.WebScraper;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
@@ -73,7 +73,7 @@ public class LyricsCommand implements Command{
             try {
                 results = Search.lyricsSearch(input);
             } catch (IOException ex) {
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "IO Exception");
+                AILogger.errorLog(ex, e, this.getClass().getName(), "IO Exception");
             }
             
             //Get Lyrics
@@ -110,9 +110,9 @@ public class LyricsCommand implements Command{
                 
             } catch (IndexOutOfBoundsException ioobe) {
                 e.getChannel().sendMessage(Emoji.error + " No result.").queue();
-                SmartLogger.errorLog(ioobe, e, this.getClass().getName(), "Lyrics Search, no result- " + input);
+                AILogger.errorLog(ioobe, e, this.getClass().getName(), "Lyrics Search, no result- " + input);
             } catch (IOException ioe) {
-                SmartLogger.errorLog(ioe, e, this.getClass().getName(), "Unknown Cause");
+                AILogger.errorLog(ioe, e, this.getClass().getName(), "Unknown Cause");
             }
         }
     }

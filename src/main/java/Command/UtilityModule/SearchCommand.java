@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import Main.*;
 import Utility.Search;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -77,7 +77,7 @@ public class SearchCommand implements Command{
         }
         else
         {
-            SmartLogger.commandLog(e, "SearchCommand", "Called");
+            AILogger.commandLog(e, "SearchCommand", "Called");
             
             try {
                 if("&as_sitesearch=".equals(site) && args.length >= 2) //Custom Site Search
@@ -118,10 +118,10 @@ public class SearchCommand implements Command{
                 }
                 
             } catch (IOException ex) {
-                SmartLogger.errorLog(ex, e, this.getClass().getName(), "IO Exception");
+                AILogger.errorLog(ex, e, this.getClass().getName(), "IO Exception");
             } catch (IndexOutOfBoundsException iobe) {
                 e.getChannel().sendMessage(Emoji.error + " No result.").queue();
-                SmartLogger.errorLog(iobe, e, this.getClass().getName(), "Web Search \""+ args[0] +"\" No Result.");
+                AILogger.errorLog(iobe, e, this.getClass().getName(), "Web Search \""+ args[0] +"\" No Result.");
             }
         }
         

@@ -1,7 +1,7 @@
 /* 
  * AIBot by AlienIdeology
  * 
- * SmartLogger
+ * AILogger
  * Log when commands called, error occured, or bot joined a server
  */
 package Utility;
@@ -20,7 +20,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class SmartLogger {
+public class AILogger {
 
     public static Logger startLogger = Logger.getLogger(Main.class.getName());
     public static Logger errorLogger = Logger.getLogger("Error");

@@ -10,7 +10,7 @@ import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
 import Game.HangMan;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -56,7 +56,7 @@ public class HangManCommand implements Command{
         
         else if(args.length > 0 && "start".equals(args[0]))
         {
-            SmartLogger.commandLog(e, this.getClass().getName(), "HangMan Started.");
+            AILogger.commandLog(e, this.getClass().getName(), "HangMan Started.");
             game = new HangMan(e);
         }
         
@@ -74,7 +74,7 @@ public class HangManCommand implements Command{
                 game.sendInput(args, e);
             } catch(NullPointerException en) {
                 e.getChannel().sendMessage(Emoji.error + " Game haven't started yet!").queue();
-                SmartLogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
+                AILogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
             }
         }
     }

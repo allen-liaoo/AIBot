@@ -11,12 +11,46 @@ import Resource.Emoji;
 import Resource.Constants;
 import Utility.UtilNum;
 import Utility.WebScraper;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import Utility.UtilString;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;;
 import java.io.IOException;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+import java.time.Instant;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+import java.time.Instant;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;import java.io.IOException;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
@@ -80,7 +114,7 @@ public class Music  {
         if(!e.getMember().getVoiceState().inVoiceChannel())
             return;
         
-        SmartLogger.commandLog(e, "Music#Play", "Music played for " + link);
+        AILogger.commandLog(e, "Music#Play", "Music played for " + link);
         
         if(m.find()){
             try {
@@ -105,13 +139,13 @@ public class Music  {
                     @Override
                     public void loadFailed(FriendlyException exception) {
                         e.getTextChannel().sendMessage(Emoji.error + " Fail to load the video " + link).queue();
-                        SmartLogger.errorLog(exception, e, this.getClass().getName(), "Failed to load this video: " + link);
+                        AILogger.errorLog(exception, e, this.getClass().getName(), "Failed to load this video: " + link);
                     }
                 }).get();
             } catch (InterruptedException ex) {
-                SmartLogger.errorLog(ex, e, "Music#play", "Interrupted when retrieving AudioTrack");
+                AILogger.errorLog(ex, e, "Music#play", "Interrupted when retrieving AudioTrack");
             } catch (ExecutionException ex) {
-                SmartLogger.errorLog(ex, e, "Music#play", "ExecutionException when retrieving AudioTrack");
+                AILogger.errorLog(ex, e, "Music#play", "ExecutionException when retrieving AudioTrack");
             }
         }
         else
@@ -249,7 +283,7 @@ public class Music  {
         try {
             embedBuilder.setImage(WebScraper.getYouTubeThumbNail(track.getTrack().getInfo().uri));
         } catch (IOException ex) {
-            SmartLogger.errorLog(ex, e, "Music#trackInfo", "IOException on getting thumbnail of " + track.getTrack().getInfo().uri);
+            AILogger.errorLog(ex, e, "Music#trackInfo", "IOException on getting thumbnail of " + track.getTrack().getInfo().uri);
         } catch (ArrayIndexOutOfBoundsException aioobe) {
             
         }

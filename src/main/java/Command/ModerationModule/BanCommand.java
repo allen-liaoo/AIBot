@@ -9,7 +9,7 @@ import Command.Command;
 import Resource.Emoji;
 import Resource.Constants;
 import Setting.Prefix;
-import Utility.SmartLogger;
+import Utility.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -77,7 +77,7 @@ public class BanCommand implements Command{
                 e.getTextChannel().sendMessage(Emoji.error + " I need to have **Ban Members* Permission to ban members.").queue();
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             
-            SmartLogger.commandLog(e, "BanCommand", "Called to ban " + mentionedUsers.size() + " users.");
+            AILogger.commandLog(e, "BanCommand", "Called to ban " + mentionedUsers.size() + " users.");
             
             for (User user : mentionedUsers)
             {
