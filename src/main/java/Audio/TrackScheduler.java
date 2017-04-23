@@ -85,32 +85,6 @@ public class TrackScheduler extends AudioEventAdapter {
         this.Mode = PlayerMode.DEFAULT;
   }
 
-  /**
-   * Add the next track to queue or play right away if nothing is in the queue.
-   *
-   * @param track The track to play or add to queue.
-   * @param e
-   */
-    public void queue(AudioTrackWrapper track, MessageReceivedEvent e) {
-    // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
-    // something is playing, it returns false and does nothing. In that case the player was already playing so this
-    // track goes to the queue instead.
-    
-        if(this.Mode == PlayerMode.FM) {
-            e.getChannel().sendMessage(Emoji.error + " FM mode is ON! Only request radio or songs when FM is not playing.").queue();
-            return;
-        }
-        
-        this.Mode = PlayerMode.NORMAL;
-        
-        if (!player.startTrack(track.getTrack(), true)) {
-            queue.offer(track);
-            e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getTrack().getInfo().title + "`").queue();
-            return;
-        }
-        NowPlayingTrack = track;
-  }
-
     /**
      * Start the next track, stopping the current one if it is playing.
      */
@@ -130,25 +104,86 @@ public class TrackScheduler extends AudioEventAdapter {
         }
     }
 
+    /**
+     * Show now playing message
+     * @param player
+     * @param track
+     */
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
         super.onTrackStart(player, track);
-        tc.sendMessage(Emoji.notes + " Now playing `" + track.getInfo().title + "`").queue();
+        if(tc!=null)
+            tc.sendMessage(Emoji.notes + " Now playing `" + track.getInfo().title + "`").queue();
     }
 
+    /**
+     * Determine the player mode and start the next track
+     * @param player
+     * @param track
+     * @param endReason
+     */
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
-        skipper.clear();
+        clearVote();
         if (endReason.mayStartNext) {
-            if(Mode == PlayerMode.FM) {
-                autoPlay();
-            }
-            else {
-                nextTrack();
-            }
+            nextTrack();
         }
-        System.out.println("Track Ended: " + track.getInfo().title);
+        System.out.println("Track Ended: " + track.getInfo().title + " By reason: " + endReason.toString());
+    }
+
+    /**
+     *Inform the user that track has stuck
+     * @param player
+     * @param track
+     * @param thresholdMs
+     */
+    @Override
+    public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
+        super.onTrackStuck(player, track, thresholdMs);
+        if(tc!=null)
+            tc.sendMessage(Emoji.error + " Track stuck! Skipping to the next track...").queue();
+        nextTrack();
+    }
+
+    /**
+     * Inform the user that track has thrown an exception
+     * @param player
+     * @param track
+     * @param exception
+     */
+    @Override
+    public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
+        super.onTrackException(player, track, exception);
+        
+        if(tc!=null)
+            tc.sendMessage(Emoji.error + " An error occurred!\n```\n\n" + exception.getMessage()+"```").queue();
+    }
+    
+    /**
+     * Add the next track to queue or play right away if nothing is in the queue.
+     *
+     * @param track The track to play or add to queue.
+     * @param e
+     */
+    public void queue(AudioTrackWrapper track, MessageReceivedEvent e) {
+        // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
+        // something is playing, it returns false and does nothing. In that case the player was already playing so this
+        // track goes to the queue instead.
+
+        if(this.Mode == PlayerMode.FM) {
+            e.getChannel().sendMessage(Emoji.error + " FM mode is ON! Only request radio or songs when FM is not playing.").queue();
+            return;
+        }
+
+        this.Mode = PlayerMode.NORMAL;
+
+        if (!player.startTrack(track.getTrack(), true)) {
+            queue.offer(track);
+            e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getTrack().getInfo().title + "`").queue();
+            return;
+        }
+        NowPlayingTrack = track;
     }
     
     public void autoPlay() {
@@ -156,44 +191,44 @@ public class TrackScheduler extends AudioEventAdapter {
         
         while (auto == previous) {
             auto = UtilNum.randomNum(0, fmSongs.size()-1);
+            System.out.println(auto);
         }
         previous = auto;
         String url = fmSongs.get(auto);
         
-        try {
-            Matcher m = Music.urlPattern.matcher(url);
-            if (m.find()) {
-                Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
-                    @Override
-                    public void trackLoaded(AudioTrack track) {
-                        NowPlayingTrack = new AudioTrackWrapper(track, "AIBot FM", AudioTrackWrapper.TrackType.FM);
-                        player.startTrack(track, false);
-                    }
+        Matcher m = Music.urlPattern.matcher(url);
+        if (m.find()) {
+            Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
+                @Override
+                public void trackLoaded(AudioTrack track) {
+                    NowPlayingTrack = new AudioTrackWrapper(track, "AIBot FM", AudioTrackWrapper.TrackType.FM);
+                    player.startTrack(track, false);
+                }
 
-                    @Override
-                    public void playlistLoaded(AudioPlaylist playlist) {
-                        addPlayList(playlist, "AIBot FM");
-                    }
+                @Override
+                public void playlistLoaded(AudioPlaylist playlist) {
+                    addPlayList(playlist, "AIBot FM");
+                }
 
-                    @Override
-                    public void noMatches() {
-                        tc.sendMessage(Emoji.error + " No match found.").queue();
-                    }
+                @Override
+                public void noMatches() {
+                    tc.sendMessage(Emoji.error + " No match found.").queue();
+                }
 
-                    @Override
-                    public void loadFailed(FriendlyException exception) {
-                        tc.sendMessage(Emoji.error + " Fail to load the video.").queue();
-                        AILogger.errorLog(exception, null, this.getClass().getName(), "Failed to load fm");
-                    }
-                }).get();
-            }
-        } catch (InterruptedException ex) {
-            AILogger.errorLog(ex, null, "Music#play", "Interrupted when retrieving AudioTrack");
-        } catch (ExecutionException ex) {
-            AILogger.errorLog(ex, null, "Music#play", "ExecutionException when retrieving AudioTrack");
+                @Override
+                public void loadFailed(FriendlyException exception) {
+                    tc.sendMessage(Emoji.error + " Fail to load the video.").queue();
+                    AILogger.errorLog(exception, null, this.getClass().getName(), "Failed to load fm");
+                }
+            });
         }
     }
     
+    /**
+     * Add the play list to the queue
+     * @param list
+     * @param requester
+     */
     public void addPlayList(AudioPlaylist list, String requester) {
         List<AudioTrack> tracklist = list.getTracks();
         

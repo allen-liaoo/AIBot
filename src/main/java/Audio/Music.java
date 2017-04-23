@@ -223,7 +223,7 @@ public class Music  {
         
         embedBuilder.addField("Song Duration:", trackTime, true);
         embedBuilder.addField("Track Type:", track.getType().toString(), true);
-        embedBuilder.addField("Stream:", trackInfo.isStream + "", true);
+        embedBuilder.addField("Stream:", UtilString.VariableToString(null, trackInfo.isStream+"") + "", true);
         embedBuilder.addField("Requested by:", track.getRequester(), true);
         embedBuilder.setThumbnail(Constants.B_AVATAR);
         embedBuilder.setTimestamp(Instant.now());
@@ -280,6 +280,7 @@ public class Music  {
                 e.getChannel().sendMessage("The queue is currently empty, and there is no song playing.").queue();
                 return;
             }
+            embed.addField("Coming Next", songs, false);
         }
         else
         {   
@@ -297,22 +298,21 @@ public class Music  {
             }
             
             String mode = Main.guilds.get(e.getGuild().getId()).getScheduler().getMode().toString();
-            embed.addField("Coming Next", "**Player Mode:** " + mode + "\n**Queue Count:** " + count, false);
+            songs += "**Player Mode:** " + mode + "\n**Queue Count:** " + count + "\n\n";
             
             //AIPages
             AIPages pages = new AIPages(queueList);
             List<AudioTrackWrapper> song = pages.getPage(page);
-            System.out.println(pages.getList().size() + " " + pages.getPageSize() + " " + pages.getPages() + " " + song.size());
-            String songQueue = "";
             
             //Add each queued songs to songQueue
             for(int i = 0; i < song.size(); i++) {
                 AudioTrackWrapper wrap = song.get(i);
                 String title = wrap.getTrack().getInfo().title;
                 String url = wrap.getTrack().getInfo().uri;
-                songQueue = (i+1)+". **["+title+"]("+url+")**\n";
+                int index = (page-1) * pages.getPageSize() +1;
+                songs += "`"+(i+index)+".` **["+title+"]("+url+")**\n";
             }
-            embed.setDescription(songQueue);
+            embed.addField("Coming Next (Page " + page + " / " + pages.getPages() +")", songs, false);
         }
         
         String durationWithoutRadio = "";
@@ -321,9 +321,9 @@ public class Music  {
         else
             durationWithoutRadio = " / " + UtilString.formatDuration(duration);
         
-        embed.setAuthor("Queue List " + 
+        embed.setAuthor("Queue List (" + 
                 UtilString.formatDuration(position) + 
-                durationWithoutRadio
+                durationWithoutRadio + ")"
                 , Constants.B_INVITE, Constants.B_AVATAR);
         embed.setColor(UtilNum.randomColor());
         embed.setThumbnail(Constants.B_AVATAR);

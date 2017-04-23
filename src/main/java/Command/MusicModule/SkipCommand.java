@@ -77,8 +77,7 @@ public class SkipCommand implements Command {
         else if("-f".equals(args[0]))
         {
             if(e.getMember().isOwner() || 
-                e.getMember().hasPermission(Permission.ADMINISTRATOR) || 
-                e.getMember().hasPermission(Permission.MANAGE_SERVER) || 
+                e.getMember().hasPermission(Constants.PERM_MOD) ||
                 Constants.D_ID.equals(e.getAuthor().getId()))
             {
                 Music.skip(e, 0, true);

@@ -80,7 +80,7 @@ public class StatusCommand implements Command{
                 int guild, textchannels, privatechannels, audiochannels, voicechannels;
 
                 avatar = bot.getSelfUser().getAvatarUrl();
-                status = UtilBot.getStatusString(e.getJDA().getPresence().getStatus()) + ", " + UtilString.capSplits("_", bot.getStatus().name());
+                status = UtilBot.getStatusString(e.getJDA().getPresence().getStatus()) + ", " + UtilString.VariableToString("_", bot.getStatus().name());
                 guild = bot.getGuilds().size();
                 textchannels = bot.getTextChannels().size();
                 privatechannels = bot.getPrivateChannels().size();

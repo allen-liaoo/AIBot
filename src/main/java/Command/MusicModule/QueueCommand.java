@@ -21,9 +21,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class QueueCommand implements Command{
-    public final static  String HELP = "This command is getting a list of queued songs\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"queue`\n"
-                                     + "Parameter: `-h | null`";
+    public final static String HELP = "This command is getting a list of queued songs\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"queue`\n"
+                                    + "Parameter: `-h | [Number] | null`\n"
+                                    + "[Number]: Page number of the queue.\n";
 
     @Override
     public void help(MessageReceivedEvent e) {
@@ -51,7 +52,7 @@ public class QueueCommand implements Command{
                 if(args.length != 0)
                     page = Integer.parseInt(args[0]);
                 Music.queueList(e, page);
-            } catch (NumberFormatException npe) {
+            } catch (IllegalArgumentException  | IndexOutOfBoundsException ex) {
                 e.getTextChannel().sendMessage(Emoji.error + " Please enter a valid page number.").queue();
                 return;
             }

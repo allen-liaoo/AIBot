@@ -80,6 +80,14 @@ public class PresenceCommand implements Command {
                         nick = null;
                     else
                         for(String g : args) { nick += g + " ";}
+                    
+                    //Check if the nickname is more than 32 characters
+                    if(nick != null && nick.length()>32) {
+                        e.getChannel().sendMessage(Emoji.error + " Cannot set a nickname that is more than 32 characters. "
+                                + "(Char count: "+nick.length()+")").queue();
+                        return;
+                    }
+                    
                     e.getGuild().getController().setNickname(e.getGuild().getSelfMember(), nick).queue();
 
                     if(nick == null) nick = "null";

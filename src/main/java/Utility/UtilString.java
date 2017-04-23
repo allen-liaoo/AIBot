@@ -16,18 +16,20 @@ import java.util.Locale;
 public class UtilString {
 
     /**
-     * Capitalize every split tokens. Use capSplits("_", Enum.type) to format Enum
+     * Change variable names to readable String.
+     * Use VariableToString("_", Enum.type) to format Enum.
      * @param regex
      * @param input
      * @return
      */
-    public static String capSplits(String regex, String input) {
-        String[] splitting = input.split(regex);
+    public static String VariableToString(String regex, String input) {
+        String[] splitting = new String[] {input};
+        if(regex!=null) splitting = input.split(regex);
         String splitted = "";
         for (String s : splitting) {
-            splitted += s.substring(0, 1).toUpperCase(Locale.ENGLISH) + s.substring(1).toLowerCase(Locale.ENGLISH);
+            splitted += s.substring(0, 1).toUpperCase(Locale.ENGLISH) + s.substring(1).toLowerCase(Locale.ENGLISH) + " ";
         }
-        return splitted;
+        return splitted.substring(0,splitted.length()-1);
     }
 
     /**

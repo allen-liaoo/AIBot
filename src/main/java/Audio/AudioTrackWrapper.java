@@ -28,7 +28,7 @@ public class AudioTrackWrapper {
         
         @Override
         public String toString() {
-            return UtilString.capSplits("_", name());
+            return UtilString.VariableToString("_", name());
         }
     }
     

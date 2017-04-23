@@ -14,9 +14,7 @@ import java.util.List;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
@@ -120,7 +118,7 @@ public class UtilBot {
             default:
                 status = Emoji.guild_offline;
         }
-        status += " " + UtilString.capSplits("_",stat.getKey());
+        status += " " + UtilString.VariableToString("_",stat.getKey());
         return status;
     }
     

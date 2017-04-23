@@ -51,8 +51,7 @@ public class PingCommand implements Command {
             
             String respond = Emoji.ping + " Pong.\n";
             String respond2 = "Current ping `" + ping + "` ms";
-            e.getChannel().sendMessage(respond).queue();
-            e.getChannel().sendMessage(respond2).queue();
+            e.getChannel().sendMessage(respond+respond2).queue();
         }
         else if("-h".equals(args[0]))
         {

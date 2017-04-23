@@ -20,8 +20,6 @@ import Audio.*;
 import Resource.Constants;
 import Utility.AILogger;
 import com.mashape.unirest.http.Unirest;
-import java.io.IOException;
-
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -31,8 +29,7 @@ import net.dv8tion.jda.core.entities.Game;
 
 import java.util.HashMap;
 import javax.security.auth.login.LoginException;
-import net.dv8tion.jda.core.OnlineStatus;
-
+import java.io.IOException;
 
 /**
  *
@@ -88,7 +85,7 @@ public class Main {
         Unirest.shutdown();
         jda.shutdown();
         System.exit(0);
-    }    
+    }
         
     private static void addCommands() {
         // Information Commands

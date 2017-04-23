@@ -71,8 +71,7 @@ public class DumpCommand implements Command {
             
             if(mem <= 2 ||
                 e.getMember().isOwner() || 
-                e.getMember().hasPermission(Permission.ADMINISTRATOR) || 
-                e.getMember().hasPermission(Permission.MANAGE_SERVER) || 
+                e.getMember().hasPermission(Constants.PERM_MOD) ||
                 Constants.D_ID.equals(e.getAuthor().getId()))
             {
                 //Prevent user that is not in the same voice channel from stopping the player

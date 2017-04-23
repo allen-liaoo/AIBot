@@ -24,12 +24,21 @@ public class AIPages<T> {
     
     private final int DEFUALT_PAGE_SIZE = 10;
     
+    /**
+     * Default constructor with known page size
+     * @param list
+     * @param pageSize
+     */
     public AIPages(List<T> list, int pageSize) {
         this.list = list;
         this.pageSize = pageSize;
         calculatePages();
     }
     
+    /**
+     * Constructor with unknown page size
+     * @param list
+     */
     public AIPages(List<T> list) {
         this.list = list;
         this.pageSize = 0;
@@ -37,21 +46,30 @@ public class AIPages<T> {
         calculatePages();
     }
     
+    /**
+     * Constructor with null values.
+     */
     public AIPages() {
         this.list = null;
         this.pageSize = 0;
     }
     
+    /**
+     * Calculate pages for an unknown list.
+     */
     private void calculatePages() {
         if(list == null) return;
         
         if(list.size() % pageSize == 0) {
             pages = list.size() / pageSize;
-        } else  {
+        } else {
             pages = list.size() / pageSize + 1;
         }
     }
     
+    /**
+     * Calculate page size for an unknown list.
+     */
     private void calculatePageSize() {
         if(list == null) return;
         
@@ -66,6 +84,31 @@ public class AIPages<T> {
         pageSize = max;
     }
     
+    /**
+     * Add an item to this list
+     * @param obj the object of this list
+     * @return 
+     */
+    public boolean addItem(T obj) {
+        return list.add(obj);
+    }
+    
+    /**
+     * Set the page size of this object
+     * @param pageSize
+     */
+    public void setPageSize(int pageSize) {
+        if(pageSize > list.size())
+            this.pageSize = list.size();
+        else
+            this.pageSize = pageSize;
+    }
+    
+    /**
+     * Get the page of a specific index
+     * @param page
+     * @return
+     */
     public List<T> getPage(int page) {
         if(page > pages) throw new IndexOutOfBoundsException("Pages: " + pages + " List Size: " + list.size());
         
@@ -83,13 +126,6 @@ public class AIPages<T> {
 
     public int getPageSize() {
         return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        if(pageSize > list.size())
-            this.pageSize = list.size();
-        else
-            this.pageSize = pageSize;
     }
 
     public int getPages() {

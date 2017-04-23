@@ -29,6 +29,11 @@ public class SpamCommand implements Command {
                                     + "[Number]: Spam an amount of spams.\n"
                                     + "@Mention(s): Spam spams to mentioned member(s) in dm.\n";
     
+    public static final String IMAGE_SPAM_1 = "https://upload.wikimedia.org/wikipedia/commons/0/09/Spam_can.png";
+    public static final String IMAGE_SPAM_50 = "http://laab.cl/blog/wp-content/uploads/2015/08/spam.jpg";
+    public static final String IMAGE_SPAM_10 = "http://marketingland.com/wp-content/ml-loads/2016/07/ss-spam.jpg";
+    public static final String IMAGE_SPAM_100 = "http://www.roadpickle.com/wp-content/uploads/wall-of-spam.jpg";
+    
     private HashMap<String, Integer> spamcount = new HashMap<String, Integer>();
     
 
@@ -48,23 +53,13 @@ public class SpamCommand implements Command {
         {
             //No number specified
             if(args.length == 0) {
-                e.getChannel().sendMessage(Constants.IMAGE_SPAM_1).queue();
+                e.getChannel().sendMessage(IMAGE_SPAM_1).queue();
             }
             //Number of spams specified
             else if(UtilNum.isInteger(args[0])) {
                 int num = Integer.parseInt(args[0]);
-                String image = "";
 
-                if(UtilNum.isBetween(num, 1, 9))
-                    image = Constants.IMAGE_SPAM_1;
-                else if(UtilNum.isBetween(num, 10, 30))
-                    image = Constants.IMAGE_SPAM_10;
-                else if(UtilNum.isBetween(num, 30, 70))
-                    image = Constants.IMAGE_SPAM_50;
-                else if(UtilNum.isBetween(num, 70, Integer.MAX_VALUE))
-                    image = Constants.IMAGE_SPAM_100;
-
-                e.getChannel().sendMessage(image).queue();
+                e.getChannel().sendMessage(getSpamByAmount(num)).queue();
             }
             //Target Specified
             else 
@@ -77,13 +72,18 @@ public class SpamCommand implements Command {
                 List<User> mention = e.getMessage().getMentionedUsers();
 
                 for(User u : mention) {
-                    if(u == e.getJDA().getSelfUser())
+                    if(u.getId().equals(e.getJDA().getSelfUser().getId()))
                         continue;
 
+                    if(Constants.D_ID.equals(u.getId())) {
+                        e.getChannel().sendMessage(Emoji.eyes + " How dare you? Spamming my creator!?").queue();
+                        u = e.getAuthor();
+                    }
+                    
                     u.openPrivateChannel().queue(PrivateChannel -> 
                             PrivateChannel.sendMessage("***Warning***\n**" + e.getMember().getEffectiveName() + "#" + e.getAuthor().getDiscriminator()
                             + "** from **" + e.getGuild().getName()
-                            + "** has spammed you!\n" + Constants.IMAGE_SPAM_100).queue());
+                            + "** has spammed you!\n" + IMAGE_SPAM_100).queue());
                 }
                 
                 if(!mention.isEmpty()) {
@@ -96,12 +96,24 @@ public class SpamCommand implements Command {
                 else {
                     e.getChannel().sendMessage(Emoji.error + " Invalid spam! So I spammed **YOU**!").queue();
                     e.getAuthor().openPrivateChannel().queue(PrivateChannel -> 
-                            PrivateChannel.sendMessage("**Punishing Spam**\n" + Constants.IMAGE_SPAM_100).queue());
+                            PrivateChannel.sendMessage("**Punishing Spam**\n" + IMAGE_SPAM_100).queue());
                 }
             }
             
         }
     }
-
+    
+    private String getSpamByAmount(int amount) {
+        if(UtilNum.isBetween(amount, 1, 9))
+            return IMAGE_SPAM_1;
+        else if(UtilNum.isBetween(amount, 10, 30))
+            return IMAGE_SPAM_10;
+        else if(UtilNum.isBetween(amount, 30, 70))
+            return IMAGE_SPAM_50;
+        else if(UtilNum.isBetween(amount, 70, Integer.MAX_VALUE))
+            return IMAGE_SPAM_100;
+        
+        return IMAGE_SPAM_1;
+    }
     
 }
