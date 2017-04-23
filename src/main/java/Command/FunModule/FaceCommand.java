@@ -6,10 +6,10 @@
 package Command.FunModule;
 
 import Command.Command;
-import Resource.Emoji;
-import Resource.Constants;
+import Constants.Emoji;
+import Constants.Constants;
 import Setting.Prefix;
-import Resource.FilePath;
+import Constants.FilePath;
 import Utility.AILogger;
 import Utility.UtilNum;
 import java.awt.Color;

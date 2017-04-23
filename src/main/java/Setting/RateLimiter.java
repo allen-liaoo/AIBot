@@ -6,7 +6,7 @@
  */
 package Setting;
 
-import Resource.Emoji;
+import Constants.Emoji;
 import Utility.UtilNum;
 import Utility.UtilString;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

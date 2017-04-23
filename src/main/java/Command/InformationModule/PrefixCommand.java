@@ -5,9 +5,9 @@
  */
 package Command.InformationModule;
 
-import Resource.Emoji;
+import Constants.Emoji;
 import Setting.Prefix;
-import Resource.Constants;
+import Constants.Constants;
 import Command.Command;
 import Main.*;
 import java.awt.Color;

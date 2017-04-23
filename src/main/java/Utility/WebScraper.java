@@ -6,8 +6,8 @@
  */
 package Utility;
 
-import Resource.Emoji;
-import Resource.Constants;
+import Constants.Emoji;
+import Constants.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

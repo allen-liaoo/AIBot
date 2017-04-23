@@ -4,7 +4,7 @@
  * Emoji
  * Static fields for global uses of Emoji
  */
-package Resource;
+package Constants;
 
 import com.vdurmont.emoji.*;
 

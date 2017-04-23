@@ -7,8 +7,8 @@ package Audio;
 
 import Audio.AudioTrackWrapper.TrackType;
 import Main.Main;
-import Resource.Emoji;
-import Resource.Constants;
+import Constants.Emoji;
+import Constants.Constants;
 import Utility.UtilNum;
 import Utility.WebScraper;
 import Utility.AILogger;

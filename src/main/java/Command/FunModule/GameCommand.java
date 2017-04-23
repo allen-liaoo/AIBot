@@ -7,7 +7,7 @@ package Command.FunModule;
 
 import Command.Command;
 import static Command.Command.embed;
-import Resource.Constants;
+import Constants.Constants;
 import Setting.Prefix;
 import Game.*;
 import java.awt.Color;

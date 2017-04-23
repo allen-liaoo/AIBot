@@ -5,7 +5,7 @@
  */
 package Game;
 
-import Resource.Emoji;
+import Constants.Emoji;
 import Utility.UtilNum;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 

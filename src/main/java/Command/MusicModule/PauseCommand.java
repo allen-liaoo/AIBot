@@ -7,8 +7,8 @@ package Command.MusicModule;
 
 import Command.*;
 import Audio.Music;
-import Resource.Emoji;
-import Resource.Constants;
+import Constants.Emoji;
+import Constants.Constants;
 import Setting.Prefix;
 import Main.Main;
 import java.awt.Color;

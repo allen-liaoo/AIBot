@@ -6,8 +6,8 @@
 package Command.InformationModule;
 
 import Command.*;
-import Resource.Emoji;
-import Resource.Constants;
+import Constants.Emoji;
+import Constants.Constants;
 import Setting.Prefix;
 import Main.Main;
 import Utility.UtilBot;

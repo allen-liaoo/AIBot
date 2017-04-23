@@ -7,8 +7,8 @@ package Command.RestrictedModule;
 
 import Main.Main;
 import Command.*;
-import Resource.Emoji;
-import Resource.Constants;
+import Constants.Emoji;
+import Constants.Constants;
 import Setting.Prefix;
 import Utility.AILogger;
 import Utility.UtilBot;

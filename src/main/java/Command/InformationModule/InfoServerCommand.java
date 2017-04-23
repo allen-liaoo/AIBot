@@ -6,9 +6,9 @@
 package Command.InformationModule;
 
 import Command.Command;
-import Resource.Constants;
+import Constants.Constants;
 import Setting.Prefix;
-import Resource.Emoji;
+import Constants.Emoji;
 import java.awt.Color;
 import java.util.List;
 import java.time.Instant;

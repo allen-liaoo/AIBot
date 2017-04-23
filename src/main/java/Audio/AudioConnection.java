@@ -5,7 +5,7 @@
  */
 package Audio;
 
-import Resource.Emoji;
+import Constants.Emoji;
 import Main.*;
 import Utility.AILogger;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackState;

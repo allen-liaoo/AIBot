@@ -4,7 +4,7 @@
  * FilePath
  * All file paths goes here
  */
-package Resource;
+package Constants;
 
 /**
  *

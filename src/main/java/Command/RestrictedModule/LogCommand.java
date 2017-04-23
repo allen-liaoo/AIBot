@@ -8,9 +8,9 @@
 package Command.RestrictedModule;
 
 import Command.Command;
-import Resource.Emoji;
-import Resource.FilePath;
-import Resource.Constants;
+import Constants.Emoji;
+import Constants.FilePath;
+import Constants.Constants;
 import Setting.Prefix;
 import Utility.AILogger;
 import java.awt.Color;

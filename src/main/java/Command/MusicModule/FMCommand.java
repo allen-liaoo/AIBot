@@ -10,7 +10,7 @@ package Command.MusicModule;
 import Audio.FM;
 import Command.Command;
 import static Command.Command.embed;
-import Resource.Constants;
+import Constants.Constants;
 import Setting.Prefix;
 import Utility.UtilNum;
 import Utility.AILogger;

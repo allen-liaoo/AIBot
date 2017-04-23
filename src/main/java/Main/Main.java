@@ -17,7 +17,7 @@ import Command.FunModule.*;
 import Command.RestrictedModule.*;
 import Listener.*;
 import Audio.*;
-import Resource.Constants;
+import Constants.Constants;
 import Utility.AILogger;
 import com.mashape.unirest.http.Unirest;
 

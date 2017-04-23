@@ -12,7 +12,7 @@ import Main.*;
 import Setting.GuildSetting;
 import Audio.Music;
 import static Main.Main.commands;
-import Resource.Emoji;
+import Constants.Emoji;
 import Setting.RateLimiter;
 import Utility.AILogger;
 import net.dv8tion.jda.core.entities.ChannelType;

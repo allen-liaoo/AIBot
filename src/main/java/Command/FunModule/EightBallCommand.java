@@ -6,11 +6,11 @@
 package Command.FunModule;
 
 import Command.Command;
-import Resource.Constants;
+import Constants.Constants;
 import Setting.Prefix;
 import Main.*;
-import Resource.Emoji;
-import Resource.FilePath;
+import Constants.Emoji;
+import Constants.FilePath;
 import Utility.AILogger;
 import Utility.UtilNum;
 import java.awt.Color;

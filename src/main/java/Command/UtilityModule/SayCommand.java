@@ -6,7 +6,7 @@
 package Command.UtilityModule;
 
 import Command.Command;
-import Resource.Constants;
+import Constants.Constants;
 import Setting.Prefix;
 import Utility.AILogger;
 import java.awt.Color;

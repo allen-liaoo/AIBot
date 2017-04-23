@@ -6,7 +6,7 @@
 package Audio;
 
 import Audio.AudioTrackWrapper.TrackType;
-import Resource.Emoji;
+import Constants.Emoji;
 import Utility.AILogger;
 import Utility.UtilNum;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;

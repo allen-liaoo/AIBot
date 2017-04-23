@@ -4,7 +4,7 @@
  * HelpText
  * Help message for HelpCommand
  */
-package Resource;
+package Constants;
 
 /**
  *

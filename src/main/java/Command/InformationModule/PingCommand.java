@@ -7,9 +7,9 @@ package Command.InformationModule;
 
 //Set to SUPPORT PRIVATE CHANNEL.
 
-import Resource.Emoji;
+import Constants.Emoji;
 import Setting.Prefix;
-import Resource.Constants;
+import Constants.Constants;
 import Command.Command;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

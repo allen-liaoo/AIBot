@@ -6,7 +6,7 @@
 package Command.MusicModule;
 
 import Setting.Prefix;
-import Resource.Constants;
+import Constants.Constants;
 import Audio.*;
 import Command.Command;
 import Main.*;

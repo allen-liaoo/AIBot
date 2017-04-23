@@ -5,7 +5,7 @@
  */
 package Game;
 
-import Resource.Emoji;
+import Constants.Emoji;
 import java.awt.Color;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;

@@ -6,7 +6,7 @@
 package Command.InformationModule;
 
 import Command.Command;
-import Resource.Constants;
+import Constants.Constants;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;

@@ -6,8 +6,8 @@
 package Game;
 
 import Main.Main;
-import Resource.Emoji;
-import Resource.FilePath;
+import Constants.Emoji;
+import Constants.FilePath;
 import Utility.AILogger;
 import Utility.UtilNum;
 import java.awt.Color;

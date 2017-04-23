@@ -7,8 +7,8 @@
 package Utility;
 
 import Main.Main;
-import Resource.Constants;
-import Resource.Emoji;
+import Constants.Constants;
+import Constants.Emoji;
 import java.util.ArrayList;
 import java.util.List;
 import net.dv8tion.jda.core.OnlineStatus;

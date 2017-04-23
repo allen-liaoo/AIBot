@@ -8,8 +8,8 @@
 package Audio;
 
 import Audio.AudioTrackWrapper.TrackType;
-import Resource.Emoji;
-import Resource.FilePath;
+import Constants.Emoji;
+import Constants.FilePath;
 import Setting.Prefix;
 import Utility.AILogger;
 import com.moandjiezana.toml.Toml;

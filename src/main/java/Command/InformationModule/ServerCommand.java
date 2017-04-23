@@ -8,8 +8,8 @@
 package Command.InformationModule;
 
 import Command.Command;
-import Resource.Constants;
-import Resource.Emoji;
+import Constants.Constants;
+import Constants.Emoji;
 import Setting.Prefix;
 import Utility.AIPages;
 import java.awt.Color;

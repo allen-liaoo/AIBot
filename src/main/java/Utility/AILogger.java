@@ -7,7 +7,7 @@
 package Utility;
 
 import Main.Main;
-import Resource.FilePath;
+import Constants.FilePath;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.FileHandler;

@@ -7,8 +7,8 @@ package Command.FunModule;
 
 import Command.*;
 import static Command.Command.embed;
-import Resource.Emoji;
-import Resource.Constants;
+import Constants.Emoji;
+import Constants.Constants;
 import Setting.Prefix;
 import Utility.AILogger;
 import java.awt.Color;

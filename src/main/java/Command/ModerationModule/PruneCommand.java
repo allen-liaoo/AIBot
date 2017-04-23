@@ -5,9 +5,9 @@
  */
 package Command.ModerationModule;
 
-import Resource.Emoji;
+import Constants.Emoji;
 import Setting.Prefix;
-import Resource.Constants;
+import Constants.Constants;
 import Command.Command;
 import Utility.AILogger;
 import java.awt.Color;

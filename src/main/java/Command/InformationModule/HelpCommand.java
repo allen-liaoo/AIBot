@@ -5,10 +5,10 @@
  */
 package Command.InformationModule;
 
-import Resource.Emoji;
-import Resource.HelpText;
+import Constants.Emoji;
+import Constants.HelpText;
 import Setting.Prefix;
-import Resource.Constants;
+import Constants.Constants;
 import Command.FunModule.EightBallCommand;
 import Command.*;
 import Command.ModerationModule.*;

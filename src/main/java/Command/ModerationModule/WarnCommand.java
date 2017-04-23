@@ -8,8 +8,8 @@
 package Command.ModerationModule;
 
 import Command.Command;
-import Resource.Emoji;
-import Resource.Constants;
+import Constants.Emoji;
+import Constants.Constants;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;

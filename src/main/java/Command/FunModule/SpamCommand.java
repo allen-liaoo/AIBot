@@ -8,8 +8,8 @@
 package Command.FunModule;
 
 import Command.Command;
-import Resource.Constants;
-import Resource.Emoji;
+import Constants.Constants;
+import Constants.Emoji;
 import Setting.Prefix;
 import Utility.UtilNum;
 import java.util.HashMap;

@@ -5,10 +5,10 @@
  */
 package Command.UtilityModule;
 
-import Resource.Emoji;
+import Constants.Emoji;
 import Utility.Search;
 import Setting.Prefix;
-import Resource.Constants;
+import Constants.Constants;
 import Utility.SearchResult;
 import Command.Command;
 import Main.*;

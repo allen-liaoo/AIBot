@@ -4,7 +4,7 @@
  * Constants
  * All informations and links about the bot and developer
  */
-package Resource;
+package Constants;
 
 import Setting.Prefix;
 import Main.Main;
