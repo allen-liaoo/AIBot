@@ -60,17 +60,17 @@ public class VolumeCommand implements Command {
                 
                 if(volume < 0 || volume > 100)
                 {
-                    e.getTextChannel().sendMessage(Emoji.error + " Please enter a number between 0 to 100.").queue();
+                    e.getTextChannel().sendMessage(Emoji.ERROR + " Please enter a number between 0 to 100.").queue();
                     return;
                 }
 
                 Music.setVolume(e, volume);
                 if(volume < 50)
-                    e.getTextChannel().sendMessage(Emoji.volume_low + " Volume set to " + volume).queue();
+                    e.getTextChannel().sendMessage(Emoji.VOLUME_LOW + " Volume set to " + volume).queue();
                 else
-                    e.getTextChannel().sendMessage(Emoji.volume_high + " Volume set to " + volume).queue();
+                    e.getTextChannel().sendMessage(Emoji.VOLUME_HIGH + " Volume set to " + volume).queue();
             } catch(NumberFormatException ex){
-                e.getTextChannel().sendMessage(Emoji.error + " Please enter a valid number.").queue();
+                e.getTextChannel().sendMessage(Emoji.ERROR + " Please enter a valid number.").queue();
                 return;
             }
         }

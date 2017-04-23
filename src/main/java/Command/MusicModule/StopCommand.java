@@ -51,7 +51,7 @@ public class StopCommand implements Command{
         else
         {
             if(!e.getMember().getVoiceState().inVoiceChannel()) {
-                e.getChannel().sendMessage(Emoji.error + " You are not in a voice channel.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel.").queue();
                 return;
             }
             
@@ -72,7 +72,7 @@ public class StopCommand implements Command{
             }
             else 
             {
-                e.getChannel().sendMessage(Emoji.error + " This command is for server owner, bot owner, or "
+                e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, or "
                         + "members with `Administrator` or `Manage Server` permissions only.\n"
                         + "You can also stop the player if there is less than 3 members in the voice channel.").queue();
             }

@@ -59,19 +59,19 @@ public class SkipCommand implements Command {
         {
             //Prevent users that is not in the same voice channel from skipping the song
             if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel()) {
-                e.getChannel().sendMessage(Emoji.error + " You and I are not in the same voice channel.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
                 return;
             }
             
             int skip = Music.skip(e, 0, false);
             if(skip > 0)
-                e.getChannel().sendMessage(Emoji.up_vote + " Added your vote. Still require " + skip + " votes to skip the song.").queue();
+                e.getChannel().sendMessage(Emoji.UP_VOTE + " Added your vote. Still require " + skip + " votes to skip the song.").queue();
             else if(skip == 0)
-                e.getChannel().sendMessage(Emoji.next_track + " Skipped current song.").queue();
+                e.getChannel().sendMessage(Emoji.NEXT_TRACK + " Skipped current song.").queue();
             else if(skip == -1)
-                e.getChannel().sendMessage(Emoji.error + " Your vote is already added.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Your vote is already added.").queue();
             else if(skip == -2)
-                e.getChannel().sendMessage(Emoji.error + " There is no song playing.\nSkip what? Don't skip school.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " There is no song playing.\nSkip what? Don't skip school.").queue();
         }
         
         else if("-f".equals(args[0]))
@@ -81,9 +81,9 @@ public class SkipCommand implements Command {
                 Constants.D_ID.equals(e.getAuthor().getId()))
             {
                 Music.skip(e, 0, true);
-                e.getChannel().sendMessage(Emoji.next_track + " Force skipped current song.").queue();
+                e.getChannel().sendMessage(Emoji.NEXT_TRACK + " Force skipped current song.").queue();
             } else {
-                e.getChannel().sendMessage(Emoji.error + " Only server owner and members with \n"
+                e.getChannel().sendMessage(Emoji.ERROR + " Only server owner and members with \n"
                         + "`Administrator` or `Manage Server` permission can force skip a song.").queue();
             }
         }
@@ -95,7 +95,7 @@ public class SkipCommand implements Command {
             AudioTrackWrapper rapsong = null;
 
             if(target > queue.size()) {
-                e.getChannel().sendMessage(Emoji.error + " The position exceeds the range of this queue.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " The position exceeds the range of this queue.").queue();
                 return;
             }
             
@@ -112,10 +112,10 @@ public class SkipCommand implements Command {
                 Constants.D_ID.equals(e.getAuthor().getId()))
             {
                 if(Music.skip(e, target, false) == 0) {
-                    e.getChannel().sendMessage(Emoji.next_track + " Skipped track in queue index " + target + ".").queue();
+                    e.getChannel().sendMessage(Emoji.NEXT_TRACK + " Skipped track in queue index " + target + ".").queue();
                 }
             } else {
-                e.getChannel().sendMessage(Emoji.error + " Only server owner, members with `Administrator` permission "
+                e.getChannel().sendMessage(Emoji.ERROR + " Only server owner, members with `Administrator` permission "
                         + "\nand the song requester can skip a song at the given queue place.").queue();
             }
         }

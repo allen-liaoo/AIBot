@@ -95,7 +95,7 @@ public class EmojiCommand implements Command {
                 e.getChannel().sendMessage(meem).queue();
                 embedemo.clearFields();
             } catch (NullPointerException npe) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter a valid alias for that emoji.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid alias for that emoji.").queue();
                 return;
             }
         }

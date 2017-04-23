@@ -31,7 +31,7 @@ public class GuessNumber implements Game{
     public void startGame() {
         number = UtilNum.randomNum(0, 100);
         
-        e.getChannel().sendMessage(Emoji.number + " Guess a number between 0 and 100! You have " + count  + " chances.").queue();
+        e.getChannel().sendMessage(Emoji.NUMBER + " Guess a number between 0 and 100! You have " + count  + " chances.").queue();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class GuessNumber implements Game{
         
         if(isEnded)
         {
-            e.getChannel().sendMessage(Emoji.error + "Game haven't started yet!").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + "Game haven't started yet!").queue();
             return;
         }
         
@@ -61,19 +61,19 @@ public class GuessNumber implements Game{
         
         else if(count == 0)
         {
-            e.getChannel().sendMessage(Emoji.stopwatch + " Time's up! The number was " + number + ".").queue();
+            e.getChannel().sendMessage(Emoji.STOPWATCH + " Time's up! The number was " + number + ".").queue();
             endGame();
             return;
         }
         
         else if(innum < number)
         {
-            e.getChannel().sendMessage("Higher! " + Emoji.up + "\nYou got " + count + " chances left.").queue();
+            e.getChannel().sendMessage("Higher! " + Emoji.UP + "\nYou got " + count + " chances left.").queue();
         }
         
         else if(innum > number)
         {
-            e.getChannel().sendMessage("Lower! " + Emoji.down + "\nYou got " + count + " chances left.").queue();
+            e.getChannel().sendMessage("Lower! " + Emoji.DOWN + "\nYou got " + count + " chances left.").queue();
         }
     }
     

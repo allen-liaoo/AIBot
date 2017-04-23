@@ -53,7 +53,7 @@ public class ShuffleCommand implements Command {
                 Music.shuffle(e);
             }
             else {
-                e.getChannel().sendMessage(Emoji.error + " This command is for server owner, bot owner, or "
+                e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, or "
                 + "members with `Administrator` or `Manage Server` permissions only.\n"
                 + "You can also shuffle the queue if there is less than 3 members in the voice channel.").queue();
             }

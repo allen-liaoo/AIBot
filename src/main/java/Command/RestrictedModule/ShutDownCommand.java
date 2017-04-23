@@ -51,7 +51,7 @@ public class ShutDownCommand implements Command{
         {
             if(Constants.D_ID.equals(e.getAuthor().getId()))
             {
-                e.getChannel().sendMessage(Emoji.success + " Shutting down...").queue();
+                e.getChannel().sendMessage(Emoji.SUCCESS + " Shutting down...").queue();
 
                 try {
                     Thread.sleep(2000);
@@ -65,7 +65,7 @@ public class ShutDownCommand implements Command{
                 }
             }
             else
-                e.getChannel().sendMessage(Emoji.error + " This command is for **Bot Owner** only!").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " This command is for **Bot Owner** only!").queue();
                 
         }
 

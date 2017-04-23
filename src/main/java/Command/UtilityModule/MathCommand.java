@@ -77,25 +77,25 @@ public class MathCommand implements Command{
                 int integer = (int)result;
                 
                 if(result >= 2147483647 || result <= -2147483647)
-                        e.getChannel().sendMessage(Emoji.error +  " Calculation exceeds the range I am able to display!\n Range: `2147483647 ~ -2147483648`").queue();
+                        e.getChannel().sendMessage(Emoji.ERROR +  " Calculation exceeds the range I am able to display!\n Range: `2147483647 ~ -2147483648`").queue();
                 
                 else if(result % 1 == 0)
                 {
-                    e.getChannel().sendMessage(Emoji.print + Emoji.number + "  `" + input + "` is  `" 
+                    e.getChannel().sendMessage(Emoji.PRINT + Emoji.NUMBER + "  `" + input + "` is  `" 
                     + integer + "`").queue();
                     
                         
                 }
                 else
                 {
-                    e.getChannel().sendMessage(Emoji.print + Emoji.number + "  `" + input + "` is  `"
+                    e.getChannel().sendMessage(Emoji.PRINT + Emoji.NUMBER + "  `" + input + "` is  `"
                     + result + "`").queue();
                 }
                 
             } catch (ArithmeticException ae) {
-                e.getChannel().sendMessage(Emoji.error + " Do not devide a value by 0.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Do not devide a value by 0.").queue();
             } catch (RuntimeException rte) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter a valid math operation.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid math operation.").queue();
                 AILogger.errorLog(rte, e, this.getClass().getName(), "Unvalid operation \"" + input + "\"");
             }
             

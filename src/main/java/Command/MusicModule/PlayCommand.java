@@ -61,7 +61,7 @@ public class PlayCommand implements Command{
         if(args.length == 0)
         {
             if(!e.getMember().getVoiceState().inVoiceChannel()) {
-                e.getChannel().sendMessage(Emoji.error + " You are not in a voice channel.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel.").queue();
                 return;
             }
             
@@ -103,7 +103,7 @@ public class PlayCommand implements Command{
             } catch (IOException ioe) {
                 AILogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result (-m).");
             } catch (IndexOutOfBoundsException ioobe) {
-                e.getChannel().sendMessage(Emoji.error + " No results.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " No results.").queue();
                 AILogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly (-m). Input: " + input);
             }
         }
@@ -126,7 +126,7 @@ public class PlayCommand implements Command{
                 } catch (IOException ioe) {
                     AILogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result.");
                 } catch (IndexOutOfBoundsException ioobe) {
-                    e.getChannel().sendMessage(Emoji.error + " No results.").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " No results.").queue();
                     AILogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly. Input: " + input);
                 }
             }

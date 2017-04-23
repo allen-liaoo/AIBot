@@ -87,7 +87,7 @@ public class SearchCommand implements Command{
                             input += args[i] + " ";
                     }
                     
-                    final String tempString = Emoji.search + " This is the result for `" + input + "` on `" + site + "`:";
+                    final String tempString = Emoji.SEARCH + " This is the result for `" + input + "` on `" + site + "`:";
                     e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
                     
                     List<SearchResult> result = Search.search(site, num, input);
@@ -96,7 +96,7 @@ public class SearchCommand implements Command{
                 
                 else if ("&as_sitesearch=".equals(site) && args.length <= 1) //Custom Site Search without site or keyword
                 {
-                    e.getChannel().sendMessage(Emoji.error + " Please enter a custom site.").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " Please enter a custom site.").queue();
                 }
                 
                 else if(!"&as_sitesearch=".equals(site)) //Google, wiki, urban, github
@@ -106,7 +106,7 @@ public class SearchCommand implements Command{
                     for(int i = 0; i < args.length; i++){ input += args[i] + " "; }
                     
                     
-                    final String tempString = Emoji.search + " This is the result for `" + input + "` via `Google Search Engine" + "`:";
+                    final String tempString = Emoji.SEARCH + " This is the result for `" + input + "` via `Google Search Engine" + "`:";
                     e.getChannel().sendMessage("Searching........").complete().editMessage(tempString).complete();
                     
                     List<SearchResult> result = Search.search(site, num, input);
@@ -116,7 +116,7 @@ public class SearchCommand implements Command{
             } catch (IOException ex) {
                 AILogger.errorLog(ex, e, this.getClass().getName(), "IO Exception");
             } catch (IndexOutOfBoundsException iobe) {
-                e.getChannel().sendMessage(Emoji.error + " No result.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " No result.").queue();
                 AILogger.errorLog(iobe, e, this.getClass().getName(), "Web Search \""+ args[0] +"\" No Result.");
             }
         }

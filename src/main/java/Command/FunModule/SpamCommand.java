@@ -51,7 +51,7 @@ public class SpamCommand implements Command {
         
         else
         {
-            //No number specified
+            //No NUMBER specified
             if(args.length == 0) {
                 e.getChannel().sendMessage(IMAGE_SPAM_1).queue();
             }
@@ -65,7 +65,7 @@ public class SpamCommand implements Command {
             else 
             {
                 if(spamcount.containsKey(e.getAuthor().getId()) && spamcount.get(e.getAuthor().getId()) > 3) {
-                    e.getChannel().sendMessage(Emoji.error + " You can only spam 5 times!\nOtherwise the spam will stink!").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " You can only spam 5 times!\nOtherwise the spam will stink!").queue();
                     return;
                 }
                 
@@ -76,7 +76,7 @@ public class SpamCommand implements Command {
                         continue;
 
                     if(Constants.D_ID.equals(u.getId())) {
-                        e.getChannel().sendMessage(Emoji.eyes + " How dare you? Spamming my creator!?").queue();
+                        e.getChannel().sendMessage(Emoji.EYES + " How dare you? Spamming my creator!?").queue();
                         u = e.getAuthor();
                     }
                     
@@ -94,7 +94,7 @@ public class SpamCommand implements Command {
                         spamcount.put(e.getAuthor().getId(), 0);
                 }
                 else {
-                    e.getChannel().sendMessage(Emoji.error + " Invalid spam! So I spammed **YOU**!").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " Invalid spam! So I spammed **YOU**!").queue();
                     e.getAuthor().openPrivateChannel().queue(PrivateChannel -> 
                             PrivateChannel.sendMessage("**Punishing Spam**\n" + IMAGE_SPAM_100).queue());
                 }

@@ -47,7 +47,7 @@ public class TicTacToe implements Game{
     }
     
     @Override
-    public void startGame() //Keep da game runn'in
+    public void startGame() //Keep da GAME runn'in
     {
         //Set Players
         starter = e.getAuthor();
@@ -55,7 +55,7 @@ public class TicTacToe implements Game{
         opponent = mentionedUsers.get(0);
         
         embedstatus.setColor(Color.green);
-        embedstatus.addField(Emoji.game + " Tic Tac Toe: Game Mode ON!", "Starter: " + starter.getAsMention() + "\nOpponent: " + opponent.getAsMention(), true);
+        embedstatus.addField(Emoji.GAME + " Tic Tac Toe: Game Mode ON!", "Starter: " + starter.getAsMention() + "\nOpponent: " + opponent.getAsMention(), true);
         MessageEmbed me = embedstatus.build();
         e.getChannel().sendMessage(me).queue();
         embedstatus.clearFields();
@@ -65,12 +65,12 @@ public class TicTacToe implements Game{
     }
     
     @Override
-    public void endGame() //Stop da game
+    public void endGame() //Stop da GAME
     {
         if(e.getAuthor() == starter || e.getAuthor() == opponent)
         {
             embedstatus.setColor(Color.green);
-            embedstatus.setTitle(Emoji.game + " Tic Tac Toe: Game Mode OFF!", null);
+            embedstatus.setTitle(Emoji.GAME + " Tic Tac Toe: Game Mode OFF!", null);
             embedstatus.setFooter(e.getAuthor().getName() + " ended the game.", null);
 
             MessageEmbed me = embedstatus.build();
@@ -103,12 +103,12 @@ public class TicTacToe implements Game{
             {
                 if(event.getAuthor() != turn)
                 {
-                    e.getChannel().sendMessage(Emoji.error + " It's not your turn yet!").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " It's not your turn yet!").queue();
                     return;
                 }
             }
             else
-                e.getChannel().sendMessage(Emoji.error + " Do not interfere the game!").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Do not interfere the game!").queue();
         
             if(game.isOccupied(row, column) == false)
             {
@@ -117,7 +117,7 @@ public class TicTacToe implements Game{
             }
             else
             {
-                e.getChannel().sendMessage(Emoji.error + " The place is occupied. Use your eyes!").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " The place is occupied. Use your eyes!").queue();
                 return;
             }
 
@@ -185,7 +185,7 @@ public class TicTacToe implements Game{
                 return "none";
     }
 
-    public boolean catGame() //Check for cat game
+    public boolean catGame() //Check for cat GAME
     {
         Piece[][] end = game.getBoard();
 
@@ -241,7 +241,7 @@ public class TicTacToe implements Game{
             }
             
             embedgame.setColor(Color.green);
-            embedgame.setTitle(Emoji.game + " Current Board (Round " + round + ")\n", null);
+            embedgame.setTitle(Emoji.GAME + " Current Board (Round " + round + ")\n", null);
             embedgame.setFooter(turn.getName() + " finished his/her turn.", null);
 
             MessageEmbed me = embedgame.build();

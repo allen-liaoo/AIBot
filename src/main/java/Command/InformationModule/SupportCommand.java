@@ -43,7 +43,7 @@ public class SupportCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0) 
         {
-            String msg = Emoji.invite + " Join this server for music!\n"
+            String msg = Emoji.INVITE + " Join this server for music!\n"
                                         + Constants.L_MUSIC_HUB;
             
             e.getChannel().sendMessage(msg).queue();

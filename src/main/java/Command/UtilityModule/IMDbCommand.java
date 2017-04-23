@@ -75,7 +75,7 @@ public class IMDbCommand implements Command {
             } catch (IOException ex) {
                 AILogger.errorLog(ex, e, this.getClass().getName(), "Input is " + input);
             } catch (IndexOutOfBoundsException ioobe) {
-                e.getChannel().sendMessage(Emoji.error + " An error occured. Please enter a valid IMDb **title**.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " An error occured. Please enter a valid IMDb **title**.").queue();
             }
             
         }
@@ -114,7 +114,7 @@ public class IMDbCommand implements Command {
                 
                 //Prevent null Messages
                 if(results.isEmpty()) {
-                    e.getChannel().sendMessage(Emoji.error + " No results.").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " No results.").queue();
                     return;
                 }
                 if("".equals(titles))
@@ -140,7 +140,7 @@ public class IMDbCommand implements Command {
                 embeds.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embeds.setTimestamp(Instant.now());
                 
-                final String tempString = Emoji.search + " This is the result for `" + input + "` on `IMDB.com`:";
+                final String tempString = Emoji.SEARCH + " This is the result for `" + input + "` on `IMDB.com`:";
                 e.getChannel().sendMessage("Searching........").complete().editMessage(embeds.build()).complete();
                 
                 //Reset

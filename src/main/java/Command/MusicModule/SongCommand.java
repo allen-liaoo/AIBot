@@ -57,7 +57,7 @@ public class SongCommand implements Command{
                    AudioTrackWrapper nowplaying = Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack();
                    Music.trackInfo(e, nowplaying, "Now Playing");
                 } catch (NullPointerException npe) {
-                    e.getChannel().sendMessage(Emoji.error + " No song is playing.").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " No song is playing.").queue();
                 }
             }
             else if(args.length >= 1 && Character.isDigit(args[0].charAt(0)))
@@ -68,7 +68,7 @@ public class SongCommand implements Command{
                 
                 if(target > queue.size()) 
                 {
-                    e.getChannel().sendMessage(Emoji.error + " The position exceeds the range of this queue (" + queue.size() + ").").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " The position exceeds the range of this queue (" + queue.size() + ").").queue();
                     return;
                 }
 

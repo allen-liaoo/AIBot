@@ -85,10 +85,10 @@ public class WarnCommand implements Command {
             }
             
             //Inform that warning has been sent
-            e.getChannel().sendMessage(Emoji.success + " Warned " + count + " member(s).").queue();
+            e.getChannel().sendMessage(Emoji.SUCCESS + " Warned " + count + " member(s).").queue();
         }
         else
-            e.getChannel().sendMessage(Emoji.error + " This command is for server owner or\n"
+            e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner or\n"
                     + "members with `Manage Server` or `Manage Channel` Permissions only.").queue();
     }
 

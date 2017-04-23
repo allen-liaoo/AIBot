@@ -30,7 +30,7 @@ public class Radio {
         
         if(link == null)
         {
-            e.getChannel().sendMessage(Emoji.error + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "radio` for available playlists.").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "radio` for available playlists.").queue();
             return;
         }
         

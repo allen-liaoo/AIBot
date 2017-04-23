@@ -105,7 +105,7 @@ public class LyricsCommand implements Command{
                 }
                 
             } catch (IndexOutOfBoundsException ioobe) {
-                e.getChannel().sendMessage(Emoji.error + " No result.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " No result.").queue();
                 AILogger.errorLog(ioobe, e, this.getClass().getName(), "Lyrics Search, no result- " + input);
             } catch (IOException ioe) {
                 AILogger.errorLog(ioe, e, this.getClass().getName(), "Unknown Cause");

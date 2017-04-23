@@ -46,12 +46,12 @@ public class EightBallCommand implements Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        String msg = e.getAuthor().getAsMention() + " " + Emoji.eight_ball + " " + eightball(e);
+        String msg = e.getAuthor().getAsMention() + " " + Emoji.EIGHT_BALL + " " + eightball(e);
         if(args.length > 0 && !"-h".equals(args[0]))
         {
             if(!e.getMessage().getContent().endsWith("?"))
             {
-                e.getChannel().sendMessage(e.getAuthor().getAsMention() + " " + Emoji.eight_ball + " That doesn't sounds like a question...").queue();
+                e.getChannel().sendMessage(e.getAuthor().getAsMention() + " " + Emoji.EIGHT_BALL + " That doesn't sounds like a question...").queue();
                 return;
             }
             e.getChannel().sendMessage(msg).queue();

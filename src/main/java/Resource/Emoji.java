@@ -7,7 +7,6 @@
 package Resource;
 
 import com.vdurmont.emoji.*;
-import java.util.List;
 
 /**
  *
@@ -16,125 +15,125 @@ import java.util.List;
 public class Emoji {
     
     //General
-    public final static String error = EmojiParser.parseToUnicode(":fire:");
-    public final static String up = EmojiParser.parseToUnicode(":arrow_up:");
-    public final static String down = EmojiParser.parseToUnicode(":arrow_down:");
-    public final static String invite = EmojiParser.parseToUnicode(":postbox:");
+    public final static String ERROR = EmojiParser.parseToUnicode(":fire:");
+    public final static String UP = EmojiParser.parseToUnicode(":arrow_up:");
+    public final static String DOWN = EmojiParser.parseToUnicode(":arrow_down:");
+    public final static String INVITE = EmojiParser.parseToUnicode(":postbox:");
     
     //-Faces
-    public final static String face_tongue = EmojiParser.parseToUnicode(":stuck_out_tongue:");
-    public final static String face_blush = EmojiParser.parseToUnicode(":blush:");
+    public final static String FACE_TONGUE = EmojiParser.parseToUnicode(":stuck_out_tongue:");
+    public final static String FACE_BLUSH = EmojiParser.parseToUnicode(":blush:");
     
     //-Numbers
-    public final static String one = EmojiParser.parseToUnicode(":one:");
-    public final static String two = EmojiParser.parseToUnicode(":two:");
-    public final static String three = EmojiParser.parseToUnicode(":three:");
-    public final static String four = EmojiParser.parseToUnicode(":four:");
-    public final static String five = EmojiParser.parseToUnicode(":five:");
-    public final static String six = EmojiParser.parseToUnicode(":six:");
-    public final static String seven = EmojiParser.parseToUnicode(":seven:");
-    public final static String eight = EmojiParser.parseToUnicode(":eight:");
-    public final static String nine = EmojiParser.parseToUnicode(":nine:");
-    public final static String zero = EmojiParser.parseToUnicode(":zero:");
-    public final static String hundred = EmojiParser.parseToUnicode(":100:");
+    public final static String ONE = EmojiParser.parseToUnicode(":one:");
+    public final static String TWO = EmojiParser.parseToUnicode(":two:");
+    public final static String THREE = EmojiParser.parseToUnicode(":three:");
+    public final static String FOUR = EmojiParser.parseToUnicode(":four:");
+    public final static String FIVE = EmojiParser.parseToUnicode(":five:");
+    public final static String SIX = EmojiParser.parseToUnicode(":six:");
+    public final static String SEVEN = EmojiParser.parseToUnicode(":seven:");
+    public final static String EIGHT = EmojiParser.parseToUnicode(":eight:");
+    public final static String NINE = EmojiParser.parseToUnicode(":nine:");
+    public final static String ZERO = EmojiParser.parseToUnicode(":zero:");
+    public final static String HUNDRED = EmojiParser.parseToUnicode(":100:");
     
     //Information Commands
-    public final static String envelope = EmojiParser.parseToUnicode(":incoming_envelope:");
-    public final static String ping = EmojiParser.parseToUnicode(":ping_pong:");
-    public final static String stopwatch = EmojiParser.parseToUnicode(":stopwatch:");
-    public final static String status = EmojiParser.parseToUnicode(":vertical_traffic_light:");
-    public final static String guilds = EmojiParser.parseToUnicode(":card_file_box:");
-    public final static String shards = EmojiParser.parseToUnicode(":file_cabinet:");
-    public final static String text = EmojiParser.parseToUnicode(":speech_balloon:");
-    public final static String privatespy = EmojiParser.parseToUnicode(":spy:");
+    public final static String ENVELOPE = EmojiParser.parseToUnicode(":incoming_envelope:");
+    public final static String PING = EmojiParser.parseToUnicode(":ping_pong:");
+    public final static String STOPWATCH = EmojiParser.parseToUnicode(":stopwatch:");
+    public final static String STATUS = EmojiParser.parseToUnicode(":vertical_traffic_light:");
+    public final static String GUILDS = EmojiParser.parseToUnicode(":card_file_box:");
+    public final static String SHARDS = EmojiParser.parseToUnicode(":file_cabinet:");
+    public final static String TEXT = EmojiParser.parseToUnicode(":speech_balloon:");
+    public final static String SPY = EmojiParser.parseToUnicode(":spy:");
     
     //Utility Commands
     //-NumberCommand
-    public final static String success = EmojiParser.parseToUnicode(":white_check_mark:");
-    public final static String number = EmojiParser.parseToUnicode(":1234:");
-    public final static String print = EmojiParser.parseToUnicode(":printer:");
-    public final static String roll = EmojiParser.parseToUnicode(":game_die:");
+    public final static String SUCCESS = EmojiParser.parseToUnicode(":white_check_mark:");
+    public final static String NUMBER = EmojiParser.parseToUnicode(":1234:");
+    public final static String PRINT = EmojiParser.parseToUnicode(":printer:");
+    public final static String ROLL = EmojiParser.parseToUnicode(":game_die:");
     
     //-WeatherCommand
-    public final static String temp = EmojiParser.parseToUnicode(":thermometer:");
-    public final static String wind = EmojiParser.parseToUnicode(":dash:");
+    public final static String TEMP = EmojiParser.parseToUnicode(":thermometer:");
+    public final static String WIND = EmojiParser.parseToUnicode(":dash:");
     //--Condition
-    public final static String sunny = EmojiParser.parseToUnicode(":sunny:");
-    public final static String cloud = EmojiParser.parseToUnicode(":cloud:");
-    public final static String cloud_part = EmojiParser.parseToUnicode(":white_sun_small_cloud:");
-    public final static String cloudy = EmojiParser.parseToUnicode(":white_sun_behind_cloud:");
-    public final static String cloudy_rain = EmojiParser.parseToUnicode(":white_sun_behind_cloud_rain:");
-    public final static String cloud_rain = EmojiParser.parseToUnicode(":cloud_rain:");
-    public final static String cloud_thunder_rain = EmojiParser.parseToUnicode(":thunder_cloud_rain:");
-    public final static String cloud_tornado = EmojiParser.parseToUnicode(":cloud_tornado:");
-    public final static String snow = EmojiParser.parseToUnicode(":cloud_snow:");
-    public final static String windy = EmojiParser.parseToUnicode(":blowing_wind:");
-    public final static String snowman = EmojiParser.parseToUnicode(":snowing_snowman:");
-    public final static String sweat = EmojiParser.parseToUnicode(":sweat:");
-    public final static String press = EmojiParser.parseToUnicode(":compression:");
-    public final static String eyes = EmojiParser.parseToUnicode(":eyes:");
+    public final static String SUNNY = EmojiParser.parseToUnicode(":sunny:");
+    public final static String CLOUD = EmojiParser.parseToUnicode(":cloud:");
+    public final static String CLOUD_PART = EmojiParser.parseToUnicode(":white_sun_small_cloud:");
+    public final static String CLOUDY = EmojiParser.parseToUnicode(":white_sun_behind_cloud:");
+    public final static String CLOUDY_RAIN = EmojiParser.parseToUnicode(":white_sun_behind_cloud_rain:");
+    public final static String CLOUD_RAIN = EmojiParser.parseToUnicode(":cloud_rain:");
+    public final static String CLOUD_THUNDER_RAIN = EmojiParser.parseToUnicode(":thunder_cloud_rain:");
+    public final static String CLOUD_TORNADO = EmojiParser.parseToUnicode(":cloud_tornado:");
+    public final static String SNOW = EmojiParser.parseToUnicode(":cloud_snow:");
+    public final static String WINDY = EmojiParser.parseToUnicode(":blowing_wind:");
+    public final static String SNOWMAN = EmojiParser.parseToUnicode(":snowing_snowman:");
+    public final static String SWEAT = EmojiParser.parseToUnicode(":sweat:");
+    public final static String PRESS = EmojiParser.parseToUnicode(":compression:");
+    public final static String EYES = EmojiParser.parseToUnicode(":eyes:");
     //-EmojiCommmand
-    public final static String abc = EmojiParser.parseToUnicode(":abc:");
-    public final static String abcd = EmojiParser.parseToUnicode(":abcd:");
-    public final static String vs = EmojiParser.parseToUnicode(":vs:");
-    public final static String cool = EmojiParser.parseToUnicode(":cool:");
-    public final static String ok = EmojiParser.parseToUnicode(":ok:");
-    public final static String symbols = EmojiParser.parseToUnicode(":symbols:");
-    public final static String new_word = EmojiParser.parseToUnicode(":new:");
-    public final static String free = EmojiParser.parseToUnicode(":free:");
-    public final static String mark_question = EmojiParser.parseToUnicode(":grey_question:");
-    public final static String mark_exclamation = EmojiParser.parseToUnicode(":exclamation:");
-    public final static String mark_hash = EmojiParser.parseToUnicode(":hash:");
-    public final static String mark_asterisk = EmojiParser.parseToUnicode(":keycap_asterisk:");
-    public final static String mark_dollar_sign = EmojiParser.parseToUnicode(":heavy_dollar_sign:");
-    public final static String mark_plus_sign = EmojiParser.parseToUnicode(":heavy_plus_sign:");
-    public final static String mark_minus_sign = EmojiParser.parseToUnicode(":heavy_minus_sign:");
-    public final static String mark_divide_sign = EmojiParser.parseToUnicode(":heavy_division_sign:");
-    public final static String dot = EmojiParser.parseToUnicode(":black_circle_for_record:");
+    public final static String ABC = EmojiParser.parseToUnicode(":abc:");
+    public final static String ABCD = EmojiParser.parseToUnicode(":abcd:");
+    public final static String VS = EmojiParser.parseToUnicode(":vs:");
+    public final static String COOL = EmojiParser.parseToUnicode(":cool:");
+    public final static String OK = EmojiParser.parseToUnicode(":ok:");
+    public final static String SYMBOLS = EmojiParser.parseToUnicode(":symbols:");
+    public final static String NEW_WORD = EmojiParser.parseToUnicode(":new:");
+    public final static String FREE = EmojiParser.parseToUnicode(":free:");
+    public final static String MARK_QUESTION = EmojiParser.parseToUnicode(":grey_question:");
+    public final static String MARK_EXCLAMATION = EmojiParser.parseToUnicode(":exclamation:");
+    public final static String MARK_HASH = EmojiParser.parseToUnicode(":hash:");
+    public final static String MARK_ASTERISK = EmojiParser.parseToUnicode(":keycap_asterisk:");
+    public final static String MARK_DOLLAR_SIGN = EmojiParser.parseToUnicode(":heavy_dollar_sign:");
+    public final static String MARK_PLUS_SIGN = EmojiParser.parseToUnicode(":heavy_plus_sign:");
+    public final static String MARK_MINUS_SIGN = EmojiParser.parseToUnicode(":heavy_minus_sign:");
+    public final static String MARK_DEVIDE_SIGN = EmojiParser.parseToUnicode(":heavy_division_sign:");
+    public final static String DOT = EmojiParser.parseToUnicode(":black_circle_for_record:");
     
     //-SearchCommand
-    public static String search = EmojiParser.parseToUnicode(":mag:");
+    public static String SEARCH = EmojiParser.parseToUnicode(":mag:");
     //--IMDbCommand
-    public final static String film_projector = EmojiParser.parseToUnicode(":film_projector:");
-    public final static String film_frames = EmojiParser.parseToUnicode(":film_frames:");
-    public final static String date = EmojiParser.parseToUnicode(":date:");
-    public final static String star = EmojiParser.parseToUnicode(":star:");
-    public final static String stars = EmojiParser.parseToUnicode(":stars:");
-    public final static String trophy = EmojiParser.parseToUnicode(":trophy:");
-    public final static String book = EmojiParser.parseToUnicode(":book:");
+    public final static String FILM_PROJECTOR = EmojiParser.parseToUnicode(":film_projector:");
+    public final static String FILM_FRAMES = EmojiParser.parseToUnicode(":film_frames:");
+    public final static String DATE = EmojiParser.parseToUnicode(":date:");
+    public final static String STAR = EmojiParser.parseToUnicode(":star:");
+    public final static String STARS = EmojiParser.parseToUnicode(":stars:");
+    public final static String TROPHY = EmojiParser.parseToUnicode(":trophy:");
+    public final static String BOOK = EmojiParser.parseToUnicode(":book:");
     
     //Music
-    public final static String music = EmojiParser.parseToUnicode(":musical_keyboard:");
-    public final static String player = EmojiParser.parseToUnicode(":black_right_pointing_triangle_with_double_vertical_bar:");
-    public final static String globe = EmojiParser.parseToUnicode(":globe_with_meridians:");
-    public final static String notes = EmojiParser.parseToUnicode(":notes:");
-    public final static String pause = EmojiParser.parseToUnicode(":double_vertical_bar:");
-    public final static String resume = EmojiParser.parseToUnicode(":arrow_forward:");
-    public final static String shuffle = EmojiParser.parseToUnicode(":twisted_rightwards_arrows:");
-    public final static String repeat = EmojiParser.parseToUnicode(":arrows_counterclockwise:");
-    public final static String stop = EmojiParser.parseToUnicode(":black_square_for_stop:");
-    public final static String next_track = EmojiParser.parseToUnicode(":black_right_pointing_double_triangle_with_vertical_bar:");
-    public final static String up_vote = EmojiParser.parseToUnicode(":arrow_up_small:");
-    public final static String volume_low = EmojiParser.parseToUnicode(":sound:");
-    public final static String volume_high = EmojiParser.parseToUnicode(":loud_sound:");
+    public final static String MUSIC = EmojiParser.parseToUnicode(":musical_keyboard:");
+    public final static String PLAYER = EmojiParser.parseToUnicode(":black_right_pointing_triangle_with_double_vertical_bar:");
+    public final static String GLOBE = EmojiParser.parseToUnicode(":globe_with_meridians:");
+    public final static String NOTES = EmojiParser.parseToUnicode(":notes:");
+    public final static String PAUSE = EmojiParser.parseToUnicode(":double_vertical_bar:");
+    public final static String RESUME = EmojiParser.parseToUnicode(":arrow_forward:");
+    public final static String SHUFFLE = EmojiParser.parseToUnicode(":twisted_rightwards_arrows:");
+    public final static String REPEAT = EmojiParser.parseToUnicode(":arrows_counterclockwise:");
+    public final static String STOP = EmojiParser.parseToUnicode(":black_square_for_stop:");
+    public final static String NEXT_TRACK = EmojiParser.parseToUnicode(":black_right_pointing_double_triangle_with_vertical_bar:");
+    public final static String UP_VOTE = EmojiParser.parseToUnicode(":arrow_up_small:");
+    public final static String VOLUME_LOW = EmojiParser.parseToUnicode(":sound:");
+    public final static String VOLUME_HIGH = EmojiParser.parseToUnicode(":loud_sound:");
     
     //Fun
     //-Game
-    public final static String game = EmojiParser.parseToUnicode(":video_game:");
-    public final static String hanged_face = EmojiParser.parseToUnicode(":confounded:");
-    public final static String eight_ball = EmojiParser.parseToUnicode(":8ball:");
+    public final static String GAME = EmojiParser.parseToUnicode(":video_game:");
+    public final static String HANGED_FACE = EmojiParser.parseToUnicode(":confounded:");
+    public final static String EIGHT_BALL = EmojiParser.parseToUnicode(":8ball:");
     //--RPSCommand
-    public final static String rock = EmojiParser.parseToUnicode(":last_quarter_moon:");
-    public final static String paper = EmojiParser.parseToUnicode(":rolled_up_newspaper:");
-    public final static String scissors = EmojiParser.parseToUnicode(":scissors:");
-    public final static String tie = EmojiParser.parseToUnicode(":necktie:");
+    public final static String ROCK = EmojiParser.parseToUnicode(":last_quarter_moon:");
+    public final static String PAPER = EmojiParser.parseToUnicode(":rolled_up_newspaper:");
+    public final static String SCISSORS = EmojiParser.parseToUnicode(":scissors:");
+    public final static String TIE = EmojiParser.parseToUnicode(":necktie:");
     
     //Global Server Emojis
-    public final static String guild_online = EmojiParser.parseToUnicode("<:vpOnline:212789758110334977>");
-    public final static String guild_idle = EmojiParser.parseToUnicode("<:vpAway:212789859071426561>");
-    public final static String guild_dnd = EmojiParser.parseToUnicode("<:vpDnD:236744731088912384>");
-    public final static String guild_offline = EmojiParser.parseToUnicode("<:vpOffline:212790005943369728>");
-    public final static String guild_streaming = EmojiParser.parseToUnicode("<:vpStreaming:212789640799846400>");
+    public final static String GUILD_ONLINE = EmojiParser.parseToUnicode("<:vpOnline:212789758110334977>");
+    public final static String GUILD_IDLE = EmojiParser.parseToUnicode("<:vpAway:212789859071426561>");
+    public final static String GUILD_DND = EmojiParser.parseToUnicode("<:vpDnD:236744731088912384>");
+    public final static String GUILD_OFFLINE = EmojiParser.parseToUnicode("<:vpOffline:212790005943369728>");
+    public final static String GUILD_STREAMING = EmojiParser.parseToUnicode("<:vpStreaming:212789640799846400>");
     
     /**
      * Change the String of letters mixed with numbers into a String of emojis
@@ -150,78 +149,67 @@ public class Emoji {
             char letterc = input.charAt(i);
             
             /*
-            * Number More than one digit
+            * Number More than ONE digit
             */
             //1234
-            if(input.length() >= i+4 && "1234".equals(input.substring(i,i+4)))
-            {
-                output += Emoji.number;
+            if(input.length() >= i+4 && "1234".equals(input.substring(i,i+4))) {
+                output += Emoji.NUMBER;
                 i+=3;
                 continue;
             }
             //100
-            if(input.length() >= i+3 && "100".equals(input.substring(i,i+3)))
-            {
-                output += hundred;
+            if(input.length() >= i+3 && "100".equals(input.substring(i,i+3))) {
+                output += HUNDRED;
                 i+=2;
                 continue;
             }
             
             /*
-            * Character more than one digit
+            * Character more than ONE digit
             */
-            //ABCD or abcd
-            if(input.length() >= i+4 && "abcd".equalsIgnoreCase(input.substring(i,i+4)))
-            {
-                output += Emoji.abcd;
+            //ABCD or ABCD
+            if(input.length() >= i+4 && "abcd".equalsIgnoreCase(input.substring(i,i+4))) {
+                output += Emoji.ABCD;
                 i+=3;
                 continue;
             }
-            //ABC or abc
-            else if(input.length() >= i+3 && "abc".equalsIgnoreCase(input.substring(i,i+3)))
-            {
-                output += Emoji.abc;
+            //ABC or ABC
+            else if(input.length() >= i+3 && "abc".equalsIgnoreCase(input.substring(i,i+3))) {
+                output += Emoji.ABC;
                 i+=2;
                 continue;
             }
-            if(input.length() >= i+2 && "vs".equalsIgnoreCase(input.substring(i,i+2)))
-            {
-                output += Emoji.vs;
+            if(input.length() >= i+2 && "vs".equalsIgnoreCase(input.substring(i,i+2))) {
+                output += Emoji.VS;
                 i+=1;
                 continue;
             }
-            if(input.length() >= i+5 && "music".equalsIgnoreCase(input.substring(i,i+5)))
-            {
-                output += Emoji.notes;
+            if(input.length() >= i+5 && "music".equalsIgnoreCase(input.substring(i,i+5))) {
+                output += Emoji.NOTES;
                 i+=4;
                 continue;
             }
-            if(input.length() >= i+4 && "cool".equalsIgnoreCase(input.substring(i,i+4)))
-            {
-                output += Emoji.cool;
+            if(input.length() >= i+4 && "cool".equalsIgnoreCase(input.substring(i,i+4))) {
+                output += Emoji.COOL;
                 i+=3;
                 continue;
             }
-            if(input.length() >= i+3 && "new".equalsIgnoreCase(input.substring(i,i+3)))
-            {
-                output += Emoji.new_word;
+            if(input.length() >= i+3 && "new".equalsIgnoreCase(input.substring(i,i+3))) {
+                output += Emoji.NEW_WORD;
                 i+=2;
                 continue;
             }
-            if(input.length() >= i+4 && "free".equalsIgnoreCase(input.substring(i,i+4)))
-            {
-                output += Emoji.free;
+            if(input.length() >= i+4 && "free".equalsIgnoreCase(input.substring(i,i+4))) {
+                output += Emoji.FREE;
                 i+=3;
                 continue;
             }
-            if(input.length() >= i+2 && "ok".equalsIgnoreCase(input.substring(i,i+2)))
-            {
-                output += Emoji.ok;
+            if(input.length() >= i+2 && "ok".equalsIgnoreCase(input.substring(i,i+2))) {
+                output += Emoji.OK;
                 i+=1;
                 continue;
             }
-            if(input.length() >= i+2 && ".n".equalsIgnoreCase(input.substring(i,i+2)))
-            {
+            if(input.length() >= i+2 && ".n".equalsIgnoreCase(input.substring(i,i+2))) {
                 output += "\n";
                 i+=1;
                 continue;
@@ -230,49 +218,45 @@ public class Emoji {
             /*
             * Check One Letter at a Time
             */
-            if(Character.isAlphabetic(letterc))
-            {
+            if(Character.isAlphabetic(letterc)) {
                 output += lettersToEmoji(letters);
             }
-            else if(Character.isDigit(letterc))
-            {
+            else if(Character.isDigit(letterc)) {
                 output += numToEmoji(Integer.parseInt(letters));
             }
             //Spacing
-            else if(Character.isWhitespace(letterc))
-            {
+            else if(Character.isWhitespace(letterc)) {
                 output += " ";
             }
-            else if(!Character.isAlphabetic(letterc))
-            {
+            else if(!Character.isAlphabetic(letterc)) {
                 switch(letters) {
                     case ".":
-                        output += Emoji.dot;
+                        output += Emoji.DOT;
                         break;
                     case "?":
-                        output += Emoji.mark_question;
+                        output += Emoji.MARK_QUESTION;
                         break;
                     case "!":
-                        output += Emoji.mark_exclamation;
+                        output += Emoji.MARK_EXCLAMATION;
                         break;
                     case "#":
-                        output += Emoji.mark_hash;
+                        output += Emoji.MARK_HASH;
                         break;
                     case "*":
-                        output += Emoji.mark_asterisk;
+                        output += Emoji.MARK_ASTERISK;
                         break;
                     case "&":
                     case "%":
-                        output += Emoji.symbols;
+                        output += Emoji.SYMBOLS;
                         break;
                     case "+":
-                        output += Emoji.mark_plus_sign;
+                        output += Emoji.MARK_PLUS_SIGN;
                         break;
                     case "-":
-                        output += Emoji.mark_minus_sign;
+                        output += Emoji.MARK_MINUS_SIGN;
                         break;
                     case "/":
-                        output += Emoji.mark_divide_sign;
+                        output += Emoji.MARK_DEVIDE_SIGN;
                         break;
                     default:
                         break;
@@ -294,43 +278,43 @@ public class Emoji {
     }
     
     /**
-     * Change the input number into a String of emojis
-     * @param num the number to be change to emojis
-     * @return String of a number in emojis from
+     * Change the input NUMBER into a String of emojis
+     * @param num the NUMBER to be change to emojis
+     * @return String of a NUMBER in emojis from
      */
     public static String numToEmoji(int digit)
     {
         String output = "";
         switch(digit) {
             case 1:
-                output += Emoji.one;
+                output += Emoji.ONE;
                 break;
             case 2:
-                output += Emoji.two;
+                output += Emoji.TWO;
                 break;
             case 3:
-                output += Emoji.three;
+                output += Emoji.THREE;
                 break;
             case 4:
-                output += Emoji.four;
+                output += Emoji.FOUR;
                 break;
             case 5:
-                output += Emoji.five;
+                output += Emoji.FIVE;
                 break;
             case 6:
-                output += Emoji.six;
+                output += Emoji.SIX;
                 break;
             case 7:
-                output += Emoji.seven;
+                output += Emoji.SEVEN;
                 break;
             case 8:
-                output += Emoji.eight;
+                output += Emoji.EIGHT;
                 break;
             case 9:
-                output += Emoji.nine;
+                output += Emoji.NINE;
                 break;
             default:
-                output += Emoji.zero;
+                output += Emoji.ZERO;
                 break;
         }
         

@@ -54,22 +54,22 @@ public class RPSCommand implements Command {
             String hand2 = getHand();
             if("rock".equals(args[0]) || "rocks".equals(args[0]) || "r".equals(args[0]) || "stone".equals(args[0]))
             {
-                emoji = Emoji.rock;
+                emoji = Emoji.ROCK;
                 hand = "rock";
             }
             else if("paper".equals(args[0]) || "papers".equals(args[0]) || "p".equals(args[0]))
             {
-                emoji = Emoji.paper;
+                emoji = Emoji.PAPER;
                 hand = "paper";
             }
             else if("scissor".equals(args[0]) || "scissors".equals(args[0]) || "s".equals(args[0]))
             {
-                emoji = Emoji.scissors;
+                emoji = Emoji.SCISSORS;
                 hand = "scissors";
             }
             else
             {
-                e.getChannel().sendMessage(Emoji.error + " Please enter a valid choice.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid choice.").queue();
                 return;
             }
             
@@ -87,13 +87,13 @@ public class RPSCommand implements Command {
         switch(choice)
         {
             case 1: hand = "rock";
-            emoji2 = Emoji.rock;
+            emoji2 = Emoji.ROCK;
             break;
             case 2: hand = "paper";
-            emoji2 = Emoji.paper;
+            emoji2 = Emoji.PAPER;
             break;
             case 3: hand = "scissors";
-            emoji2 = Emoji.scissors;
+            emoji2 = Emoji.SCISSORS;
             break;
             default: hand = "no hand";
             break;
@@ -105,7 +105,7 @@ public class RPSCommand implements Command {
     {
         String result = "";
         if(hand.equals(hand2))
-            result = Emoji.tie + " It's a tie!";
+            result = Emoji.TIE + " It's a tie!";
         else if(hand.equals("rock"))
         {
             if(hand2.equals("paper"))

@@ -70,7 +70,7 @@ public class StatusCommand implements Command{
             
             if("uptime".equals(type))
             {
-                e.getChannel().sendMessage(Emoji.stopwatch + " AIBot has been up for: " + upinfo).queue();
+                e.getChannel().sendMessage(Emoji.STOPWATCH + " AIBot has been up for: " + upinfo).queue();
             }
 
             else if("status".equals(type))
@@ -108,14 +108,14 @@ public class StatusCommand implements Command{
                 embedstatus.setTitle("AIBot Status", null);
                 embedstatus.setThumbnail(avatar);
 
-                embedstatus.addField(Emoji.stopwatch + " Uptime", upinfo, true);
-                embedstatus.addField(Emoji.status + " Status", status, true);
-                embedstatus.addField(Emoji.guilds + " Servers", String.valueOf(guild), true);
-                embedstatus.addField(Emoji.shards + " Shards", shard, true);
-                embedstatus.addField(Emoji.text + " Text Channels", String.valueOf(textchannels), true);
-                embedstatus.addField(Emoji.privatespy + " Private Channels", String.valueOf(privatechannels), true);
-                embedstatus.addField(Emoji.music + " Voice Channels", String.valueOf(audiochannels), true);
-                embedstatus.addField(Emoji.notes + " Playing Music in", String.valueOf(voicechannels) + " voice channel(s)", true);
+                embedstatus.addField(Emoji.STOPWATCH + " Uptime", upinfo, true);
+                embedstatus.addField(Emoji.STATUS + " Status", status, true);
+                embedstatus.addField(Emoji.GUILDS + " Servers", String.valueOf(guild), true);
+                embedstatus.addField(Emoji.SHARDS + " Shards", shard, true);
+                embedstatus.addField(Emoji.TEXT + " Text Channels", String.valueOf(textchannels), true);
+                embedstatus.addField(Emoji.SPY + " Private Channels", String.valueOf(privatechannels), true);
+                embedstatus.addField(Emoji.MUSIC + " Voice Channels", String.valueOf(audiochannels), true);
+                embedstatus.addField(Emoji.NOTES + " Playing Music in", String.valueOf(voicechannels) + " voice channel(s)", true);
                 embedstatus.addField("More...", more, true);
                 embedstatus.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embedstatus.setTimestamp(Instant.now());

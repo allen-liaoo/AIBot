@@ -132,7 +132,7 @@ public class HangManCheaterCommand implements Command {
             
             if(result.isEmpty())
             {
-                e.getChannel().sendMessage(Emoji.error + " No results.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " No results.").queue();
                 return;
             }
             else if(result.size() == 1)
@@ -158,7 +158,7 @@ public class HangManCheaterCommand implements Command {
             possibleword = possibleword.substring(0, possibleword.length()-2) + "`";
             
             embedre.setColor(Color.green);
-            embedre.setTitle(Emoji.face_blush + " HangMan: Cheater Mode ON!", null);
+            embedre.setTitle(Emoji.FACE_BLUSH + " HangMan: Cheater Mode ON!", null);
             embedre.setDescription(possibleword);
             embedre.setFooter("Requested by cheater " + e.getAuthor().getName(), e.getAuthor().getAvatarUrl());
             embedre.setTimestamp(Instant.now());

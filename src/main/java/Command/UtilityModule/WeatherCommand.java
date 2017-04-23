@@ -116,11 +116,11 @@ public class WeatherCommand implements Command{
                 embedw.setFooter("Weather of " + title + " | " + date, null);
                 embedw.setTimestamp(null);
 
-                embedw.addField(Emoji.temp + "Temperature", temp + "/" + tempF, true);
-                embedw.addField(Emoji.wind + "Wind", wind, true);
-                embedw.addField(Emoji.sweat + "Humidity", humidity, true);
-                embedw.addField(Emoji.press + "Pressure", pressure, true);
-                embedw.addField(Emoji.eyes + "Visibility", visibility, true);
+                embedw.addField(Emoji.TEMP + "Temperature", temp + "/" + tempF, true);
+                embedw.addField(Emoji.WIND + "Wind", wind, true);
+                embedw.addField(Emoji.SWEAT + "Humidity", humidity, true);
+                embedw.addField(Emoji.PRESS + "Pressure", pressure, true);
+                embedw.addField(Emoji.EYES + "Visibility", visibility, true);
                 embedw.addField(EmojiCon + "Condition", condes, true);
                 
                 MessageEmbed mew = embedw.build();
@@ -132,7 +132,7 @@ public class WeatherCommand implements Command{
             } catch (IOException ex) {
                 AILogger.errorLog(ex, e, this.getClass().getName(), "Occurs communicating with the service.");
             } catch (IndexOutOfBoundsException ioobe) {
-                e.getChannel().sendMessage(Emoji.error + " No result.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " No result.").queue();
                 AILogger.errorLog(ioobe, e, this.getClass().getName(), "Could not get an variable.");
             }
 
@@ -153,21 +153,21 @@ public class WeatherCommand implements Command{
             //Sunny
             case 34:
             case 32: 
-                condition = Emoji.sunny;
+                condition = Emoji.SUNNY;
                 break;
                 
             //Cloudy
             case 26:
             case 27:
             case 28:
-                condition = Emoji.cloudy;
+                condition = Emoji.CLOUDY;
                 break;
             
             //Partly Cloudy
             case 29:
             case 30:
             case 44:
-                condition = Emoji.cloud_part;
+                condition = Emoji.CLOUD_PART;
                 break;
                 
             //Rain 1
@@ -176,7 +176,7 @@ public class WeatherCommand implements Command{
             case 17:
             case 35:
             case 40:
-                condition = Emoji.cloudy_rain;
+                condition = Emoji.CLOUDY_RAIN;
                 break;
                 
             //Rain 2
@@ -186,7 +186,7 @@ public class WeatherCommand implements Command{
             case 11:
             case 12:
             case 18:
-                condition = Emoji.cloud_rain;
+                condition = Emoji.CLOUD_RAIN;
                 break;
                 
             //Thunder Storm
@@ -197,7 +197,7 @@ public class WeatherCommand implements Command{
             case 39:
             case 45:
             case 47:
-                condition = Emoji.cloud_thunder_rain;
+                condition = Emoji.CLOUD_THUNDER_RAIN;
                 break;
                 
             //Snow
@@ -206,37 +206,37 @@ public class WeatherCommand implements Command{
             case 15:
             case 16:
             case 46:
-                condition = Emoji.snow;
+                condition = Emoji.SNOW;
                 break;
                 
             //Tornado
             case 0:
             case 1:
             case 2:
-                condition = Emoji.cloud_tornado;
+                condition = Emoji.CLOUD_TORNADO;
                 break;
                 
-            //Dusty, windy, foggy, smoke
+            //Dusty, WINDY, foggy, smoke
             case 19:
             case 20:
             case 22:
             case 23:
             case 24:
-                condition = Emoji.windy;
+                condition = Emoji.WINDY;
                 break;
                 
             case 21:
             case 25:
             case 41:
             case 42:
-                condition = Emoji.snowman;
+                condition = Emoji.SNOWMAN;
                 break;
                 
             //Hot
             case 36:
-                condition = Emoji.error;
+                condition = Emoji.ERROR;
                 
-            default: condition = Emoji.cloud;
+            default: condition = Emoji.CLOUD;
                 break;
                 
         }

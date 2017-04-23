@@ -44,7 +44,7 @@ public class HangMan implements Game{
     
     public static String hangman = "```_____________   \n"
                                  + "|           |   \n"
-                                 + "|          " + Emoji.hanged_face + "  \n"
+                                 + "|          " + Emoji.HANGED_FACE + "  \n"
                                  + "|           |   \n"
                                  + "|          /|\\  \n"
                                  + "|          / \\  \n"
@@ -78,7 +78,7 @@ public class HangMan implements Game{
             reader.close();
             System.out.println(ranword);
             
-            //Clear Last game's data
+            //Clear Last GAME's data
             clear();
             
             //Initialize            
@@ -94,7 +94,7 @@ public class HangMan implements Game{
         }
         
         embedstart.setColor(Color.green);
-        embedstart.addField(Emoji.game + " Hang Man: Game Mode ON!", 
+        embedstart.addField(Emoji.GAME + " Hang Man: Game Mode ON!", 
                 "Starter: " + starter.getAsMention()
                 + "\nWord length: " + word.size()
                 + "\n" + hangman, true);
@@ -106,9 +106,9 @@ public class HangMan implements Game{
     }
 
     @Override
-    public void endGame() { //End the game
+    public void endGame() { //End the GAME
         embedend.setColor(Color.green);
-        embedend.setTitle(Emoji.game + " Hang Man: Game Mode OFF!", null);
+        embedend.setTitle(Emoji.GAME + " Hang Man: Game Mode OFF!", null);
         embedend.setFooter(e.getAuthor().getName() + " ended the game.", null);
         MessageEmbed me = embedend.build();
         e.getChannel().sendMessage(me).queue();
@@ -127,13 +127,13 @@ public class HangMan implements Game{
     public void sendInput(String[] in, MessageReceivedEvent event) { //Get input
         e = event;
         if(in.length > 1 || in[0].length() != 1)
-            e.getChannel().sendMessage(Emoji.error + " One letter at a time!").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " One letter at a time!").queue();
         
         else if(!Character.isLetter(in[0].charAt(0)))
-            e.getChannel().sendMessage(Emoji.error + " Please enter a valid letter.").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid letter.").queue();
         
         else if(word.size() == 0)
-            e.getChannel().sendMessage(Emoji.error + " Game haven't started yet!").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " Game haven't started yet!").queue();
         
         else
         {   
@@ -142,7 +142,7 @@ public class HangMan implements Game{
                 guessed.add(letter);
             else
             {
-                e.getChannel().sendMessage(Emoji.error + " This letter has been guessed before.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " This letter has been guessed before.").queue();
                 return;
             }
             
@@ -184,7 +184,7 @@ public class HangMan implements Game{
         }
         
         embedend.setColor(Color.green);
-        embedend.setTitle(Emoji.game + " Hang Man: Game Mode OFF!", null);
+        embedend.setTitle(Emoji.GAME + " Hang Man: Game Mode OFF!", null);
         embedend.setFooter(e.getAuthor().getName() + " is the winner!", null);
         MessageEmbed me = embedend.build();
         e.getChannel().sendMessage(me).queue();
@@ -222,7 +222,7 @@ public class HangMan implements Game{
             missedletter = "Missed Letters: " + missedletter.substring(0,missedletter.length()-2).toUpperCase();
         
         embedgame.setColor(Color.green);
-        embedgame.setTitle(Emoji.game + " Current Man (Hanged!?)", null);
+        embedgame.setTitle(Emoji.GAME + " Current Man (Hanged!?)", null);
         embedgame.setDescription(missedletter + "\n" + printHangMan());
         embedgame.setFooter("Guessed by " + e.getAuthor().getName(), e.getAuthor().getAvatarUrl());
 
@@ -262,7 +262,7 @@ public class HangMan implements Game{
             case 1:
                 hangman =   "```_____________   \n"
                          + "|           |   \n"
-                         + "|          " + Emoji.hanged_face + "  \n"
+                         + "|          " + Emoji.HANGED_FACE + "  \n"
                          + "|               \n"
                          + "|                \n"
                          + "|                \n"
@@ -272,7 +272,7 @@ public class HangMan implements Game{
             case 2:
                 hangman =   "```_____________   \n"
                          + "|           |   \n"
-                         + "|           " + Emoji.hanged_face + "  \n"
+                         + "|           " + Emoji.HANGED_FACE + "  \n"
                          + "|           |   \n"
                          + "|                \n"
                          + "|                \n"
@@ -282,7 +282,7 @@ public class HangMan implements Game{
             case 3:
                 hangman =   "```_____________   \n"
                          + "|           |   \n"
-                         + "|           " + Emoji.hanged_face + "  \n"
+                         + "|           " + Emoji.HANGED_FACE + "  \n"
                          + "|           |   \n"
                          + "|           |    \n"
                          + "|                \n"
@@ -292,7 +292,7 @@ public class HangMan implements Game{
             case 4:
                 hangman =   "```_____________   \n"
                          + "|           |   \n"
-                         + "|           " + Emoji.hanged_face + "  \n"
+                         + "|           " + Emoji.HANGED_FACE + "  \n"
                          + "|           |  \n"
                          + "|          /|    \n"
                          + "|                \n"
@@ -302,7 +302,7 @@ public class HangMan implements Game{
             case 5:
                 hangman =   "```_____________   \n"
                          + "|           |   \n"
-                         + "|           " + Emoji.hanged_face + "  \n"
+                         + "|           " + Emoji.HANGED_FACE + "  \n"
                          + "|           |   \n"
                          + "|          /|\\   \n"
                          + "|                \n"
@@ -312,7 +312,7 @@ public class HangMan implements Game{
             case 6:
                 hangman =   "```_____________   \n"
                          + "|           |   \n"
-                         + "|           " + Emoji.hanged_face + "  \n"
+                         + "|           " + Emoji.HANGED_FACE + "  \n"
                          + "|           |   \n"
                          + "|          /|\\   \n"
                          + "|          /     \n"
@@ -322,7 +322,7 @@ public class HangMan implements Game{
             case 7:
                 hangman =   "```_____________   \n"
                          + "|           |   \n"
-                         + "|           " + Emoji.hanged_face + "  \n"
+                         + "|           " + Emoji.HANGED_FACE + "  \n"
                          + "|           |   \n"
                          + "|          /|\\   \n"
                          + "|          / \\   \n"

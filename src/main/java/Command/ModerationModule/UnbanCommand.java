@@ -52,7 +52,7 @@ public class UnbanCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
         {
-            e.getTextChannel().sendMessage(Emoji.error + " You need to mention 1 or more members to unban!").queue();
+            e.getTextChannel().sendMessage(Emoji.ERROR + " You need to mention 1 or more members to unban!").queue();
         }
 
         else if("-h".equals(args[0])) 
@@ -68,7 +68,7 @@ public class UnbanCommand implements Command{
 
                 //Check if the bot have permission to kick.
                 if (!selfMember.hasPermission(Permission.BAN_MEMBERS))
-                    e.getTextChannel().sendMessage(Emoji.error + " I need to have **Ban Members* Permission to unban members.").queue();
+                    e.getTextChannel().sendMessage(Emoji.ERROR + " I need to have **Ban Members* Permission to unban members.").queue();
 
                 AILogger.commandLog(e, "UnbanCommand", "Called to unban " + args.length + " users.");
 
@@ -87,18 +87,18 @@ public class UnbanCommand implements Command{
                                 PermissionException pe = (PermissionException) ex;
                                 Permission missingPermission = pe.getPermission();
 
-                                e.getTextChannel().sendMessage(Emoji.error + " PermissionError unbanning: " + ex.getMessage()).queue();
+                                e.getTextChannel().sendMessage(Emoji.ERROR + " PermissionError unbanning: " + ex.getMessage()).queue();
                             }
                             else
                             {
-                                e.getTextChannel().sendMessage(Emoji.error + " Unknown error while unbanning: " + ex.getClass().getSimpleName() + ">: " + ex.getMessage()).queue();
+                                e.getTextChannel().sendMessage(Emoji.ERROR + " Unknown error while unbanning: " + ex.getClass().getSimpleName() + ">: " + ex.getMessage()).queue();
                             }
                     }
                     if(hasError == false)
-                        e.getTextChannel().sendMessage(Emoji.success + " Succesfully unbanned! Join back!\n").queue();
+                        e.getTextChannel().sendMessage(Emoji.SUCCESS + " Succesfully unbanned! Join back!\n").queue();
                 }
             } catch (Exception ex) {
-                e.getTextChannel().sendMessage(Emoji.error + " Cannot find this (these) member!\n").queue();
+                e.getTextChannel().sendMessage(Emoji.ERROR + " Cannot find this (these) member!\n").queue();
                 AILogger.errorLog(ex, e, this.getClass().getName(), "Can't find member.");
             }
             

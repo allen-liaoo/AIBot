@@ -45,7 +45,7 @@ public class InviteCommand implements Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        String msg = Emoji.invite + " Invite me to your server here:\n"
+        String msg = Emoji.INVITE + " Invite me to your server here:\n"
                 + Constants.B_DISCORD_BOT + "\n"
                 + "You can also join my Discord Server if you require support here: " + Constants.B_SERVER;
         

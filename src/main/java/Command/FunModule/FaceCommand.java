@@ -72,7 +72,7 @@ public class FaceCommand implements Command{
                 }
                 reader.close();
                 num = UtilNum.randomNum(1, lines);
-                if(num % 2 != 0) num += 1; //Make the random number always even
+                if(num % 2 != 0) num += 1; //Make the random NUMBER always even
             } catch (IOException io) {
                 AILogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting sum of line numbers.");
             }
@@ -132,7 +132,7 @@ public class FaceCommand implements Command{
             
             if(e.getChannelType() != e.getChannelType().PRIVATE)
             {
-                e.getTextChannel().sendMessage(Emoji.envelope + "Shhh... Check your Direct Message.").queue();
+                e.getTextChannel().sendMessage(Emoji.ENVELOPE + "Shhh... Check your Direct Message.").queue();
                 e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage(mefl).queue());
             }
             else
@@ -166,7 +166,7 @@ public class FaceCommand implements Command{
             if(output != null)
                 e.getChannel().sendMessage(output).queue();
             else
-                e.getChannel().sendMessage("No such face " + Emoji.face_tongue).queue();
+                e.getChannel().sendMessage("No such face " + Emoji.FACE_TONGUE).queue();
         }
     }
 

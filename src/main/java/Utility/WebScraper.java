@@ -102,7 +102,7 @@ public class WebScraper {
         String summary = plot.select("div.summary_text").text();
         String director = plot.select("span[itemprop=director]").text();
         String stars = plot.select("span[itemprop=actors").text();
-        //System.out.println(summary + "\n" + director + "\t" + stars);
+        //System.out.println(summary + "\n" + director + "\t" + STARS);
         
         //Ratings
         Elements rate = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital")
@@ -116,7 +116,7 @@ public class WebScraper {
         //Nominations
         String top = "**" + doc.select("div#main_bottom>div#titleAwardsRanks>strong").text() + "**";
         String middle = " | ";
-        String nomination = doc.select("div#main_bottom>div#titleAwardsRanks>span[itemprop=awards]").text(); //doc.select("div#main_bottom>div#titleAwardsRanks").text();
+        String nomination = doc.select("div#main_bottom>div#titleAwardsRanks>span[itemprop=awards]").text(); //doc.select("div#main_bottom>div#titleAwardsRanks").TEXT();
         //System.out.println(top + "\t" + nomination);
         
         //Assign "None" to null datas
@@ -140,22 +140,22 @@ public class WebScraper {
         EmbedBuilder imdb = new EmbedBuilder();
         imdb.setColor(UtilNum.randomColor());
         imdb.setThumbnail(result.getThumbnail());
-        imdb.setAuthor(Emoji.search + " IMDb Search", result.getLink(), null);
-        imdb.addField(Emoji.film_projector + " Title", title, true);
+        imdb.setAuthor(Emoji.SEARCH + " IMDb Search", result.getLink(), null);
+        imdb.addField(Emoji.FILM_PROJECTOR + " Title", title, true);
         imdb.addField("Rating", contentRating, true);
-        imdb.addField(Emoji.film_frames + " Duration", duration, true);
+        imdb.addField(Emoji.FILM_FRAMES + " Duration", duration, true);
         imdb.addField("Genre", genre, true);
-        imdb.addField(Emoji.date + " Release Date", releaseDate, true);
+        imdb.addField(Emoji.DATE + " Release Date", releaseDate, true);
         
         imdb.addField("Director(s)", director, true);
-        imdb.addField(Emoji.stars + " Stars", stars, false);
+        imdb.addField(Emoji.STARS + " Stars", stars, false);
         
-        imdb.addField(Emoji.star + "IMDb Rating", rating + rates, true);
+        imdb.addField(Emoji.STAR + "IMDb Rating", rating + rates, true);
         imdb.addField("MetaScore", metaScore, true);
         
-        imdb.addField(Emoji.trophy + " Nomination and Awards", top + nomination, true);
+        imdb.addField(Emoji.TROPHY + " Nomination and Awards", top + nomination, true);
         
-        imdb.addField(Emoji.book + " Plot", summary, true);
+        imdb.addField(Emoji.BOOK + " Plot", summary, true);
         
         return imdb;
     }

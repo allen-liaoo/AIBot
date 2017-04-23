@@ -50,7 +50,7 @@ public class KickCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
         {
-            e.getTextChannel().sendMessage(Emoji.error + " You need to mention 1 or more members to kick!").queue();
+            e.getTextChannel().sendMessage(Emoji.ERROR + " You need to mention 1 or more members to kick!").queue();
         }
 
         else if("-h".equals(args[0])) 
@@ -65,7 +65,7 @@ public class KickCommand implements Command{
             
             //Check if the bot have permission to kick.
             if (!selfMember.hasPermission(Permission.KICK_MEMBERS))
-                e.getTextChannel().sendMessage(Emoji.error + " I need to have **Kick Members* Permission to kick members.").queue();
+                e.getTextChannel().sendMessage(Emoji.ERROR + " I need to have **Kick Members* Permission to kick members.").queue();
             
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             
@@ -78,18 +78,18 @@ public class KickCommand implements Command{
                 {
                     if(mentionedUsers.size() > 1)
                     {
-                        e.getTextChannel().sendMessage(Emoji.error + " Cannot kick member: " + member.getEffectiveName()
+                        e.getTextChannel().sendMessage(Emoji.ERROR + " Cannot kick member: " + member.getEffectiveName()
                                       + ". They are in a higher role than I am!").queue();
                     }
                     else
                     {
-                        e.getTextChannel().sendMessage(Emoji.error + " Cannot kick member: " + member.getEffectiveName()
+                        e.getTextChannel().sendMessage(Emoji.ERROR + " Cannot kick member: " + member.getEffectiveName()
                                       + ". the person is in a higher role than I am!").queue();
                     }
                 }
                 
                 guild.getController().kick(member).queue(
-                    success -> e.getTextChannel().sendMessage(Emoji.success + " Kicked " + member.getEffectiveName() + "! Bye!").queue(),
+                    success -> e.getTextChannel().sendMessage(Emoji.SUCCESS + " Kicked " + member.getEffectiveName() + "! Bye!").queue(),
                     error -> 
                     {
                         if (error instanceof PermissionException)
@@ -97,12 +97,12 @@ public class KickCommand implements Command{
                             PermissionException pe = (PermissionException) error;
                             Permission missingPermission = pe.getPermission();
                             
-                            e.getTextChannel().sendMessage(Emoji.error + " PermissionError kicking " + member.getEffectiveName()
+                            e.getTextChannel().sendMessage(Emoji.ERROR + " PermissionError kicking " + member.getEffectiveName()
                                             + ": " + error.getMessage()).queue();
                         }
                         else
                         {
-                            e.getTextChannel().sendMessage(Emoji.error + " Unknown error while kicking " + member.getEffectiveName()
+                            e.getTextChannel().sendMessage(Emoji.ERROR + " Unknown error while kicking " + member.getEffectiveName()
                                     + ": <" + error.getClass().getSimpleName() + ">: " + error.getMessage()).queue();
                         }
                     });

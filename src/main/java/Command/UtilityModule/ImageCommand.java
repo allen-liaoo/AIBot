@@ -74,14 +74,14 @@ public class ImageCommand implements Command{
             try {
                 System.out.println("Image Search");
                 
-                e.getChannel().sendMessage("Searching........").complete().editMessage(Emoji.search + " Image!").complete();
+                e.getChannel().sendMessage("Searching........").complete().editMessage(Emoji.SEARCH + " Image!").complete();
                 List<SearchResult> result = Search.search(site, num, input);
                 e.getChannel().sendMessage(result.get(0).getLink()).queue();
                 
             } catch (IOException ioe) {
                 AILogger.errorLog(ioe, e, this.getClass().getName(), "IO Exception.");
             } catch (IndexOutOfBoundsException iobe) {
-                e.getChannel().sendMessage(Emoji.error + " No result.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " No result.").queue();
                 AILogger.errorLog(iobe, e, this.getClass().getName(), "Image Search \""+ args[0] +"\" No Result.");
             }
         }

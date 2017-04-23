@@ -43,7 +43,7 @@ public class UtilBot {
             default:
                 set = game;
         }
-        //If-else for no game
+        //If-else for no GAME
         Game g = null;
         if (set != null) {
             g = Game.of(set);
@@ -56,7 +56,7 @@ public class UtilBot {
     }
 
     /**
-     * Set the status of the bot
+     * Set the STATUS of the bot
      * @param stat
      * @return
      */
@@ -103,22 +103,22 @@ public class UtilBot {
         String status = "";
         switch (stat) {
             case ONLINE:
-                status = Emoji.guild_online;
+                status = Emoji.GUILD_ONLINE;
                 break;
             case IDLE:
-                status = Emoji.guild_idle;
+                status = Emoji.GUILD_IDLE;
                 break;
             case DO_NOT_DISTURB:
-                status = Emoji.guild_dnd;
+                status = Emoji.GUILD_DND;
                 break;
             case INVISIBLE:
-                status = Emoji.guild_offline;
+                status = Emoji.GUILD_OFFLINE;
                 break;
             case OFFLINE:
-                status = Emoji.guild_offline;
+                status = Emoji.GUILD_OFFLINE;
                 break;
             default:
-                status = Emoji.guild_offline;
+                status = Emoji.GUILD_OFFLINE;
         }
         status += " " + UtilString.VariableToString("_",stat.getKey());
         return status;

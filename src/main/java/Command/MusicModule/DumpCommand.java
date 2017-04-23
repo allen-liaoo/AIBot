@@ -55,10 +55,10 @@ public class DumpCommand implements Command {
         else
         {   
             if(!e.getMember().getVoiceState().inVoiceChannel()) {
-                e.getChannel().sendMessage(Emoji.error + " You are not in a voice channel.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel.").queue();
                 return;
             } else if (Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue().isEmpty()) {
-                e.getChannel().sendMessage(Emoji.error + " There is no song in the queue.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " There is no song in the queue.").queue();
                 return;
             }
             
@@ -67,19 +67,19 @@ public class DumpCommand implements Command {
                 e.getMember().hasPermission(Constants.PERM_MOD) ||
                 Constants.D_ID.equals(e.getAuthor().getId()))
             {
-                //Prevent user that is not in the same voice channel from stopping the player
+                //Prevent user that is not in the same voice channel from stopping the PLAYER
                 if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
                         !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-                    e.getChannel().sendMessage(Emoji.error + " You and I are not in the same voice channel.").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
                     return;
                 }
                 Main.guilds.get(e.getGuild().getId()).getScheduler().clearQueue().clearVote();
                 
-                e.getChannel().sendMessage(Emoji.stop + " Cleared queue and dumped Trump.").queue();
+                e.getChannel().sendMessage(Emoji.STOP + " Cleared queue and dumped Trump.").queue();
             }
             else
             {
-                e.getChannel().sendMessage(Emoji.error + " This command is for server owner, bot owner, or "
+                e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, or "
                         + "members with `Administrator` or `Manage Server` permissions only.\n"
                         + "You can also dump the queue if there is less than 3 members in the voice channel.").queue();
             }

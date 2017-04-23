@@ -53,7 +53,7 @@ public class QueueCommand implements Command{
                     page = Integer.parseInt(args[0]);
                 Music.queueList(e, page);
             } catch (IllegalArgumentException  | IndexOutOfBoundsException ex) {
-                e.getTextChannel().sendMessage(Emoji.error + " Please enter a valid page number.").queue();
+                e.getTextChannel().sendMessage(Emoji.ERROR + " Please enter a valid page number.").queue();
                 return;
             }
         }

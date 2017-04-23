@@ -61,7 +61,7 @@ public class HangManCommand implements Command{
             if(e.getAuthor() == HangMan.starter)
                 game.endGame();
             else
-                e.getChannel().sendMessage(Emoji.error + " Only the game starter can end the game.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Only the game starter can end the game.").queue();
         }
         
         else
@@ -69,7 +69,7 @@ public class HangManCommand implements Command{
             try {
                 game.sendInput(args, e);
             } catch(NullPointerException en) {
-                e.getChannel().sendMessage(Emoji.error + " Game haven't started yet!").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Game haven't started yet!").queue();
                 AILogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
             }
         }

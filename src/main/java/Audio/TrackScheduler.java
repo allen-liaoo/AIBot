@@ -35,7 +35,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 
 /**
- * This class schedules tracks for the audio player. It contains the queue of tracks.
+ * This class schedules tracks for the audio PLAYER. It contains the queue of tracks.
  */
 public class TrackScheduler extends AudioEventAdapter {
     
@@ -76,7 +76,7 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
   /**
-   * @param player The audio player this scheduler uses=
+   * @param player The audio PLAYER this scheduler uses=
    */
     public TrackScheduler(AudioPlayer player) {
         this.player = player;
@@ -87,11 +87,11 @@ public class TrackScheduler extends AudioEventAdapter {
   }
 
     /**
-     * Start the next track, stopping the current one if it is playing.
+     * Start the next track, stopping the current ONE if it is playing.
      */
     public void nextTrack() {
         // Start the next track, regardless of if something is already playing or not. In case queue was empty, we are
-        // giving null to startTrack, which is a valid argument and will simply stop the player.
+        // giving null to startTrack, which is a valid argument and will simply STOP the PLAYER.
         
         clearVote();
         
@@ -114,11 +114,11 @@ public class TrackScheduler extends AudioEventAdapter {
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
         super.onTrackStart(player, track);
         if(tc!=null)
-            tc.sendMessage(Emoji.notes + " Now playing `" + track.getInfo().title + "`").queue();
+            tc.sendMessage(Emoji.NOTES + " Now playing `" + track.getInfo().title + "`").queue();
     }
 
     /**
-     * Determine the player mode and start the next track
+     * Determine the PLAYER mode and start the next track
      * @param player
      * @param track
      * @param endReason
@@ -143,7 +143,7 @@ public class TrackScheduler extends AudioEventAdapter {
     public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
         super.onTrackStuck(player, track, thresholdMs);
         if(tc!=null)
-            tc.sendMessage(Emoji.error + " Track stuck! Skipping to the next track...").queue();
+            tc.sendMessage(Emoji.ERROR + " Track stuck! Skipping to the next track...").queue();
         nextTrack();
     }
 
@@ -158,7 +158,7 @@ public class TrackScheduler extends AudioEventAdapter {
         super.onTrackException(player, track, exception);
         
         if(tc!=null)
-            tc.sendMessage(Emoji.error + " An error occurred!\n```\n\n"+exception.getMessage()+"```").queue();
+            tc.sendMessage(Emoji.ERROR + " An error occurred!\n```\n\n"+exception.getMessage()+"```").queue();
     }
     
     /**
@@ -169,11 +169,11 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     public void queue(AudioTrackWrapper track, MessageReceivedEvent e) {
         // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
-        // something is playing, it returns false and does nothing. In that case the player was already playing so this
+        // something is playing, it returns false and does nothing. In that case the PLAYER was already playing so this
         // track goes to the queue instead.
         
         if(this.Mode == PlayerMode.FM) {
-            e.getChannel().sendMessage(Emoji.error + " FM mode is ON! Only request radio or songs when FM is not playing.").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only request radio or songs when FM is not playing.").queue();
             return;
         }
 
@@ -181,7 +181,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
         if (!player.startTrack(track.getTrack(), true)) {
             queue.offer(track);
-            e.getTextChannel().sendMessage(Emoji.success + " Queued `" + track.getTrack().getInfo().title + "`").queue();
+            e.getTextChannel().sendMessage(Emoji.SUCCESS + " Queued `" + track.getTrack().getInfo().title + "`").queue();
             return;
         }
         NowPlayingTrack = track;
@@ -213,12 +213,12 @@ public class TrackScheduler extends AudioEventAdapter {
 
                 @Override
                 public void noMatches() {
-                    tc.sendMessage(Emoji.error + " No match found.").queue();
+                    tc.sendMessage(Emoji.ERROR + " No match found.").queue();
                 }
 
                 @Override
                 public void loadFailed(FriendlyException exception) {
-                    tc.sendMessage(Emoji.error + " Fail to load the video.").queue();
+                    tc.sendMessage(Emoji.ERROR + " Fail to load the video.").queue();
                     AILogger.errorLog(exception, null, this.getClass().getName(), "Failed to load fm");
                 }
             });

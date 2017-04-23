@@ -146,7 +146,7 @@ public class InfoChannelCommand implements Command{
                 e.getTextChannel().sendMessage(meci).queue();
                 embedci.clearFields();
             } catch (RuntimeException rte) {
-                e.getTextChannel().sendMessage(Emoji.error + " You need to join a voice channel first "
+                e.getTextChannel().sendMessage(Emoji.ERROR + " You need to join a voice channel first "
                                         + "to see the channel's information.").queue();
                 AILogger.errorLog(rte, e, this.getClass().getName(), "Requested AudioChannel Info when the user is not in a VoiceChannel.");
             }

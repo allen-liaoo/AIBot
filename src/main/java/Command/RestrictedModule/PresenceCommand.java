@@ -83,7 +83,7 @@ public class PresenceCommand implements Command {
                     
                     //Check if the nickname is more than 32 characters
                     if(nick != null && nick.length()>32) {
-                        e.getChannel().sendMessage(Emoji.error + " Cannot set a nickname that is more than 32 characters. "
+                        e.getChannel().sendMessage(Emoji.ERROR + " Cannot set a nickname that is more than 32 characters. "
                                 + "(Char count: "+nick.length()+")").queue();
                         return;
                     }
@@ -91,10 +91,10 @@ public class PresenceCommand implements Command {
                     e.getGuild().getController().setNickname(e.getGuild().getSelfMember(), nick).queue();
 
                     if(nick == null) nick = "null";
-                    e.getChannel().sendMessage(Emoji.success + " NickName set to `"+ nick + "`").queue();
+                    e.getChannel().sendMessage(Emoji.SUCCESS + " NickName set to `"+ nick + "`").queue();
                 }
                 else
-                    e.getChannel().sendMessage(Emoji.error + " This command is for `Bot Owner`, `Server Owner` or members with `NickName Change Permission` only!").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " This command is for `Bot Owner`, `Server Owner` or members with `NickName Change Permission` only!").queue();
             }
             
             //Set Status
@@ -106,15 +106,15 @@ public class PresenceCommand implements Command {
                     try {
                         status = UtilBot.setStatus(args[0]);
                     } catch (IllegalArgumentException iae) {
-                        e.getChannel().sendMessage(Emoji.error + " Please enter a valid status.").queue();
+                        e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid status.").queue();
                         AILogger.errorLog(iae, e, this.getClass().getName(), "Unknown Status");
                         return;
                     }
                     
-                    e.getChannel().sendMessage(Emoji.success + " Status set to "+ UtilBot.getStatusString(e.getJDA().getPresence().getStatus())).queue();
+                    e.getChannel().sendMessage(Emoji.SUCCESS + " Status set to "+ UtilBot.getStatusString(e.getJDA().getPresence().getStatus())).queue();
                 }
                 else
-                    e.getChannel().sendMessage(Emoji.error + " This command is for `Bot Owner` only!").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " This command is for `Bot Owner` only!").queue();
             }
             
             //Set Game
@@ -124,10 +124,10 @@ public class PresenceCommand implements Command {
                 {
                     String game = "";
                     for(String g : args) { game += g + " ";}
-                    e.getChannel().sendMessage(Emoji.success + " Game set to `"+ UtilBot.setGame(game) + "`").queue();
+                    e.getChannel().sendMessage(Emoji.SUCCESS + " Game set to `"+ UtilBot.setGame(game) + "`").queue();
                 }
                 else
-                    e.getChannel().sendMessage(Emoji.error + " This command is for `Bot Owner` only!").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " This command is for `Bot Owner` only!").queue();
             }   
         }
     }

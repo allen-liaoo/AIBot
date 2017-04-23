@@ -72,14 +72,14 @@ public class HelpCommand implements Command {
                 e.getChannel().sendMessage(me).queue();
                 emhelp.clearFields();
             } catch (NumberFormatException nfe) {
-                e.getChannel().sendMessage(Emoji.error + " Invalid page number! Use `=help 1, 2, 3, or 4`").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Invalid page number! Use `=help 1, 2, 3, or 4`").queue();
             }
         }
         
         //Parameter -dm
         else if("-dm".equals(args[0]) && e.getChannelType() != e.getChannelType().PRIVATE) 
         {
-            e.getTextChannel().sendMessage(Emoji.envelope + " A full list of AIBot commands has been sent. Check your Direct Message.").queue();
+            e.getTextChannel().sendMessage(Emoji.ENVELOPE + " A full list of AIBot commands has been sent. Check your Direct Message.").queue();
             
             int page = 1;
             if(args.length == 2 && Character.isDigit(args[1].charAt(0)))
@@ -156,7 +156,7 @@ public class HelpCommand implements Command {
     
     public void helpCustom(String cmdtitle, MessageReceivedEvent e)
     {
-        String cmdhelp = Emoji.error + " Cannot find such command/module.", cmdhelp2 = "";
+        String cmdhelp = Emoji.ERROR + " Cannot find such command/module.", cmdhelp2 = "";
         boolean isMod = false; //Check if this is module or command.
 
         switch (cmdtitle.toLowerCase()) {
@@ -370,7 +370,7 @@ public class HelpCommand implements Command {
 
         }
 
-        String morc = ""; //Set fields' text to command/module.
+        String morc = ""; //Set fields' TEXT to command/module.
 
         if(isMod == false) //If this is a command
         {
@@ -382,7 +382,7 @@ public class HelpCommand implements Command {
         }
 
         //Set EmbedMessage addField title.
-        if(cmdhelp.equals(Emoji.error + " Cannot find such command/module."))
+        if(cmdhelp.equals(Emoji.ERROR + " Cannot find such command/module."))
                 cmdtitle = "NA";
         else 
         {

@@ -78,7 +78,7 @@ public class ServerCommand implements Command {
                         + "# Use " + Prefix.getDefaultPrefix() + "server [Page Number] to show more pages.```";
                 e.getChannel().sendMessage(output).queue();
             } catch (IllegalArgumentException  | IndexOutOfBoundsException ex) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter a valid page number between 1 and " + pages.getPages() +".").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid page number between 1 and " + pages.getPages() +".").queue();
                 return;
             }
         }

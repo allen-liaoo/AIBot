@@ -71,7 +71,7 @@ public class InfoServerCommand implements Command{
             
             if(guild == null)
             {
-                e.getChannel().sendMessage(Emoji.error + " Cannot find this guild.\n"
+                e.getChannel().sendMessage(Emoji.ERROR + " Cannot find this guild.\n"
                         + "Either I am not in this guild or the ID you provided is invalid.").queue();
                 return;
             }

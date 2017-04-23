@@ -66,7 +66,7 @@ public class LogCommand implements Command {
             else if(args.length > 0 && "error".equals(args[0].toLowerCase())) filepath = FilePath.LogError;
             else if(args.length > 0 && "command".equals(args[0].toLowerCase())) filepath = FilePath.LogCommand;
             else { 
-                e.getChannel().sendMessage(Emoji.error + " Please enter a valid log type.\nValid type: `main, error, command`").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid log type.\nValid type: `main, error, command`").queue();
                 return;
             }
         
@@ -93,7 +93,7 @@ public class LogCommand implements Command {
                     return;
                 }
                 else if(e.getChannelType().isGuild())
-                    e.getChannel().sendMessage(Emoji.envelope + " Log has been sent to your private message.").queue();
+                    e.getChannel().sendMessage(Emoji.ENVELOPE + " Log has been sent to your private message.").queue();
 
                 for(String s : outputs) {
                     e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("```" + s + "```").complete());
@@ -104,7 +104,7 @@ public class LogCommand implements Command {
             }
         }
         else {
-            e.getChannel().sendMessage(Emoji.error + " This command is for server owner, bot owner, "
+            e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, "
                     + "or members that have `Manage Message` permissions only.").queue();
         }
     }

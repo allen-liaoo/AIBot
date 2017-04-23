@@ -90,9 +90,9 @@ public class NumberCommand implements Command {
                     from ++;
                 }
             } catch (NumberFormatException nfe) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter two valid integers.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter two valid integers.").queue();
             } catch (ArrayIndexOutOfBoundsException aioe) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter two integer with a space in between.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter two integer with a space in between.").queue();
             }
             }
         }
@@ -107,14 +107,14 @@ public class NumberCommand implements Command {
                 {
                     num = UtilNum.randomNum(1, 6);
                     String number = Emoji.numToEmoji(num);
-                    e.getChannel().sendMessage(Emoji.roll + " Dice Rolled: " + number).queue();
+                    e.getChannel().sendMessage(Emoji.ROLL + " Dice Rolled: " + number).queue();
                 }
                     
                 else if(args.length == 1) //Defualt random range 1~100
                 {
                     num = UtilNum.randomNum(1, 100);
                     String number = Emoji.stringToEmoji(num + "");
-                    e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + number
+                    e.getChannel().sendMessage(Emoji.NUMBER + " Random Number generated: " + number
                     + "\nBy default range `0~100`").queue();
                 }
                     
@@ -126,22 +126,22 @@ public class NumberCommand implements Command {
                     int numlong = UtilNum.randomNum(high, low);
                     String number = Emoji.stringToEmoji(numlong + "");
                         
-                    e.getChannel().sendMessage(Emoji.number + " Random Number generated: " + number
+                    e.getChannel().sendMessage(Emoji.NUMBER + " Random Number generated: " + number
                     + "\nBy specified range ` " + low + "~" + high + "`").queue();
                 }
                 
             } catch (NumberFormatException nfe) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter valid numbers.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter valid numbers.").queue();
             } catch (ArrayIndexOutOfBoundsException aiobe) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter two numbers.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter two numbers.").queue();
             }
         }
         
         //Coin Flip
         else if("coinflip".equals(args[0]) | "cf".equals(args[0]))
         {
-            if (Math.random() < 0.5) e.getChannel().sendMessage(Emoji.up + " Head!").queue();
-            else e.getChannel().sendMessage(Emoji.down + " Tail!").queue();
+            if (Math.random() < 0.5) e.getChannel().sendMessage(Emoji.UP + " Head!").queue();
+            else e.getChannel().sendMessage(Emoji.DOWN + " Tail!").queue();
         }
     }
 

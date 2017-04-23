@@ -51,7 +51,7 @@ public class PruneCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0)
         {
-            e.getChannel().sendMessage(Emoji.error + " You must add a number after Prune command to delete an amount of messages.\n"
+            e.getChannel().sendMessage(Emoji.ERROR + " You must add a number after Prune command to delete an amount of messages.\n"
                                          + "Use `" + Prefix.getDefaultPrefix() + "prune -h` for help.").queue();
         }
         else if("-h".equals(args[0]))
@@ -63,7 +63,7 @@ public class PruneCommand implements Command{
             TextChannel chan = e.getTextChannel();
             if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE) ||
                 !e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_HISTORY)) {
-                chan.sendMessage(Emoji.error + " I do not have the `Manage Message` and `Message History` Permission!").queue();
+                chan.sendMessage(Emoji.ERROR + " I do not have the `Manage Message` and `Message History` Permission!").queue();
                 return;
             }
             
@@ -73,11 +73,11 @@ public class PruneCommand implements Command{
                 msgs = Integer.parseInt(args[0]);
                 AILogger.commandLog(e, "PruneCommand", "Called to prune " + msgs + " messages.");
             } catch (NumberFormatException nfe) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter a valid number.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid number.").queue();
             }
             
             if(msgs <= 1 || msgs > 100) {
-                e.getChannel().sendMessage(Emoji.error + " Please enter a number between **2 ~ 100**.").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter a number between **2 ~ 100**.").queue();
                 return;
             }
             
@@ -86,7 +86,7 @@ public class PruneCommand implements Command{
             
             chan.getHistory().retrievePast(msgs).queue((List<Message> mess) -> {
                 e.getTextChannel().deleteMessages(mess).queue(
-                        success -> chan.sendMessage(Emoji.success + " `" + args[0] + "` messages deleted.")
+                        success -> chan.sendMessage(Emoji.SUCCESS + " `" + args[0] + "` messages deleted.")
                                 .queue( message -> {
                                     message.delete().queueAfter(2,TimeUnit.SECONDS);
                                 }));

@@ -77,17 +77,17 @@ public class Music  {
                     @Override
                     public void playlistLoaded(AudioPlaylist playlist) {
                         Main.guilds.get(e.getGuild().getId()).getScheduler().addPlayList(playlist, e.getAuthor().getName());
-                        e.getTextChannel().sendMessage(Emoji.success + " Queued Playlist: `" + playlist.getName() + "`").queue();
+                        e.getTextChannel().sendMessage(Emoji.SUCCESS + " Queued Playlist: `" + playlist.getName() + "`").queue();
                     }
                     
                     @Override
                     public void noMatches() {
-                        e.getTextChannel().sendMessage(Emoji.error + " No match found for " + link).queue();
+                        e.getTextChannel().sendMessage(Emoji.ERROR + " No match found for " + link).queue();
                     }
                     
                     @Override
                     public void loadFailed(FriendlyException exception) {
-                        e.getTextChannel().sendMessage(Emoji.error + " Fail to load the video " + link).queue();
+                        e.getTextChannel().sendMessage(Emoji.ERROR + " Fail to load the video " + link).queue();
                         AILogger.errorLog(exception, e, this.getClass().getName(), "Failed to load this video: " + link);
                     }
                 }).get();
@@ -99,7 +99,7 @@ public class Music  {
         }
         else
         {
-            e.getTextChannel().sendMessage(Emoji.error + " No match found.").queue();
+            e.getTextChannel().sendMessage(Emoji.ERROR + " No match found.").queue();
         }
     }
     
@@ -115,29 +115,29 @@ public class Music  {
     
     public static void shuffle(MessageReceivedEvent e)
     {
-        //Prevent user that is not in the same voice channel from stopping the player
+        //Prevent user that is not in the same voice channel from stopping the PLAYER
         if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
                 !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-            e.getChannel().sendMessage(Emoji.error + " You and I are not in the same voice channel.").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
             return;
         }
         
         Main.guilds.get(e.getGuild().getId()).getScheduler().shuffle();
-        e.getChannel().sendMessage(Emoji.shuffle + " Shuffled queue.").queue();
+        e.getChannel().sendMessage(Emoji.SHUFFLE + " Shuffled queue.").queue();
     }
     
     public static void stop(MessageReceivedEvent e)
     {
-        //Prevent user that is not in the same voice channel from stopping the player
+        //Prevent user that is not in the same voice channel from stopping the PLAYER
         if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
                 !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-            e.getChannel().sendMessage(Emoji.error + " You and I are not in the same voice channel.").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
             return;
         }
         
         Main.guilds.get(e.getGuild().getId()).getScheduler().stopPlayer();
         AudioConnection.disconnect(e, false);
-        e.getChannel().sendMessage(Emoji.stop + " Stopped the player, left the voice channel and cleared queue.").queue();
+        e.getChannel().sendMessage(Emoji.STOP + " Stopped the player, left the voice channel and cleared queue.").queue();
     }
     
     public static void setVolume(MessageReceivedEvent e, int in)
@@ -151,7 +151,7 @@ public class Music  {
      * @param position The position of the song
      * @param force force skip
      * @return 0 if the song is skipped
-     * @return a number more than 0 for the required votes
+     * @return a NUMBER more than 0 for the required votes
      * @return -1 if the voter already voted
      * @return -2 if there is no song playing
      */
