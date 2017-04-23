@@ -17,6 +17,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class TrackScheduler extends AudioEventAdapter {
     * Track fields
     */
     private final AudioPlayer player;
-    private final BlockingQueue<AudioTrackWrapper> queue;
+    private BlockingQueue<AudioTrackWrapper> queue;
     private AudioTrackWrapper NowPlayingTrack;
     
     /*
@@ -157,7 +158,7 @@ public class TrackScheduler extends AudioEventAdapter {
         super.onTrackException(player, track, exception);
         
         if(tc!=null)
-            tc.sendMessage(Emoji.error + " An error occurred!\n```\n\n" + exception.getMessage()+"```").queue();
+            tc.sendMessage(Emoji.error + " An error occurred!\n```\n\n"+exception.getMessage()+"```").queue();
     }
     
     /**
@@ -170,7 +171,7 @@ public class TrackScheduler extends AudioEventAdapter {
         // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
         // something is playing, it returns false and does nothing. In that case the player was already playing so this
         // track goes to the queue instead.
-
+        
         if(this.Mode == PlayerMode.FM) {
             e.getChannel().sendMessage(Emoji.error + " FM mode is ON! Only request radio or songs when FM is not playing.").queue();
             return;
@@ -240,6 +241,12 @@ public class TrackScheduler extends AudioEventAdapter {
             }
             NowPlayingTrack = wrapper;
         }
+    }
+    
+    public void shuffle() {
+        List<AudioTrackWrapper> queueList = new ArrayList(queue);
+        Collections.shuffle(queueList);
+        queue = new LinkedBlockingQueue (queueList);
     }
     
     /**

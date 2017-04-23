@@ -151,6 +151,7 @@ public class HelpText {
             + "**skip**\n"
             + "**nowplaying**\n\n"
             + "**volume**\n"
+            + "**shuffle**\n"
             + "**stop**\n"
             + "**dump**\n"
             + "**lyrics**\n";
@@ -167,6 +168,7 @@ public class HelpText {
             + "Skip the song.\n"
             + "Get the information of the \ncurrent playing song.\n"
             + "Set the volume of the bot.\n"
+            + "Shuffle the queue.\n"
             + "Dump the queue.\n"
             + "Stop the player.\n"
             + "Show the lyrics of a song.\n";

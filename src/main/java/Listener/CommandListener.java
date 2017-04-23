@@ -76,6 +76,8 @@ public class CommandListener extends ListenerAdapter {
                     handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
                 } catch (NullPointerException npe) {
                     e.getChannel().sendMessage(Emoji.error + " This command is not supported in dm.").queue();
+                } catch (Exception ex) {
+                    e.getChannel().sendMessage(Emoji.error + " An error occured! ```\n\n"+ex.getMessage()+"```").queue();
                 }
             }
         }

@@ -5,7 +5,6 @@
  */
 package Command.MusicModule;
 
-import Audio.AudioConnection;
 import Audio.Music;
 import Command.Command;
 import Main.Main;
@@ -15,7 +14,6 @@ import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
-import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

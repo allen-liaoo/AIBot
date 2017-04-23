@@ -91,6 +91,7 @@ public class InfoServerCommand implements Command{
             member = guild.getMembers().size();
             role = guild.getRoles().size();
             
+            /*
             //Get Invite of the server
             e.getJDA().getGuildById(guild.getId()).getPublicChannel().createInvite()
                     .setMaxAge(120).setMaxUses(1).setTemporary(true)
@@ -98,9 +99,9 @@ public class InfoServerCommand implements Command{
                         (Invite i) -> {
                             embedsi.setAuthor(name, "https://discord.gg/" + i.getCode(), Constants.I_INFO);
                         }
-                    );
+                    );*/
 
-            //embedsi.setAuthor(name, null, Constants.I_INFO);
+            embedsi.setAuthor(name, null, Constants.I_INFO);
             embedsi.setColor(Color.blue);
             embedsi.setThumbnail(icon);
             embedsi.setTimestamp(Instant.now());

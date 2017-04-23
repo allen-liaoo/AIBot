@@ -110,6 +110,8 @@ public class Emoji {
     public final static String notes = EmojiParser.parseToUnicode(":notes:");
     public final static String pause = EmojiParser.parseToUnicode(":double_vertical_bar:");
     public final static String resume = EmojiParser.parseToUnicode(":arrow_forward:");
+    public final static String shuffle = EmojiParser.parseToUnicode(":twisted_rightwards_arrows:");
+    public final static String repeat = EmojiParser.parseToUnicode(":arrows_counterclockwise:");
     public final static String stop = EmojiParser.parseToUnicode(":black_square_for_stop:");
     public final static String next_track = EmojiParser.parseToUnicode(":black_right_pointing_double_triangle_with_vertical_bar:");
     public final static String up_vote = EmojiParser.parseToUnicode(":arrow_up_small:");

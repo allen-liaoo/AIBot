@@ -13,6 +13,7 @@ import Main.Main;
 import Resource.Constants;
 import Resource.Emoji;
 import Setting.Prefix;
+import Utility.UtilBot;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -61,15 +62,7 @@ public class DumpCommand implements Command {
                 return;
             }
             
-            int mem = 0;
-            //Only count non-Bot Users
-            List<Member> members = Main.guilds.get(e.getGuild().getId()).getVc().getMembers();
-            for(Member m : members) {
-                if(!m.getUser().isBot())
-                    mem++;
-            }
-            
-            if(mem <= 2 ||
+            if(UtilBot.isMajority(e.getMember()) ||
                 e.getMember().isOwner() || 
                 e.getMember().hasPermission(Constants.PERM_MOD) ||
                 Constants.D_ID.equals(e.getAuthor().getId()))
@@ -88,7 +81,7 @@ public class DumpCommand implements Command {
             {
                 e.getChannel().sendMessage(Emoji.error + " This command is for server owner, bot owner, or "
                         + "members with `Administrator` or `Manage Server` permissions only.\n"
-                        + "You can also stop the player if there is less than 3 members in the voice channel.").queue();
+                        + "You can also dump the queue if there is less than 3 members in the voice channel.").queue();
             }
         }
     }

@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
+#### [0.2.6] - 2017-04-16 ~ 2017-04-21
+##### Added
+- ShuffleCommand to shuffle the queue
 
 #### [0.2.5] - 2017-04-16 ~ 2017-04-21
 ##### Added

@@ -14,6 +14,8 @@ import java.util.List;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 
 /**
@@ -139,6 +141,29 @@ public class UtilBot {
         }
         
         return vc;
+    }
+    
+    /**
+     * Check if an user is a majority in a voice channel
+     * @param mem
+     * @return
+     */
+    public static boolean isMajority(Member mem)
+    {
+        if(mem.getVoiceState().getChannel() != null) {
+            //Only count non-Bot Users
+            double mems = 0;
+            List<Member> members = mem.getVoiceState().getChannel().getMembers();
+            for(Member m : members) {
+                if(!m.getUser().isBot())
+                    mems++;
+            }
+            double percent = 1/mems;
+            
+            if(percent>60)
+                return true;
+        }
+        return false;
     }
     
 }

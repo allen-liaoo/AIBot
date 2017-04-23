@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -58,6 +60,11 @@ public class PlayCommand implements Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0)
         {
+            if(!e.getMember().getVoiceState().inVoiceChannel()) {
+                e.getChannel().sendMessage(Emoji.error + " You are not in a voice channel.").queue();
+                return;
+            }
+            
             if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
                 Music.resume(e);
         }
@@ -88,9 +95,11 @@ public class PlayCommand implements Command{
                 
                 choices += "\nUse `1~5` to select the song to play. Type `c` or `cancel` to cancel this selection.";
                 
-                e.getChannel().sendMessage(choices).queue();
-                
                 selecter.put(e.getGuild().getId(), e.getAuthor());
+                
+                e.getChannel().sendMessage(choices).queue( message -> {
+                    message.delete().queueAfter(60, TimeUnit.SECONDS);
+                });
             } catch (IOException ioe) {
                 AILogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result (-m).");
             } catch (IndexOutOfBoundsException ioobe) {
@@ -137,6 +146,7 @@ public class PlayCommand implements Command{
         
         if("cancel".equals(message) || character == 'c')
         {
+            e.getTextChannel().deleteMessageById(e.getMessage().getId()).complete();
             e.getChannel().sendMessage("Selection Cancelled.").queue();
             AILogger.commandLog(e, "PlayCommand#selector", "Video selection cancelled.");
         }
@@ -148,6 +158,7 @@ public class PlayCommand implements Command{
         {
             int i = Character.getNumericValue(character);
             AILogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());
+            e.getTextChannel().deleteMessageById(e.getMessage().getId()).complete();
         
             Music.play(results.get(i - 1).getLink(), e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
         }

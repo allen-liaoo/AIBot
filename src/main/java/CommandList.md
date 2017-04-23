@@ -65,8 +65,9 @@
 - skip - Skip the song.
 - nowplaying - Get the information of the current playing song.
 - volume - Set the volume of the bot.
-- dump - Dump the queue.
+- shuffle - Shuffle the queue.
 - stop - Stop the player.
+- dump - Dump the queue.
 - lyrics - Show the lyrics of a song. *
 
 ## Restricted Commands <br />

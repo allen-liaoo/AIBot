@@ -113,6 +113,19 @@ public class Music  {
         Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(false);
     }
     
+    public static void shuffle(MessageReceivedEvent e)
+    {
+        //Prevent user that is not in the same voice channel from stopping the player
+        if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
+                !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
+            e.getChannel().sendMessage(Emoji.error + " You and I are not in the same voice channel.").queue();
+            return;
+        }
+        
+        Main.guilds.get(e.getGuild().getId()).getScheduler().shuffle();
+        e.getChannel().sendMessage(Emoji.shuffle + " Shuffled queue.").queue();
+    }
+    
     public static void stop(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from stopping the player
