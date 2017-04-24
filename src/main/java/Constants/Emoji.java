@@ -19,6 +19,7 @@ public class Emoji {
     public final static String UP = EmojiParser.parseToUnicode(":arrow_up:");
     public final static String DOWN = EmojiParser.parseToUnicode(":arrow_down:");
     public final static String INVITE = EmojiParser.parseToUnicode(":postbox:");
+    public final static String INFORMATION = EmojiParser.parseToUnicode(":information_source:");
     
     //-Faces
     public final static String FACE_TONGUE = EmojiParser.parseToUnicode(":stuck_out_tongue:");

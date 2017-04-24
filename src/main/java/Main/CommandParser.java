@@ -75,6 +75,19 @@ public class CommandParser {
         return new CommandContainer(raw, null, splitBeheaded, invoke, args, e);
     }
     
+    public String[] parseRespond(String rw, MessageReceivedEvent e) {
+        String[] split = rw.split(" ");
+        String[] splitted = new String[2];
+        splitted[0] = split[0];
+        splitted[1] = "";
+        for(int i = 0; i < split.length; i++) {
+            if(i!=0) 
+                splitted[1] += split[i] + " ";
+        }
+        
+        return splitted;
+    }
+    
     public class CommandContainer {
         public final String raw;
         public final String beheaded;

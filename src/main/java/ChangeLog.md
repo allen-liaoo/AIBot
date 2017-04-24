@@ -5,6 +5,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 #### [0.2.6] - 2017-04-16 ~ 2017-04-21
 ##### Added
 - ShuffleCommand to shuffle the queue
+- TextRespond for hidden responds to some trigger words. (For example: "lmao")
 
 #### [0.2.5] - 2017-04-16 ~ 2017-04-21
 ##### Added

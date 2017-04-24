@@ -54,10 +54,15 @@ public class CommandListener extends ListenerAdapter {
             AILogger.updateLog("\tNew Server: " + e.getGuild().getId() + " " + e.getGuild().getName());
         }
         
-        /*
-        * Detect commands
-        */
+        /**
+         * Detect Trigger Words and Respond
+         */
+        Main.respond.checkRespond(e.getMessage().getRawContent(), e);
+        Main.respond.checkPrefixRespond(Main.parser.parseRespond(e.getMessage().getRawContent(), e), e);
         
+        /**
+         * Detect commands
+         */
         if(!e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
             //Message from Guild that starts with Prefix or mention
@@ -65,8 +70,12 @@ public class CommandListener extends ListenerAdapter {
                (e.getMessage().getContent().startsWith(Prefix.getDefaultPrefix()) ||
                 e.getMessage().getStrippedContent().startsWith("@" + e.getGuild().getSelfMember().getEffectiveName())))
             {
-                if(RateLimiter.isSpam(e)) return;
-                handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
+                try {
+                    if(RateLimiter.isSpam(e)) return;
+                    handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
+                } catch (Exception ex) {
+                    e.getChannel().sendMessage(Emoji.ERROR + " An error occured! ```\n\n"+ex.getMessage()+"```").queue();
+                }
             }
              
             else if (e.getChannelType() == ChannelType.PRIVATE)

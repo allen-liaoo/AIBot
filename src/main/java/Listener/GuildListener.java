@@ -8,8 +8,8 @@
 package Listener;
 
 import Main.Main;
-import Resource.Constants;
-import Resource.Emoji;
+import Constants.Constants;
+import Constants.Emoji;
 import Utility.UtilBot;
 import Utility.UtilNum;
 import java.util.List;
@@ -138,7 +138,7 @@ public class GuildListener extends ListenerAdapter {
                     && Main.guilds.get(guild.getId()).getPlayer().getPlayingTrack() != null
                     && mem > 0) {
                 
-                String msg = Emoji.resume + " Player resumed because someone joined the voice channel.";
+                String msg = Emoji.RESUME + " Player resumed because someone joined the voice channel.";
                 if(Main.guilds.get(guild.getId()).getScheduler().getTc() != null)
                     Main.guilds.get(guild.getId()).getScheduler().getTc().sendMessage(msg).queue();
                 else
@@ -168,7 +168,7 @@ public class GuildListener extends ListenerAdapter {
             if(!Main.guilds.get(guild.getId()).getPlayer().isPaused() 
                     && Main.guilds.get(guild.getId()).getPlayer().getPlayingTrack() != null
                     && mem == 0) {
-                String msg = Emoji.pause + " Player paused because no user is in the voice channel.";
+                String msg = Emoji.PAUSE + " Player paused because no user is in the voice channel.";
                 if(Main.guilds.get(guild.getId()).getScheduler().getTc() != null)
                     Main.guilds.get(guild.getId()).getScheduler().getTc().sendMessage(msg).queue();
                 else

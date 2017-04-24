@@ -39,6 +39,7 @@ public class Main {
 
     public static JDA jda;
     public static final CommandParser parser = new CommandParser();
+    public static final TextRespond respond = new TextRespond();
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
     public static HashMap<String, GuildSetting> guilds = new HashMap<String, GuildSetting>();
     public static long timeStart = 0;
