@@ -6,6 +6,12 @@
 - serverinfo (si) - Get server info.
 - channelinfo (ci) - Get channel info (Text/Voice Channel).
 - userinfo (ui) - Get user info. *
+- list - Get a list of servers, members or other entities.
+    - list server - Get a list of servers this bot is in. *
+    - list member - Get a list of members in a server.
+    - list role - Get a lost of roles in a server.
+    - list channel - Get a list of text and voice channels in a server.
+- member - A list of members in this server.
 - prefix - Set the server prefix. (Under Development)
 - ping - Pong. *
 - about - Bot description. *

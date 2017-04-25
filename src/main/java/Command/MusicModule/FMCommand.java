@@ -14,6 +14,7 @@ import Constants.Constants;
 import Setting.Prefix;
 import Utility.UtilNum;
 import Utility.AILogger;
+import Utility.UtilBot;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.awt.Color;
 import java.io.IOException;
@@ -73,7 +74,7 @@ public class FMCommand implements Command{
                 embedpl.addField("Local Playlists", localLib, true);
                 embedpl.setThumbnail(Constants.B_AVATAR);
                 embedpl.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
-                embedpl.setColor(UtilNum.randomColor());
+                embedpl.setColor(UtilBot.randomColor());
                 embedpl.setTimestamp(Instant.now());
                 
                 e.getChannel().sendMessage(embedpl.build()).queue();

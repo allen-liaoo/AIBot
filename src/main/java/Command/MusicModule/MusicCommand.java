@@ -13,6 +13,7 @@ import static Command.MusicModule.PlayCommand.HELP;
 import Constants.HelpText;
 import Constants.Constants;
 import Setting.Prefix;
+import Utility.UtilBot;
 import Utility.UtilNum;
 import java.awt.Color;
 import java.time.Instant;
@@ -48,7 +49,7 @@ public class MusicCommand implements Command{
         {
             EmbedBuilder embedm = new EmbedBuilder();
             
-            embedm.setColor(UtilNum.randomColor());
+            embedm.setColor(UtilBot.randomColor());
             embedm.setAuthor("Music Module", null, Constants.I_HELP);
             embedm.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
             embedm.setTimestamp(Instant.now());

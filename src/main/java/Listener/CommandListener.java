@@ -15,6 +15,8 @@ import static Main.Main.commands;
 import Constants.Emoji;
 import Setting.RateLimiter;
 import Utility.AILogger;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import net.dv8tion.jda.core.entities.ChannelType;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -83,8 +85,6 @@ public class CommandListener extends ListenerAdapter {
                 if(RateLimiter.isSpam(e)) return;
                 try {
                     handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
-                } catch (NullPointerException npe) {
-                    e.getChannel().sendMessage(Emoji.ERROR + " This command is not supported in dm.").queue();
                 } catch (Exception ex) {
                     e.getChannel().sendMessage(Emoji.ERROR + " An error occured! ```\n\n"+ex.getMessage()+"```").queue();
                 }
@@ -95,7 +95,20 @@ public class CommandListener extends ListenerAdapter {
     public static void handleCommand(CommandParser.CommandContainer cmd)
     {
         if(commands.containsKey(cmd.invoke)) {
-            cmd.event.getChannel().sendTyping().queue(success -> {commands.get(cmd.invoke).action(cmd.args, cmd.event);});
+            cmd.event.getChannel().sendTyping().queue(success -> 
+            {
+                try {
+                    commands.get(cmd.invoke).action(cmd.args, cmd.event);
+                } catch (NullPointerException ex) {
+                    if(cmd.event.isFromType(ChannelType.PRIVATE))
+                        cmd.event.getPrivateChannel().sendMessage(Emoji.ERROR + " This command is not supported in DM.").queue();
+                } catch (Exception ex) {
+                    StringWriter sw = new StringWriter();
+                    PrintWriter w = new PrintWriter(sw);
+                    ex.printStackTrace(w);
+                    cmd.event.getChannel().sendMessage(Emoji.ERROR + " An error occured!"+"```\n\n"+sw.toString()+"```").queue();
+                } 
+            });
         }
     }
     

@@ -192,7 +192,6 @@ public class TrackScheduler extends AudioEventAdapter {
         
         while (auto == previous) {
             auto = UtilNum.randomNum(0, fmSongs.size()-1);
-            System.out.println(auto);
         }
         previous = auto;
         String url = fmSongs.get(auto);

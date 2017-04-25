@@ -15,6 +15,7 @@ __**Information Commands**__
 - botinfo (bi) - Get bot info. * 
 - serverinfo (si) - Get server info. 
 - channelinfo (ci) - Get channel info (Text/Voice Channel). 
+- list - Get a list of servers, members or other entities.
 - userinfo (ui) - Get user info. * 
 
 __**Moderation Commands**__ 

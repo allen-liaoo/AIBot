@@ -7,7 +7,10 @@
  */
 package Command.MusicModule;
 
+import Main.Main;
 import Audio.Music;
+import Audio.TrackScheduler;
+import Audio.TrackScheduler.PlayerMode;
 import Command.Command;
 import static Command.Command.embed;
 import Constants.Constants;
@@ -45,6 +48,11 @@ public class ShuffleCommand implements Command {
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0)
         {
+            if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.FM) {
+                e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only shuffle queue when FM is not playing.").queue();
+                return;
+            }
+            
             if(UtilBot.isMajority(e.getMember()) ||
                 e.getMember().isOwner() || 
                 e.getMember().hasPermission(Constants.PERM_MOD) ||

@@ -13,6 +13,7 @@ import Utility.UtilNum;
 import Utility.WebScraper;
 import Utility.AILogger;
 import Utility.AIPages;
+import Utility.UtilBot;
 import Utility.UtilString;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -224,7 +225,7 @@ public class Music  {
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setAuthor(title, trackInfo.uri, Constants.B_AVATAR);
-        embedBuilder.setColor(UtilNum.randomColor());
+        embedBuilder.setColor(UtilBot.randomColor());
         embedBuilder.addField("Song Title:", trackInfo.title, true);
         embedBuilder.addField("Author:", trackInfo.author, true);
         embedBuilder.addField("Song Link:", trackInfo.uri, false);
@@ -338,7 +339,7 @@ public class Music  {
                 UtilString.formatDuration(position) + 
                 durationWithoutRadio + ")"
                 , Constants.B_INVITE, Constants.B_AVATAR);
-        embed.setColor(UtilNum.randomColor());
+        embed.setColor(UtilBot.randomColor());
         embed.setThumbnail(Constants.B_AVATAR);
         embed.setFooter("Reqested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
         embed.setTimestamp(Instant.now());

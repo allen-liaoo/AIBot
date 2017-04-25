@@ -9,14 +9,22 @@ package Utility;
 import Main.Main;
 import Constants.Constants;
 import Constants.Emoji;
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import net.dv8tion.jda.core.OnlineStatus;
+import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.VoiceChannel;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
@@ -125,6 +133,84 @@ public class UtilBot {
     }
     
     /**
+     * Get the guild list of this bot (Sorted by member count)
+     * @return
+     */
+    public static List<Guild> getServerList()
+    {
+        List<Guild> guildsList = new ArrayList(Main.jda.getGuilds());
+        
+            Collections.sort(guildsList, (Guild g1, Guild g2) -> 
+                    g1.getMembers().size() > g2.getMembers().size() ? -1 : (g1.getMembers().size() < g2.getMembers().size() ) ? 1 : 0 );
+        return guildsList;
+    }
+    
+    /**
+     * Get the member list of this guild (Sorted by role position and alphabetical order)
+     * @param e
+     * @return
+     */
+    public static List<Member> getMemberList(MessageReceivedEvent e)
+    {
+        List<Member> memsList = new ArrayList(e.getGuild().getMembers());
+        
+        Collections.sort(memsList, new Comparator<Member>() {
+            @Override
+            public int compare(Member m1, Member m2) { 
+                if(!m1.getRoles().isEmpty() && !m2.getRoles().isEmpty())
+                    return m1.getRoles().get(0).getPosition() > m2.getRoles().get(0).getPosition() ? -1 : (m1.getRoles().get(0).getPosition() < m2.getRoles().get(0).getPosition()) ? 1 : (m1.getEffectiveName().compareTo(m2.getEffectiveName()));
+                else if (!m1.getRoles().isEmpty() && m2.getRoles().isEmpty())
+                    return -1;
+                else if (m1.getRoles().isEmpty() && !m2.getRoles().isEmpty())
+                    return 1;
+                return m1.getEffectiveName().compareTo(m2.getEffectiveName());
+            }
+        });
+        return memsList;
+    }
+    
+    /**
+     * Get the role list of this guild (Sorted by role position)
+     * @param e
+     * @return
+     */
+    public static List<Role> getRoleList(MessageReceivedEvent e)
+    {
+        List<Role> roleList = new ArrayList(e.getGuild().getRoles());
+        
+        Collections.sort(roleList, (Role r1, Role r2) -> 
+                    r1.getPosition() > r2.getPosition() ? -1 : (r1.getPosition() < r2.getPosition() ) ? 1 : 0 );
+        
+        return roleList;
+    }
+    
+    /**
+     * Get the TextChannel list of this guild (Sorted by position)
+     * @param e
+     * @return
+     */
+    public static List<Channel> getTextChannelList(MessageReceivedEvent e)
+    {
+        List<Channel> tcList = new ArrayList(e.getGuild().getTextChannels());
+        Collections.sort(tcList, (Channel t1, Channel t2) -> 
+                    t1.getPosition() > t2.getPosition() ? 1 : (t1.getPosition() < t2.getPosition() ) ? -1 : 0 );
+        return tcList;
+    }
+    
+    /**
+     * Get the VoiceChannel list of this guild (Sorted by position)
+     * @param e
+     * @return
+     */
+    public static List<Channel> getVoiceChannelList(MessageReceivedEvent e)
+    {
+        List<Channel> vcList = new ArrayList(e.getGuild().getVoiceChannels());
+        Collections.sort(vcList, (Channel v1, Channel v2) -> 
+                    v1.getPosition() > v2.getPosition() ? 1 : (v1.getPosition() < v2.getPosition() ) ? -1 : 0 );
+        return vcList;
+    }
+    
+    /**
      * Get the connected voice channels
      * @return
      */
@@ -158,12 +244,35 @@ public class UtilBot {
                 if(!m.getUser().isBot())
                     mems++;
             }
-            double percent = 1/mems;
             
-            if(percent>60)
+            if(1/mems>0.5)
                 return true;
         }
         return false;
+    }
+
+    /**
+     * Generate Random Color
+     * @return Color
+     */
+    public static Color randomColor() {
+        Random colorpicker = new Random();
+        int red;
+        int green;
+        int blue;
+        red = colorpicker.nextInt(255) + 1;
+        green = colorpicker.nextInt(255) + 1;
+        blue = colorpicker.nextInt(255) + 1;
+        return new Color(red, green, blue);
+    }
+    
+    /**
+     * Get the hex code of a color
+     * @param color
+     * @return
+     */
+    public static String getHexCode(Color color) {
+        return "#"+Integer.toHexString(color.getRGB()).substring(2);
     }
     
 }

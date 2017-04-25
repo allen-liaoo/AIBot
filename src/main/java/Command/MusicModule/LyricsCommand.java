@@ -14,6 +14,7 @@ import Utility.Search;
 import Utility.UtilNum;
 import Utility.WebScraper;
 import Utility.AILogger;
+import Utility.UtilBot;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
@@ -92,7 +93,7 @@ public class LyricsCommand implements Command{
                 }
                 
                 EmbedBuilder embedly = new EmbedBuilder();
-                embedly.setColor(UtilNum.randomColor());
+                embedly.setColor(UtilBot.randomColor());
                 embedly.setTitle(results.get(0).getTitle() + " by " + results.get(0).getAuthor(), results.get(0).getLink());
                 embedly.setFooter("From Genius.com", null);
                 MessageEmbed mely = embedly.build();

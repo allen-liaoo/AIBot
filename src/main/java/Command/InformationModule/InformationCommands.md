@@ -41,10 +41,14 @@ Command Usage: =userinfo or =ui
 Parameter: `-h | -m | @mention(s) | null
 ```
 
-- servers - Get a list of servers this bot is in. *
-```This command is for getting a list of servers this bot is in.
-Command Usage: =servers
-Parameter: -h | null
+- list - Get a list of servers, members or other entities.
+```This command is for getting a list of servers, members or other entities.
+Command Usage: =list
+Parameter: -h | server | member | role | channel | null
+server: Get a list of servers this bot is in. *
+member: Get a list of members in this server.
+role: Get a lost of roles in this server.
+channel: Get a list of text and voice channels in this server.
 ```
 
 - prefix - Set the server prefix. (Under Development)

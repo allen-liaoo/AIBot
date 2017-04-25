@@ -70,7 +70,7 @@ public class GuildListener extends ListenerAdapter {
             return;
         
         embedmsg.setAuthor("Thanks for Adding AIBot!!", Constants.B_GITHUB, Constants.B_AVATAR);
-        embedmsg.setColor(UtilNum.randomColor());
+        embedmsg.setColor(UtilBot.randomColor());
         embedmsg.setDescription(welcome);
         embedmsg.setThumbnail(Constants.B_AVATAR);
         embedmsg.addField("Links", links, false);

@@ -2,10 +2,11 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
-#### [0.2.6] - 2017-04-16 ~ 2017-04-21
+#### [0.2.6] - 2017-04-12 ~ 2017-04-25
 ##### Added
 - ShuffleCommand to shuffle the queue
 - TextRespond for hidden responds to some trigger words. (For example: "lmao")
+- ListCommand that includes listing servers, members, roles, and channels.
 
 #### [0.2.5] - 2017-04-16 ~ 2017-04-21
 ##### Added

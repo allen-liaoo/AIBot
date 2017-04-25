@@ -103,7 +103,7 @@ public class Main {
         commands.put("userinfo", new InfoUserCommand());
         commands.put("ui", new InfoUserCommand());
         
-        commands.put("server", new ServerCommand());
+        commands.put("list", new ListCommand());
         commands.put("prefix", new PrefixCommand());
         commands.put("ping", new PingCommand());
         

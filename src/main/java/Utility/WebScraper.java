@@ -138,7 +138,7 @@ public class WebScraper {
         
         //Build MessageEmbed
         EmbedBuilder imdb = new EmbedBuilder();
-        imdb.setColor(UtilNum.randomColor());
+        imdb.setColor(UtilBot.randomColor());
         imdb.setThumbnail(result.getThumbnail());
         imdb.setAuthor(Emoji.SEARCH + " IMDb Search", result.getLink(), null);
         imdb.addField(Emoji.FILM_PROJECTOR + " Title", title, true);

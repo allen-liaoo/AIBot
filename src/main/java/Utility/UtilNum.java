@@ -6,29 +6,11 @@
  */
 package Utility;
 
-import java.awt.Color;
-import java.util.Random;
-
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class UtilNum {
-
-    /**
-     * Generate Random Color
-     * @return Color
-     */
-    public static Color randomColor() {
-        Random colorpicker = new Random();
-        int red;
-        int green;
-        int blue;
-        red = colorpicker.nextInt(255) + 1;
-        green = colorpicker.nextInt(255) + 1;
-        blue = colorpicker.nextInt(255) + 1;
-        return new Color(red, green, blue);
-    }
     
     /**
      * Generate a number between start and end
