@@ -7,13 +7,13 @@
  */
 package Command.MusicModule;
 
-import Main.Main;
 import Audio.Music;
-import Audio.TrackScheduler.PlayerMode;
+import Audio.TrackScheduler;
 import Command.Command;
 import static Command.Command.embed;
 import Constants.Constants;
 import Constants.Emoji;
+import Main.Main;
 import Setting.Prefix;
 import Utility.UtilBot;
 import java.awt.Color;
@@ -25,16 +25,16 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class ShuffleCommand implements Command {
-    public final static  String HELP = "Shuffle the queue.\n"
-                                     + "Command Usage: `" + Prefix.getDefaultPrefix() +"shuffle`\n"
+public class RepeatCommand implements Command {
+    public final static  String HELP = "Repeat the queued songs.\n"
+                                     + "Command Usage: `" + Prefix.getDefaultPrefix() +"repeat`\n"
                                      + "Parameter: `-h | null`\n";    
 
     @Override
     public void help(MessageReceivedEvent e) {
         embed.setColor(Color.red);
         embed.setTitle("Music Module", null);
-        embed.addField("Shuffle -Help", HELP, true);
+        embed.addField("Repeat -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
 
@@ -47,8 +47,8 @@ public class ShuffleCommand implements Command {
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0)
         {
-            if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.FM) {
-                e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only shuffle queue when FM is not playing.").queue();
+            if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == TrackScheduler.PlayerMode.FM) {
+                e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only set the repeat mode when FM is not playing.").queue();
                 return;
             }
             
@@ -57,7 +57,7 @@ public class ShuffleCommand implements Command {
                 e.getMember().hasPermission(Constants.PERM_MOD) ||
                 Constants.D_ID.equals(e.getAuthor().getId()))
             {
-                Music.shuffle(e);
+                Music.repeat(e);
             }
             else {
                 e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, or "
@@ -70,4 +70,5 @@ public class ShuffleCommand implements Command {
             help(e);
         }
     }
+    
 }

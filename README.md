@@ -15,8 +15,8 @@ __**Information Commands**__
 - botinfo (bi) - Get bot info. * 
 - serverinfo (si) - Get server info. 
 - channelinfo (ci) - Get channel info (Text/Voice Channel). 
-- list - Get a list of servers, members or other entities.
 - userinfo (ui) - Get user info. * 
+- list - Get a list of servers, members, roles or channels.
 
 __**Moderation Commands**__ 
 - prune (p) - Delete messages. 
@@ -36,6 +36,7 @@ __**Utility Commands**__
 __**Fun Commands**__
 - 8ball - Ask the magic 8ball a question. * 
 - face - Lenny * 
+- spam - Spam yummy spams! *
 - rockpaperscissors (rps) - Play Rock Paper Scissors with the bot. * 
 - guessnum (gn) - Guess a number! * 
 - tictactoe (ttt) - Play a Tic Tac Toe Game XO!! 
@@ -52,14 +53,16 @@ __**Music Commands**__
 - queue - Show the playlist and what's coming next.
 - nowplaying - Get the information of the current playing song.
 - volume - Set the volume of the bot. 
+- shuffle - Shuffle the queue.
 - stop - Stop the player. 
 - lyrics - Show the lyrics of a song. * 
 
 __**Restricted Commands**__ <br />
 These commands are for **Server Owner** or **Bot Owner** only. 
 - shutdown - Shut down the bot remotely. (Bot Owner) * 
+- Presence - Set the Status, Game or NickName of the bot. * 
 - source - Get the source code of a command class. * 
-- Presence - Set the Status or Game of the bot. * 
+- log - Get the logs of this bot. *
 
 __**Note:**__ <br />
 Adding the command/module name after help will show the command/module usage. <br />

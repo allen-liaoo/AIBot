@@ -85,12 +85,18 @@ public class PruneCommand implements Command{
             e.getTextChannel().deleteMessageById(e.getMessage().getId()).complete();
             
             chan.getHistory().retrievePast(msgs).queue((List<Message> mess) -> {
+                try {
                 e.getTextChannel().deleteMessages(mess).queue(
-                        success -> chan.sendMessage(Emoji.SUCCESS + " `" + args[0] + "` messages deleted.")
-                                .queue( message -> {
-                                    message.delete().queueAfter(2,TimeUnit.SECONDS);
-                                }));
+                    success ->
+                        chan.sendMessage(Emoji.SUCCESS + " `" + args[0] + "` messages deleted.")
+                        .queue( message -> {
+                            message.delete().queueAfter(2,TimeUnit.SECONDS);
+                        }));
+                } catch (IllegalArgumentException iae) {
+                    e.getChannel().sendMessage(Emoji.ERROR + " Cannot delete messages older than 2 weeks.").queue();
+                }
             });
+            
         }
     }
 

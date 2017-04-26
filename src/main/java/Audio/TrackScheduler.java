@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Matcher;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -39,7 +38,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class TrackScheduler extends AudioEventAdapter {
     
-    private static TextChannel tc;
+    private TextChannel tc;
     
     /*
     * Track fields
@@ -65,9 +64,10 @@ public class TrackScheduler extends AudioEventAdapter {
     private PlayerMode Mode;
     
     public enum PlayerMode {
-        DEFAULT,
-        NORMAL,
-        FM;
+        DEFAULT,    //Default Mode, nothing playing
+        NORMAL,     //Normal Mode, playing track or playlist
+        REPEAT,     //Repeat Mode, retreive the first queue and add to the last
+        FM;         //FM Mode, play automatic playlist
         
         @Override
         public String toString() {
@@ -95,70 +95,26 @@ public class TrackScheduler extends AudioEventAdapter {
         
         clearVote();
         
-        if(Mode == PlayerMode.FM){
+        if(Mode == PlayerMode.FM){ //FM Mode ON
             autoPlay();
-        } else if (queue.peek() != null) {
-            NowPlayingTrack = queue.peek();
-            player.startTrack(queue.poll().getTrack(), false);
-        } else {
+        } 
+        else if (queue.peek() != null) {
+            if(this.Mode != PlayerMode.REPEAT) { //Repeat Mode OFF
+                NowPlayingTrack = queue.peek();
+                player.startTrack(queue.poll().getTrack(), false);
+            }
+            else { //Repeat Mode ON
+                AudioTrackWrapper repeat = NowPlayingTrack.makeClone();
+                
+                NowPlayingTrack = queue.peek();
+                player.startTrack(queue.poll().getTrack(), false);
+                
+                queue.add(repeat);
+            }
+        } 
+        else {
             stopPlayer();
         }
-    }
-
-    /**
-     * Show now playing message
-     * @param player
-     * @param track
-     */
-    @Override
-    public void onTrackStart(AudioPlayer player, AudioTrack track) {
-        super.onTrackStart(player, track);
-        if(tc!=null)
-            tc.sendMessage(Emoji.NOTES + " Now playing `" + track.getInfo().title + "`").queue();
-    }
-
-    /**
-     * Determine the PLAYER mode and start the next track
-     * @param player
-     * @param track
-     * @param endReason
-     */
-    @Override
-    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
-        clearVote();
-        if (endReason.mayStartNext) {
-            nextTrack();
-        }
-        System.out.println("Track Ended: " + track.getInfo().title + " By reason: " + endReason.toString());
-    }
-
-    /**
-     *Inform the user that track has stuck
-     * @param player
-     * @param track
-     * @param thresholdMs
-     */
-    @Override
-    public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
-        super.onTrackStuck(player, track, thresholdMs);
-        if(tc!=null)
-            tc.sendMessage(Emoji.ERROR + " Track stuck! Skipping to the next track...").queue();
-        nextTrack();
-    }
-
-    /**
-     * Inform the user that track has thrown an exception
-     * @param player
-     * @param track
-     * @param exception
-     */
-    @Override
-    public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
-        super.onTrackException(player, track, exception);
-        
-        if(tc!=null)
-            tc.sendMessage(Emoji.ERROR + " An error occurred!\n```\n\n"+exception.getMessage()+"```").queue();
     }
     
     /**
@@ -176,8 +132,6 @@ public class TrackScheduler extends AudioEventAdapter {
             e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only request radio or songs when FM is not playing.").queue();
             return;
         }
-
-        this.Mode = PlayerMode.NORMAL;
 
         if (!player.startTrack(track.getTrack(), true)) {
             queue.offer(track);
@@ -242,11 +196,95 @@ public class TrackScheduler extends AudioEventAdapter {
         }
     }
     
+    /**
+     * Shuffle the queue.
+     */
     public void shuffle() {
         List<AudioTrackWrapper> queueList = new ArrayList(queue);
         Collections.shuffle(queueList);
         queue = new LinkedBlockingQueue (queueList);
     }
+    
+    /**
+     * Show now playing message
+     * @param player
+     * @param track
+     */
+    @Override
+    public void onTrackStart(AudioPlayer player, AudioTrack track) {
+        super.onTrackStart(player, track);
+        if(tc!=null)
+            tc.sendMessage(Emoji.NOTES + " Now playing `" + track.getInfo().title + "`").queue();
+    }
+
+    /**
+     * Determine the PLAYER mode and start the next track
+     * @param player
+     * @param track
+     * @param endReason
+     */
+    @Override
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
+        // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
+        clearVote();
+        if (endReason.mayStartNext) {
+            nextTrack();
+        }
+        System.out.println("Track Ended: " + track.getInfo().title + " By reason: " + endReason.toString());
+    }
+
+    /**
+     *Inform the user that track has stuck
+     * @param player
+     * @param track
+     * @param thresholdMs
+     */
+    @Override
+    public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
+        super.onTrackStuck(player, track, thresholdMs);
+        if(tc!=null)
+            tc.sendMessage(Emoji.ERROR + " Track stuck! Skipping to the next track...").queue();
+        nextTrack();
+    }
+
+    /**
+     * Inform the user that track has thrown an exception
+     * @param player
+     * @param track
+     * @param exception
+     */
+    @Override
+    public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
+        super.onTrackException(player, track, exception);
+        
+        if(tc!=null)
+            tc.sendMessage(Emoji.ERROR + " An error occurred!\n```\n\n"+AILogger.stackTractToString(exception)+"```").queue();
+    }
+
+    /**
+     * Inform the user when the player is paused
+     * @param player
+     */
+    @Override
+    public void onPlayerPause(AudioPlayer player) {
+        super.onPlayerPause(player); 
+        if(tc!=null)
+            tc.sendMessage(Emoji.PAUSE + " Player paused.").queue();
+    }
+
+    /**
+     * Inform the user when the player is resumed
+     * @param player
+     */
+    @Override
+    public void onPlayerResume(AudioPlayer player) {
+        super.onPlayerResume(player);
+        
+        if(tc!=null)
+            tc.sendMessage(Emoji.RESUME + " Player resumed.").queue();
+    }
+    
+    
     
     /**
     * Clear methods
@@ -304,7 +342,7 @@ public class TrackScheduler extends AudioEventAdapter {
         return NowPlayingTrack;
     }
 
-    public static TextChannel getTc() {
+    public TextChannel getTc() {
         return tc;
     }
     

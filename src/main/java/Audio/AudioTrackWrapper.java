@@ -52,6 +52,10 @@ public class AudioTrackWrapper {
         return false;
     }
     
+    public AudioTrackWrapper makeClone() {
+        return new AudioTrackWrapper(this.track.makeClone(), this.requester, this.type);
+    }
+    
     public AudioTrack getTrack() {
         return track;
     }

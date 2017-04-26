@@ -29,11 +29,15 @@ public class TextRespond {
     }
     
     public void checkRespond(String msg, MessageReceivedEvent e) {
+        if(e.getChannelType().isGuild() && e.getGuild().getMembers().size()>500)
+            return;
         if(responds.containsKey(msg))
             responds.get(msg).execute(e);
     }
     
     public void checkPrefixRespond(String args[], MessageReceivedEvent e) {
+        if(e.getChannelType().isGuild() && e.getGuild().getMembers().size()>500)
+            return;
         if(args.length>0 && prefixResponds.containsKey(args[0]))
             prefixResponds.get(args[0]).execute(args, e);
     }
@@ -81,7 +85,8 @@ public class TextRespond {
         private class say implements PrefixRespond {
             @Override
             public void execute (String args[], MessageReceivedEvent e) {
-                if(!e.getMember().isOwner() ||
+                if(!e.getChannelType().isGuild() ||
+                    !e.getMember().isOwner() ||
                     !Constants.D_ID.equals(e.getAuthor().getId()) ||
                     !e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_TTS))
                     return;

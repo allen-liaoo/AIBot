@@ -50,7 +50,7 @@ public class CommandListener extends ListenerAdapter {
          */
         if(!e.isFromType(ChannelType.PRIVATE) && !Main.guilds.containsKey(e.getGuild().getId()))
         {
-            GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=", 50);
+            GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=");
             Main.guilds.put(e.getGuild().getId(), newGuild);
             e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
             AILogger.updateLog("\tNew Server: " + e.getGuild().getId() + " " + e.getGuild().getName());
@@ -103,10 +103,7 @@ public class CommandListener extends ListenerAdapter {
                     if(cmd.event.isFromType(ChannelType.PRIVATE))
                         cmd.event.getPrivateChannel().sendMessage(Emoji.ERROR + " This command is not supported in DM.").queue();
                 } catch (Exception ex) {
-                    StringWriter sw = new StringWriter();
-                    PrintWriter w = new PrintWriter(sw);
-                    ex.printStackTrace(w);
-                    cmd.event.getChannel().sendMessage(Emoji.ERROR + " An error occured!"+"```\n\n"+sw.toString()+"```").queue();
+                    cmd.event.getChannel().sendMessage(Emoji.ERROR + " An error occured!"+"```\n\n"+AILogger.stackTractToString(ex)+"```").queue();
                 } 
             });
         }

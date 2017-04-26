@@ -21,6 +21,7 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
@@ -97,9 +98,11 @@ public class PlayCommand implements Command{
                 
                 selecter.put(e.getGuild().getId(), e.getAuthor());
                 
-                e.getChannel().sendMessage(choices).queue( message -> {
-                    message.delete().queueAfter(60, TimeUnit.SECONDS);
-                });
+                if(e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+                    e.getChannel().sendMessage(choices).queue( message -> {
+                        message.delete().queueAfter(60, TimeUnit.SECONDS);
+                    });
+                }
             } catch (IOException ioe) {
                 AILogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result (-m).");
             } catch (IndexOutOfBoundsException ioobe) {

@@ -64,8 +64,10 @@ public class KickCommand implements Command{
             Member selfMember = guild.getSelfMember(); 
             
             //Check if the bot have permission to kick.
-            if (!selfMember.hasPermission(Permission.KICK_MEMBERS))
+            if (!selfMember.hasPermission(Permission.KICK_MEMBERS)) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " I need to have **Kick Members* Permission to kick members.").queue();
+                return;
+            }
             
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             
@@ -80,11 +82,13 @@ public class KickCommand implements Command{
                     {
                         e.getTextChannel().sendMessage(Emoji.ERROR + " Cannot kick member: " + member.getEffectiveName()
                                       + ". They are in a higher role than I am!").queue();
+                        return;
                     }
                     else
                     {
                         e.getTextChannel().sendMessage(Emoji.ERROR + " Cannot kick member: " + member.getEffectiveName()
                                       + ". the person is in a higher role than I am!").queue();
+                        return;
                     }
                 }
                 

@@ -7,6 +7,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - ShuffleCommand to shuffle the queue
 - TextRespond for hidden responds to some trigger words. (For example: "lmao")
 - ListCommand that includes listing servers, members, roles, and channels.
+- RepeatCommand for repeating the songs.
 
 #### [0.2.5] - 2017-04-16 ~ 2017-04-21
 ##### Added

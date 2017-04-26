@@ -6,10 +6,10 @@
 package Audio;
 
 import Audio.AudioTrackWrapper.TrackType;
+import Audio.TrackScheduler.PlayerMode;
 import Main.Main;
 import Constants.Emoji;
 import Constants.Constants;
-import Utility.UtilNum;
 import Utility.WebScraper;
 import Utility.AILogger;
 import Utility.AIPages;
@@ -68,6 +68,11 @@ public class Music  {
         
         if(m.find()){
             try {
+                //Only turn the mode to normal is this was in default mode,
+                //So repeat mode will not be turned off
+                if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.DEFAULT) 
+                    Main.guilds.get(e.getGuild().getId()).getScheduler().setMode(PlayerMode.NORMAL);
+                        
                 Music.playerManager.loadItemOrdered(Music.playerManager, link, new AudioLoadResultHandler() {
                     @Override
                     public void trackLoaded(AudioTrack track) {
@@ -116,10 +121,8 @@ public class Music  {
     
     public static void shuffle(MessageReceivedEvent e)
     {
-        //Prevent user that is not in the same voice channel from stopping the PLAYER
-        if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
-                !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-            e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
+        //Prevent user that is not in the same voice channel from shuffling the Queue
+        if(isInSameVoiceChannel(e)) {
             return;
         }
         
@@ -127,12 +130,28 @@ public class Music  {
         e.getChannel().sendMessage(Emoji.SHUFFLE + " Shuffled queue.").queue();
     }
     
+    public static void repeat(MessageReceivedEvent e)
+    {
+        //Prevent user that is not in the same voice channel from shuffling the Queue
+        if(isInSameVoiceChannel(e)) {
+            return;
+        }
+        
+        if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.NORMAL ||
+                Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.DEFAULT) {
+            Main.guilds.get(e.getGuild().getId()).getScheduler().setMode(PlayerMode.REPEAT);
+            e.getChannel().sendMessage(Emoji.REPEAT + " Repeat mode on.").queue();
+        }
+        else {
+            Main.guilds.get(e.getGuild().getId()).getScheduler().setMode(PlayerMode.NORMAL);
+            e.getChannel().sendMessage(Emoji.REPEAT + " Repeat mode off.").queue();
+        }
+    }
+    
     public static void stop(MessageReceivedEvent e)
     {
-        //Prevent user that is not in the same voice channel from stopping the PLAYER
-        if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
-                !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-            e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
+        //Prevent user that is not in the same voice channel from stopping the Player
+        if(isInSameVoiceChannel(e)) {
             return;
         }
         
@@ -273,8 +292,12 @@ public class Music  {
         {
             String ptitle = playing.getTrack().getInfo().title;
             String purl = playing.getTrack().getInfo().uri;
-            embed.addField("Now Playing", "**[" + ptitle + "](" + purl + ")**\n"
-                    + "Requested by `" + playing.getRequester() + "`  Type: `" + playing.getType().toString() + "`\n", false);
+            String mode = Main.guilds.get(e.getGuild().getId()).getScheduler().getMode().toString();
+            
+            String text = "**Player Mode:** " + mode + "\n" + 
+                          "**[" + ptitle + "](" + purl + ")**\n" +
+                          "Requested by `" + playing.getRequester() + "`\nType: `" + playing.getType().toString() + "`\n";
+            embed.addField("Now Playing", text, false);
             
             //Current Position / Total Duration
             position = playing.getTrack().getPosition();
@@ -310,9 +333,7 @@ public class Music  {
                 if(trackwrapper.getType() != TrackType.RADIO)
                     duration += track.getDuration();
             }
-            
-            String mode = Main.guilds.get(e.getGuild().getId()).getScheduler().getMode().toString();
-            songs += "**Player Mode:** " + mode + "\n**Queue Count:** " + count + "\n\n";
+            songs += "**Queue Count:** " + count + "\n";
             
             //AIPages
             AIPages pages = new AIPages(queueList);
@@ -346,5 +367,16 @@ public class Music  {
         
         e.getChannel().sendMessage(embed.build()).queue();
         embed.clearFields();
+    }
+    
+    public static boolean isInSameVoiceChannel(MessageReceivedEvent e)
+    {
+        //Prevent user that is not in the same voice channel from executing a command
+        if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
+                !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
+            e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
+            return true;
+        }
+        return false;
     }
 }

@@ -43,15 +43,13 @@ public class GuildSetting {
   private String guildId, prefix;
   
   /**
-   * Creates a player and a track scheduler.
+   * Creates a player and a track scheduler
    * @param manager Audio player manager to use for creating the player.
    * @param guildId Guild ID
    * @param prefix Custom Guild prefix
-   * @param volume Custom Guild Music player volume
    */
-  public GuildSetting(AudioPlayerManager manager, String guildId, String prefix, int volume) {
+  public GuildSetting(AudioPlayerManager manager, String guildId, String prefix) {
     player = manager.createPlayer();
-    player.setVolume(volume);
     scheduler = new TrackScheduler(player);
     player.addListener(scheduler);
     

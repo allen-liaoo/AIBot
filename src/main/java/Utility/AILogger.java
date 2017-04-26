@@ -10,6 +10,8 @@ import Main.Main;
 import Constants.FilePath;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -111,5 +113,17 @@ public class AILogger {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+    
+    /**
+     * Return the stack trace of an exception
+     * @param ex
+     * @return
+     */
+    public static String stackTractToString(Exception ex) {
+        StringWriter sw = new StringWriter();
+        PrintWriter w = new PrintWriter(sw);
+        ex.printStackTrace(w);
+        return sw.toString();
     }
 }

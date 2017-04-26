@@ -8,9 +8,7 @@ package Audio;
 import Constants.Emoji;
 import Main.*;
 import Utility.AILogger;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackState;
 
-import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.managers.AudioManager;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
@@ -20,9 +18,6 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
  * @author liaoyilin
  */
 public class AudioConnection {
-    
-    private static VoiceChannel vc;
-    private static AudioManager am;
     
     /**
      * Connect to a Voice Channel
@@ -44,13 +39,14 @@ public class AudioConnection {
                 return;
             }
             
-            //Set Voice Channels and Text Channels
+            //Set Voice Channel and Text Channel
             Main.guilds.get(e.getGuild().getId()).setVc(e.getMember().getVoiceState().getChannel());
             Main.guilds.get(e.getGuild().getId()).setTc(e.getTextChannel());
             
-            vc = Main.guilds.get(e.getGuild().getId()).getVc();
-            am = e.getGuild().getAudioManager();
+            //Open Connection
+            AudioManager am = e.getGuild().getAudioManager();
             am.openAudioConnection(Main.guilds.get(e.getGuild().getId()).getVc());
+            
         } catch (IllegalArgumentException iea) {
             e.getChannel().sendMessage(Emoji.ERROR + " You must connect to a voice channel first.").queue();
             return;
@@ -62,7 +58,7 @@ public class AudioConnection {
         
         //Inform the users that the bot joined a voice channel
         if(inform)
-            e.getChannel().sendMessage(Emoji.GLOBE + " Joined Voice Channel `" + vc.getName() + "`").queue();
+            e.getChannel().sendMessage(Emoji.GLOBE + " Joined Voice Channel `" + Main.guilds.get(e.getGuild().getId()).getVc().getName() + "`").queue();
     }
     
     public static void disconnect(MessageReceivedEvent e, boolean inform)
@@ -80,12 +76,13 @@ public class AudioConnection {
                 return;
             }
             
-            am = e.getGuild().getAudioManager();
+            //Close Connection
+            AudioManager am = e.getGuild().getAudioManager();
             am.closeAudioConnection();
-        
-        //Inform the users that the bot joined a voice channel
-        if(inform)
-            e.getChannel().sendMessage(Emoji.GLOBE + " Left Voice Channel `" + Main.guilds.get(e.getGuild().getId()).getVc().getName() + "`").queue();
+            
+            //Inform the users that the bot joined a voice channel
+            if(inform)
+                e.getChannel().sendMessage(Emoji.GLOBE + " Left Voice Channel `" + Main.guilds.get(e.getGuild().getId()).getVc().getName() + "`").queue();
         } catch (NullPointerException npe) { 
             e.getChannel().sendMessage(Emoji.ERROR + " I am not in a voice channel.").queue();
         }

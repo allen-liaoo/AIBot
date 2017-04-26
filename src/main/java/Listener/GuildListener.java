@@ -11,7 +11,8 @@ import Main.Main;
 import Constants.Constants;
 import Constants.Emoji;
 import Utility.UtilBot;
-import Utility.UtilNum;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
@@ -32,8 +33,6 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class GuildListener extends ListenerAdapter {
-
-    private final EmbedBuilder embedmsg = new EmbedBuilder();
     private final String welcome = "Use `=help 1, =help 2, =help 3, or =help 4` for more commands.\n"
                                 + "Use `=about` to see the basic informations about this bot.\n"
                                 + "Want to invite me to your server? type `=invite` to get the invite link.\n"
@@ -52,10 +51,14 @@ public class GuildListener extends ListenerAdapter {
     @Override
     public void onGuildJoin(GuildJoinEvent event) {
         super.onGuildJoin(event);
-        welcome(event.getGuild().getPublicChannel());
         
-        System.out.println("Joined guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
-        UtilBot.setGame("default");
+        // Only send welcome message if the bot is new (10 sec) to the server. 
+        // Note that this event may be triggered due to Discord downtime.
+        if(ChronoUnit.SECONDS.between(event.getGuild().getSelfMember().getJoinDate(), ZonedDateTime.now())<10) {
+            welcome(event.getGuild().getPublicChannel());
+            System.out.println("Joined guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
+            UtilBot.setGame("default");
+        }
     }
     
     @Override
@@ -69,12 +72,14 @@ public class GuildListener extends ListenerAdapter {
         if(!c.canTalk())
             return;
         
+        EmbedBuilder embedmsg = new EmbedBuilder();
         embedmsg.setAuthor("Thanks for Adding AIBot!!", Constants.B_GITHUB, Constants.B_AVATAR);
         embedmsg.setColor(UtilBot.randomColor());
         embedmsg.setDescription(welcome);
         embedmsg.setThumbnail(Constants.B_AVATAR);
         embedmsg.addField("Links", links, false);
         c.sendMessage(embedmsg.build()).queue();
+        embedmsg.clearFields();
     }
     
     /**
@@ -99,20 +104,20 @@ public class GuildListener extends ListenerAdapter {
     @Override
     public void onGuildVoiceJoin(GuildVoiceJoinEvent e) {
         super.onGuildVoiceJoin(e);
-        onJoin(e.getGuild(), e.getChannelJoined());
+        onVoiceJoin(e.getGuild(), e.getChannelJoined());
     }
     
     @Override
     public void onGuildVoiceLeave(GuildVoiceLeaveEvent e) {
         super.onGuildVoiceLeave(e);
-        onLeave(e.getGuild(), e.getChannelLeft());
+        onVoiceLeave(e.getGuild(), e.getChannelLeft());
     }
 
     @Override
     public void onGuildVoiceMove(GuildVoiceMoveEvent e) {
         super.onGuildVoiceMove(e);
-        onJoin(e.getGuild(), e.getChannelJoined());
-        onLeave(e.getGuild(), e.getChannelLeft());
+        onVoiceJoin(e.getGuild(), e.getChannelJoined());
+        onVoiceLeave(e.getGuild(), e.getChannelLeft());
     }
     
     /**
@@ -120,7 +125,7 @@ public class GuildListener extends ListenerAdapter {
      * @param guild the guild that this event happened in
      * @param joined the channel that this event happened in
      */
-    private void onJoin(Guild guild, VoiceChannel joined)
+    private void onVoiceJoin(Guild guild, VoiceChannel joined)
     {
         if(guild.getSelfMember().getVoiceState().getChannel() == joined) {
             
@@ -137,13 +142,6 @@ public class GuildListener extends ListenerAdapter {
             if(Main.guilds.get(guild.getId()).getPlayer().isPaused() 
                     && Main.guilds.get(guild.getId()).getPlayer().getPlayingTrack() != null
                     && mem > 0) {
-                
-                String msg = Emoji.RESUME + " Player resumed because someone joined the voice channel.";
-                if(Main.guilds.get(guild.getId()).getScheduler().getTc() != null)
-                    Main.guilds.get(guild.getId()).getScheduler().getTc().sendMessage(msg).queue();
-                else
-                    guild.getPublicChannel().sendMessage(msg).queue();
-                
                 Main.guilds.get(guild.getId()).getPlayer().setPaused(false);
             }
         }
@@ -154,7 +152,7 @@ public class GuildListener extends ListenerAdapter {
      * @param guild the guild that this event happened in
      * @param left the channel that this event happened in
      */
-    private void onLeave(Guild guild, VoiceChannel left)
+    private void onVoiceLeave(Guild guild, VoiceChannel left)
     {   
         if(guild != null && guild.getSelfMember().getVoiceState().getChannel() == left) {
             int mem = 0;
@@ -168,12 +166,6 @@ public class GuildListener extends ListenerAdapter {
             if(!Main.guilds.get(guild.getId()).getPlayer().isPaused() 
                     && Main.guilds.get(guild.getId()).getPlayer().getPlayingTrack() != null
                     && mem == 0) {
-                String msg = Emoji.PAUSE + " Player paused because no user is in the voice channel.";
-                if(Main.guilds.get(guild.getId()).getScheduler().getTc() != null)
-                    Main.guilds.get(guild.getId()).getScheduler().getTc().sendMessage(msg).queue();
-                else
-                    guild.getPublicChannel().sendMessage(msg).queue();
-                
                 Main.guilds.get(guild.getId()).getPlayer().setPaused(true);
             }
         }

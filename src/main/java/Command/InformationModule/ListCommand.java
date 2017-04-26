@@ -21,7 +21,6 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -37,7 +36,7 @@ public class ListCommand implements Command {
                                     + "Parameter: `-h | server | member | role | channel | null`\n"
                                     + "server: Get a list of servers this bot is in. *\n"
                                     + "member: Get a list of members in this server.\n"
-                                    + "role: Get a lost of roles in this server.\n"
+                                    + "role: Get a list of roles in this server.\n"
                                     + "channel: Get a list of text and voice channels in this server.\n";
     private final EmbedBuilder embed = new EmbedBuilder();
             
@@ -164,10 +163,15 @@ public class ListCommand implements Command {
             page = Integer.parseInt(args[1]);
 
         List<Channel> chans = pages.getPage(page);
-        String output = "```md\n\n[Text Channel List](Total: " + chanList.size() + ")\n\n";
+        String output = "```md\n\n[Channel List](Total: " + chanList.size() + ")\n\n";
         
         int index = (page-1) * pages.getPageSize()+1;
         for(int i = 0; i < chans.size(); i++) {
+            if(i==0 && page == 1)
+                output += "/* Text Channel(s): " + tcList.size() + " *\n\n";
+            if(i==tcList.size()-((page-1)*10))
+                output += "/* Voice Channel(s): " + vcList.size() + " *\n\n";
+            
             output += (i+index) + ". " + chans.get(i).getName() + " <Members: " + chans.get(i).getMembers().size() + ">\n\n";
         }
 

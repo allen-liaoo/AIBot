@@ -69,8 +69,10 @@ public class BanCommand implements Command{
             Member selfMember = guild.getSelfMember(); 
             
             //Check if the bot have permission to kick.
-            if (!selfMember.hasPermission(Permission.BAN_MEMBERS))
-                e.getTextChannel().sendMessage(Emoji.ERROR + " I need to have **Ban Members* Permission to ban members.").queue();
+            if (!selfMember.hasPermission(Permission.BAN_MEMBERS)) {
+                e.getTextChannel().sendMessage(Emoji.ERROR + " I need to have **Ban Members** Permission to ban members.").queue();
+                return;
+            }
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
             
             AILogger.commandLog(e, "BanCommand", "Called to ban " + mentionedUsers.size() + " users.");

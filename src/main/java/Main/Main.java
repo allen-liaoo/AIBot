@@ -191,6 +191,7 @@ public class Main {
         commands.put("q", new QueueCommand());
         commands.put("volume", new VolumeCommand());
         commands.put("shuffle", new ShuffleCommand());
+        commands.put("repeat", new RepeatCommand());
         commands.put("stop", new StopCommand());
         commands.put("dump", new DumpCommand());
         commands.put("lyrics", new LyricsCommand());
