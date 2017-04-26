@@ -94,7 +94,7 @@ public class JumpCommand implements Command {
             }
             else
             {
-                e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, or "
+                e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, the song requester or "
                     + "members with `Administrator` or `Manage Server` permissions only.\n"
                     + "You can also stop the player if there is less than 3 members in the voice channel.").queue();
             }

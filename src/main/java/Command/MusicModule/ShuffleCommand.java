@@ -57,6 +57,11 @@ public class ShuffleCommand implements Command {
                 e.getMember().hasPermission(Constants.PERM_MOD) ||
                 Constants.D_ID.equals(e.getAuthor().getId()))
             {
+                if(Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue().isEmpty()) {
+                   e.getChannel().sendMessage(Emoji.ERROR + " No song in the queue to shuffle.").queue();
+                   return;
+                }
+                
                 Music.shuffle(e);
             }
             else {

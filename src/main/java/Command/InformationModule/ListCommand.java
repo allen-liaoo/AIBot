@@ -70,6 +70,9 @@ public class ListCommand implements Command {
                     listRole(args,e);
                 else if ("channel".equals(args[0]) || "channels".equals(args[0]))
                     listChannel(args,e);
+                else
+                    e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid list type. "
+                            + "`=list server, member, role, or channel`").queue();
             } catch (IllegalArgumentException  | IndexOutOfBoundsException ex) {
                 e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid page number.").queue();
                 return;

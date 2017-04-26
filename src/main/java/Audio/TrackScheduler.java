@@ -40,26 +40,26 @@ public class TrackScheduler extends AudioEventAdapter {
     
     private TextChannel tc;
     
-    /*
-    * Track fields
+    /**
+    * Track fields.
     */
     private final AudioPlayer player;
     private BlockingQueue<AudioTrackWrapper> queue;
     private AudioTrackWrapper NowPlayingTrack;
     
-    /*
-    * Skip System fields
+    /**
+    * Skip System fields.
     */
     public final ArrayList<User> skipper;
     
-    /*
-    * FM fields
+    /**
+    * FM fields.
     */
     public static ArrayList<String> fmSongs = new ArrayList<String>();
     private int auto = -1, previous = -1;
     
-    /*
-    * Enum type of the playing mode
+    /**
+    * Enum type of the playing mode.
     */
     private PlayerMode Mode;
     
@@ -95,22 +95,18 @@ public class TrackScheduler extends AudioEventAdapter {
         
         clearVote();
         
-        if(Mode == PlayerMode.FM){ //FM Mode ON
+        if(Mode == PlayerMode.FM){   //FM Mode ON
             autoPlay();
         } 
-        else if (queue.peek() != null) {
-            if(this.Mode != PlayerMode.REPEAT) { //Repeat Mode OFF
-                NowPlayingTrack = queue.peek();
-                player.startTrack(queue.poll().getTrack(), false);
-            }
-            else { //Repeat Mode ON
-                AudioTrackWrapper repeat = NowPlayingTrack.makeClone();
-                
-                NowPlayingTrack = queue.peek();
-                player.startTrack(queue.poll().getTrack(), false);
-                
-                queue.add(repeat);
-            }
+        else if(this.Mode == PlayerMode.REPEAT) {   //Repeat Mode ON
+            AudioTrackWrapper repeat = NowPlayingTrack.makeClone();
+            queue.add(repeat);
+            NowPlayingTrack = queue.peek();
+            player.startTrack(queue.poll().getTrack(), false);
+        }
+        else if (queue.peek() != null) {    //Normal Mode
+            NowPlayingTrack = queue.peek();
+            player.startTrack(queue.poll().getTrack(), false);
         } 
         else {
             stopPlayer();
@@ -119,7 +115,6 @@ public class TrackScheduler extends AudioEventAdapter {
     
     /**
      * Add the next track to queue or play right away if nothing is in the queue.
-     *
      * @param track The track to play or add to queue.
      * @param e
      */
@@ -141,6 +136,9 @@ public class TrackScheduler extends AudioEventAdapter {
         NowPlayingTrack = track;
     }
     
+    /**
+     * Automatically load an FM song from fmSongs.
+     */
     public void autoPlay() {
         Mode = PlayerMode.FM;
         
@@ -355,13 +353,11 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
     public boolean addVote(User vote) {
-        if(!skipper.contains(vote))
-        {
+        if(!skipper.contains(vote)) {
             skipper.add(vote);
             return true;
         }
-        else
-            return false;
+        return false;
     }
     
 }
