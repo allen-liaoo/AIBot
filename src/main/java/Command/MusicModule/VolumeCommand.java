@@ -23,9 +23,9 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class VolumeCommand implements Command {
     
-    public final static  String HELP = "This command is for playing an youtube music in the voice channel.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"play`\n"
-                                     + "Parameter: `-h | [Youtube Url] | null`";
+    public final static String HELP = "This command is for playing an youtube music in the voice channel.\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"play`\n"
+                                    + "Parameter: `-h | [Youtube Url] | null`";
     
 
     @Override

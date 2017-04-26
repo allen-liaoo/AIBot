@@ -53,7 +53,9 @@ __**Music Commands**__
 - queue - Show the playlist and what's coming next.
 - nowplaying - Get the information of the current playing song.
 - volume - Set the volume of the bot. 
+- jump - Jump to a position of the song.
 - shuffle - Shuffle the queue.
+- repeat - Repeat the queued songs.
 - stop - Stop the player. 
 - lyrics - Show the lyrics of a song. * 
 

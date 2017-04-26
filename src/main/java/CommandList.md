@@ -71,6 +71,7 @@
 - skip - Skip the song.
 - nowplaying (np) - Get the information of the current playing song.
 - volume - Set the volume of the bot.
+- jump - Jump to a position of the song.
 - shuffle - Shuffle the queue.
 - repeat - Repeat the queued songs.
 - stop - Stop the player.

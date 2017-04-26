@@ -119,6 +119,24 @@ public class Music  {
         Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(false);
     }
     
+    public static void setVolume(MessageReceivedEvent e, int vol)
+    {
+        Main.guilds.get(e.getGuild().getId()).getPlayer().setVolume(vol);
+    }
+    
+    public static void jump(MessageReceivedEvent e, long position) 
+    {
+        //Prevent user that is not in the same voice channel from jumping to song
+        if(isInSameVoiceChannel(e)) {
+            return;
+        }
+        
+        AudioTrack track = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack();
+        if(track.isSeekable()) {
+            track.setPosition(position);
+        }
+    }
+    
     public static void shuffle(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from shuffling the Queue
@@ -158,11 +176,6 @@ public class Music  {
         Main.guilds.get(e.getGuild().getId()).getScheduler().stopPlayer();
         AudioConnection.disconnect(e, false);
         e.getChannel().sendMessage(Emoji.STOP + " Stopped the player, left the voice channel and cleared queue.").queue();
-    }
-    
-    public static void setVolume(MessageReceivedEvent e, int in)
-    {
-        Main.guilds.get(e.getGuild().getId()).getPlayer().setVolume(in);
     }
     
     /**
@@ -240,7 +253,7 @@ public class Music  {
     public static void trackInfo(MessageReceivedEvent e, AudioTrackWrapper track, String title)
     {   
         AudioTrackInfo trackInfo = track.getTrack().getInfo();
-        String trackTime = UtilString.formatDuration(track.getTrack().getPosition());
+        String trackTime = UtilString.formatDurationToString(track.getTrack().getPosition());
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setAuthor(title, trackInfo.uri, Constants.B_AVATAR);
@@ -251,7 +264,7 @@ public class Music  {
         
         if(track.getType() != AudioTrackWrapper.TrackType.RADIO)
         {
-            trackTime += " / " + UtilString.formatDuration(track.getTrack().getDuration());
+            trackTime += " / " + UtilString.formatDurationToString(track.getTrack().getDuration());
         }
         
         embedBuilder.addField("Song Duration:", trackTime, true);
@@ -351,13 +364,13 @@ public class Music  {
         }
         
         String durationWithoutRadio = "";
-        if("00:00".equals(UtilString.formatDuration(duration)))
+        if("00:00".equals(UtilString.formatDurationToString(duration)))
             durationWithoutRadio = "";
         else
-            durationWithoutRadio = " / " + UtilString.formatDuration(duration);
+            durationWithoutRadio = " / " + UtilString.formatDurationToString(duration);
         
         embed.setAuthor("Queue List (" + 
-                UtilString.formatDuration(position) + 
+                UtilString.formatDurationToString(position) + 
                 durationWithoutRadio + ")"
                 , Constants.B_INVITE, Constants.B_AVATAR);
         embed.setColor(UtilBot.randomColor());

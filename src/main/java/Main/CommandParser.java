@@ -10,6 +10,7 @@ import Setting.Prefix;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 /**
  *
  * @author liaoyilin
@@ -20,22 +21,22 @@ public class CommandParser {
      * Parsing normal and mention commands
      * @param rw the raw message
      * @param e the MessageReceivedEvent
+     * @return 
      */
     public CommandContainer parse(String rw, MessageReceivedEvent e) {
-        ArrayList<String> split = new ArrayList<String>();
+        ArrayList<String> split = new ArrayList<>();
         String raw = rw;
         
         String beheaded = "";
+        
         if(raw.startsWith(Prefix.getDefaultPrefix()))
             beheaded = raw.replaceFirst(Prefix.getDefaultPrefix(), "");
-        else if(raw.startsWith("@" + e.getGuild().getSelfMember().getEffectiveName()))
-            beheaded = raw.replaceFirst("@" + e.getGuild().getSelfMember().getEffectiveName() + " ", "");
+        else if(raw.startsWith("@" + e.getGuild().getSelfMember().getEffectiveName())) 
+            beheaded = raw.replace("@" + e.getGuild().getSelfMember().getEffectiveName() + " ", "");
         
         String[] splitBeheaded = beheaded.split(" ");
         
-        for(String s : splitBeheaded) {
-            split.add(s);
-        }
+        split.addAll(Arrays.asList(splitBeheaded));
         
         String invoke = split.get(0);
         String[] args = new String[split.size() - 1];
@@ -48,9 +49,10 @@ public class CommandParser {
      * Parsing PrivateChannel commands
      * @param rw the raw message
      * @param e the MessageReceivedEvent
+     * @return 
      */
     public CommandContainer parsePrivate(String rw, MessageReceivedEvent e) {
-        ArrayList<String> split = new ArrayList<String>();
+        ArrayList<String> split = new ArrayList<>();
         String raw = rw;
         
         String beheaded = "";
@@ -63,10 +65,7 @@ public class CommandParser {
         
         String[] splitBeheaded = beheaded.split(" ");
         
-        for(String s : splitBeheaded) 
-        {
-            split.add(s);
-        }
+        split.addAll(Arrays.asList(splitBeheaded));
         
         String invoke = split.get(0);
         String[] args = new String[split.size() - 1];
@@ -75,6 +74,12 @@ public class CommandParser {
         return new CommandContainer(raw, null, splitBeheaded, invoke, args, e);
     }
     
+    /**
+     * Parsing Prefix Responds
+     * @param rw
+     * @param e
+     * @return
+     */
     public String[] parseRespond(String rw, MessageReceivedEvent e) {
         String[] split = rw.split(" ");
         String[] splitted = new String[2];

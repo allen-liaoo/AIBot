@@ -15,8 +15,6 @@ import static Main.Main.commands;
 import Constants.Emoji;
 import Setting.RateLimiter;
 import Utility.AILogger;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import net.dv8tion.jda.core.entities.ChannelType;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -46,7 +44,7 @@ public class CommandListener extends ListenerAdapter {
             return;
         
         /**
-         * Create GuildSetting for each Guild
+         * Create GuildSetting for each Guild.
          */
         if(!e.isFromType(ChannelType.PRIVATE) && !Main.guilds.containsKey(e.getGuild().getId()))
         {
@@ -57,13 +55,13 @@ public class CommandListener extends ListenerAdapter {
         }
         
         /**
-         * Detect Trigger Words and Respond
+         * Detect Trigger Words and Respond.
          */
         Main.respond.checkRespond(e.getMessage().getRawContent(), e);
         Main.respond.checkPrefixRespond(Main.parser.parseRespond(e.getMessage().getRawContent(), e), e);
         
         /**
-         * Detect commands
+         * Detect commands.
          */
         if(!e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
         {
@@ -102,6 +100,8 @@ public class CommandListener extends ListenerAdapter {
                 } catch (NullPointerException ex) {
                     if(cmd.event.isFromType(ChannelType.PRIVATE))
                         cmd.event.getPrivateChannel().sendMessage(Emoji.ERROR + " This command is not supported in DM.").queue();
+                    else
+                        throw ex;
                 } catch (Exception ex) {
                     cmd.event.getChannel().sendMessage(Emoji.ERROR + " An error occured!"+"```\n\n"+AILogger.stackTractToString(ex)+"```").queue();
                 } 

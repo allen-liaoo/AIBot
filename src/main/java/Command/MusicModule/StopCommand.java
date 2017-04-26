@@ -11,6 +11,7 @@ import Main.Main;
 import Constants.Emoji;
 import Constants.Constants;
 import Setting.Prefix;
+import Utility.UtilBot;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -63,7 +64,7 @@ public class StopCommand implements Command{
                     mem++;
             }
             
-            if(mem <= 2 ||
+            if(UtilBot.isMajority(e.getMember()) ||
                 e.getMember().isOwner() || 
                 e.getMember().hasPermission(Constants.PERM_MOD) ||
                 Constants.D_ID.equals(e.getAuthor().getId()))

@@ -109,14 +109,16 @@ public class Emoji {
     public final static String GLOBE = EmojiParser.parseToUnicode(":globe_with_meridians:");
     public final static String NOTES = EmojiParser.parseToUnicode(":notes:");
     public final static String PAUSE = EmojiParser.parseToUnicode(":double_vertical_bar:");
+    public final static String NEXT_TRACK = EmojiParser.parseToUnicode(":black_right_pointing_double_triangle_with_vertical_bar:");
+    public final static String UP_VOTE = EmojiParser.parseToUnicode(":arrow_up_small:");
     public final static String RESUME = EmojiParser.parseToUnicode(":arrow_forward:");
+    public final static String JUMP = EmojiParser.parseToUnicode(":left_right_arrow:");
+    public final static String VOLUME_LOW = EmojiParser.parseToUnicode(":sound:");
+    public final static String VOLUME_HIGH = EmojiParser.parseToUnicode(":loud_sound:");
     public final static String SHUFFLE = EmojiParser.parseToUnicode(":twisted_rightwards_arrows:");
     public final static String REPEAT = EmojiParser.parseToUnicode(":arrows_counterclockwise:");
     public final static String STOP = EmojiParser.parseToUnicode(":black_square_for_stop:");
-    public final static String NEXT_TRACK = EmojiParser.parseToUnicode(":black_right_pointing_double_triangle_with_vertical_bar:");
-    public final static String UP_VOTE = EmojiParser.parseToUnicode(":arrow_up_small:");
-    public final static String VOLUME_LOW = EmojiParser.parseToUnicode(":sound:");
-    public final static String VOLUME_HIGH = EmojiParser.parseToUnicode(":loud_sound:");
+    
     
     //Fun
     //-Game

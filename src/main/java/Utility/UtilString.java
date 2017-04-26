@@ -37,7 +37,7 @@ public class UtilString {
      * @param duration
      * @return
      */
-    public static String formatDuration(Long duration) {
+    public static String formatDurationToString(Long duration) {
         TimeUnit u = TimeUnit.MILLISECONDS;
         long hours = u.toHours(duration) % 24;
         long minutes = u.toMinutes(duration) % 60;
@@ -47,6 +47,32 @@ public class UtilString {
         } else {
             return String.format("%02d:%02d", minutes, seconds);
         }
+    }
+    
+    /**
+     * Return a string of durations that is appropriate for parsing.
+     * Turn any types of duration(i.e. MM:SS) to HH:MM:SS format.
+     * Use Duration.between(LocalTime.MIN, LocalTime.parse(formatDurationString(format)).toMillis()
+     * to format it into a duration.
+     * @param format
+     * @return
+     */
+    public static String formatDurationString(String format) {
+        String[] durations = format.split(":");
+        String duration = "";
+
+        for(int i = 0; i < durations.length; i++) {
+            if(durations[i].length()==1)
+                durations[i] = "0"+durations[i];
+            duration+=durations[i]+":";
+        }
+        duration = duration.substring(0, duration.length()-1);
+
+        if(durations.length==2) //Hour
+            duration = "00:"+duration;
+        else if(durations.length==1) //Minutes
+            duration = "00:00:"+duration;
+        return duration;
     }
 
     /**

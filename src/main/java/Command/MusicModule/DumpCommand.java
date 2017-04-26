@@ -16,9 +16,6 @@ import Setting.Prefix;
 import Utility.UtilBot;
 import java.awt.Color;
 import java.time.Instant;
-import java.util.List;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
