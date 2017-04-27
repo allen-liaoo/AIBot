@@ -13,7 +13,7 @@ import static Command.Command.embed;
 import Constants.Constants;
 import Setting.Prefix;
 import Utility.UtilNum;
-import Utility.AILogger;
+import AISystem.AILogger;
 import Utility.UtilBot;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.awt.Color;

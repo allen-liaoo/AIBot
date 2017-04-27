@@ -7,7 +7,7 @@ package Audio;
 
 import Audio.AudioTrackWrapper.TrackType;
 import Constants.Emoji;
-import Utility.AILogger;
+import AISystem.AILogger;
 import Utility.UtilNum;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
@@ -232,7 +232,7 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
     /**
-     *Inform the user that track has stuck
+     * Inform the user that track has stuck
      * @param player
      * @param track
      * @param thresholdMs
@@ -256,7 +256,7 @@ public class TrackScheduler extends AudioEventAdapter {
         super.onTrackException(player, track, exception);
         
         if(tc!=null)
-            tc.sendMessage(Emoji.ERROR + " An error occurred!\n```\n\n"+AILogger.stackTractToString(exception)+"```").queue();
+            tc.sendMessage(Emoji.ERROR + " An error occurred!\n```\n\n"+AILogger.stackTractToString(exception).substring(0,1500)+"\n\n...```").queue();
     }
 
     /**
@@ -281,8 +281,6 @@ public class TrackScheduler extends AudioEventAdapter {
         if(tc!=null)
             tc.sendMessage(Emoji.RESUME + " Player resumed.").queue();
     }
-    
-    
     
     /**
     * Clear methods

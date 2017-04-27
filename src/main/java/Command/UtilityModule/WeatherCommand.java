@@ -9,7 +9,7 @@ import Command.Command;
 import Constants.Emoji;
 import Constants.Constants;
 import Setting.Prefix;
-import Utility.AILogger;
+import AISystem.AILogger;
 import com.github.fedy2.weather.*;
 import com.github.fedy2.weather.data.*;
 import com.github.fedy2.weather.data.unit.*;

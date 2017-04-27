@@ -7,7 +7,7 @@ package Audio;
 
 import Constants.Emoji;
 import Main.*;
-import Utility.AILogger;
+import AISystem.AILogger;
 
 import net.dv8tion.jda.core.managers.AudioManager;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

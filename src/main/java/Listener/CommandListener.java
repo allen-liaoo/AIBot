@@ -14,7 +14,7 @@ import Audio.Music;
 import static Main.Main.commands;
 import Constants.Emoji;
 import Setting.RateLimiter;
-import Utility.AILogger;
+import AISystem.AILogger;
 import net.dv8tion.jda.core.entities.ChannelType;
 
 import net.dv8tion.jda.core.hooks.ListenerAdapter;

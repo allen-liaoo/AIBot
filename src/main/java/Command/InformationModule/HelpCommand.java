@@ -16,8 +16,7 @@ import Command.UtilityModule.*;
 import Command.MusicModule.*;
 import Command.FunModule.*;
 import Command.RestrictedModule.*;
-import Utility.UtilNum;
-import Utility.AILogger;
+import AISystem.AILogger;
 import Utility.UtilBot;
 
 import java.awt.Color;
@@ -186,6 +185,13 @@ public class HelpCommand implements Command {
             case "ui":
                 cmdhelp = InfoUserCommand.HELP;
                 break;
+            case "list":
+            case "server":
+            case "member":
+            case "role":
+            case "channel":
+                cmdhelp = ListCommand.HELP;
+                break;
             case "prefix": cmdhelp = PrefixCommand.HELP;
                 break;
             case "ping": cmdhelp = PingCommand.HELP;
@@ -210,6 +216,8 @@ public class HelpCommand implements Command {
                 break;
             case "kick":
             case "k": cmdhelp = KickCommand.HELP;
+                break;
+            case "warn": cmdhelp = WarnCommand.HELP;
                 break;
             case "ban": 
             case "b": cmdhelp = BanCommand.HELP;
@@ -258,15 +266,15 @@ public class HelpCommand implements Command {
             case "git":
                 cmdhelp = SearchCommand.HELP;
                 break;
+            case "imdb":
+                cmdhelp = IMDbCommand.HELP;
+                break;
             //Command Group- Image
             case "image":
             case "imgur":
             case "gif":
             case "meme":
                 cmdhelp = ImageCommand.HELP;
-                break;
-            case "imdb":
-                cmdhelp = IMDbCommand.HELP;
                 break;
 
             //Fun Module
@@ -280,6 +288,9 @@ public class HelpCommand implements Command {
             case "face": 
             case "f": 
                 cmdhelp = FaceCommand.HELP;
+                break;
+            case "spam":
+                cmdhelp = SpamCommand.HELP;
                 break;
             //Command Group- Game
             case "game": cmdhelp = GameCommand.HELP;
@@ -338,18 +349,28 @@ public class HelpCommand implements Command {
                 cmdhelp = SkipCommand.HELP;
                 break;
             case "nowplaying":
-            case "current":
+            case "song":
             case "np":
                 cmdhelp = SongCommand.HELP;
                 break;
             case "queue":
+            case "q":
                 cmdhelp = QueueCommand.HELP;
                 break;
             case "volume":
                 cmdhelp = VolumeCommand.HELP;
                 break;
+            case "jump":
+                cmdhelp = JumpCommand.HELP;
+                break;
+            case "shuffle":
+                cmdhelp = ShuffleCommand.HELP;
+                break;
             case "stop":
                 cmdhelp = StopCommand.HELP;
+                break;
+            case "dump":
+                cmdhelp = DumpCommand.HELP;
                 break;
             case "lyrics":
                 cmdhelp = LyricsCommand.HELP;
@@ -362,9 +383,20 @@ public class HelpCommand implements Command {
                 cmdhelp2 = HelpText.RESTRICT_DES;
                 isMod = true;
                 break;
-            case "shutdown": cmdhelp = ShutDownCommand.HELP;
+            case "shutdown": 
+                cmdhelp = ShutDownCommand.HELP;
                 break;
-            case "source": cmdhelp = SourceCommand.HELP;
+            case "presence":
+            case "setNick":
+            case "setStatus":
+            case "setGame":
+                cmdhelp = LogCommand.HELP;
+                break;
+            case "source": 
+                cmdhelp = SourceCommand.HELP;
+                break;
+            case "log": 
+                cmdhelp = LogCommand.HELP;
                 break;
 
             default: break;

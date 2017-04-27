@@ -10,7 +10,7 @@ import Command.*;
 import Constants.Emoji;
 import Constants.Constants;
 import Setting.Prefix;
-import Utility.AILogger;
+import AISystem.AILogger;
 import Utility.UtilBot;
 import java.awt.Color;
 import java.time.Instant;

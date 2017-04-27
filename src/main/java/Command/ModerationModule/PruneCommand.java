@@ -9,7 +9,7 @@ import Constants.Emoji;
 import Setting.Prefix;
 import Constants.Constants;
 import Command.Command;
-import Utility.AILogger;
+import AISystem.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;

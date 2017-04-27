@@ -11,7 +11,7 @@ import Command.Command;
 import Constants.Constants;
 import Constants.Emoji;
 import Setting.Prefix;
-import Utility.AIPages;
+import AISystem.AIPages;
 import Utility.UtilBot;
 import java.awt.Color;
 import java.time.Instant;

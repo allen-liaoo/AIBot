@@ -6,6 +6,7 @@
  */
 package Utility;
 
+import AISystem.AILogger;
 import Main.Main;
 import Constants.Constants;
 import Constants.Emoji;

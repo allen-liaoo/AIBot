@@ -14,7 +14,7 @@ import Constants.Constants;
 import Setting.Prefix;
 import Utility.SearchResult;
 import Utility.Search;
-import Utility.AILogger;
+import AISystem.AILogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -124,6 +123,9 @@ public class PlayCommand implements Command{
             
                 try {
                     List<SearchResult> result = Search.youtubeSearch(num, input);
+                    //Do it twice because sometimes it wont get result the first time
+                    if(result.isEmpty())
+                        result = Search.youtubeSearch(num, input);
                     Music.play(result.get(0).getLink(), e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
                     result.clear();
                 } catch (IOException ioe) {

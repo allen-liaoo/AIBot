@@ -13,7 +13,7 @@ import Utility.SearchResult;
 import Utility.Search;
 import Utility.UtilNum;
 import Utility.WebScraper;
-import Utility.AILogger;
+import AISystem.AILogger;
 import Utility.UtilBot;
 import java.awt.Color;
 import java.io.IOException;

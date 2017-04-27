@@ -10,7 +10,7 @@ import Constants.Emoji;
 import Constants.Constants;
 import Setting.Prefix;
 import Main.*;
-import Utility.AILogger;
+import AISystem.AILogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;

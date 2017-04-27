@@ -12,7 +12,7 @@ import Constants.Constants;
 import Utility.SearchResult;
 import Command.Command;
 import Main.*;
-import Utility.AILogger;
+import AISystem.AILogger;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;

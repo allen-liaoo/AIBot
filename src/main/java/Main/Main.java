@@ -18,7 +18,7 @@ import Command.RestrictedModule.*;
 import Listener.*;
 import Audio.*;
 import Constants.Constants;
-import Utility.AILogger;
+import AISystem.AILogger;
 import com.mashape.unirest.http.Unirest;
 
 import net.dv8tion.jda.core.AccountType;
@@ -178,6 +178,8 @@ public class Main {
         commands.put("l", new LeaveCommand());
         commands.put("play", new PlayCommand());
         commands.put("p", new PlayCommand());
+        commands.put("player", new PlayerCommand());
+        commands.put("pl", new PlayerCommand());
         commands.put("fm", new FMCommand());
         commands.put("radio", new RadioCommand());
         commands.put("pause", new PauseCommand("pause"));

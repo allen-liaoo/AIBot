@@ -5,7 +5,7 @@
  * 
  * 2017 (c) AIBot
  */
-package Utility;
+package AISystem;
 
 import java.util.List;
 

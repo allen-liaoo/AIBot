@@ -8,7 +8,7 @@ package Game;
 import Main.Main;
 import Constants.Emoji;
 import Constants.FilePath;
-import Utility.AILogger;
+import AISystem.AILogger;
 import Utility.UtilNum;
 import java.awt.Color;
 import java.io.BufferedReader;

@@ -4,7 +4,7 @@
  * AILogger
  * Log when commands called, error occured, or bot joined a server
  */
-package Utility;
+package AISystem;
 
 import Main.Main;
 import Constants.FilePath;

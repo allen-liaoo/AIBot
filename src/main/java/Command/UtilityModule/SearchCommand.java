@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import Main.*;
 import Utility.Search;
-import Utility.AILogger;
+import AISystem.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.ArrayList;

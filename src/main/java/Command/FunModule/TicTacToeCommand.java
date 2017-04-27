@@ -12,7 +12,7 @@ import Setting.Prefix;
 import Game.TicTacToe;
 import Main.*;
 import static Command.Command.embed;
-import Utility.AILogger;
+import AISystem.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.entities.MessageEmbed;

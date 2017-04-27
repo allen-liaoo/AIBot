@@ -12,7 +12,7 @@ import Main.Main;
 import Constants.Emoji;
 import Constants.FilePath;
 import Setting.Prefix;
-import Utility.AILogger;
+import AISystem.AILogger;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.BufferedReader;

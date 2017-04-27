@@ -8,7 +8,7 @@ package Command.UtilityModule;
 import Command.Command;
 import Constants.Constants;
 import Setting.Prefix;
-import Utility.AILogger;
+import AISystem.AILogger;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;

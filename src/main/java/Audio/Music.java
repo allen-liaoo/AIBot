@@ -11,8 +11,8 @@ import Main.Main;
 import Constants.Emoji;
 import Constants.Constants;
 import Utility.WebScraper;
-import Utility.AILogger;
-import Utility.AIPages;
+import AISystem.AILogger;
+import AISystem.AIPages;
 import Utility.UtilBot;
 import Utility.UtilString;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
@@ -109,21 +109,51 @@ public class Music  {
         }
     }
     
+    /**
+     * Pause the player
+     * @param e
+     */
     public static void pause(MessageReceivedEvent e)
     {
         Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(true);
     }
     
+    /**
+     * Resume the player
+     * @param e
+     */
     public static void resume(MessageReceivedEvent e)
     {
         Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(false);
     }
     
+    /**
+     * Play or pause
+     * @param e
+     */
+    public static void pauseOrPlay(MessageReceivedEvent e)
+    {
+        if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
+            Music.resume(e);
+        else if(!Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
+            Music.pause(e);
+    }
+    
+    /**
+     * Set volume of the bot
+     * @param e
+     * @param vol
+     */
     public static void setVolume(MessageReceivedEvent e, int vol)
     {
         Main.guilds.get(e.getGuild().getId()).getPlayer().setVolume(vol);
     }
     
+    /**
+     * Jump/Seek to a position
+     * @param e
+     * @param position
+     */
     public static void jump(MessageReceivedEvent e, long position) 
     {
         //Prevent user that is not in the same voice channel from jumping to song
@@ -137,6 +167,10 @@ public class Music  {
         }
     }
     
+    /**
+     * Shuffle queue
+     * @param e
+     */
     public static void shuffle(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from shuffling the Queue
@@ -287,6 +321,11 @@ public class Music  {
         embedBuilder.clearFields();
     }
     
+    /**
+     * Queue List
+     * @param e
+     * @param page
+     */
     public static void queueList(MessageReceivedEvent e, int page)
     {
         BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
@@ -382,6 +421,11 @@ public class Music  {
         embed.clearFields();
     }
     
+    /**
+     * Check if the user is in the same voice channel than the bot
+     * @param e
+     * @return
+     */
     public static boolean isInSameVoiceChannel(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from executing a command
@@ -391,5 +435,44 @@ public class Music  {
             return true;
         }
         return false;
+    }
+    
+    /**
+     * Turn the position of the current player to a String, i.e. "▬ ▬ ▬ O ▬ ▬ ▬"
+     * @param e
+     * @return
+     */
+    public static String positionToString(MessageReceivedEvent e)
+    {
+        String start = "", progress = "";
+        
+        //Inverse play and pause button, like a media player would.
+        if(!Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused()) {
+            start = Emoji.PAUSE;
+        } else if (Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused()) {
+            start = Emoji.RESUME;
+        }
+        
+        long duration = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack().getDuration();
+        long position = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack().getPosition();
+        long unit = duration/10;
+        int pos = (int) ((int) position/unit);
+        
+        for(int i = 0; i < 10; i ++) {
+            progress += i==pos ? Emoji.RADIO + " " : i==9 ? "▬" : "▬ ";
+        }
+        
+        return start+" "+progress;
+    }
+    
+    /**
+     * Turn the volume of the current player to a String
+     * @param e
+     * @return
+     */
+    public static String volumeToEmoji(MessageReceivedEvent e)
+    {
+        int vol = Main.guilds.get(e.getGuild().getId()).getPlayer().getVolume();
+        return (vol>49 ? Emoji.VOLUME_HIGH : vol>0 ? Emoji.VOLUME_LOW : Emoji.VOLUME_NONE)+" "+vol;
     }
 }
