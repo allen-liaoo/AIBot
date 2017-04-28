@@ -8,7 +8,6 @@
 package Command.MusicModule;
 
 import Command.Command;
-import static Command.Command.embed;
 import static Command.MusicModule.PlayCommand.HELP;
 import Constants.HelpText;
 import Constants.Constants;
@@ -24,7 +23,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class MusicCommand implements Command{
+public class MusicCommand extends Command{
 
     public final static  String HELP = "This command is for getting a list of commands of Music Module.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"music` or `"+ Prefix.getDefaultPrefix() +"m`\n"
@@ -32,19 +31,20 @@ public class MusicCommand implements Command{
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
         embed.addField("Play -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-        
-        e.getChannel().sendMessage(embed.build()).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         if(args.length == 0)
         {
             EmbedBuilder embedm = new EmbedBuilder();
@@ -60,11 +60,6 @@ public class MusicCommand implements Command{
             
             e.getChannel().sendMessage(embedm.build()).queue();
             embedm.clearFields();
-        }
-        
-        else if("-h".equals(args[0]))
-        {
-            help(e);
         }
     }
 

@@ -5,6 +5,9 @@
  */
 package Command;
 
+import Constants.Constants;
+import java.awt.Color;
+import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -13,19 +16,26 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author liaoyilin
  */
-public interface Command {
+public abstract class Command {
     
-    //Custom help String.
-    public final static String HELP = "";
+    /**
+     * Command Usage
+     * @param e the value of e
+     * @return the net.dv8tion.jda.core.EmbedBuilder
+     */
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setColor(Color.red);
+        embed.setTimestamp(Instant.now());
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        return embed;
+    }
     
-    //Embed Message for help String.
-    public final EmbedBuilder embed = new EmbedBuilder();
-    
-    // Command Usage.
-    public void help(MessageReceivedEvent e);
-    
-    // Command Responses and actions.
-    public void action(String[] args, MessageReceivedEvent e);
-    
+    /**
+     * Command Responses and actions
+     * @param args
+     * @param e
+     */
+    public abstract void action(String[] args, MessageReceivedEvent e);
     
 }

@@ -10,41 +10,38 @@ package Command.MusicModule;
 import Audio.Music;
 import Audio.TrackScheduler;
 import Command.Command;
-import static Command.Command.embed;
 import Constants.Constants;
 import Constants.Emoji;
 import Main.Main;
 import Setting.Prefix;
 import Utility.UtilBot;
-import java.awt.Color;
-import java.time.Instant;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class RepeatCommand implements Command {
+public class RepeatCommand extends Command {
     public final static  String HELP = "Repeat the queued songs.\n"
                                      + "Command Usage: `" + Prefix.getDefaultPrefix() +"repeat`\n"
                                      + "Parameter: `-h | null`\n";    
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
         embed.addField("Repeat -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         if(args.length == 0)
         {
             if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == TrackScheduler.PlayerMode.FM) {
@@ -64,10 +61,6 @@ public class RepeatCommand implements Command {
                 + "members with `Administrator` or `Manage Server` permissions only.\n"
                 + "You can also shuffle the queue if there is less than 3 members in the voice channel.").queue();
             }
-        }
-        
-        else if(args.length > 0 && "-h".endsWith(args[0])) {
-            help(e);
         }
     }
     

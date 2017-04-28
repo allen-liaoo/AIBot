@@ -11,12 +11,10 @@ import Constants.Constants;
 import Setting.Prefix;
 import AISystem.AILogger;
 import java.awt.Color;
-import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 
@@ -24,40 +22,32 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
  *
  * @author liaoyilin
  */
-public class UnbanCommand implements Command{
+public class UnbanCommand extends Command{
 
     public final static  String HELP = "This command is for unbanning members.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"unban`\n"
                                      + "Parameter: `-h | Member(s)' ID`\n"
                                      + "**Note: ** To get ID, put `\\` in front of a @menton.";
    
-    private final EmbedBuilder embed = new EmbedBuilder();
-    
-
     @Override
-    public void help(MessageReceivedEvent e) {
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setColor(Color.red);
         embed.setTitle("Moderation Module", null);
-        embed.setTitle("Unban -Help", null);
-        embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        embed.addField("Unban -Help", HELP, true);
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
         {
             e.getTextChannel().sendMessage(Emoji.ERROR + " You need to mention 1 or more members to unban!").queue();
-        }
-
-        else if("-h".equals(args[0])) 
-        {
-            help(e);
         }
         
         else

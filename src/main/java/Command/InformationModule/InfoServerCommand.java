@@ -14,7 +14,6 @@ import java.util.List;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.Member;
@@ -26,37 +25,31 @@ import net.dv8tion.jda.core.requests.restaction.InviteAction;
  *
  * @author liaoyilin
  */
-public class InfoServerCommand implements Command{
+public class InfoServerCommand extends Command{
     public final static String HELP = "This command is for getting informations about this server.\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "serverinfo` or `" + Prefix.getDefaultPrefix() + "si` \n"
                                     + "Parameter: `-h | -m | [ID] | -m [ID] | null`\n"
                                     + "-m: Get more info about the current server.\n"
                                     + "[ID]: Get a server by ID (The Bot must be in that server).\n"
-                                    + "-m [ID]: Get more info about a server by ID.\n";
-    private final EmbedBuilder embed = new EmbedBuilder();
-    
+                                    + "-m [ID]: Get more info about a server by ID.\n";    
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
-        embed.setTitle("Server Information -Help", null);
-        embed.setDescription(HELP);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
+        embed.setTitle("Information Module", null);
+        embed.addField("ServerInfo -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length > 0 && "-h".equals(args[0]))
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
-        else if(args.length >= 0 || "-m".equals(args[0]))
+        if(args.length >= 0 || "-m".equals(args[0]))
         {
             Guild guild = e.getGuild();
             
@@ -148,9 +141,7 @@ public class InfoServerCommand implements Command{
 
                 embedsi.addField("Roles", roleString, false);
             }
-
-            MessageEmbed mer = embedsi.build();
-            e.getTextChannel().sendMessage(mer).queue();
+            e.getTextChannel().sendMessage(embedsi.build()).queue();
             embedsi.clearFields();
             
         }

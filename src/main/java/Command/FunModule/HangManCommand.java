@@ -13,6 +13,7 @@ import Game.HangMan;
 import AISystem.AILogger;
 import java.awt.Color;
 import java.time.Instant;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -20,7 +21,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class HangManCommand implements Command{
+public class HangManCommand extends Command{
     public final static String HELP = "Play Hang Man with anyone!\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "hangman` or `" + Prefix.getDefaultPrefix() + "hm`\n"
                                     + "Parameter: `-h | start | [letter] | end | null`\n"
@@ -31,16 +32,14 @@ public class HangManCommand implements Command{
     HangMan game;
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
+        
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("HangMan -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override

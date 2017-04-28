@@ -26,7 +26,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author liaoyilin
  */
-public class WeatherCommand implements Command{
+public class WeatherCommand extends Command{
 
     public final static  String HELP = "This command is for getting the weather of a specific city.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"weather`\n"
@@ -36,20 +36,20 @@ public class WeatherCommand implements Command{
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Utility Module", null);
         embed.addField("Weather -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
         
         String title, link, wind, atmos, con;
         

@@ -9,26 +9,23 @@ package Command.MusicModule;
 
 import Audio.Music;
 import Command.Command;
-import static Command.Command.embed;
 import Constants.Constants;
 import Constants.Emoji;
 import Main.Main;
 import Setting.Prefix;
 import Utility.UtilBot;
 import Utility.UtilString;
-import java.awt.Color;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class JumpCommand implements Command {
+public class JumpCommand extends Command {
     
     public final static String HELP = "This command is for jumping to a certain position of the current playing song.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"jump`\n"
@@ -37,24 +34,18 @@ public class JumpCommand implements Command {
                                     + "Hours and minutes are optional.";
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
         embed.addField("Jump -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        
-        if(args.length == 0 || "-h".equals(args[0])) 
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
         else

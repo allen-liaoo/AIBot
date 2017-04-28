@@ -11,13 +11,13 @@ import Main.Main;
 import Audio.Music;
 import Audio.TrackScheduler.PlayerMode;
 import Command.Command;
-import static Command.Command.embed;
 import Constants.Constants;
 import Constants.Emoji;
 import Setting.Prefix;
 import Utility.UtilBot;
 import java.awt.Color;
 import java.time.Instant;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -25,26 +25,26 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class ShuffleCommand implements Command {
+public class ShuffleCommand extends Command {
     public final static  String HELP = "Shuffle the queue.\n"
                                      + "Command Usage: `" + Prefix.getDefaultPrefix() +"shuffle`\n"
                                      + "Parameter: `-h | null`\n";    
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
         embed.addField("Shuffle -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         if(args.length == 0)
         {
             if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.FM) {
@@ -69,10 +69,6 @@ public class ShuffleCommand implements Command {
                 + "members with `Administrator` or `Manage Server` permissions only.\n"
                 + "You can also shuffle the queue if there is less than 3 members in the voice channel.").queue();
             }
-        }
-        
-        else if(args.length > 0 && "-h".endsWith(args[0])) {
-            help(e);
         }
     }
 }

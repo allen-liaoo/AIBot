@@ -31,7 +31,7 @@ import org.jsoup.HttpStatusException;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class LyricsCommand implements Command{
+public class LyricsCommand extends Command{
 
     public final static  String HELP = "This command is showing the lyrics of a song.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"lyrics`\n"
@@ -40,26 +40,21 @@ public class LyricsCommand implements Command{
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
         embed.addField("Lyrics -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-h".equals(args[0])) 
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
-        else
+        if(args.length > 0)
         {
             List<SearchResult> results = new ArrayList<SearchResult>();
             //Get input

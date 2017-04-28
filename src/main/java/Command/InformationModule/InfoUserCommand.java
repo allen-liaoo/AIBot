@@ -23,37 +23,29 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author liaoyilin
  */
-public class InfoUserCommand implements Command{
+public class InfoUserCommand extends Command{
     public final static String HELP = "This command is for getting informations about a user.\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "userinfo` or `" + Prefix.getDefaultPrefix() + "ui` \n"
                                     + "Parameter: `-h | -m | @mention(s) | null`";
-                                    
-    private final EmbedBuilder embed = new EmbedBuilder();
-    private final EmbedBuilder embedui = new EmbedBuilder();
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
-        embed.setTitle("UserInfo -Help", null);
-        embed.setDescription(HELP);
+        embed.addField("UserInfo -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0]))
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
-        else if(args.length == 0 || (args.length == 1 && ("-m".equals(args[0]))))
+        if(args.length == 0 || (args.length == 1 && ("-m".equals(args[0]))))
         {   
             boolean isMore;
             if((args.length == 1 && ("-m".equals(args[0])))) 
@@ -90,7 +82,6 @@ public class InfoUserCommand implements Command{
             }   
         }
     }
-
     
     public void embedUser(User user, Member member, boolean isMore, MessageReceivedEvent e)
     {
@@ -119,6 +110,8 @@ public class InfoUserCommand implements Command{
             join = member.getJoinDate().toString();
             register = user.getCreationTime().toString();
         }
+        
+        EmbedBuilder embedui = new EmbedBuilder();
         
         embedui.setAuthor(name, null, Constants.I_INFO);
         embedui.setColor(Color.blue);

@@ -10,14 +10,11 @@ import Constants.Emoji;
 import Constants.Constants;
 import Setting.Prefix;
 import AISystem.AILogger;
-import java.awt.Color;
-import java.time.Instant;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
@@ -26,41 +23,32 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
  *
  * @author liaoyilin
  */
-public class BanCommand implements Command{
+public class BanCommand extends Command{
 
     public final static  String HELP = "This command is for banning members.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"ban`\n"
                                      + "Parameter: `-h | @Member(s)`";
     private final int delDays = 7;
-    private final EmbedBuilder embed = new EmbedBuilder();
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Moderation Module", null);
         embed.addField("Ban -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        if(e.getChannelType() != e.getChannelType().PRIVATE)
-            e.getTextChannel().sendMessage(me).queue();
-        else
-            e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage(me).queue());
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
-        {
-            e.getTextChannel().sendMessage(Emoji.ERROR + " You need to mention 1 or more members to ban!").queue();
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
-
-        else if(args.length > 0 && "-h".equals(args[0])) 
-        {
-            help(e);
+        
+        if(args.length == 0) {
+            e.getTextChannel().sendMessage(Emoji.ERROR + " You need to mention 1 or more members to ban!").queue();
         }
         
         else

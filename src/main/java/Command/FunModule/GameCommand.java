@@ -6,20 +6,16 @@
 package Command.FunModule;
 
 import Command.Command;
-import static Command.Command.embed;
 import Constants.Constants;
 import Setting.Prefix;
-import Game.*;
-import java.awt.Color;
-import java.time.Instant;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class GameCommand implements Command {
+public class GameCommand extends Command {
 
     public final static String HELP = "*Command Group:* Game\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "game`\n"
@@ -28,20 +24,20 @@ public class GameCommand implements Command {
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("Game -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         if(args.length == 0)
         {
             e.getChannel().sendMessage("Choose a game below to get its help message:\n"
@@ -50,11 +46,6 @@ public class GameCommand implements Command {
                                     + "3: Tic Tac Toe\n"
                                     + "4: Hang Man\n"
                                     + "Hint: Use `" + Prefix.getDefaultPrefix() + "game [Number]` to choose.").queue();
-        }
-        
-        else if("-h".equals(args[0])) 
-        {
-            help(e);
         }
         
         else

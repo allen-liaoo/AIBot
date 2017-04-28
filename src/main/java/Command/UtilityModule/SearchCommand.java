@@ -7,20 +7,14 @@ package Command.UtilityModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
 import Setting.Prefix;
 import Utility.SearchResult;
 import java.io.IOException;
 
-import Main.*;
 import Utility.Search;
 import AISystem.AILogger;
-import java.awt.Color;
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -28,7 +22,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * @author liaoyilin
  */
 
-public class SearchCommand implements Command{
+public class SearchCommand extends Command{
     public final static  String HELP = "This command is for searching the ~~dark~~ web.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"search` or `"+ Prefix.getDefaultPrefix() +"google` or `"+ Prefix.getDefaultPrefix() +"wiki`  `"+ Prefix.getDefaultPrefix() +"urban` or  `"+ Prefix.getDefaultPrefix() +"github`\n"
                                      + "Parameter: `-h | (For search) [Custom Search Site] [Keywords] | (For google, wiki, urban, github) [Keywords] | null`\n"
@@ -38,7 +32,6 @@ public class SearchCommand implements Command{
                                      + "**wiki** - Search Wikipedia.\n"
                                      + "**urban** - Search Urban Dictionary.\n"
                                      + "**github (git)** - Search Github.";
-    private final EmbedBuilder embed = new EmbedBuilder();
     private String num = "1";
     private String site = "&as_sitesearch=";
     
@@ -53,25 +46,21 @@ public class SearchCommand implements Command{
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Utility Module", null);
         embed.addField("Search -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-h".equals(args[0])) 
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
-        else
+        
+        if(args.length > 0)
         {
             AILogger.commandLog(e, "SearchCommand", "Called");
             

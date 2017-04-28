@@ -24,33 +24,29 @@ import net.dv8tion.jda.core.entities.VoiceChannel;
  *
  * @author liaoyilin
  */
-public class InfoChannelCommand implements Command{
+public class InfoChannelCommand extends Command{
     public final static String HELP = "This command is for getting informations about this text channel.\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "channelinfo` or `" + Prefix.getDefaultPrefix() + "ci` \n"
                                     + "Parameter: `-h | audio or voice or vc | null`\n"
                                     + "null: Will get the current text channel info.\n"
                                     + "audio: Will get the voice channel info that requested user are in.";
-    
-    private final EmbedBuilder embed = new EmbedBuilder();
-    private final EmbedBuilder embedci = new EmbedBuilder();
-    
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
-        embed.setTitle("InfoInfo -Help", null);
-        embed.setDescription(HELP);
+        embed.addField("ChannelInfo -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE)
         {
             TextChannel txtchannel = e.getTextChannel();
@@ -79,6 +75,7 @@ public class InfoChannelCommand implements Command{
                     bot ++;
             }
             
+            EmbedBuilder embedci = new EmbedBuilder();
             embedci.setAuthor(name, null, Constants.I_INFO);
             embedci.setColor(Color.blue);
             embedci.setThumbnail(icon);
@@ -93,11 +90,10 @@ public class InfoChannelCommand implements Command{
             embedci.addField("Humans", human + "", true);
             embedci.addField("Bots", bot + "", true);
             embedci.addField("Position", position + "", true);
-            
-            MessageEmbed meci = embedci.build();
-            e.getTextChannel().sendMessage(meci).queue();
+            e.getTextChannel().sendMessage(embedci.build()).queue();
             embedci.clearFields();
         }
+        
         else if("audio".equals(args[0]) || "voice".equals(args[0]) || "vc".equals(args[0]) 
                 && e.getChannelType() != e.getChannelType().PRIVATE)
         {
@@ -126,6 +122,8 @@ public class InfoChannelCommand implements Command{
                     else
                         bot ++;
                 }
+                
+                EmbedBuilder embedci = new EmbedBuilder();
                 embedci.setAuthor(name, null, Constants.I_INFO);
                 embedci.setColor(Color.blue);
                 embedci.setThumbnail(icon);
@@ -141,19 +139,13 @@ public class InfoChannelCommand implements Command{
                 embedci.addField("Position", position + "", true);
                 embedci.addField("Bitrate", bitrate + "", true);
                 embedci.addField("User Limit", user_limit + "", true);
-
-                MessageEmbed meci = embedci.build();
-                e.getTextChannel().sendMessage(meci).queue();
+                e.getTextChannel().sendMessage(embedci.build()).queue();
                 embedci.clearFields();
             } catch (RuntimeException rte) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " You need to join a voice channel first "
                                         + "to see the channel's information.").queue();
                 AILogger.errorLog(rte, e, this.getClass().getName(), "Requested AudioChannel Info when the user is not in a VoiceChannel.");
             }
-        }
-        else if("-h".equals(args[0]))
-        {
-            help(e);
         }
     }
 

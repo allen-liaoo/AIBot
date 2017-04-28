@@ -6,7 +6,6 @@
 package Command.FunModule;
 
 import Command.*;
-import static Command.Command.embed;
 import Constants.Emoji;
 import Constants.Constants;
 import Setting.Prefix;
@@ -25,7 +24,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class HangManCheaterCommand implements Command {
+public class HangManCheaterCommand extends Command {
     public final static String HELP = "Hang Man Cheater based on the Word Bank.\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "hangmancheater` or `" + Prefix.getDefaultPrefix() + "hmc`\n"
                                     + "Parameter: `-h | [Unknown Word] [Missed Letters] [Page] | null`\n"
@@ -41,16 +40,13 @@ public class HangManCheaterCommand implements Command {
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("HangMan Cheater -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override

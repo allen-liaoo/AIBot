@@ -10,14 +10,11 @@ import Setting.Prefix;
 import Constants.Constants;
 import Command.Command;
 import AISystem.AILogger;
-import java.awt.Color;
-import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -25,39 +22,35 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author liaoyilin
  */
-public class PruneCommand implements Command{
+public class PruneCommand extends Command{
     
     public final static  String HELP = "This command is for deleting messages.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"prune`\n"
                                      + "Parameter: `-h | Number`";
-    private final EmbedBuilder embed = new EmbedBuilder();
-
-
+    
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Utility Module", null);
         embed.setTitle("Prune -Help", null);
         embed.setDescription(HELP);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         if(args.length == 0)
         {
             e.getChannel().sendMessage(Emoji.ERROR + " You must add a number after Prune command to delete an amount of messages.\n"
                                          + "Use `" + Prefix.getDefaultPrefix() + "prune -h` for help.").queue();
         }
-        else if("-h".equals(args[0]))
-        {
-            help(e);
-        }
+        
         else
         {
             TextChannel chan = e.getTextChannel();

@@ -11,17 +11,14 @@ import Constants.Constants;
 import Setting.Prefix;
 import AISystem.AILogger;
 import Utility.UtilNum;
-import java.awt.Color;
-import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author liaoyilin
  */
-public class NumberCommand implements Command {
+public class NumberCommand extends Command {
 
     public final static String HELP = "This command is for Number tools.\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "number`, `" + Prefix.getDefaultPrefix() + "num` or  `" + Prefix.getDefaultPrefix() + "n`\n"
@@ -29,30 +26,24 @@ public class NumberCommand implements Command {
                                     + "random: Return a random number between 0 to 100 if the range is not specified.\n"
                                     + "roll: Dice roller, generates random number bewteen 1 and 6.";
     
-    private final EmbedBuilder embed = new EmbedBuilder();
-    
-
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Utility Module", null);
         embed.addField("Number -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-h".equals(args[0])) 
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
+        
         //Number Counter
-        else if("count".equals(args[0]) | "cunt".equals(args[0]) | "c".equals(args[0]))
+        if("count".equals(args[0]) | "cunt".equals(args[0]) | "c".equals(args[0]))
         {
             AILogger.commandLog(e, "NumberCommand#Count", "Called");
             

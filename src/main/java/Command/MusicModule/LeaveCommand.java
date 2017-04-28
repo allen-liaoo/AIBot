@@ -20,36 +20,31 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author liaoyilin
  */
-public class LeaveCommand implements Command{
+public class LeaveCommand extends Command{
 
-    public final static  String HELP = "This command is for removing the bot to your current voice channel.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"leave` or `" + Prefix.getDefaultPrefix() + "l`\n"
-                                     + "Parameter: `-h | null`";
-    private final EmbedBuilder embed = new EmbedBuilder();
-    
+    public final static String HELP = "This command is for removing the bot to your current voice channel.\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"leave` or `" + Prefix.getDefaultPrefix() + "l`\n"
+                                    + "Parameter: `-h | null`";
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
         embed.addField("Leave -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
-        {
-            AudioConnection.disconnect(e, true);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
-        else if(args.length == 1 && "-h".equals(args[0])) 
-        {
-            help(e);
+        
+        if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) {
+            AudioConnection.disconnect(e, true);
+        } else if (e.getChannelType() == e.getChannelType().PRIVATE) {
+            e.getTextChannel(); //Return null pointer :P
         }
     }
 

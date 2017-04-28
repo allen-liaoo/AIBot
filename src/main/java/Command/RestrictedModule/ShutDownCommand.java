@@ -11,42 +11,37 @@ import Constants.Constants;
 import Setting.Prefix;
 import Main.*;
 import AISystem.AILogger;
-import java.awt.Color;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author liaoyilin
  */
-public class ShutDownCommand implements Command{
+public class ShutDownCommand extends Command{
 
     public final static  String HELP = "This command is for shutting down the bot remotely. **(Server Owner Only)**\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"shutdown`\n"
                                      + "Parameter: `-h | null`";
-    private final EmbedBuilder embed = new EmbedBuilder();
     
-
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Restricted Module", null);
         embed.addField("ShutDown -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         if(args.length == 0) 
         {
             if(Constants.D_ID.equals(e.getAuthor().getId()))
@@ -64,16 +59,9 @@ public class ShutDownCommand implements Command{
                     Logger.getLogger(ShutDownCommand.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            else
+            else if(!"-h".equals(args[0])) 
                 e.getChannel().sendMessage(Emoji.ERROR + " This command is for **Bot Owner** only!").queue();
                 
         }
-
-        else if("-h".equals(args[0])) 
-        {
-            help(e);
-        }
     }
-
-    
 }

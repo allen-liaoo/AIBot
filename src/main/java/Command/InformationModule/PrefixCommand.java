@@ -9,11 +9,7 @@ import Constants.Emoji;
 import Setting.Prefix;
 import Constants.Constants;
 import Command.Command;
-import Main.*;
-import java.awt.Color;
-import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -21,40 +17,32 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author liaoyilin
  */
-public class PrefixCommand implements Command {
+public class PrefixCommand extends Command {
     public final static String HELP = "This command is for setting the prefix.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() + "prefix`\n"
                                     + "Parameter: `-h | Prefix`";
-    
-    private final EmbedBuilder embed = new EmbedBuilder();
-    
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
-        embed.setTitle("Prefix -Help", null);
-        embed.setDescription(HELP);
+        embed.addField("Prefix -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0)
-        {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
+        if(args.length == 0) {
             e.getChannel().sendMessage("Current prefix: `" + Prefix.getDefaultPrefix() + "`").queue();
         }
-        else if("-h".equals(args[0])) 
-        {
-            help(e);
-        }
-        else 
-        {
+        
+        else {
             //Prefix.setPrefix(args[0], e);
             e.getChannel().sendMessage(Emoji.ERROR + " Setting Prefix is not supported.").queue();
         }

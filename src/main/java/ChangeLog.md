@@ -2,13 +2,17 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
-#### [0.2.6] - 2017-04-12 ~ 2017-04-25
+#### [0.2.6] - 2017-04-12 ~ 2017-04-27
 ##### Added
 - ShuffleCommand to shuffle the queue
 - TextRespond for hidden responds to some trigger words. (For example: "lmao")
 - ListCommand that includes listing servers, members, roles, and channels.
 - RepeatCommand for repeating the songs.
 - JumpCommand for jumping to a certain position of the current playing song.
+- PlayerCommand for a neat player and emoji reaction controller.
+##### Fixed
+- Change Command.java from interface to abstract class to reduce code.
+- PlayerCommand now have reaction control function
 
 #### [0.2.5] - 2017-04-16 ~ 2017-04-21
 ##### Added

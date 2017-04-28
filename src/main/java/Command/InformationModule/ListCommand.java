@@ -13,15 +13,12 @@ import Constants.Emoji;
 import Setting.Prefix;
 import AISystem.AIPages;
 import Utility.UtilBot;
-import java.awt.Color;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -29,7 +26,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class ListCommand implements Command {
+public class ListCommand extends Command {
 
     public final static String HELP = "This command is for getting a list of servers, members or other entities.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"list`\n"
@@ -37,30 +34,25 @@ public class ListCommand implements Command {
                                     + "server: Get a list of servers this bot is in. *\n"
                                     + "member: Get a list of members in this server.\n"
                                     + "role: Get a list of roles in this server.\n"
-                                    + "channel: Get a list of text and voice channels in this server.\n";
-    private final EmbedBuilder embed = new EmbedBuilder();
-            
+                                    + "channel: Get a list of text and voice channels in this server.\n";        
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("List -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length > 0 && "-h".equals(args[0])) {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
-        else if (args.length > 0) {
+        if (args.length > 0 && !"-h".equals(args[0])) {
             try {
                 if("member".equals(args[0]) || "mem".equals(args[0]))
                     listMember(args,e);

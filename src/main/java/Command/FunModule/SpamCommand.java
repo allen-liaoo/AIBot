@@ -14,6 +14,7 @@ import Setting.Prefix;
 import Utility.UtilNum;
 import java.util.HashMap;
 import java.util.List;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -21,7 +22,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class SpamCommand implements Command {
+public class SpamCommand extends Command {
 
     public final static String HELP = "Spam yummy spams!\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "spam`\n"
@@ -38,18 +39,22 @@ public class SpamCommand implements Command {
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
+        embed.setTitle("Miscellaneous Module", null);
+        embed.addField("Spam -Help", HELP, true);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length > 0 && "-h".equals(args[0])) 
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
-        else
+        if(args.length == 0)
         {
             //No NUMBER specified
             if(args.length == 0) {

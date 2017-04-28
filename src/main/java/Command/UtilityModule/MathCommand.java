@@ -9,11 +9,7 @@ import Command.Command;
 import Constants.Emoji;
 import Constants.Constants;
 import Setting.Prefix;
-import Main.*;
 import AISystem.AILogger;
-import java.awt.Color;
-import java.time.Instant;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -23,43 +19,32 @@ import net.dv8tion.jda.core.EmbedBuilder;
  *
  * @author liaoyilin
  */
-public class MathCommand implements Command{
+public class MathCommand extends Command{
 
     public final static String HELP = "This command is for calculating math operations.\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "math` or `" + Prefix.getDefaultPrefix() + "calc` or `" + Prefix.getDefaultPrefix() + "m`\n"
                                     + "Parameter: `-h | [Math Operation] | null`\n"
                                     + "Supported values: `pi, π, e, φ`\n";
-    
-    private static EmbedBuilder embed = new EmbedBuilder();
-    
-    private static String input = "";
-    
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Utility Module", null);
         embed.addField("Math -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-h".equals(args[0]))
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
-        else if(args.length >= 1)
+        
+        if(args.length >= 1)
         {
-            boolean isPrivate = false;
-            if(e.getChannelType() == e.getChannelType().PRIVATE)
-                isPrivate = true;
-
+            String input = "";
             //Convert args(without math invoke) into a String
             for(String in : args)
             {
@@ -83,8 +68,6 @@ public class MathCommand implements Command{
                 {
                     e.getChannel().sendMessage(Emoji.PRINT + Emoji.NUMBER + "  `" + input + "` is  `" 
                     + integer + "`").queue();
-                    
-                        
                 }
                 else
                 {
@@ -98,8 +81,6 @@ public class MathCommand implements Command{
                 e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid math operation.").queue();
                 AILogger.errorLog(rte, e, this.getClass().getName(), "Unvalid operation \"" + input + "\"");
             }
-            
-            input = "";
         }
     }
 

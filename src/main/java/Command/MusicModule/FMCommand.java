@@ -9,7 +9,6 @@ package Command.MusicModule;
 
 import Audio.FM;
 import Command.Command;
-import static Command.Command.embed;
 import Constants.Constants;
 import Setting.Prefix;
 import Utility.UtilNum;
@@ -27,7 +26,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class FMCommand implements Command{
+public class FMCommand extends Command{
 
     public final static String HELP = "This command is for loading an automatic playlist.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"fm`\n"
@@ -39,20 +38,20 @@ public class FMCommand implements Command{
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
         embed.addField("FM -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         if(args.length == 0)
         {
             try {
@@ -86,7 +85,7 @@ public class FMCommand implements Command{
             }
         }
         
-        else if(args.length > 0)
+        else if(args.length > 0 && !"-h".equals(args[0]))
         {
             String input = "";
             for(int i = 0; i < args.length; i++)

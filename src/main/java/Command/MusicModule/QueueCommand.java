@@ -7,12 +7,12 @@ package Command.MusicModule;
 
 import Audio.Music;
 import Command.Command;
-import static Command.Command.embed;
 import Constants.Constants;
 import Constants.Emoji;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -20,30 +20,24 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class QueueCommand implements Command{
+public class QueueCommand extends Command{
     public final static String HELP = "This command is getting a list of queued songs\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"queue`\n"
                                     + "Parameter: `-h | [Number] | null`\n"
                                     + "[Number]: Page number of the queue.\n";
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
         embed.addField("Queue -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) 
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
         }
         else
         {

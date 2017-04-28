@@ -9,22 +9,18 @@ package Command.MusicModule;
 
 import Audio.Radio;
 import Command.Command;
-import static Command.Command.embed;
 import Constants.Constants;
 import Setting.Prefix;
 import Utility.UtilBot;
-import Utility.UtilNum;
-import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class RadioCommand implements Command{
+public class RadioCommand extends Command{
 
     public final static String HELP = "This command is for loading an automatic playlist.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"radio`\n"
@@ -36,16 +32,11 @@ public class RadioCommand implements Command{
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
         embed.addField("FM -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
@@ -64,6 +55,10 @@ public class RadioCommand implements Command{
             
             e.getChannel().sendMessage(embedpl.build()).queue();
             embedpl.clearFields();
+        }
+        
+        else if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
         }
         
         else if(args.length > 0)

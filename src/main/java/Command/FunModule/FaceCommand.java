@@ -26,7 +26,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author liaoyilin
  */
-public class FaceCommand implements Command{
+public class FaceCommand extends Command{
 
     public final static String HELP = "This command is for... ( ͡° ͜ʖ ͡°)\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"face` or `" + Prefix.getDefaultPrefix() + "lenny` or `" + Prefix.getDefaultPrefix() + "f`\n"
@@ -35,30 +35,29 @@ public class FaceCommand implements Command{
                                     + "[Face Name]: Get a specific face by name.\n"
                                     + "-list: Get a list of faces and their names in your Direct Message.";
     
-    private final EmbedBuilder embed = new EmbedBuilder();
-    
-    public static HashMap<String, String> faces = new HashMap<String, String>(); //K: Fave Name, Value: Face String
+    public static HashMap<String, String> faces = new HashMap<String, String>(); //K: Face Name, Value: Face String
     private static String output = "";
     private static String facelist = "";
     private static String facelistc = "";
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("Number -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0)
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
+        if(args.length == 0 && !"-h".equals(args[0]))
         {
             int count = 0, lines = 0, num = 0;
             
@@ -92,11 +91,6 @@ public class FaceCommand implements Command{
             }
             
             e.getChannel().sendMessage(output).queue();
-        }
-        
-        else if(args.length == 1 && "-h".equals(args[0])) 
-        {
-            help(e);
         }
         
         else if(args.length == 1 && "-list".equals(args[0])) 

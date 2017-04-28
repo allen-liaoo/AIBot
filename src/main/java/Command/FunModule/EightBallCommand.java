@@ -8,44 +8,42 @@ package Command.FunModule;
 import Command.Command;
 import Constants.Constants;
 import Setting.Prefix;
-import Main.*;
 import Constants.Emoji;
 import Constants.FilePath;
 import AISystem.AILogger;
 import Utility.UtilNum;
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.Instant;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class EightBallCommand implements Command{
+public class EightBallCommand extends Command{
     public final static String HELP = "Ask the Magic 8Ball a question!\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "8ball`\n"
                                     + "Parameter: `-h | question | null`";
 
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("EightBall -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         String msg = e.getAuthor().getAsMention() + " " + Emoji.EIGHT_BALL + " " + eightball(e);
         if(args.length > 0 && !"-h".equals(args[0]))
         {
@@ -55,11 +53,6 @@ public class EightBallCommand implements Command{
                 return;
             }
             e.getChannel().sendMessage(msg).queue();
-        }
-            
-        else if(args.length == 0 || "-h".equals(args[0])) 
-        {
-            help(e);
         }
     }
 

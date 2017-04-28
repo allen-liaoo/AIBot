@@ -23,7 +23,7 @@ import net.dv8tion.jda.core.Permission;
  *
  * @author liaoyilin
  */
-public class InfoBotCommand implements Command{
+public class InfoBotCommand extends Command{
 
     public final static String HELP = "This command is for getting this bot's information.\n"
                               + "Command Usage: `" + Prefix.getDefaultPrefix() + "botinfo` or `" + Prefix.getDefaultPrefix() + "bi`\n"
@@ -33,20 +33,20 @@ public class InfoBotCommand implements Command{
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("BotInfo -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         if(args.length == 0)
         {
             JDA bot = e.getJDA();
@@ -106,10 +106,6 @@ public class InfoBotCommand implements Command{
             MessageEmbed mein = embedinfo.build();
             e.getChannel().sendMessage(mein).queue();
             embedinfo.clearFields();
-        }
-        else if("-h".equals(args[0])) 
-        {
-            help(e);
         }
     }
 

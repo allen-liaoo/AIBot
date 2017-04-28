@@ -13,6 +13,7 @@ import Setting.Prefix;
 import Main.Main;
 import java.awt.Color;
 import java.time.Instant;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -20,7 +21,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class PauseCommand implements Command{
+public class PauseCommand extends Command{
     public final static  String HELP = "This command is for pausing/resuming the bot if the bot is playing music.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"pause` or `"+ Prefix.getDefaultPrefix() +"resume` or `"+ Prefix.getDefaultPrefix() +"unpause`\n"
                                      + "Parameter: `-h | null`";
@@ -35,25 +36,21 @@ public class PauseCommand implements Command{
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
         embed.addField("Pause -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) 
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
-        else if("pause".equals(type))
+        
+        if("pause".equals(type))
         {
             if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
                 e.getTextChannel().sendMessage("Already paused! Type `" + Prefix.getDefaultPrefix() + "resume` to resume.").queue();

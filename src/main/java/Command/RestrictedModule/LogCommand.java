@@ -13,22 +13,20 @@ import Constants.FilePath;
 import Constants.Constants;
 import Setting.Prefix;
 import AISystem.AILogger;
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class LogCommand implements Command {
+public class LogCommand extends Command {
     
     public final static String HELP = "This command is for getting the logs of this bot. Server owner, bot owner or or "
                                     + "members that have `Manage Message` permissions only.\n"
@@ -37,28 +35,25 @@ public class LogCommand implements Command {
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Restricted Module", null);
         embed.addField("Log -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length > 0 && "-h".equals(args[0])) {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
-        else if(!e.getChannelType().isGuild() || 
+        if((args.length>0 && !"-h".equals(args[0])) && 
+            (!e.getChannelType().isGuild() || 
             e.getMember().isOwner() || 
             e.getMember().hasPermission(Permission.MESSAGE_MANAGE) ||
-            Constants.D_ID.equals(e.getAuthor().getId())) 
+            Constants.D_ID.equals(e.getAuthor().getId())))
         {
             String filepath = "", line;
 
@@ -103,7 +98,7 @@ public class LogCommand implements Command {
                 AILogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting logs.");
             }
         }
-        else {
+        else if(args.length>0 && !"-h".equals(args[0])) {
             e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, "
                     + "or members that have `Manage Message` permissions only.").queue();
         }

@@ -23,7 +23,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class WarnCommand implements Command {
+public class WarnCommand extends Command {
     public final static String HELP = "This command is for banning members.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"warn`\n"
                                     + "Parameter: `-h | @Member(s) [Reason]\n`"
@@ -31,27 +31,29 @@ public class WarnCommand implements Command {
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Moderation Module", null);
         embed.addField("Warn -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length > 0 && "-h".equals(args[0])) {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
-        else if(e.getMember().isOwner() || 
+        if(e.getMember().isOwner() || 
                 e.getMember().hasPermission(Permission.ADMINISTRATOR) || 
                 e.getMember().hasPermission(Permission.MANAGE_SERVER) || 
                 e.getMember().hasPermission(Permission.MANAGE_CHANNEL) || 
                 Constants.D_ID.equals(e.getAuthor().getId()))
         {
             List<User> mention = e.getMessage().getMentionedUsers();
+            if(mention.isEmpty())
+                return;
             
             //Get Names
             String names = "";
@@ -87,7 +89,7 @@ public class WarnCommand implements Command {
             //Inform that warning has been sent
             e.getChannel().sendMessage(Emoji.SUCCESS + " Warned " + count + " member(s).").queue();
         }
-        else
+        else if(args.length>0 && !"-h".equals(args[0]))
             e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner or\n"
                     + "members with `Manage Server` or `Manage Channel` Permissions only.").queue();
     }

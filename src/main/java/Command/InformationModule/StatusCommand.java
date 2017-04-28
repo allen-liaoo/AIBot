@@ -24,7 +24,7 @@ import java.lang.management.*;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class StatusCommand implements Command{
+public class StatusCommand extends Command{
 
     public final static String HELP = "This command is for getting this bot's status.\n"
                               + "Command Usage: `" + Prefix.getDefaultPrefix() + "status` or `" + Prefix.getDefaultPrefix() + "uptime`\n"
@@ -41,24 +41,19 @@ public class StatusCommand implements Command{
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Status -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        
-        if(args.length > 0 && "-h".equals(args[0]))
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
         if(args.length == 0)

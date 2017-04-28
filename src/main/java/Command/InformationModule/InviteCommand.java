@@ -9,42 +9,35 @@ import Constants.Emoji;
 import Setting.Prefix;
 import Constants.Constants;
 import Command.Command;
-import Main.*;
-
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-
-import java.awt.Color;
-import java.time.Instant;
 
 /**
  *
  * @author liaoyilin
  */
-public class InviteCommand implements Command {
+public class InviteCommand extends Command {
 
     public final static  String HELP = "This command is for inviting the bot to your own server.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"invite`\n"
-                                     + "Parameter: `-h | null`";
-    private final EmbedBuilder embed = new EmbedBuilder();
-            
+                                     + "Parameter: `-h | null`";        
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Invite -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
+        
         String msg = Emoji.INVITE + " Invite me to your server here:\n"
                 + Constants.B_DISCORD_BOT + "\n"
                 + "You can also join my Discord Server if you require support here: " + Constants.B_SERVER;
@@ -52,11 +45,6 @@ public class InviteCommand implements Command {
         if(args.length == 0) 
         {
             e.getChannel().sendMessage(msg).queue();
-        }
-
-        else if("-h".equals(args[0])) 
-        {
-            help(e);
         }
     }
 

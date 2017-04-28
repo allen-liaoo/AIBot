@@ -6,7 +6,6 @@
 package Command.FunModule;
 
 import Command.Command;
-import static Command.Command.embed;
 import Game.GuessNumber;
 import Constants.Emoji;
 import Constants.Constants;
@@ -14,6 +13,7 @@ import Setting.Prefix;
 import AISystem.AILogger;
 import java.awt.Color;
 import java.time.Instant;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -21,7 +21,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class GuessNumberCommand implements Command{
+public class GuessNumberCommand extends Command{
 
     public final static String HELP = "Play Number Guessing Game with the bot!\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "guessnum` or `" + Prefix.getDefaultPrefix() + "gn`\n"
@@ -34,16 +34,13 @@ public class GuessNumberCommand implements Command{
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
+        
         embed.setTitle("Fun Module", null);
         embed.addField("Guess Number -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override

@@ -13,52 +13,45 @@ import Constants.Constants;
 import Setting.Prefix;
 import Utility.Search;
 import Utility.SearchResult;
-import Utility.UtilNum;
 import Utility.WebScraper;
 import AISystem.AILogger;
 import Utility.UtilBot;
-import java.awt.Color;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class IMDbCommand implements Command {
+public class IMDbCommand extends Command {
 
-    public final static  String HELP = "This command is for a search result from IMDB.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"imdb`\n"
-                                     + "Parameter: `-h | [Keywords] | -m [Keywods] |null`\n"
-                                     + "[Keywords]: Search IMDB with [Keywords].\n"
-                                     + "-m [Keywods]: Get the specific information for a title.\n";
-    
+    public final static String HELP = "This command is for a search result from IMDB.\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"imdb`\n"
+                                    + "Parameter: `-h | [Keywords] | -m [Keywods] |null`\n"
+                                    + "[Keywords]: Search IMDB with [Keywords].\n"
+                                    + "-m [Keywods]: Get the specific information for a title.\n";
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Utility Module", null);
         embed.addField("IMDB -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Constants.I_HELP);
         embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-h".equals(args[0])) 
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
-        else if("-m".equals(args[0]))
+        if("-m".equals(args[0]))
         {
             String input = "";
             for(int i = 1; i < args.length; i++){ input += args[i].substring(0,1).toUpperCase() + args[i].substring(1) + " "; }
@@ -81,7 +74,7 @@ public class IMDbCommand implements Command {
             
         }
         
-        else 
+        else
         {
             String input = "";
             for(int i = 0; i < args.length; i++){ input += args[i].substring(0,1).toUpperCase() + args[i].substring(1) + " "; }
@@ -141,7 +134,6 @@ public class IMDbCommand implements Command {
                 embeds.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embeds.setTimestamp(Instant.now());
                 
-                final String tempString = Emoji.SEARCH + " This is the result for `" + input + "` on `IMDB.com`:";
                 e.getChannel().sendMessage("Searching........").complete().editMessage(embeds.build()).complete();
                 
                 //Reset

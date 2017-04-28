@@ -5,34 +5,28 @@
  */
 package Command.RestrictedModule;
 
-import Main.Main;
 import Command.*;
 import Constants.Emoji;
 import Constants.Constants;
 import Setting.Prefix;
 import AISystem.AILogger;
 import Utility.UtilBot;
-import java.awt.Color;
-import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class PresenceCommand implements Command {
+public class PresenceCommand extends Command {
     public final static String HELP = "This command is for setting the bot's nickname, status and game.\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "setNick` or `"+ Prefix.getDefaultPrefix() + "setStatus` or `"+ Prefix.getDefaultPrefix() + "setGame`\n"
                                     + "Parameter: `-h | [Status] | [Game | default] | null`\n"
                                     + "[NickName]: String of the nickname or null.\n"
                                     + "[Status]: Online, idle, dnd, invisible, offline. (Bot Owner Only)\n"
                                     + "[Game]: String of the game, default, fix, update or null. (Bot Owner Only)\n";
-    
-    private final EmbedBuilder embed = new EmbedBuilder();
     private String type = "";
     
     public PresenceCommand(String invoke)
@@ -40,31 +34,25 @@ public class PresenceCommand implements Command {
         if("setStatus".equals(invoke)) type = "status";
         else if("setGame".equals(invoke)) type = "game";
         else if("setNick".equals(invoke)) type = "nick";
-
     }
     
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embed.setColor(Color.red);
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
         embed.setTitle("Restricted Module", null);
         embed.addField("SetPresence -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
-        embed.setTimestamp(Instant.now());
-
-        MessageEmbed me = embed.build();
-        e.getChannel().sendMessage(me).queue();
-        embed.clearFields();
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-h".equals(args[0])) 
-        {
-            help(e);
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
         
-        else if(args.length > 0) 
+        if(args.length > 0 && "-h".equals(args[0])) 
         {
             //Set NickName
             if("nick".equals(type))

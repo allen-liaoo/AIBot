@@ -19,7 +19,6 @@ import Command.RestrictedModule.*;
 import AISystem.AILogger;
 import Utility.UtilBot;
 
-import java.awt.Color;
 import java.time.Instant;
 
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -30,34 +29,30 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class HelpCommand implements Command {
+public class HelpCommand extends Command {
     
     public final static String HELP = "This command is for getting this bot's commands.\n"
                                + "Command Usage: `" + Prefix.getDefaultPrefix() + "help` or `" + Prefix.getDefaultPrefix() + "h`\n"
                                + "Parameter: `-h | -dm [Page Number] | Command/Module Name  | [Page Number] | null`\n"
                                + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
-    
-    public static MessageEmbed me = embed.build();
-    private final EmbedBuilder embedusage = new EmbedBuilder();
-    private final EmbedBuilder embedHelp = new EmbedBuilder();
 
 
     @Override
-    public void help(MessageReceivedEvent e) {
-        embedusage.setColor(Color.red);
-        embedusage.setTitle("Information Module", null);
-        embedusage.addField("Help -Help", HELP, true);
-        embedusage.setFooter("Command Help/Usage", Constants.I_HELP);
-        embedusage.setTimestamp(Instant.now());
-
-        MessageEmbed eu = embedusage.build();
-        e.getChannel().sendMessage(eu).queue();
-        embedusage.clearFields();
+    public EmbedBuilder help(MessageReceivedEvent e) {
+        EmbedBuilder embed = super.help(e);
+        embed.setTitle("Information Module", null);
+        embed.addField("Help -Help", HELP, true);
+        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
         AILogger.commandLog(e, this.getClass().getName(), "Triggered!");
+        if(args.length == 1 && "-h".equals(args[0])) {
+            e.getChannel().sendMessage(help(e).build()).queue();
+            return;
+        }
         
         //Default
         if(args.length == 0 || args.length == 1 && Character.isDigit(args[0].charAt(0))) //Parameter null
@@ -68,8 +63,7 @@ public class HelpCommand implements Command {
                    page = Integer.parseInt(args[0]);
 
                 EmbedBuilder emhelp = helpText(e, page);
-                me = emhelp.build();
-                e.getChannel().sendMessage(me).queue();
+                e.getChannel().sendMessage(emhelp.build()).queue();
                 emhelp.clearFields();
             } catch (NumberFormatException nfe) {
                 e.getChannel().sendMessage(Emoji.ERROR + " Invalid page number! Use `=help 1, 2, 3, or 4`").queue();
@@ -89,18 +83,10 @@ public class HelpCommand implements Command {
                 for(int i = 0; i < 4; i++)
                 {
                     EmbedBuilder emhelp = helpText(e, i+1);
-                    
-                    me = emhelp.build();
-                    e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().editMessage(me).submit());
+                    e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().editMessage(emhelp.build()).submit());
                     emhelp.clearFields();
                 }
             }
-        }
-        
-        //Parameter -h
-        else if("-h".equals(args[0])) 
-        {
-            help(e);
         }
         
         else //Parameter commands name
@@ -422,6 +408,8 @@ public class HelpCommand implements Command {
             cmdtitle = cmdtitle.substring(0, 1).toUpperCase()+ cmdtitle.substring(1); //Make the first letter to Upper case.
             cmdtitle += " -Help";
         }
+        
+        EmbedBuilder embedHelp = new EmbedBuilder();
 
         embedHelp.setAuthor("AIBot Help -" + morc, Constants.B_GITHUB,null); //Set title for command
         embedHelp.setColor(UtilBot.randomColor());
@@ -434,7 +422,7 @@ public class HelpCommand implements Command {
 
         MessageEmbed meh = embedHelp.build();
         e.getChannel().sendMessage(meh).queue();
-        embedHelp.clearFields(); //Refresh EmbedMessage
+        embedHelp.clearFields();
     }
     
 }
