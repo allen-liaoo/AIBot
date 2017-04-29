@@ -11,8 +11,10 @@ import Setting.Prefix;
 import com.vdurmont.emoji.EmojiManager;
 import java.awt.Color;
 import java.time.Instant;
+import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -45,24 +47,27 @@ public class EmojiCommand extends Command {
         if("-m".equals(args[0]))
         {
             try{
+                if(!EmojiManager.isEmoji(args[1])) {
+                    List<Emote> emotesByName = e.getJDA().getEmotesByName(args[1].substring(1, args[1].length()-1), true);
+                    e.getChannel().sendMessage("Name: **" + emotesByName.get(0).getName() + "**\n`" + emotesByName.get(0).getAsMention() + "`\n"
+                            + emotesByName.get(0).getImageUrl()).queue();
+                    return;
+                }
                 
-                System.out.print("Emoji input -> " + args[1] + "\n");
-                com.vdurmont.emoji.Emoji emo = EmojiManager.getForAlias(":" + args[1] + ":");
+                com.vdurmont.emoji.Emoji emo = EmojiManager.getByUnicode(args[1]);
 
                 String emoji = emo.getUnicode() + " `" + emo.getUnicode() + "`";
                 String description = emo.getDescription().substring(0, 1).toUpperCase() + emo.getDescription().substring(1);
                 String html = "`" + emo.getHtmlDecimal() + "`\n`" + emo.getHtmlHexadecimal() + "`";
                 String alias = "";
                 
-                for(String a : emo.getAliases())
-                {
+                for(String a : emo.getAliases()) {
                     alias += a.substring(0, 1).toUpperCase() + a.substring(1) + ", \n";
                 }
                 alias = alias.substring(0, alias.length() - 3);
 
                 String tag = "";
-                for(String t : emo.getTags())
-                {
+                for(String t : emo.getTags()) {
                     tag += t.substring(0, 1).toUpperCase() + t.substring(1) + ", \n";
                 }
                 if("".equals(tag))
@@ -73,8 +78,7 @@ public class EmojiCommand extends Command {
                 EmbedBuilder embedemo = new EmbedBuilder();
                 embedemo.setColor(Color.green);
                 embedemo.addField("Emoji", emoji, true);
-                embedemo.addField("Description", description, true);
-                embedemo.addBlankField(true);
+                embedemo.addField("Description", description, false);
                 embedemo.addField("Aliases", alias, true);
                 embedemo.addField("Tags", tag, true);
                 embedemo.addField("Html", html, true);
@@ -86,6 +90,9 @@ public class EmojiCommand extends Command {
                 embedemo.clearFields();
             } catch (NullPointerException npe) {
                 e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid alias for that emoji.").queue();
+                return;
+            } catch (IndexOutOfBoundsException ioobe) {
+                e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid server emoji.").queue();
                 return;
             }
         }

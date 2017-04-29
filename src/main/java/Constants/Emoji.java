@@ -18,6 +18,8 @@ public class Emoji {
     public final static String ERROR = EmojiParser.parseToUnicode(":fire:");
     public final static String UP = EmojiParser.parseToUnicode(":arrow_up:");
     public final static String DOWN = EmojiParser.parseToUnicode(":arrow_down:");
+    public final static String RIGHT = EmojiParser.parseToUnicode(":arrow_right:");
+    public final static String LEFT = EmojiParser.parseToUnicode(":arrow_left:");
     public final static String INVITE = EmojiParser.parseToUnicode(":postbox:");
     public final static String INFORMATION = EmojiParser.parseToUnicode(":information_source:");
     

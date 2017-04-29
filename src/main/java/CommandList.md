@@ -63,6 +63,7 @@
 - music (m) - Get a list of music commands.
 - join (j) - Add bot to a voice channel.
 - leave (l) - Remove bot from a voice channel. 
+- player (pl) - Music player controller.
 - play - Play a song from YouTube.
 - fm - Play automatic playlists.
 - radio - Stream from a radio station.

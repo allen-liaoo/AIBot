@@ -9,30 +9,19 @@ import Audio.AudioTrackWrapper.TrackType;
 import Audio.TrackScheduler.PlayerMode;
 import Main.Main;
 import Constants.Emoji;
-import Constants.Constants;
-import Utility.WebScraper;
 import AISystem.AILogger;
-import AISystem.AIPages;
-import Utility.UtilBot;
-import Utility.UtilString;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;;
-import java.io.IOException;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -102,9 +91,7 @@ public class Music  {
             } catch (ExecutionException ex) {
                 AILogger.errorLog(ex, e, "Music#play", "ExecutionException when retrieving AudioTrack");
             }
-        }
-        else
-        {
+        } else {
             e.getTextChannel().sendMessage(Emoji.ERROR + " No match found.").queue();
         }
     }
@@ -276,150 +263,7 @@ public class Music  {
             return 0;
         }
         return -1;
-    }
-    
-    /**
-     * Track Information Getter
-     * @param e
-     * @param track Wrapper class for getting basic informations and requesters
-     * @param title 
-     */
-    public static void trackInfo(MessageReceivedEvent e, AudioTrackWrapper track, String title)
-    {   
-        AudioTrackInfo trackInfo = track.getTrack().getInfo();
-        String trackTime = UtilString.formatDurationToString(track.getTrack().getPosition());
-
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setAuthor(title, trackInfo.uri, Constants.B_AVATAR);
-        embedBuilder.setColor(UtilBot.randomColor());
-        embedBuilder.addField("Song Title:", trackInfo.title, true);
-        embedBuilder.addField("Author:", trackInfo.author, true);
-        embedBuilder.addField("Song Link:", trackInfo.uri, false);
-        
-        if(track.getType() != AudioTrackWrapper.TrackType.RADIO)
-        {
-            trackTime += " / " + UtilString.formatDurationToString(track.getTrack().getDuration());
-        }
-        
-        embedBuilder.addField("Song Duration:", trackTime, true);
-        embedBuilder.addField("Track Type:", track.getType().toString(), true);
-        embedBuilder.addField("Stream:", UtilString.VariableToString(null, trackInfo.isStream+"") + "", true);
-        embedBuilder.addField("Requested by:", track.getRequester(), true);
-        embedBuilder.setThumbnail(Constants.B_AVATAR);
-        embedBuilder.setTimestamp(Instant.now());
-            
-            
-        try {
-            embedBuilder.setImage(WebScraper.getYouTubeThumbNail(track.getTrack().getInfo().uri));
-        } catch (IOException ex) {
-            AILogger.errorLog(ex, e, "Music#trackInfo", "IOException on getting thumbnail of " + track.getTrack().getInfo().uri);
-        } catch (ArrayIndexOutOfBoundsException aioobe) {
-            
-        }
-        
-        e.getTextChannel().sendMessage(embedBuilder.build()).queue();
-        embedBuilder.clearFields();
-    }
-    
-    /**
-     * Queue List
-     * @param e
-     * @param page
-     */
-    public static void queueList(MessageReceivedEvent e, int page)
-    {
-        BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
-        Iterator<AudioTrackWrapper> list = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueueIterator();
-        
-        EmbedBuilder embed = new EmbedBuilder();
-        
-        //Now Playing
-        AudioTrackWrapper playing = Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack();
-        Long position = 0L, duration = 0L;
-        
-        if(playing.isEmpty()) {
-            embed.addField("Now Playing", "None", false);   
-        }
-        else
-        {
-            String ptitle = playing.getTrack().getInfo().title;
-            String purl = playing.getTrack().getInfo().uri;
-            String mode = Main.guilds.get(e.getGuild().getId()).getScheduler().getMode().toString();
-            
-            String text = "**Player Mode:** " + mode + "\n" + 
-                          "**[" + ptitle + "](" + purl + ")**\n" +
-                          "Requested by `" + playing.getRequester() + "`\nType: `" + playing.getType().toString() + "`\n";
-            embed.addField("Now Playing", text, false);
-            
-            //Current Position / Total Duration
-            position = playing.getTrack().getPosition();
-            TrackType TrackType = null;
-            if(playing.getType() != TrackType.RADIO)
-                duration += playing.getTrack().getDuration();
-        }
-        
-        int count = 0;
-        String songs = "";
-        List<AudioTrackWrapper> queueList = new ArrayList();
-        
-        if(queue.peek() == null)
-        {
-            songs += "The queue is curently empty.";
-            if(playing.isEmpty()) {
-                e.getChannel().sendMessage("The queue is currently empty, and there is no song playing.").queue();
-                return;
-            }
-            embed.addField("Coming Next", songs, false);
-        }
-        else
-        {   
-            //Initialize QueueList for AIPages. Add duration
-            while(list.hasNext())
-            {
-                count++;
-
-                AudioTrackWrapper trackwrapper = list.next();
-                AudioTrack track = trackwrapper.getTrack();
-                
-                queueList.add(trackwrapper);
-                if(trackwrapper.getType() != TrackType.RADIO)
-                    duration += track.getDuration();
-            }
-            songs += "**Queue Count:** " + count + "\n";
-            
-            //AIPages
-            AIPages pages = new AIPages(queueList);
-            List<AudioTrackWrapper> song = pages.getPage(page);
-            
-            //Add each queued songs to songQueue
-            for(int i = 0; i < song.size(); i++) {
-                AudioTrackWrapper wrap = song.get(i);
-                String title = wrap.getTrack().getInfo().title;
-                String url = wrap.getTrack().getInfo().uri;
-                int index = (page-1) * pages.getPageSize() +1;
-                songs += "`"+(i+index)+".` **["+title+"]("+url+")**\n";
-            }
-            embed.addField("Coming Next (Page " + page + " / " + pages.getPages() +")", songs, false);
-        }
-        
-        String durationWithoutRadio = "";
-        if("00:00".equals(UtilString.formatDurationToString(duration)))
-            durationWithoutRadio = "";
-        else
-            durationWithoutRadio = " / " + UtilString.formatDurationToString(duration);
-        
-        embed.setAuthor("Queue List (" + 
-                UtilString.formatDurationToString(position) + 
-                durationWithoutRadio + ")"
-                , Constants.B_INVITE, Constants.B_AVATAR);
-        embed.setColor(UtilBot.randomColor());
-        embed.setThumbnail(Constants.B_AVATAR);
-        embed.setFooter("Reqested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
-        embed.setTimestamp(Instant.now());
-        
-        e.getChannel().sendMessage(embed.build()).queue();
-        embed.clearFields();
-    }
+    }    
     
     /**
      * Check if the user is in the same voice channel than the bot
@@ -470,8 +314,7 @@ public class Music  {
      * @param e
      * @return
      */
-    public static String volumeToEmoji(MessageReceivedEvent e)
-    {
+    public static String volumeToString(MessageReceivedEvent e) {
         int vol = Main.guilds.get(e.getGuild().getId()).getPlayer().getVolume();
         return (vol>49 ? Emoji.VOLUME_HIGH : vol>0 ? Emoji.VOLUME_LOW : Emoji.VOLUME_NONE)+" "+vol;
     }

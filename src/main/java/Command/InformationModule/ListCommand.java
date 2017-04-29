@@ -12,13 +12,19 @@ import Constants.Constants;
 import Constants.Emoji;
 import Setting.Prefix;
 import AISystem.AIPages;
+import AISystem.Selector.EmojiSelection;
+import Command.MusicModule.QueueCommand;
+import Command.MusicModule.SongCommand;
+import Listener.SelectorListener;
 import Utility.UtilBot;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -34,7 +40,10 @@ public class ListCommand extends Command {
                                     + "server: Get a list of servers this bot is in. *\n"
                                     + "member: Get a list of members in this server.\n"
                                     + "role: Get a list of roles in this server.\n"
-                                    + "channel: Get a list of text and voice channels in this server.\n";        
+                                    + "channel: Get a list of text and voice channels in this server.\n";  
+    
+    private static final List<String> reactions = Arrays.asList(Emoji.LEFT, Emoji.RIGHT);
+    
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -52,19 +61,40 @@ public class ListCommand extends Command {
             return;
         }
         
-        if (args.length > 0 && !"-h".equals(args[0])) {
+        if (args.length > 0) {
             try {
-                if("member".equals(args[0]) || "mem".equals(args[0]))
-                    listMember(args,e);
-                else if ("server".equals(args[0]) || "servers".equals(args[0]) || "guild".equals(args[0]))
-                    listServer(args,e);
-                else if ("role".equals(args[0]) || "roles".equals(args[0]))
-                    listRole(args,e);
-                else if ("channel".equals(args[0]) || "channels".equals(args[0]))
-                    listChannel(args,e);
-                else
+                int page = 1;
+                if(null == args[0])
                     e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid list type. "
                             + "`=list server, member, role, or channel`").queue();
+                else {
+                    if(args.length > 1)
+                        page = Integer.parseInt(args[1]);
+                }
+                
+                switch (args[0]) {
+                    case "member":
+                    case "mem":
+                        listMember(e,page);
+                        break;
+                    case "server":
+                    case "servers":
+                    case "guild":
+                        listServer(e,page);
+                        break;
+                    case "role":
+                    case "roles":
+                        listRole(e,page);
+                        break;
+                    case "channel":
+                    case "channels":
+                        listChannel(e,page);
+                        break;
+                    default:
+                        e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid list type. "
+                                + "`=list server, member, role, or channel`").queue();
+                        break;
+                }
             } catch (IllegalArgumentException  | IndexOutOfBoundsException ex) {
                 e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid page number.").queue();
                 return;
@@ -72,14 +102,10 @@ public class ListCommand extends Command {
         }
     }
     
-    public void listServer(String[] args, MessageReceivedEvent e)
+    public void listServer(MessageReceivedEvent e, int page)
     {
         List<Guild> guildsList = UtilBot.getServerList();
         AIPages pages = new AIPages(guildsList, 10);
-
-        int page = 1;
-        if(args.length > 1)
-            page = Integer.parseInt(args[1]);
 
         List<Guild> guilds = pages.getPage(page);
         String output = "```md\n\n[Server List](Total: " + guildsList.size() + ")\n\n";
@@ -91,17 +117,31 @@ public class ListCommand extends Command {
 
         output += "--------\n\n# Page(s): " + page + " / " + pages.getPages() + "   (Sorted by the amount of members)\n\n"
                 + "# Use " + Prefix.getDefaultPrefix() + "list server [Page Number] to show more pages.```";
-        e.getChannel().sendMessage(output).queue();
+        e.getChannel().sendMessage(output).queue( (Message msg) -> {
+            SelectorListener.addEmojiSelection(e.getAuthor().getId(), new EmojiSelection(msg, e.getMember(), reactions) {
+                @Override
+                public void action(int chose) {
+                    switch(chose) {
+                        case 0:
+                            ListCommand lc = new ListCommand();
+                            lc.action(new String[]{"server",(page-1)+""}, e);
+                            break;
+                        case 1:
+                            ListCommand lc2 = new ListCommand();
+                            lc2.action(new String[]{"server",(page+1)+""}, e);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        });
     }
     
-    public void listMember(String[] args, MessageReceivedEvent e) 
+    public void listMember(MessageReceivedEvent e, int page)
     {
         List<Member> memsList = UtilBot.getMemberList(e);
         AIPages pages = new AIPages(memsList, 10);
-        
-        int page = 1;
-        if(args.length > 1)
-            page = Integer.parseInt(args[1]);
 
         List<Member> members = pages.getPage(page);
         String output = "```md\n\n[Member List](Total: " + memsList.size() + ")\n\n";
@@ -116,17 +156,31 @@ public class ListCommand extends Command {
 
         output += "--------\n\n# Page(s): " + page + " / " + pages.getPages() + "  (Sorted by role position and alphabetical order)\n\n"
                 + "# Use " + Prefix.getDefaultPrefix() + "list member [Page Number] to show more pages.```";
-        e.getChannel().sendMessage(output).queue();
+        e.getChannel().sendMessage(output).queue( (Message msg) -> {
+            SelectorListener.addEmojiSelection(e.getAuthor().getId(), new EmojiSelection(msg, e.getMember(), reactions) {
+                @Override
+                public void action(int chose) {
+                    switch(chose) {
+                        case 0:
+                            ListCommand lc = new ListCommand();
+                            lc.action(new String[]{"member",(page-1)+""},e);
+                            break;
+                        case 1:
+                            ListCommand lc2 = new ListCommand();
+                            lc2.action(new String[]{"member",(page+1)+""},e);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        });
     }
     
-    public void listRole(String[] args, MessageReceivedEvent e) 
+    public void listRole(MessageReceivedEvent e, int page)
     {
         List<Role> roleList = UtilBot.getRoleList(e);
-
         AIPages pages = new AIPages(roleList, 10);
-        int page = 1;
-        if(args.length > 1)
-            page = Integer.parseInt(args[1]);
 
         List<Role> roles = pages.getPage(page);
         String output = "```md\n\n[Role List](Total: " + roleList.size() + ")\n\n";
@@ -141,10 +195,28 @@ public class ListCommand extends Command {
 
         output += "--------\n\n# Page(s): " + page + " / " + pages.getPages() + "  (Sorted by role position)\n\n"
                 + "# Use " + Prefix.getDefaultPrefix() + "list role [Page Number] to show more pages.```";
-        e.getChannel().sendMessage(output).queue();
+        e.getChannel().sendMessage(output).queue( (Message msg) -> {
+            SelectorListener.addEmojiSelection(e.getAuthor().getId(), new EmojiSelection(msg, e.getMember(), reactions) {
+                @Override
+                public void action(int chose) {
+                    switch(chose) {
+                        case 0:
+                            ListCommand lc = new ListCommand();
+                            lc.action(new String[]{"role",(page-1)+""},e);
+                            break;
+                        case 1:
+                            ListCommand lc2 = new ListCommand();
+                            lc2.action(new String[]{"role",(page+1)+""},e);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        });
     }
     
-    public void listChannel(String[] args, MessageReceivedEvent e) 
+    public void listChannel(MessageReceivedEvent e, int page)
     {
         List<Channel> tcList = UtilBot.getTextChannelList(e);
         List<Channel> vcList = UtilBot.getVoiceChannelList(e);
@@ -153,9 +225,6 @@ public class ListCommand extends Command {
         chanList.addAll(vcList);
 
         AIPages pages = new AIPages(chanList, 10);
-        int page = 1;
-        if(args.length > 1)
-            page = Integer.parseInt(args[1]);
 
         List<Channel> chans = pages.getPage(page);
         String output = "```md\n\n[Channel List](Total: " + chanList.size() + ")\n\n";
@@ -172,7 +241,25 @@ public class ListCommand extends Command {
 
         output += "--------\n\n# Page(s): " + page + " / " + pages.getPages() + "  (Sorted by channel position)\n\n"
                 + "# Use " + Prefix.getDefaultPrefix() + "list channel [Page Number] to show more pages.```";
-        e.getChannel().sendMessage(output).queue();
+        e.getChannel().sendMessage(output).queue( (Message msg) -> {
+            SelectorListener.addEmojiSelection(e.getAuthor().getId(), new EmojiSelection(msg, e.getMember(), reactions) {
+                @Override
+                public void action(int chose) {
+                    switch(chose) {
+                        case 0:
+                            ListCommand lc = new ListCommand();
+                            lc.action(new String[]{"channel",(page-1)+""},e);
+                            break;
+                        case 1:
+                            ListCommand lc2 = new ListCommand();
+                            lc2.action(new String[]{"channel",(page+1)+""},e);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        });
     }
     
 }

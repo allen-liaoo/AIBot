@@ -9,7 +9,7 @@ package Listener;
 
 import Setting.Prefix;
 import Main.*;
-import Setting.GuildSetting;
+import Setting.GuildWrapper;
 import Audio.Music;
 import static Main.Main.commands;
 import Constants.Emoji;
@@ -48,7 +48,7 @@ public class CommandListener extends ListenerAdapter {
          */
         if(!e.isFromType(ChannelType.PRIVATE) && !Main.guilds.containsKey(e.getGuild().getId()))
         {
-            GuildSetting newGuild = new GuildSetting(Music.playerManager, e.getGuild().getId(), "=");
+            GuildWrapper newGuild = new GuildWrapper(Music.playerManager, e.getGuild().getId(), "=");
             Main.guilds.put(e.getGuild().getId(), newGuild);
             e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
             AILogger.updateLog("\tNew Server: " + e.getGuild().getId() + " " + e.getGuild().getName());
@@ -57,8 +57,8 @@ public class CommandListener extends ListenerAdapter {
         /**
          * Detect Trigger Words and Respond.
          */
-        Main.respond.checkRespond(e.getMessage().getRawContent(), e);
-        Main.respond.checkPrefixRespond(Main.parser.parseRespond(e.getMessage().getRawContent(), e), e);
+        Main.respond.checkRespond(e.getMessage().getContent(), e);
+        Main.respond.checkDynamicRespond(Main.parser.parseRespond(e.getMessage().getRawContent(), e), e);
         
         /**
          * Detect commands.

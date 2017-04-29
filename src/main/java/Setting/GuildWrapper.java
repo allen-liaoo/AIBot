@@ -1,7 +1,7 @@
 /* 
  * AIBot by AlienIdeology
  * 
- * GuildSetting
+ * GuildWrapper
  * Custom settings per guild
  */
 package Setting;
@@ -14,14 +14,9 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 
 /**
- *
- * @author Alien Ideology <alien.ideology at alien.org>
- */
-
-/**
  * Holder for both the player and a track scheduler for one guild.
  */
-public class GuildSetting {
+public class GuildWrapper {
   /**
    * Audio player for the guild.
    */
@@ -38,7 +33,7 @@ public class GuildSetting {
   private TextChannel tc;
 
   /**
-   * @param voteSkip The vote for skipping current song
+   * voteSkip The vote for skipping current song
    */
   private String guildId, prefix;
   
@@ -48,7 +43,7 @@ public class GuildSetting {
    * @param guildId Guild ID
    * @param prefix Custom Guild prefix
    */
-  public GuildSetting(AudioPlayerManager manager, String guildId, String prefix) {
+  public GuildWrapper(AudioPlayerManager manager, String guildId, String prefix) {
     player = manager.createPlayer();
     scheduler = new TrackScheduler(player);
     player.addListener(scheduler);

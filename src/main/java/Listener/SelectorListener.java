@@ -9,7 +9,8 @@ package Listener;
 import AISystem.Selector.EmojiSelection;
 import Command.MusicModule.PlayCommand;
 import java.util.HashMap;
-import net.dv8tion.jda.client.events.message.group.react.GroupMessageReactionAddEvent;
+import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -61,7 +62,12 @@ public class SelectorListener extends ListenerAdapter {
     
     public static void addEmojiSelection(String author, EmojiSelection select)
     {
-        emojiSelector.put(author, select);
+        if(select.getGuild().getSelfMember().hasPermission((Channel) select.getchannel(), Permission.MESSAGE_ADD_REACTION)) {
+            for(String em : select.getOption()) {
+                select.getMessage().addReaction(em).queue();
+            }
+            emojiSelector.put(author, select);
+        }
     }
     
 }

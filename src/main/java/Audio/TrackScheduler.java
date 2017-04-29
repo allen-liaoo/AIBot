@@ -213,6 +213,8 @@ public class TrackScheduler extends AudioEventAdapter {
         super.onTrackStart(player, track);
         if(tc!=null)
             tc.sendMessage(Emoji.NOTES + " Now playing `" + track.getInfo().title + "`").queue();
+        
+        System.out.println("Track Started: " + track.getInfo().title);
     }
 
     /**

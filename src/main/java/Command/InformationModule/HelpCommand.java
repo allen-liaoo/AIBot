@@ -17,12 +17,17 @@ import Command.MusicModule.*;
 import Command.FunModule.*;
 import Command.RestrictedModule.*;
 import AISystem.AILogger;
+import AISystem.Selector.EmojiSelection;
+import Listener.SelectorListener;
 import Utility.UtilBot;
 
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.List;
 
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -36,6 +41,7 @@ public class HelpCommand extends Command {
                                + "Parameter: `-h | -dm [Page Number] | Command/Module Name  | [Page Number] | null`\n"
                                + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
 
+    private static final List<String> reactions = Arrays.asList(Emoji.ONE, Emoji.TWO, Emoji.THREE, Emoji.FOUR);
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -63,8 +69,33 @@ public class HelpCommand extends Command {
                    page = Integer.parseInt(args[0]);
 
                 EmbedBuilder emhelp = helpText(e, page);
-                e.getChannel().sendMessage(emhelp.build()).queue();
-                emhelp.clearFields();
+                e.getChannel().sendMessage(emhelp.build()).queue( (Message msg) -> {
+                    SelectorListener.addEmojiSelection(e.getAuthor().getId(), new EmojiSelection(msg, e.getMember(), reactions) {
+                        @Override
+                        public void action(int chose) {
+                            switch(chose) {
+                                case 0:
+                                    HelpCommand hc = new HelpCommand();
+                                    hc.action(new String[] {1+""},e);
+                                    break;
+                                case 1:
+                                    HelpCommand hc1 = new HelpCommand();
+                                    hc1.action(new String[] {2+""},e);
+                                    break;
+                                case 2:
+                                    HelpCommand hc2 = new HelpCommand();
+                                    hc2.action(new String[] {3+""},e);
+                                    break;
+                                case 4:
+                                    HelpCommand hc3 = new HelpCommand();
+                                    hc3.action(new String[] {4+""},e);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    });
+                });
             } catch (NumberFormatException nfe) {
                 e.getChannel().sendMessage(Emoji.ERROR + " Invalid page number! Use `=help 1, 2, 3, or 4`").queue();
             }
@@ -83,8 +114,34 @@ public class HelpCommand extends Command {
                 for(int i = 0; i < 4; i++)
                 {
                     EmbedBuilder emhelp = helpText(e, i+1);
-                    e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().editMessage(emhelp.build()).submit());
-                    emhelp.clearFields();
+                    e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage("Help is on its way...").complete().
+                        editMessage(emhelp.build()).queue( (Message msg) -> {
+                            SelectorListener.addEmojiSelection(e.getAuthor().getId(), new EmojiSelection(msg, e.getMember(), reactions) {
+                                @Override
+                                public void action(int chose) {
+                                    switch(chose) {
+                                        case 0:
+                                            HelpCommand hc = new HelpCommand();
+                                            hc.action(new String[] {1+""},e);
+                                            break;
+                                        case 1:
+                                            HelpCommand hc1 = new HelpCommand();
+                                            hc1.action(new String[] {2+""},e);
+                                            break;
+                                        case 2:
+                                            HelpCommand hc2 = new HelpCommand();
+                                            hc2.action(new String[] {3+""},e);
+                                            break;
+                                        case 4:
+                                            HelpCommand hc3 = new HelpCommand();
+                                            hc3.action(new String[] {4+""},e);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            });
+                        }));
                 }
             }
         }
@@ -316,6 +373,10 @@ public class HelpCommand extends Command {
             case "leave":
             case "l":
                 cmdhelp = LeaveCommand.HELP;
+                break;
+            case "player":
+            case "pl":
+                cmdhelp = PlayerCommand.HELP;
                 break;
             case "play":
                 cmdhelp = PlayCommand.HELP;

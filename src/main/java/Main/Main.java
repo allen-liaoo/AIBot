@@ -6,7 +6,7 @@
  */
 package Main;
 
-import Setting.GuildSetting;
+import Setting.GuildWrapper;
 import Private.Private;
 import Command.*;
 import Command.InformationModule.*;
@@ -41,7 +41,7 @@ public class Main {
     public static final CommandParser parser = new CommandParser();
     public static final TextRespond respond = new TextRespond();
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
-    public static HashMap<String, GuildSetting> guilds = new HashMap<String, GuildSetting>();
+    public static HashMap<String, GuildWrapper> guilds = new HashMap<String, GuildWrapper>();
     public static long timeStart = 0;
     
     /**
@@ -176,10 +176,10 @@ public class Main {
         commands.put("j", new JoinCommand());
         commands.put("leave", new LeaveCommand());
         commands.put("l", new LeaveCommand());
-        commands.put("play", new PlayCommand());
-        commands.put("p", new PlayCommand());
         commands.put("player", new PlayerCommand());
         commands.put("pl", new PlayerCommand());
+        commands.put("play", new PlayCommand());
+        commands.put("p", new PlayCommand());
         commands.put("fm", new FMCommand());
         commands.put("radio", new RadioCommand());
         commands.put("pause", new PauseCommand("pause"));

@@ -76,12 +76,16 @@ public abstract class EmojiSelection extends AISelector {
      */
     public abstract void action(int chose);
 
-    public List getOption() {
+    public List<String> getOption() {
         return option;
     }
 
-    public void setOption(List option) {
+    public void setOption(List<String> option) {
         this.option = option;
+    }
+    
+    public void addOption(String option) {
+        this.option.add(option);
     }
     
 }

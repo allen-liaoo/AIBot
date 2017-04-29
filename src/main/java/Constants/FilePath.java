@@ -11,8 +11,8 @@ package Constants;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class FilePath {
-    
-    public static final String BasePath = "/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/";
+
+    private static final String BasePath = "/Users/liaoyilin/IdeaProjects/DiscordBot/src/main/java/";
     
     public static final String RadioStations = BasePath + "Audio/RadioStations.toml";
     public static final String LP = BasePath + "Audio/LocalPlaylist/";

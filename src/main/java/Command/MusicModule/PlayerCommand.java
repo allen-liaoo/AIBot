@@ -21,7 +21,6 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import java.util.Arrays;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -59,7 +58,7 @@ public class PlayerCommand extends Command {
                 AudioPlayer player = Main.guilds.get(e.getGuild().getId()).getPlayer();
                 AudioTrack track = player.getPlayingTrack();
                 String progress = Music.positionToString(e) + Emoji.STOP;
-                String volume = Music.volumeToEmoji(e);
+                String volume = Music.volumeToString(e);
                 String posdur = "[`"+UtilString.formatDurationToString(track.getPosition())
                         +"`/`"+UtilString.formatDurationToString(track.getDuration())+"`]";
                 
@@ -70,12 +69,6 @@ public class PlayerCommand extends Command {
                 embedplayer.addField(state+"...", playing+"\n"+progress+"\n"+volume+"  "+posdur, true);
                 embedplayer.setColor(UtilBot.randomColor());
                 e.getChannel().sendMessage(embedplayer.build()).queue((Message msg) -> {
-                    if(e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_ADD_REACTION)) {
-                        for(String em : reactions) {
-                            msg.addReaction(em).queue();
-                        }
-                    }
-                    
                     SelectorListener.addEmojiSelection(e.getAuthor().getId(), 
                             new EmojiSelection(msg, e.getMember(), reactions) {
                         @Override

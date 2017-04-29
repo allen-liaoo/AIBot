@@ -54,7 +54,7 @@ public class SpamCommand extends Command {
             return;
         }
         
-        if(args.length == 0)
+        if(args.length > 0)
         {
             //No NUMBER specified
             if(args.length == 0) {

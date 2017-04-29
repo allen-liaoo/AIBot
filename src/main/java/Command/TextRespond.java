@@ -7,7 +7,6 @@
  */
 package Command;
 
-import Constants.Emoji;
 import java.util.HashMap;
 import Constants.Constants;
 import net.dv8tion.jda.core.MessageBuilder;
@@ -20,69 +19,47 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class TextRespond {
     
-    public static HashMap<String, Respond> responds = new HashMap<String, Respond>();
-    public static HashMap<String, PrefixRespond> prefixResponds = new HashMap<String, PrefixRespond>();
+    public static HashMap<String, String> responds = new HashMap<String, String>();
+    public static HashMap<String, DynamicRespond> dynamicResponds = new HashMap<String, DynamicRespond>();
     
     public TextRespond() {
         addResponds();
-        addPrefixResponds();
+        addDynamicResponds();
     }
     
     public void checkRespond(String msg, MessageReceivedEvent e) {
-        if(e.getChannelType().isGuild() && e.getGuild().getMembers().size()>500)
+        if(e.getChannelType().isGuild() && e.getGuild().getMembers().size()>70)
             return;
         if(responds.containsKey(msg))
-            responds.get(msg).execute(e);
+            e.getChannel().sendMessage(responds.get(msg)).queue();
     }
     
-    public void checkPrefixRespond(String args[], MessageReceivedEvent e) {
-        if(e.getChannelType().isGuild() && e.getGuild().getMembers().size()>500)
+    public void checkDynamicRespond(String args[], MessageReceivedEvent e) {
+        if(e.getChannelType().isGuild() && e.getGuild().getMembers().size()>100)
             return;
-        if(args.length>0 && prefixResponds.containsKey(args[0]))
-            prefixResponds.get(args[0]).execute(args, e);
+        if(args.length>0 && dynamicResponds.containsKey(args[0]))
+            dynamicResponds.get(args[0]).execute(args, e);
     }
     
     private void addResponds()
     {
-        responds.put("ayy", new ayy());
-        responds.put("lmao", new lmao());
-        responds.put("hi", new hi());
+        responds.put("ayy", "Um... should I say lmao?");
+        responds.put("lmao", "Yeah yeah yeah...");
+        responds.put("wew", "lad");
+        responds.put("(╯°□°）╯︵ ┻━┻", "┬─┬﻿ ノ( ゜-゜ノ) We do **NOT** throw tables in this server.\n"
+                + "We are civilized people!");
+        responds.put("┬─┬﻿ ノ( ゜-゜ノ)", "Yep, that's the right thing to do. Clean up the server, table by table! ┬─┬﻿ ノ( ゜-゜ノ)");
     }
     
-    private void addPrefixResponds()
+    private void addDynamicResponds()
     {
-        prefixResponds.put("say", new say());
+        dynamicResponds.put("say", new say());
     }
     
-    private interface Respond {
-        void execute(MessageReceivedEvent e);
-    }
-    
-        private class ayy implements Respond {
-            @Override
-            public void execute (MessageReceivedEvent e) {
-                e.getChannel().sendMessage("Um... should I say lmao?").queue();
-            }
-        }
-        
-        private class lmao implements Respond {
-            @Override
-            public void execute (MessageReceivedEvent e) {
-                e.getChannel().sendMessage("Yeah yeah yeah...").queue();
-            }
-        }
-        
-        private class hi implements Respond {
-            @Override
-            public void execute (MessageReceivedEvent e) {
-                e.getMessage().addReaction(Emoji.EYES).queue();
-            }
-        }
-        
-    private interface PrefixRespond {
+    private interface DynamicRespond {
         void execute(String args[], MessageReceivedEvent e);
     }
-        private class say implements PrefixRespond {
+        private class say implements DynamicRespond {
             @Override
             public void execute (String args[], MessageReceivedEvent e) {
                 if(!e.getChannelType().isGuild() ||

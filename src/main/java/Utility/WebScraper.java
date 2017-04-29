@@ -11,6 +11,8 @@ import Constants.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import net.dv8tion.jda.core.EmbedBuilder;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -26,6 +28,8 @@ import org.jsoup.select.Elements;
  */
 public class WebScraper {
     
+    private final static Pattern lyricsPattern = Pattern.compile("(?<=<p>)(?s)(.*?)(?=<\\/p>)");
+    
     /**
      * Lyrics getter from Genius.com
      * @param input the value of lyrics URI, works with Search.lyricsSearch
@@ -36,6 +40,11 @@ public class WebScraper {
         List<String> lyrics = new ArrayList<String>();
         String lyricsURL = Constants.LYRICSURL + input.substring(0, 1).toUpperCase() + input.substring(1).replace(" ", "-").toLowerCase();
         Document doc = Jsoup.connect(input).get();
+        String html = doc.select(".lyrics").select("p").html();
+        
+        Matcher match = lyricsPattern.matcher(html);
+        System.out.println(match.toMatchResult().group());
+        
         int count = 0;
         Element p = doc.select(".lyrics").select("p").get(0);
         doc.select("br").append("");

@@ -5,18 +5,21 @@
  */
 package Command.MusicModule;
 
+import AISystem.AILogger;
 import Audio.AudioTrackWrapper;
-import Audio.Music;
 import Command.Command;
 import Main.Main;
 import Constants.Emoji;
 import Constants.Constants;
 import Setting.Prefix;
-import java.awt.Color;
+import Utility.UtilBot;
+import Utility.UtilString;
+import Utility.WebScraper;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+import java.io.IOException;
 import java.time.Instant;
 import java.util.concurrent.BlockingQueue;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -49,7 +52,7 @@ public class SongCommand extends Command{
             {
                 try {
                    AudioTrackWrapper nowplaying = Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack();
-                   Music.trackInfo(e, nowplaying, "Now Playing");
+                   e.getChannel().sendMessage(trackInfo(e, nowplaying, "Now Playing").build()).queue();
                 } catch (NullPointerException npe) {
                     e.getChannel().sendMessage(Emoji.ERROR + " No song is playing.").queue();
                 }
@@ -73,9 +76,42 @@ public class SongCommand extends Command{
                         songinfo = song;
                 }
 
-                Music.trackInfo(e, songinfo, "Queue Song (Position " + args[0] + ")");
+                e.getChannel().sendMessage(trackInfo(e, songinfo, "Queue Song (Position " + args[0] + ")").build()).queue();
             }
         }
+    }
+    
+    /**
+     * Track Information Getter
+     * @param e
+     * @param track Wrapper class for getting basic informations and requesters
+     * @param title
+     */
+    public EmbedBuilder trackInfo(MessageReceivedEvent e, AudioTrackWrapper track, String title) {
+        AudioTrackInfo trackInfo = track.getTrack().getInfo();
+        String trackTime = UtilString.formatDurationToString(track.getTrack().getPosition());
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.setAuthor(title, trackInfo.uri, Constants.B_AVATAR);
+        embedBuilder.setColor(UtilBot.randomColor());
+        embedBuilder.addField("Song Title:", trackInfo.title, true);
+        embedBuilder.addField("Author:", trackInfo.author, true);
+        embedBuilder.addField("Song Link:", trackInfo.uri, false);
+        if (track.getType() != AudioTrackWrapper.TrackType.RADIO) {
+            trackTime += " / " + UtilString.formatDurationToString(track.getTrack().getDuration());
+        }
+        embedBuilder.addField("Song Duration:", trackTime, true);
+        embedBuilder.addField("Track Type:", track.getType().toString(), true);
+        embedBuilder.addField("Stream:", UtilString.VariableToString(null, trackInfo.isStream + "") + "", true);
+        embedBuilder.addField("Requested by:", track.getRequester(), true);
+        embedBuilder.setThumbnail(Constants.B_AVATAR);
+        embedBuilder.setTimestamp(Instant.now());
+        try {
+            embedBuilder.setImage(WebScraper.getYouTubeThumbNail(track.getTrack().getInfo().uri));
+        } catch (IOException ex) {
+            AILogger.errorLog(ex, e, "Music#trackInfo", "IOException on getting thumbnail of " + track.getTrack().getInfo().uri);
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+        }
+        return embedBuilder;
     }
 
     
