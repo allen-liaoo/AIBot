@@ -57,7 +57,7 @@ public class FaceCommand extends Command{
             return;
         }
         
-        if(args.length == 0 && !"-h".equals(args[0]))
+        if(args.length == 0)
         {
             int count = 0, lines = 0, num = 0;
             

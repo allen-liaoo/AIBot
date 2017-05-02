@@ -84,7 +84,7 @@ public class SkipCommand extends Command {
         
         else if(args[0].length() == 1)
         {   
-            BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
+            BlockingQueue<AudioTrackWrapper> queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
             int count = 0, target = Integer.parseInt(args[0]);
             AudioTrackWrapper rapsong = null;
 

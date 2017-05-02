@@ -17,12 +17,13 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import java.util.List;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.dv8tion.jda.core.entities.Member;
+
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -59,19 +60,19 @@ public class Music  {
             try {
                 //Only turn the mode to normal is this was in default mode,
                 //So repeat mode will not be turned off
-                if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.DEFAULT) 
-                    Main.guilds.get(e.getGuild().getId()).getScheduler().setMode(PlayerMode.NORMAL);
+                if(Main.getGuild(e.getGuild()).getScheduler().getMode() == PlayerMode.DEFAULT)
+                    Main.getGuild(e.getGuild()).getScheduler().setMode(PlayerMode.NORMAL);
                         
                 Music.playerManager.loadItemOrdered(Music.playerManager, link, new AudioLoadResultHandler() {
                     @Override
                     public void trackLoaded(AudioTrack track) {
-                        Main.guilds.get(e.getGuild().getId()).getScheduler().queue
+                        Main.getGuild(e.getGuild()).getScheduler().queue
                                     (new AudioTrackWrapper(track, e.getAuthor().getName(), type), e);
                     }
                     
                     @Override
                     public void playlistLoaded(AudioPlaylist playlist) {
-                        Main.guilds.get(e.getGuild().getId()).getScheduler().addPlayList(playlist, e.getAuthor().getName());
+                        Main.getGuild(e.getGuild()).getScheduler().addPlayList(playlist, e.getAuthor().getName());
                         e.getTextChannel().sendMessage(Emoji.SUCCESS + " Queued Playlist: `" + playlist.getName() + "`").queue();
                     }
                     
@@ -100,10 +101,7 @@ public class Music  {
      * Pause the player
      * @param e
      */
-    public static void pause(MessageReceivedEvent e)
-    {
-        Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(true);
-    }
+    public static void pause(MessageReceivedEvent e) { Main.getGuild(e.getGuild()).getPlayer().setPaused(true); }
     
     /**
      * Resume the player
@@ -111,7 +109,7 @@ public class Music  {
      */
     public static void resume(MessageReceivedEvent e)
     {
-        Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(false);
+        Main.getGuild(e.getGuild()).getPlayer().setPaused(false);
     }
     
     /**
@@ -120,9 +118,15 @@ public class Music  {
      */
     public static void pauseOrPlay(MessageReceivedEvent e)
     {
-        if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
+        if(!isInSameVoiceChannel(e))
+            return;
+
+        if(Main.getGuild(e.getGuild()).getPlayer().getPlayingTrack() == null)
+            throw new NullPointerException("No track is playing in this guild");
+
+        if(Main.getGuild(e.getGuild()).getPlayer().isPaused())
             Music.resume(e);
-        else if(!Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
+        else if(!Main.getGuild(e.getGuild()).getPlayer().isPaused())
             Music.pause(e);
     }
     
@@ -133,7 +137,7 @@ public class Music  {
      */
     public static void setVolume(MessageReceivedEvent e, int vol)
     {
-        Main.guilds.get(e.getGuild().getId()).getPlayer().setVolume(vol);
+        Main.getGuild(e.getGuild()).getPlayer().setVolume(vol);
     }
     
     /**
@@ -144,11 +148,11 @@ public class Music  {
     public static void jump(MessageReceivedEvent e, long position) 
     {
         //Prevent user that is not in the same voice channel from jumping to song
-        if(isInSameVoiceChannel(e)) {
+        if(!isInSameVoiceChannel(e)) {
             return;
         }
         
-        AudioTrack track = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack();
+        AudioTrack track = Main.getGuild(e.getGuild()).getPlayer().getPlayingTrack();
         if(track.isSeekable()) {
             track.setPosition(position);
         }
@@ -161,28 +165,28 @@ public class Music  {
     public static void shuffle(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from shuffling the Queue
-        if(isInSameVoiceChannel(e)) {
+        if(!isInSameVoiceChannel(e)) {
             return;
         }
         
-        Main.guilds.get(e.getGuild().getId()).getScheduler().shuffle();
+        Main.getGuild(e.getGuild()).getScheduler().shuffle();
         e.getChannel().sendMessage(Emoji.SHUFFLE + " Shuffled queue.").queue();
     }
     
     public static void repeat(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from shuffling the Queue
-        if(isInSameVoiceChannel(e)) {
+        if(!isInSameVoiceChannel(e)) {
             return;
         }
         
-        if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.NORMAL ||
-                Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.DEFAULT) {
-            Main.guilds.get(e.getGuild().getId()).getScheduler().setMode(PlayerMode.REPEAT);
+        if(Main.getGuild(e.getGuild()).getScheduler().getMode() == PlayerMode.NORMAL ||
+                Main.getGuild(e.getGuild()).getScheduler().getMode() == PlayerMode.DEFAULT) {
+            Main.getGuild(e.getGuild()).getScheduler().setMode(PlayerMode.REPEAT);
             e.getChannel().sendMessage(Emoji.REPEAT + " Repeat mode on.").queue();
         }
         else {
-            Main.guilds.get(e.getGuild().getId()).getScheduler().setMode(PlayerMode.NORMAL);
+            Main.getGuild(e.getGuild()).getScheduler().setMode(PlayerMode.NORMAL);
             e.getChannel().sendMessage(Emoji.REPEAT + " Repeat mode off.").queue();
         }
     }
@@ -190,11 +194,11 @@ public class Music  {
     public static void stop(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from stopping the Player
-        if(isInSameVoiceChannel(e)) {
+        if(!isInSameVoiceChannel(e)) {
             return;
         }
         
-        Main.guilds.get(e.getGuild().getId()).getScheduler().stopPlayer();
+        Main.getGuild(e.getGuild()).getScheduler().stopPlayer();
         AudioConnection.disconnect(e, false);
         e.getChannel().sendMessage(Emoji.STOP + " Stopped the player, left the voice channel and cleared queue.").queue();
     }
@@ -211,36 +215,27 @@ public class Music  {
      */
     public static int skip(MessageReceivedEvent e, int position, boolean force)
     {
-        if(Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack().isEmpty()) {
+        if(Main.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack().isEmpty()) {
             return -2;
         }
         //Force skip the current song
         if(force) {
-            Main.guilds.get(e.getGuild().getId()).getScheduler().nextTrack();
-            Main.guilds.get(e.getGuild().getId()).getScheduler().clearVote();
+            Main.getGuild(e.getGuild()).getScheduler().nextTrack();
+            Main.getGuild(e.getGuild()).getScheduler().clearVote();
             return 0;
         }
         
         //Vote Skip for current song
         if(position == 0)
         {
-            boolean isAdded = Main.guilds.get(e.getGuild().getId()).getScheduler().addVote(e.getAuthor());
-            int votes = Main.guilds.get(e.getGuild().getId()).getScheduler().getVote().size();
+            boolean isAdded = Main.getGuild(e.getGuild()).getScheduler().addVote(e.getAuthor());
+            int votes = Main.getGuild(e.getGuild()).getScheduler().getVote().size();
             if(isAdded)
             {
-                int mem = 0;
-                //Only count non-Bot Users
-                List<Member> members = Main.guilds.get(e.getGuild().getId()).getVc().getMembers();
-                for(Member m : members) {
-                    if(!m.getUser().isBot())
-                        mem++;
-                }
-                
-                //Check if majority of the members agree to skip
-                mem = (int) Math.ceil(mem / 2);
+                int mem = Main.getGuild(e.getGuild()).getScheduler().getRequiredVote();
                 if(votes >= mem) {
-                    Main.guilds.get(e.getGuild().getId()).getScheduler().nextTrack();
-                    Main.guilds.get(e.getGuild().getId()).getScheduler().clearVote();
+                    Main.getGuild(e.getGuild()).getScheduler().nextTrack();
+                    Main.getGuild(e.getGuild()).getScheduler().clearVote();
                     return 0;
                 }
                 return votes - mem;
@@ -252,7 +247,7 @@ public class Music  {
         //Skip a song in the queue
         else if(position != 0)
         {
-            BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
+            BlockingQueue<AudioTrackWrapper> queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
             int countindex = 0;
             for(AudioTrackWrapper song : queue) {
                 countindex++;
@@ -272,13 +267,19 @@ public class Music  {
      */
     public static boolean isInSameVoiceChannel(MessageReceivedEvent e)
     {
+        //Check if the user is in a voice channel
+        if(!e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
+            e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel").queue();
+            return false;
+        }
+
         //Prevent user that is not in the same voice channel from executing a command
-        if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
-                !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
+        if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel()) {
             e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
+            return false;
+        } else {
             return true;
         }
-        return false;
     }
     
     /**
@@ -291,14 +292,14 @@ public class Music  {
         String start = "", progress = "";
         
         //Inverse play and pause button, like a media player would.
-        if(!Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused()) {
+        if(!Main.getGuild(e.getGuild()).getPlayer().isPaused()) {
             start = Emoji.PAUSE;
-        } else if (Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused()) {
+        } else if (Main.getGuild(e.getGuild()).getPlayer().isPaused()) {
             start = Emoji.RESUME;
         }
         
-        long duration = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack().getDuration();
-        long position = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack().getPosition();
+        long duration = Main.getGuild(e.getGuild()).getPlayer().getPlayingTrack().getDuration();
+        long position = Main.getGuild(e.getGuild()).getPlayer().getPlayingTrack().getPosition();
         long unit = duration/10;
         int pos = (int) ((int) position/unit);
         
@@ -315,7 +316,7 @@ public class Music  {
      * @return
      */
     public static String volumeToString(MessageReceivedEvent e) {
-        int vol = Main.guilds.get(e.getGuild().getId()).getPlayer().getVolume();
+        int vol = Main.getGuild(e.getGuild()).getPlayer().getVolume();
         return (vol>49 ? Emoji.VOLUME_HIGH : vol>0 ? Emoji.VOLUME_LOW : Emoji.VOLUME_NONE)+" "+vol;
     }
 }

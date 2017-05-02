@@ -30,8 +30,14 @@ public class TextRespond {
     public void checkRespond(String msg, MessageReceivedEvent e) {
         if(e.getChannelType().isGuild() && e.getGuild().getMembers().size()>70)
             return;
+
+        if(e.getAuthor().isBot() || e.getAuthor().isFake())
+            return;
+
         if(responds.containsKey(msg))
             e.getChannel().sendMessage(responds.get(msg)).queue();
+        else if(responds.containsValue(msg))
+            e.getChannel().sendMessage(getKeyFromValue(msg)).queue();
     }
     
     public void checkDynamicRespond(String args[], MessageReceivedEvent e) {
@@ -44,11 +50,23 @@ public class TextRespond {
     private void addResponds()
     {
         responds.put("ayy", "Um... should I say lmao?");
-        responds.put("lmao", "Yeah yeah yeah...");
+        responds.put("lmao", "lm**f**ao");
         responds.put("wew", "lad");
+        responds.put("owo", "mhmmmmm");
+        responds.put("\\o", "o/");
+        responds.put("/o", "o\\");
         responds.put("(╯°□°）╯︵ ┻━┻", "┬─┬﻿ ノ( ゜-゜ノ) We do **NOT** throw tables in this server.\n"
                 + "We are civilized people!");
         responds.put("┬─┬﻿ ノ( ゜-゜ノ)", "Yep, that's the right thing to do. Clean up the server, table by table! ┬─┬﻿ ノ( ゜-゜ノ)");
+    }
+
+    private String getKeyFromValue(String value) {
+        for (String s : responds.keySet()) {
+            if (responds.get(s).equals(value)) {
+                return s;
+            }
+        }
+        return null;
     }
     
     private void addDynamicResponds()

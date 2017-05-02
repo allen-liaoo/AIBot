@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -54,7 +55,7 @@ public class GuildListener extends ListenerAdapter {
         // Only send welcome message if the bot is new (10 sec) to the server. 
         // Note that this event may be triggered due to Discord downtime.
         if(ChronoUnit.SECONDS.between(event.getGuild().getSelfMember().getJoinDate(), ZonedDateTime.now())<10) {
-            welcome(event.getGuild().getPublicChannel());
+            welcome(event.getGuild());
             System.out.println("Joined guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
             UtilBot.setGame("default");
         }
@@ -67,8 +68,8 @@ public class GuildListener extends ListenerAdapter {
         UtilBot.setGame("default");
     }
     
-    public void welcome(TextChannel c) {
-        if(!c.canTalk())
+    public void welcome(Guild g) {
+        if(!g.getPublicChannel().canTalk() || !g.getSelfMember().hasPermission(g.getPublicChannel(), Permission.MESSAGE_EMBED_LINKS))
             return;
         
         EmbedBuilder embedmsg = new EmbedBuilder();
@@ -77,7 +78,7 @@ public class GuildListener extends ListenerAdapter {
         embedmsg.setDescription(welcome);
         embedmsg.setThumbnail(Constants.B_AVATAR);
         embedmsg.addField("Links", links, false);
-        c.sendMessage(embedmsg.build()).queue();
+        g.getPublicChannel().sendMessage(embedmsg.build()).queue();
         embedmsg.clearFields();
     }
     
@@ -92,7 +93,6 @@ public class GuildListener extends ListenerAdapter {
     
     @Override
     public void onGuildAvailable(GuildAvailableEvent event) {
-        super.onGuildAvailable(event);
         System.out.println("Guild Avaliable:" + event.getGuild().getName());
     }
     
@@ -102,19 +102,16 @@ public class GuildListener extends ListenerAdapter {
     
     @Override
     public void onGuildVoiceJoin(GuildVoiceJoinEvent e) {
-        super.onGuildVoiceJoin(e);
         onVoiceJoin(e.getGuild(), e.getChannelJoined());
     }
     
     @Override
     public void onGuildVoiceLeave(GuildVoiceLeaveEvent e) {
-        super.onGuildVoiceLeave(e);
         onVoiceLeave(e.getGuild(), e.getChannelLeft());
     }
 
     @Override
     public void onGuildVoiceMove(GuildVoiceMoveEvent e) {
-        super.onGuildVoiceMove(e);
         onVoiceJoin(e.getGuild(), e.getChannelJoined());
         onVoiceLeave(e.getGuild(), e.getChannelLeft());
     }
@@ -138,10 +135,10 @@ public class GuildListener extends ListenerAdapter {
             }
             
             //Check is the player is playing, if it is not, resume
-            if(Main.guilds.get(guild.getId()).getPlayer().isPaused() 
-                    && Main.guilds.get(guild.getId()).getPlayer().getPlayingTrack() != null
+            if(Main.getGuild(guild).getPlayer().isPaused()
+                    && Main.getGuild(guild).getPlayer().getPlayingTrack() != null
                     && mem > 0) {
-                Main.guilds.get(guild.getId()).getPlayer().setPaused(false);
+                Main.getGuild(guild).getPlayer().setPaused(false);
             }
         }
     }
@@ -152,7 +149,10 @@ public class GuildListener extends ListenerAdapter {
      * @param left the channel that this event happened in
      */
     private void onVoiceLeave(Guild guild, VoiceChannel left)
-    {   
+    {
+        if(guild.getSelfMember() == null) //Left guild
+            return;
+
         if(guild != null && guild.getSelfMember().getVoiceState().getChannel() == left) {
             int mem = 0;
             List<Member> members = left.getMembers();
@@ -162,10 +162,10 @@ public class GuildListener extends ListenerAdapter {
                     mem++;
             }
             
-            if(!Main.guilds.get(guild.getId()).getPlayer().isPaused() 
-                    && Main.guilds.get(guild.getId()).getPlayer().getPlayingTrack() != null
+            if(!Main.getGuild(guild).getPlayer().isPaused()
+                    && Main.getGuild(guild).getPlayer().getPlayingTrack() != null
                     && mem == 0) {
-                Main.guilds.get(guild.getId()).getPlayer().setPaused(true);
+                Main.getGuild(guild).getPlayer().setPaused(true);
             }
         }
     }

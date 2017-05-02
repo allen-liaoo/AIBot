@@ -101,7 +101,7 @@ public class NumberCommand extends Command {
                     e.getChannel().sendMessage(Emoji.ROLL + " Dice Rolled: " + number).queue();
                 }
                     
-                else if(args.length == 1) //Defualt random range 1~100
+                else if(args.length == 1) //Default random range 1~100
                 {
                     num = UtilNum.randomNum(1, 100);
                     String number = Emoji.stringToEmoji(num + "");

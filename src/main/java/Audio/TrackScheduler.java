@@ -8,6 +8,8 @@ package Audio;
 import Audio.AudioTrackWrapper.TrackType;
 import Constants.Emoji;
 import AISystem.AILogger;
+import Main.Main;
+import Setting.MessageFilter;
 import Utility.UtilNum;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
@@ -24,8 +26,11 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Matcher;
+
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -37,38 +42,39 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * This class schedules tracks for the audio PLAYER. It contains the queue of tracks.
  */
 public class TrackScheduler extends AudioEventAdapter {
-    
+
+    private VoiceChannel vc;
     private TextChannel tc;
-    
+
     /**
     * Track fields.
     */
     private final AudioPlayer player;
     private BlockingQueue<AudioTrackWrapper> queue;
     private AudioTrackWrapper NowPlayingTrack;
-    
+
     /**
     * Skip System fields.
     */
-    public final ArrayList<User> skipper;
-    
+    private final ArrayList<User> skipper;
+
     /**
     * FM fields.
     */
-    public static ArrayList<String> fmSongs = new ArrayList<String>();
+    private ArrayList<String> fmSongs = new ArrayList<String>();
     private int auto = -1, previous = -1;
-    
+
     /**
     * Enum type of the playing mode.
     */
     private PlayerMode Mode;
-    
+
     public enum PlayerMode {
         DEFAULT,    //Default Mode, nothing playing
-        NORMAL,     //Normal Mode, playing track or playlist
-        REPEAT,     //Repeat Mode, retreive the first queue and add to the last
+        NORMAL,     //Normal Mode, playing track radio, or playlist
+        REPEAT,     //Repeat Mode, retrieve the first queue and add to the last
         FM;         //FM Mode, play automatic playlist
-        
+
         @Override
         public String toString() {
             return name().charAt(0) + name().substring(1).toLowerCase();
@@ -87,32 +93,34 @@ public class TrackScheduler extends AudioEventAdapter {
   }
 
     /**
-     * Start the next track, stopping the current ONE if it is playing.
+     * Start the next track, stopping the current one if it is playing.
      */
     public void nextTrack() {
         // Start the next track, regardless of if something is already playing or not. In case queue was empty, we are
         // giving null to startTrack, which is a valid argument and will simply STOP the PLAYER.
-        
+
         clearVote();
-        
-        if(Mode == PlayerMode.FM){   //FM Mode ON
-            autoPlay();
-        } 
-        else if(this.Mode == PlayerMode.REPEAT) {   //Repeat Mode ON
-            AudioTrackWrapper repeat = NowPlayingTrack.makeClone();
-            queue.add(repeat);
-            NowPlayingTrack = queue.peek();
-            player.startTrack(queue.poll().getTrack(), false);
-        }
-        else if (queue.peek() != null) {    //Normal Mode
-            NowPlayingTrack = queue.peek();
-            player.startTrack(queue.poll().getTrack(), false);
-        } 
-        else {
-            stopPlayer();
+
+        switch (Mode) {
+            case FM:
+                autoPlay();
+                break;
+            case REPEAT:
+                AudioTrackWrapper repeat = NowPlayingTrack.makeClone();
+                queue.add(repeat);
+                NowPlayingTrack = queue.peek();
+                player.startTrack(queue.poll().getTrack(), false);
+                break;
+            case NORMAL:
+                NowPlayingTrack = queue.peek();
+                player.startTrack(queue.poll().getTrack(), false);
+                break;
+            default:
+                stopPlayer();
+                break;
         }
     }
-    
+
     /**
      * Add the next track to queue or play right away if nothing is in the queue.
      * @param track The track to play or add to queue.
@@ -122,7 +130,7 @@ public class TrackScheduler extends AudioEventAdapter {
         // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
         // something is playing, it returns false and does nothing. In that case the PLAYER was already playing so this
         // track goes to the queue instead.
-        
+
         if(this.Mode == PlayerMode.FM) {
             e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only request radio or songs when FM is not playing.").queue();
             return;
@@ -135,19 +143,19 @@ public class TrackScheduler extends AudioEventAdapter {
         }
         NowPlayingTrack = track;
     }
-    
+
     /**
-     * Automatically load an FM song from fmSongs.
+     * Automatically load a FM song from fmSongs.
      */
     public void autoPlay() {
         Mode = PlayerMode.FM;
-        
+
         while (auto == previous) {
-            auto = UtilNum.randomNum(0, fmSongs.size()-1);
+            auto = UtilNum.randomNum(0, this.fmSongs.size()-1);
         }
         previous = auto;
-        String url = fmSongs.get(auto);
-        
+        String url = this.fmSongs.get(auto);
+
         Matcher m = Music.urlPattern.matcher(url);
         if (m.find()) {
             Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
@@ -175,7 +183,7 @@ public class TrackScheduler extends AudioEventAdapter {
             });
         }
     }
-    
+
     /**
      * Add the play list to the queue
      * @param list
@@ -183,7 +191,7 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     public void addPlayList(AudioPlaylist list, String requester) {
         List<AudioTrack> tracklist = list.getTracks();
-        
+
         for(AudioTrack track : tracklist) {
             AudioTrackWrapper wrapper = new AudioTrackWrapper(track, requester, TrackType.PLAYLIST);
             if (!player.startTrack(wrapper.getTrack(), true)) {
@@ -193,7 +201,7 @@ public class TrackScheduler extends AudioEventAdapter {
             NowPlayingTrack = wrapper;
         }
     }
-    
+
     /**
      * Shuffle the queue.
      */
@@ -202,7 +210,7 @@ public class TrackScheduler extends AudioEventAdapter {
         Collections.shuffle(queueList);
         queue = new LinkedBlockingQueue (queueList);
     }
-    
+
     /**
      * Show now playing message
      * @param player
@@ -213,7 +221,7 @@ public class TrackScheduler extends AudioEventAdapter {
         super.onTrackStart(player, track);
         if(tc!=null)
             tc.sendMessage(Emoji.NOTES + " Now playing `" + track.getInfo().title + "`").queue();
-        
+
         System.out.println("Track Started: " + track.getInfo().title);
     }
 
@@ -256,9 +264,10 @@ public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
         super.onTrackException(player, track, exception);
-        
         if(tc!=null)
-            tc.sendMessage(Emoji.ERROR + " An error occurred!\n```\n\n"+AILogger.stackTractToString(exception).substring(0,1500)+"\n\n...```").queue();
+            tc.sendMessage(Emoji.ERROR + " An error occurred! (Informed the owner)\n```\n\n"+exception.getLocalizedMessage()+"\n\n...```").queue();
+
+        AILogger.errorLog(exception, this.getClass(), "TrackException(FriendlyException)", "Probably track decoding problem");
     }
 
     /**
@@ -267,7 +276,7 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     @Override
     public void onPlayerPause(AudioPlayer player) {
-        super.onPlayerPause(player); 
+        super.onPlayerPause(player);
         if(tc!=null)
             tc.sendMessage(Emoji.PAUSE + " Player paused.").queue();
     }
@@ -279,11 +288,11 @@ public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onPlayerResume(AudioPlayer player) {
         super.onPlayerResume(player);
-        
+
         if(tc!=null)
             tc.sendMessage(Emoji.RESUME + " Player resumed.").queue();
     }
-    
+
     /**
     * Clear methods
     * @return TrackScheduler, easier for chaining
@@ -293,33 +302,50 @@ public class TrackScheduler extends AudioEventAdapter {
         clearNowPlayingTrack()
         .clearQueue()
         .clearVote()
+        .clearFM()
         .player.stopTrack();
     }
-    
+
     public TrackScheduler clearQueue() {
         queue.clear();
         return this;
     }
-    
+
     public TrackScheduler clearFM() {
         fmSongs.clear();
         Mode = PlayerMode.DEFAULT;
         return this;
     }
-    
+
     public TrackScheduler clearNowPlayingTrack() {
         NowPlayingTrack = new AudioTrackWrapper();
         return this;
     }
-    
+
     public TrackScheduler clearVote() {
         skipper.clear();
         return this;
     }
-    
+
     /**
      * Getter and Setter
      */
+    public TextChannel getTc() {
+        return tc;
+    }
+
+    public void setTc(TextChannel tc) {
+        this.tc = tc;
+    }
+
+    public VoiceChannel getVc() {
+        return vc;
+    }
+
+    public void setVc(VoiceChannel vc) {
+        this.vc = vc;
+    }
+
     public PlayerMode getMode() {
         return Mode;
     }
@@ -327,31 +353,40 @@ public class TrackScheduler extends AudioEventAdapter {
     public void setMode(PlayerMode Mode) {
         this.Mode = Mode;
     }
-    
+
     public BlockingQueue<AudioTrackWrapper> getQueue() {
         return queue;
     }
-    
+
     public Iterator getQueueIterator() {
         return queue.iterator();
+    }
+
+    public ArrayList<String> getFmSongs() {
+        return fmSongs;
+    }
+
+    public void setFmSongs(ArrayList<String> fmSongs) {
+        this.fmSongs = fmSongs;
+    }
+
+    public void addFMSong(String song) {
+        this.fmSongs.add(song);
     }
 
     public AudioTrackWrapper getNowPlayingTrack() {
         return NowPlayingTrack;
     }
 
-    public TextChannel getTc() {
-        return tc;
-    }
-    
-    public void setTc(TextChannel tc) {
-        this.tc = tc;
-    }
-
     public ArrayList<User> getVote() {
         return skipper;
     }
 
+    /**
+     * Add vote
+     * @param vote
+     * @return
+     */
     public boolean addVote(User vote) {
         if(!skipper.contains(vote)) {
             skipper.add(vote);
@@ -359,6 +394,19 @@ public class TrackScheduler extends AudioEventAdapter {
         }
         return false;
     }
-    
+
+    public int getRequiredVote() {
+        double mem = 0;
+        //Only count non-Bot Users
+        List<Member> members = vc.getMembers();
+        for(Member m : members) {
+            if(!m.getUser().isBot())
+                mem++;
+        }
+
+        //Check if majority of the members agree to skip
+        return (int) Math.ceil(mem / 2);
+    }
+
 }
 

@@ -43,7 +43,7 @@ public class FM {
         JSONArray array = loadLibrary(input);
         String[] local = loadLocalLibrary(input);
         
-        if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.NORMAL) {
+        if(Main.getGuild(e.getGuild()).getScheduler().getMode() == PlayerMode.NORMAL) {
             e.getChannel().sendMessage(Emoji.ERROR + " There is already music playing!\nTo reset it, use `" + Prefix.getDefaultPrefix() + "stop`.").queue();
             return;
         }
@@ -56,7 +56,7 @@ public class FM {
         if(local != null) {
             for(int i = 0; i < local.length; i ++)
             {
-                Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs.add(local[i]);
+                Main.getGuild(e.getGuild()).getScheduler().addFMSong(local[i]);
             }
         }
         
@@ -67,7 +67,7 @@ public class FM {
                 JSONObject jo = array.getJSONObject(i);
 
                 try {
-                    Main.guilds.get(e.getGuild().getId()).getScheduler().fmSongs.add("https://www.youtube.com/watch?v=" + jo.get("identifier").toString());
+                    Main.getGuild(e.getGuild()).getScheduler().addFMSong("https://www.youtube.com/watch?v=" + jo.get("identifier").toString());
                 } catch (org.json.JSONException jsex) {
                     e.getChannel().sendMessage(Emoji.ERROR + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "fm` for available playlists.").queue();
                     return;
@@ -75,12 +75,12 @@ public class FM {
             }
         }
         
-        //Prevent user from calling FM ouside of voice channel
+        //Prevent user from calling FM outside of voice channel
         AudioConnection.connect(e, false);
         if(!e.getMember().getVoiceState().inVoiceChannel())
             return;
         
-        Main.guilds.get(e.getGuild().getId()).getScheduler().autoPlay();
+        Main.getGuild(e.getGuild()).getScheduler().autoPlay();
         
         //Log
         AILogger.commandLog(e, "FM#loadFM", "Fm loaded");

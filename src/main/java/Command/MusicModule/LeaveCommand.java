@@ -19,7 +19,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class LeaveCommand extends Command{
 
     public final static String HELP = "This command is for removing the bot to your current voice channel.\n"
-                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"leave` or `" + Prefix.getDefaultPrefix() + "l`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"leave`\n"
                                     + "Parameter: `-h | null`";
 
     @Override
@@ -38,7 +38,7 @@ public class LeaveCommand extends Command{
         }
         
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) {
-            Main.guilds.get(e.getGuild().getId()).getPlayer().setPaused(true);
+            Main.getGuild(e.getGuild()).getPlayer().setPaused(true);
             AudioConnection.disconnect(e, true);
         } else if (e.getChannelType() == e.getChannelType().PRIVATE) {
             e.getTextChannel(); //Return null pointer :P

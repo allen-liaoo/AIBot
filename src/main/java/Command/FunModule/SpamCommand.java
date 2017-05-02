@@ -53,9 +53,7 @@ public class SpamCommand extends Command {
             e.getChannel().sendMessage(help(e).build()).queue();
             return;
         }
-        
-        if(args.length > 0)
-        {
+
             //No NUMBER specified
             if(args.length == 0) {
                 e.getChannel().sendMessage(IMAGE_SPAM_1).queue();
@@ -104,8 +102,6 @@ public class SpamCommand extends Command {
                             PrivateChannel.sendMessage("**Punishing Spam**\n" + IMAGE_SPAM_100).queue());
                 }
             }
-            
-        }
     }
     
     private String getSpamByAmount(int amount) {

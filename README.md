@@ -16,7 +16,7 @@ __**Information Commands**__
 - serverinfo (si) - Get server info. 
 - channelinfo (ci) - Get channel info (Text/Voice Channel). 
 - userinfo (ui) - Get user info. * 
-- list - Get a list of servers, members, roles or channels.
+- list (l) - Get a list of servers, members, roles or channels.
 
 __**Moderation Commands**__ 
 - prune (p) - Delete messages. 
@@ -46,17 +46,17 @@ __**Fun Commands**__
 __**Music Commands**__ 
 - music (m) - Get a list of music commands.
 - player (pl) - Music player controller.
-- play - Play a song from YouTube. 
+- play (p) - Play a song from YouTube.
 - fm - Play automatic playlists.
 - radio - Stream from a radio station.
-- pause - Pause the current playing song. 
+- pause (ps) - Pause/Resume the current playing song.
 - skip - Skip the song. 
-- queue - Show the playlist and what's coming next.
-- nowplaying - Get the information of the current playing song.
-- volume - Set the volume of the bot. 
-- jump - Jump to a position of the song.
-- shuffle - Shuffle the queue.
-- repeat - Repeat the queued songs.
+- queue (q) - Show the playlist and what's coming next.
+- nowplaying (np) - Get the information of the current playing song.
+- volume - Set the volume of the bot.
+- jump (jp) - Jump to a position of the song.
+- shuffle (sf) - Shuffle the queue.
+- repeat (rp) - Repeat the queued songs.
 - stop - Stop the player. 
 - lyrics - Show the lyrics of a song. * 
 

@@ -9,6 +9,7 @@ import Constants.Emoji;
 import Setting.Prefix;
 import Constants.Constants;
 import Command.Command;
+import Utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -35,16 +36,16 @@ public class InviteCommand extends Command {
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 1 && "-h".equals(args[0])) {
             e.getChannel().sendMessage(help(e).build()).queue();
-            return;
         }
-        
-        String msg = Emoji.INVITE + " Invite me to your server here:\n"
-                + Constants.B_DISCORD_BOT + "\n"
-                + "You can also join my Discord Server if you require support here: " + Constants.B_SERVER;
-        
-        if(args.length == 0) 
+        else
         {
-            e.getChannel().sendMessage(msg).queue();
+            EmbedBuilder links = new EmbedBuilder();
+            links.setAuthor(e.getMember().getEffectiveName() + ", some spicy links", Constants.B_INVITE, e.getAuthor().getEffectiveAvatarUrl());
+            links.setColor(UtilBot.randomColor());
+            links.addField("Invite me to your server here:", Emoji.INVITE + " [Invite Link]("+"\n" +
+                    Constants.B_INVITE + "&guild_id=" + e.getGuild().getId() + ")\n",false);
+            links.addField("If you require support, join here:", "[AIBot Support Server]("+Constants.B_SERVER+")" ,false);
+            e.getChannel().sendMessage(links.build()).queue();
         }
     }
 

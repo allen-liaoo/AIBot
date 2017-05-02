@@ -16,9 +16,9 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class AudioTrackWrapper {
-    AudioTrack track;
-    String requester;
-    TrackType type;
+    private final AudioTrack track;
+    private final String requester;
+    private final TrackType type;
     
     public enum TrackType {
         NORMAL_REQUEST,
@@ -60,23 +60,11 @@ public class AudioTrackWrapper {
         return track;
     }
 
-    public void setTrack(AudioTrack track) {
-        this.track = track;
-    }
-
     public String getRequester() {
         return requester;
     }
 
-    public void setRequester(String requester) {
-        this.requester = requester;
-    }
-
     public TrackType getType() {
         return type;
-    }
-
-    public void setType(TrackType type) {
-        this.type = type;
     }
 }

@@ -17,6 +17,8 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.exceptions.PermissionException;
+import net.dv8tion.jda.core.requests.ErrorResponse;
 
 /**
  *
@@ -54,11 +56,11 @@ public class PruneCommand extends Command{
         else
         {
             TextChannel chan = e.getTextChannel();
-            if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE) ||
+            /*if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE) ||
                 !e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_HISTORY)) {
                 chan.sendMessage(Emoji.ERROR + " I do not have the `Manage Message` and `Message History` Permission!").queue();
                 return;
-            }
+            }*/
             
             //Parse String to int, detect it the input is valid.
             Integer msgs = new Integer(0);
@@ -79,14 +81,17 @@ public class PruneCommand extends Command{
             
             chan.getHistory().retrievePast(msgs).queue((List<Message> mess) -> {
                 try {
-                e.getTextChannel().deleteMessages(mess).queue(
-                    success ->
-                        chan.sendMessage(Emoji.SUCCESS + " `" + args[0] + "` messages deleted.")
-                        .queue( message -> {
-                            message.delete().queueAfter(2,TimeUnit.SECONDS);
-                        }));
+                    e.getTextChannel().deleteMessages(mess).queue(
+                            success ->
+                                    chan.sendMessage(Emoji.SUCCESS + " `" + args[0] + "` messages deleted.")
+                                            .queue(message -> {
+                                                message.delete().queueAfter(2, TimeUnit.SECONDS);
+                                            }),
+                            error -> chan.sendMessage(Emoji.ERROR + " An Error occurred!").queue());
                 } catch (IllegalArgumentException iae) {
                     e.getChannel().sendMessage(Emoji.ERROR + " Cannot delete messages older than 2 weeks.").queue();
+                } catch (PermissionException pe) {
+                    throw pe;
                 }
             });
             

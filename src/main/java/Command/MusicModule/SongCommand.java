@@ -51,7 +51,7 @@ public class SongCommand extends Command{
             if(args.length == 0)
             {
                 try {
-                   AudioTrackWrapper nowplaying = Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack();
+                   AudioTrackWrapper nowplaying = Main.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack();
                    e.getChannel().sendMessage(trackInfo(e, nowplaying, "Now Playing").build()).queue();
                 } catch (NullPointerException npe) {
                     e.getChannel().sendMessage(Emoji.ERROR + " No song is playing.").queue();
@@ -59,7 +59,7 @@ public class SongCommand extends Command{
             }
             else if(args.length >= 1 && Character.isDigit(args[0].charAt(0)))
             {
-                BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
+                BlockingQueue<AudioTrackWrapper> queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
                 int count = 0, target = Integer.parseInt(args[0]);
                 AudioTrackWrapper songinfo = null;
                 

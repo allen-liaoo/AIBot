@@ -28,7 +28,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class JumpCommand extends Command {
     
     public final static String HELP = "This command is for jumping to a certain position of the current playing song.\n"
-                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"jump`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"jump`  or `" + Prefix.getDefaultPrefix() +"jp`\n"
                                     + "Parameter: `-h | [Position] | null`\n"
                                     + "[Position]: The time you want to jump to in HH:MM:SS format.\n"
                                     + "Hours and minutes are optional.";
@@ -50,7 +50,7 @@ public class JumpCommand extends Command {
         
         else
         {
-            String requester = Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack().getRequester();
+            String requester = Main.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack().getRequester();
             
             if((requester != null && requester.equals(e.getAuthor().getId())) ||
                 UtilBot.isMajority(e.getMember()) ||
@@ -63,8 +63,8 @@ public class JumpCommand extends Command {
                     long position = Duration.between(LocalTime.MIN, LocalTime.parse(duration)).toMillis();
 
                     //Prevent user from jumping too far ahead or too far behind
-                    long dur = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack().getDuration();
-                    long pos = Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack().getPosition();
+                    long dur = Main.getGuild(e.getGuild()).getPlayer().getPlayingTrack().getDuration();
+                    long pos = Main.getGuild(e.getGuild()).getPlayer().getPlayingTrack().getPosition();
                     if(position>((dur-pos)/2+pos)) {
                         e.getChannel().sendMessage(Emoji.ERROR + " You can only jump to a position "
                             + "that is smaller than half the remaining duration!").queue();

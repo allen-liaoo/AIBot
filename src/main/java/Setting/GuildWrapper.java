@@ -76,6 +76,7 @@ public class GuildWrapper {
 
     public void setVc(VoiceChannel vc) {
         this.vc = vc;
+        scheduler.setVc(vc);
     }
 
     public TextChannel getTc() {

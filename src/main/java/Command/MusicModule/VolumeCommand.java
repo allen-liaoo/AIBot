@@ -39,7 +39,7 @@ public class VolumeCommand extends Command {
         }
         else if(args.length == 0)
         {
-            int currentVolume = Main.guilds.get(e.getGuild().getId()).getPlayer().getVolume();
+            int currentVolume = Main.getGuild(e.getGuild()).getPlayer().getVolume();
             e.getTextChannel().sendMessage("Current volume: " + Integer.toString(currentVolume)).queue();
         }
         else

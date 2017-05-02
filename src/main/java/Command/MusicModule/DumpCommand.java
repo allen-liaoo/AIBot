@@ -45,7 +45,7 @@ public class DumpCommand extends Command {
         if(!e.getMember().getVoiceState().inVoiceChannel()) {
             e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel.").queue();
             return;
-        } else if (Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue().isEmpty()) {
+        } else if (Main.getGuild(e.getGuild()).getScheduler().getQueue().isEmpty()) {
             e.getChannel().sendMessage(Emoji.ERROR + " There is no song in the queue.").queue();
             return;
         }
@@ -61,7 +61,7 @@ public class DumpCommand extends Command {
                 e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
                 return;
             }
-            Main.guilds.get(e.getGuild().getId()).getScheduler().clearQueue().clearVote();
+            Main.getGuild(e.getGuild()).getScheduler().clearQueue().clearVote();
 
             e.getChannel().sendMessage(Emoji.STOP + " Cleared queue and dumped Trump.").queue();
         }

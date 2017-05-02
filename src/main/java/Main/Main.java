@@ -19,11 +19,13 @@ import Listener.*;
 import Audio.*;
 import Constants.Constants;
 import AISystem.AILogger;
+import Setting.*;
 import com.mashape.unirest.http.Unirest;
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.exceptions.*;
 import net.dv8tion.jda.core.entities.Game;
 
@@ -50,17 +52,19 @@ public class Main {
     public static void main(String[] args) {
         try {
             Music.musicStartup();
-            
+
             jda = new JDABuilder(AccountType.BOT)
+                    .setToken(Private.BOT_TOKEN)
+                    .addEventListener(new BotListener())
                     .addEventListener(new GuildListener())
                     .addEventListener(new CommandListener())
+                    .addEventListener(new MessageFilter())
                     .addEventListener(new SelectorListener())
-                    .setToken(Private.BOT_TOKEN)
                     .setAutoReconnect(true)
                     .setMaxReconnectDelay(300)
                     .buildBlocking();
-            
-            jda.getPresence().setGame(Game.of(Constants.B_GAME_DEFAULT + " | " + jda.getGuilds().size() + " Servers"));
+
+            jda.getPresence().setGame(Game.of(Constants.B_GAME_DEFAULT));
             
             startUp();
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
@@ -73,7 +77,7 @@ public class Main {
     {
         timeStart = System.currentTimeMillis();
         addCommands();
-        ConsoleListener console = new ConsoleListener();
+        BotListener console = new BotListener();
         
         AILogger.updateLog("Bot Start Up. Commands Added.");
     }
@@ -86,6 +90,11 @@ public class Main {
         Unirest.shutdown();
         jda.shutdown();
         System.exit(0);
+    }
+
+    public static GuildWrapper getGuild(Guild guild)
+    {
+        return guilds.get(guild.getId());
     }
         
     private static void addCommands() {
@@ -104,6 +113,7 @@ public class Main {
         commands.put("ui", new InfoUserCommand());
         
         commands.put("list", new ListCommand());
+        commands.put("l", new ListCommand());
         commands.put("prefix", new PrefixCommand());
         commands.put("ping", new PingCommand());
         
@@ -128,6 +138,7 @@ public class Main {
         commands.put("calc", new MathCommand());
         
         commands.put("say", new SayCommand());
+        commands.put("discrim", new DiscrimCommand());
         commands.put("emoji", new EmojiCommand());
         commands.put("emote", new EmojiCommand());
         commands.put("e", new EmojiCommand());
@@ -175,16 +186,16 @@ public class Main {
         commands.put("summon", new JoinCommand());
         commands.put("j", new JoinCommand());
         commands.put("leave", new LeaveCommand());
-        commands.put("l", new LeaveCommand());
         commands.put("player", new PlayerCommand());
         commands.put("pl", new PlayerCommand());
         commands.put("play", new PlayCommand());
         commands.put("p", new PlayCommand());
         commands.put("fm", new FMCommand());
         commands.put("radio", new RadioCommand());
-        commands.put("pause", new PauseCommand("pause"));
-        commands.put("resume", new PauseCommand("resume"));
-        commands.put("unpause", new PauseCommand("resume"));
+        commands.put("pause", new PauseCommand());
+        commands.put("resume", new PauseCommand());
+        commands.put("unpause", new PauseCommand());
+        commands.put("ps", new PauseCommand());
         commands.put("skip", new SkipCommand());
         commands.put("nowplaying", new SongCommand());
         commands.put("song", new SongCommand());
@@ -193,8 +204,11 @@ public class Main {
         commands.put("q", new QueueCommand());
         commands.put("volume", new VolumeCommand());
         commands.put("jump", new JumpCommand());
+        commands.put("jp", new JumpCommand());
         commands.put("shuffle", new ShuffleCommand());
+        commands.put("sf", new ShuffleCommand());
         commands.put("repeat", new RepeatCommand());
+        commands.put("rp", new RepeatCommand());
         commands.put("stop", new StopCommand());
         commands.put("dump", new DumpCommand());
         commands.put("lyrics", new LyricsCommand());

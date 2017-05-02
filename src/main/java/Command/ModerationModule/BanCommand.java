@@ -72,6 +72,7 @@ public class BanCommand extends Command{
                 {
                     e.getTextChannel().sendMessage(Emoji.ERROR + " Cannot ban member: " + member.getEffectiveName()
                                       + ", they are in a higher role than I am!").queue();
+                    return;
                 }
                 
                 guild.getController().ban(member, delDays).queue(
@@ -83,8 +84,8 @@ public class BanCommand extends Command{
                             PermissionException pe = (PermissionException) error;
                             Permission missingPermission = pe.getPermission();
                             
-                            e.getTextChannel().sendMessage(Emoji.ERROR + " PermissionError banning " + member.getEffectiveName()
-                                            + ": " + error.getMessage()).queue();
+                            e.getTextChannel().sendMessage(Emoji.ERROR + " I do not have the permission to ban " + member.getEffectiveName()
+                                            + "\nRequired permission: `" + missingPermission.getName() +"`").queue();
                         }
                         else
                         {

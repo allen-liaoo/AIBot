@@ -25,15 +25,6 @@ public class PauseCommand extends Command{
     public final static  String HELP = "This command is for pausing/resuming the bot if the bot is playing music.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"pause` or `"+ Prefix.getDefaultPrefix() +"resume` or `"+ Prefix.getDefaultPrefix() +"unpause`\n"
                                      + "Parameter: `-h | null`";
-    
-    private String type = "";
-    
-    public PauseCommand(String invoke)
-    {
-        if("pause".equals(invoke)) type = "pause";
-        else if("resume".equals(invoke)) type = "resume";
-    }
-    
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -49,24 +40,12 @@ public class PauseCommand extends Command{
             e.getChannel().sendMessage(help(e).build()).queue();
             return;
         }
-        
-        if("pause".equals(type))
-        {
-            if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
-                e.getTextChannel().sendMessage("Already paused! Type `" + Prefix.getDefaultPrefix() + "resume` to resume.").queue();
-            else
-            {
-                Music.pause(e);
-            }
-        }
-        else if("resume".equals(type))
-        {
-            if(!Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
-                e.getTextChannel().sendMessage("Already resumed! Type `" + Prefix.getDefaultPrefix() + "pause` to pause.").queue();
-            else
-            {
-                Music.resume(e);
-            }
+
+        try {
+            if (Music.isInSameVoiceChannel(e))
+                Music.pauseOrPlay(e);
+        } catch (NullPointerException npe) {
+            e.getTextChannel().sendMessage(Emoji.ERROR + " No song is plaing!").queue();
         }
         
     }

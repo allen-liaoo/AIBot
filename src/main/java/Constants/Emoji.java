@@ -22,6 +22,7 @@ public class Emoji {
     public final static String LEFT = EmojiParser.parseToUnicode(":arrow_left:");
     public final static String INVITE = EmojiParser.parseToUnicode(":postbox:");
     public final static String INFORMATION = EmojiParser.parseToUnicode(":information_source:");
+    public final static String BAN = EmojiParser.parseToUnicode(":hammer:");
     
     //-Faces
     public final static String FACE_TONGUE = EmojiParser.parseToUnicode(":stuck_out_tongue:");
@@ -285,7 +286,7 @@ public class Emoji {
     
     /**
      * Change the input NUMBER into a String of emojis
-     * @param num the NUMBER to be change to emojis
+     * @param digit the NUMBER to be change to emojis
      * @return String of a NUMBER in emojis from
      */
     public static String numToEmoji(int digit)

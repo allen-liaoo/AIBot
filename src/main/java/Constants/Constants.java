@@ -31,7 +31,7 @@ public class Constants {
     public final static String B_AVATAR = Main.jda.getSelfUser().getEffectiveAvatarUrl();
     public final static String B_DISCRIMINATOR = Main.jda.getSelfUser().getDiscriminator();
     public final static String B_ID = Main.jda.getSelfUser().getId();
-    public final static String B_GAME_DEFAULT = Prefix.DIF_PREFIX + "help | Dev: Ayy\u2122";
+    public final static String B_GAME_DEFAULT = "=help | " + Main.jda.getGuilds().size() + " Servers";
     public final static String B_GAME_UPDATE = "\u203C Updating AIBot";
     public final static String B_GAME_FIXING = "\u2049 Fixing AIBot";
     

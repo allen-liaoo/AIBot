@@ -7,23 +7,26 @@
 package Listener;
 
 import Main.Main;
+import Utility.LyricsSearch;
 import Utility.UtilBot;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.dv8tion.jda.core.OnlineStatus;
+import net.dv8tion.jda.core.events.ExceptionEvent;
+import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
-public class ConsoleListener implements Runnable {
+public class BotListener extends ListenerAdapter implements Runnable {
     
     private Thread t;
     private final String threadName = "Console Listener Thread";
     
-    public ConsoleListener()
+    public BotListener()
     {
         t = new Thread(this,threadName);
         t.start();
@@ -52,7 +55,7 @@ public class ConsoleListener implements Runnable {
                 try {
                     Main.shutdown();
                 } catch (IOException ex) {
-                    Logger.getLogger(ConsoleListener.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BotListener.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
@@ -60,6 +63,7 @@ public class ConsoleListener implements Runnable {
             else if(input.startsWith("test"))
             {
                 System.out.println("Test wot?");
+                LyricsSearch.getSongLyrics();
             }
             
             //Presence
@@ -80,5 +84,12 @@ public class ConsoleListener implements Runnable {
                 }
             }
         }
+    }
+
+    @Override
+    public void onException(ExceptionEvent event) {
+        super.onException(event);
+        if(!event.isLogged())
+            System.out.println(event.getCause());
     }
 }

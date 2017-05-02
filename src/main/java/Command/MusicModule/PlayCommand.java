@@ -62,7 +62,7 @@ public class PlayCommand extends Command{
                 return;
             }
             
-            if(Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused())
+            if(Main.getGuild(e.getGuild()).getPlayer().isPaused())
                 Music.resume(e);
         }
         

@@ -17,6 +17,9 @@ import Setting.RateLimiter;
 import AISystem.AILogger;
 import net.dv8tion.jda.core.entities.ChannelType;
 
+import net.dv8tion.jda.core.exceptions.ErrorResponseException;
+import net.dv8tion.jda.core.requests.ErrorResponse;
+import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -74,39 +77,73 @@ public class CommandListener extends ListenerAdapter {
                     if(RateLimiter.isSpam(e)) return;
                     handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
                 } catch (Exception ex) {
-                    e.getChannel().sendMessage(Emoji.ERROR + " An error occured! ```\n\n"+ex.getMessage()+"```").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " An error occurred!"+"```\n\n"+AILogger.stackTractToString(ex)+"```").queue();
                 }
             }
              
             else if (e.getChannelType() == ChannelType.PRIVATE)
             {
                 if(RateLimiter.isSpam(e)) return;
-                try {
-                    handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
-                } catch (Exception ex) {
-                    e.getChannel().sendMessage(Emoji.ERROR + " An error occured! ```\n\n"+ex.getMessage()+"```").queue();
-                }
+                handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
             }
         }
     }
-    
+
     public static void handleCommand(CommandParser.CommandContainer cmd)
     {
         if(commands.containsKey(cmd.invoke)) {
             cmd.event.getChannel().sendTyping().queue(success -> 
             {
+                MessageReceivedEvent e = cmd.event;
                 try {
-                    commands.get(cmd.invoke).action(cmd.args, cmd.event);
-                } catch (NullPointerException ex) {
-                    if(cmd.event.isFromType(ChannelType.PRIVATE))
-                        cmd.event.getPrivateChannel().sendMessage(Emoji.ERROR + " This command is not supported in DM.").queue();
+                    commands.get(cmd.invoke).action(cmd.args, e);
+                } catch (NullPointerException npe) {
+                    if(e.isFromType(ChannelType.PRIVATE))
+                        e.getPrivateChannel().sendMessage(Emoji.ERROR + " This command is not supported in DM.").queue();
                     else
-                        throw ex;
+                        throw npe;
+                } catch (PermissionException pe) {
+                    e.getChannel().sendMessage(Emoji.ERROR + " I need the following permission to the command!\n"
+                        +"`"+pe.getPermission().getName()+"`").queue();
+                } catch (ErrorResponseException ere) {
+                    if(!errorResponseHandler(ere,e))
+                        throw ere;
                 } catch (Exception ex) {
-                    cmd.event.getChannel().sendMessage(Emoji.ERROR + " An error occured!"+"```\n\n"+AILogger.stackTractToString(ex)+"```").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " An error occurred!"+"```\n\n"+AILogger.stackTractToString(ex)+"```").queue();
                 } 
             });
         }
+    }
+
+    public static boolean errorResponseHandler(ErrorResponseException ere, MessageReceivedEvent e) {
+        boolean handled = true;
+        String error = Emoji.ERROR + " ";
+        switch (ere.getErrorResponse()) {
+            case CANNOT_SEND_TO_USER:
+                e.getChannel().sendMessage(error+"I can not send message to "+e.getAuthor().getName()).queue();
+                break;
+            case EMBED_DISABLED:
+                e.getChannel().sendMessage(error+"Please enable embed so I can talk freely.").queue();
+                break;
+            case INVALID_BULK_DELETE:
+            case INVALID_BULK_DELETE_MESSAGE_AGE:
+                e.getChannel().sendMessage(error+"Error while deleting messages.\n" +
+                        "The messages might be too old (older than 2 weeks).").queue();
+                break;
+            case MISSING_ACCESS:
+                e.getChannel().sendMessage(error+"Missing access.").queue();
+                break;
+            case UNKNOWN_GUILD:
+            case UNKNOWN_CHANNEL:
+            case UNKNOWN_MEMBER:
+                AILogger.errorLog(ere,e,"ErrorResponseHandler","Unknown guild,channel,or member");
+                break;
+            default:
+                handled = false;
+                break;
+        }
+
+        return handled;
     }
     
 }

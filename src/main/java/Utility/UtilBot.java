@@ -37,7 +37,7 @@ public class UtilBot {
         String set;
         switch (game.replaceAll(" ", "").toLowerCase()) {
             case "default":
-                set = Constants.B_GAME_DEFAULT + " | " + Main.jda.getGuilds().size() + " Servers";
+                set = Constants.B_GAME_DEFAULT;
                 break;
             case "update":
                 set = Constants.B_GAME_UPDATE;
@@ -104,7 +104,7 @@ public class UtilBot {
     
     /**
      * Get the OnlineStatus with Emojis
-     * @param mem
+     * @param stat
      * @return
      */
     public static String getStatusString(OnlineStatus stat)
@@ -222,12 +222,34 @@ public class UtilBot {
         
         for(Guild g : gui) {
             if (g.getSelfMember().getVoiceState().inVoiceChannel() &&
-                Main.guilds.get(g.getId()).getPlayer().getPlayingTrack() != null &&
+                Main.getGuild(g).getPlayer().getPlayingTrack() != null &&
                 g.getSelfMember().getVoiceState().getChannel() != null)
                 vc.add(g.getSelfMember().getVoiceState().getChannel());
         }
         
         return vc;
+    }
+
+    /**
+     * Check and get mention ID of a token
+     * Use Message#getRawContent()
+     * @param source
+     * @return 18 character Id or empty String
+     */
+    public static String getMention(String source) {
+        String mention = source;
+        if(mention.startsWith("<@!"))
+            mention = mention.replace("<@!", "");
+        else if(mention.startsWith("<@"))
+            mention = mention.replace("<@", "");
+        else
+            return "";
+
+        if(mention.endsWith(">"))
+            mention = mention.replace(">", "");
+        else
+            return "";
+        return mention;
     }
     
     /**

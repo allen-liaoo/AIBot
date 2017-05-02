@@ -54,16 +54,14 @@ public class InfoServerCommand extends Command{
             Guild guild = e.getGuild();
             
             //Detects ID
-            if(args.length > 0)
-            {
+            if(args.length > 0) {
                 if("-m".equals(args[0]) && args.length > 1 && args[1].length() == 18)
                     guild = e.getJDA().getGuildById(args[1]);
                 else if(args[0].length() == 18)
                     guild = e.getJDA().getGuildById(args[0]);
             }
             
-            if(guild == null)
-            {
+            if(guild == null) {
                 e.getChannel().sendMessage(Emoji.ERROR + " Cannot find this guild.\n"
                         + "Either I am not in this guild or the ID you provided is invalid.").queue();
                 return;
@@ -109,8 +107,7 @@ public class InfoServerCommand extends Command{
             embedsi.addField("Roles", role + "", true);
             
             List<Member> members = guild.getMembers();
-            for(Member memberM : members) 
-            {
+            for(Member memberM : members)  {
                 String status = memberM.getOnlineStatus().toString();
                 if(status.equals(OnlineStatus.ONLINE.toString()))
                     online ++;
@@ -133,13 +130,14 @@ public class InfoServerCommand extends Command{
                 List<Role> roles = guild.getRoles();
 
                 String roleString = "";
-                for(Role roleR : roles) 
+                for(int i = 0; i < 20; i ++)
                 {
+                    Role roleR = roles.get(i);
                     roleString += roleR.getName() + ", ";
                 }
                 roleString = roleString.substring(0, roleString.length()-2);
 
-                embedsi.addField("Roles", roleString, false);
+                embedsi.addField("Top 20 Roles", roleString, false);
             }
             e.getTextChannel().sendMessage(embedsi.build()).queue();
             embedsi.clearFields();

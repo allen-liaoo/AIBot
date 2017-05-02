@@ -51,7 +51,7 @@ public class StopCommand extends Command{
             
             int mem = 0;
             //Only count non-Bot Users
-            List<Member> members = Main.guilds.get(e.getGuild().getId()).getVc().getMembers();
+            List<Member> members = Main.getGuild(e.getGuild()).getVc().getMembers();
             for(Member m : members) {
                 if(!m.getUser().isBot())
                     mem++;

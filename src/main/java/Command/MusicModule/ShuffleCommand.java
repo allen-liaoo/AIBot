@@ -27,7 +27,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class ShuffleCommand extends Command {
     public final static  String HELP = "Shuffle the queue.\n"
-                                     + "Command Usage: `" + Prefix.getDefaultPrefix() +"shuffle`\n"
+                                     + "Command Usage: `" + Prefix.getDefaultPrefix() +"shuffle` or `" + Prefix.getDefaultPrefix() +"sf`\n"
                                      + "Parameter: `-h | null`\n";    
 
     @Override
@@ -47,7 +47,7 @@ public class ShuffleCommand extends Command {
         
         if(args.length == 0)
         {
-            if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == PlayerMode.FM) {
+            if(Main.getGuild(e.getGuild()).getScheduler().getMode() == PlayerMode.FM) {
                 e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only shuffle queue when FM is not playing.").queue();
                 return;
             }
@@ -57,7 +57,7 @@ public class ShuffleCommand extends Command {
                 e.getMember().hasPermission(Constants.PERM_MOD) ||
                 Constants.D_ID.equals(e.getAuthor().getId()))
             {
-                if(Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue().isEmpty()) {
+                if(Main.getGuild(e.getGuild()).getScheduler().getQueue().isEmpty()) {
                    e.getChannel().sendMessage(Emoji.ERROR + " No song in the queue to shuffle.").queue();
                    return;
                 }

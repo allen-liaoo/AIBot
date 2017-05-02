@@ -81,7 +81,6 @@ public class Search {
         
         String ytsite = "https://www.youtube.com/results?search_query=";
         Document doc = Jsoup.connect(ytsite + input).timeout(0).get();
-        String title = doc.title();
         
         Elements p = doc.select("div#results").select("ol.item-section").select("li:not([class])");
         

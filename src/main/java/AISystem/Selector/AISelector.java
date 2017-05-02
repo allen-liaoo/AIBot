@@ -7,10 +7,8 @@
  */
 package AISystem.Selector;
 
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.events.message.GenericMessageEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
 
@@ -38,8 +36,6 @@ public abstract class AISelector<T> {
         this.guild = null;
         this.channel = null;
     }
-    
-    public abstract int selector(String choice);
 
     public Message getMessage() {
         return message;
@@ -72,34 +68,21 @@ public abstract class AISelector<T> {
     public void setchannel(MessageChannel textchannel) {
         this.channel = textchannel;
     }
-    
+
     /**
-     * Check if this is a valid selection for MessageReceivedEvent
-     * @param e
+     * Check if this is a valid selection for Generics
+     * @param event
      * @return
      */
-    public boolean isSelection(MessageReceivedEvent e) {
-        return !(!isSamePlace(e) || !isSameAuthor(e.getMember()));
+    public abstract <T> boolean isSelection(GenericMessageEvent event);
+
+    public abstract int selector(String choice);
+    
+    protected boolean isSamePlace(Guild g, TextChannel tc) {
+        return g.getId().equals(this.guild.getId()) && tc.getId().equals(this.channel.getId());
     }
     
-    private boolean isSamePlace(MessageReceivedEvent e) {
-        return e.getGuild().getId().equals(this.guild.getId()) && e.getChannel().getId().equals(this.channel.getId());
-    }
-    
-    /**
-     * Check if this is a valid selection for MessageReactionAddEvent
-     * @param e
-     * @return
-     */
-    public boolean isSelection(MessageReactionAddEvent e) {
-        return !(!isSamePlace(e) || !isSameAuthor(e.getMember()));
-    }
-    
-    private boolean isSamePlace(MessageReactionAddEvent e) {
-        return e.getGuild().getId().equals(this.guild.getId()) && e.getChannel().getId().equals(this.channel.getId());
-    }
-    
-    private boolean isSameAuthor(Member mem) {
+    protected boolean isSameAuthor(Member mem) {
         return mem.getUser().getId().equals(this.author.getUser().getId());
     }
     

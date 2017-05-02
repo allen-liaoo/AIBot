@@ -6,11 +6,11 @@
 - serverinfo (si) - Get server info.
 - channelinfo (ci) - Get channel info (Text/Voice Channel).
 - userinfo (ui) - Get user info. *
-- list - Get a list of servers, members, roles or channels.
-    - list server - Get a list of servers this bot is in. *
-    - list member - Get a list of members in a server.
-    - list role - Get a list of roles in a server.
-    - list channel - Get a list of text and voice channels in a server.
+- list (l) - Get a list of servers, members, roles or channels.
+    - list server (l server) - Get a list of servers this bot is in. *
+    - list member (l mem) - Get a list of members in a server.
+    - list role (l role) - Get a list of roles in a server.
+    - list channel (l channel) - Get a list of text and voice channels in a server.
 - member - A list of members in this server.
 - prefix - Set the server prefix. (Under Development)
 - ping - Pong. *
@@ -62,19 +62,19 @@
 ## Music Commands
 - music (m) - Get a list of music commands.
 - join (j) - Add bot to a voice channel.
-- leave (l) - Remove bot from a voice channel. 
+- leave - Remove bot from a voice channel.
 - player (pl) - Music player controller.
 - play - Play a song from YouTube.
 - fm - Play automatic playlists.
 - radio - Stream from a radio station.
-- pause - Pause the current playing song.
+- pause (ps) - Pause/Resume the current playing song.
 - queue (q) - Show the playlist and what's coming next.
 - skip - Skip the song.
 - nowplaying (np) - Get the information of the current playing song.
 - volume - Set the volume of the bot.
-- jump - Jump to a position of the song.
-- shuffle - Shuffle the queue.
-- repeat - Repeat the queued songs.
+- jump (jp) - Jump to a position of the song.
+- shuffle (sf) - Shuffle the queue.
+- repeat (rp) - Repeat the queued songs.
 - stop - Stop the player.
 - dump - Dump the queue.
 - lyrics - Show the lyrics of a song. *

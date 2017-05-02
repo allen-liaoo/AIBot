@@ -10,6 +10,8 @@ package AISystem.Selector;
 import java.util.List;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.events.message.GenericMessageEvent;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
 
 /**
@@ -37,22 +39,24 @@ public abstract class EmojiSelection extends AISelector {
 
     /**
      * Filter the event and return selection
-     * @param e
-     * @return
+     * @param event
+     * @return boolean
      */
     @Override
-    public boolean isSelection(MessageReactionAddEvent e) {
-        super.isSelection(e);
-        
-        if(!e.getMessageId().equals(this.getMessage().getId()))
-            return false;
-        if(e.getReaction().isSelf())
-            return false;
-        for(String unicode : option) {
-            if(e.getReaction().getEmote().getName().equals(unicode))
-                return true;
+    public boolean isSelection(GenericMessageEvent event) {
+        if(event instanceof MessageReactionAddEvent) {
+            MessageReactionAddEvent e = (MessageReactionAddEvent) event;
+            if (!isSameAuthor(e.getMember()) || !isSamePlace(e.getGuild(), e.getTextChannel()))
+                return false;
+            if (!e.getMessageId().equals(this.getMessage().getId()))
+                return false;
+            if (e.getReaction().isSelf())
+                return false;
+            for (String unicode : option) {
+                if (e.getReaction().getEmote().getName().equals(unicode))
+                    return true;
+            }
         }
-        
         return false;
     }
 

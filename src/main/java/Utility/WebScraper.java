@@ -40,13 +40,10 @@ public class WebScraper {
         List<String> lyrics = new ArrayList<String>();
         String lyricsURL = Constants.LYRICSURL + input.substring(0, 1).toUpperCase() + input.substring(1).replace(" ", "-").toLowerCase();
         Document doc = Jsoup.connect(input).get();
-        String html = doc.select(".lyrics").select("p").html();
-        
-        Matcher match = lyricsPattern.matcher(html);
-        System.out.println(match.toMatchResult().group());
         
         int count = 0;
         Element p = doc.select(".lyrics").select("p").get(0);
+
         doc.select("br").append("");
         for (Node e : p.childNodes()) {
             if (e.hasAttr("data-id")) {
@@ -63,6 +60,7 @@ public class WebScraper {
                 lyrics.add(((TextNode) e).getWholeText());
             }
         }
+
         //Cleanup lyrics
         String[] lyricsText = new String[lyrics.size()];
         for (int i = 0; i < lyricsText.length; i++) {
@@ -81,6 +79,7 @@ public class WebScraper {
                 lyricsText[i] = lyricsText[i].replaceFirst(" ", "");
             }
         }
+
         return lyricsText;
     }
     

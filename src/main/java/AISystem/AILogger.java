@@ -52,11 +52,11 @@ public class AILogger {
     /**
      * Logging when an exception is thrown
      * @param ex the Exception for logging
-     * @param event the event for getting guild name/author name
+     * @param obj the event/class for getting guild name/author name
      * @param at the exception source (class name)
      * @param cause cause of the exception
      */
-    public static void errorLog(Exception ex, MessageReceivedEvent event, String at, String cause) {
+    public static void errorLog(Exception ex, Object obj, String at, String cause) {
         try {
             FileHandler fhe = new FileHandler(FilePath.LogError, true);
             errorLogger.addHandler(fhe);
@@ -65,16 +65,20 @@ public class AILogger {
             errorLogger.setUseParentHandlers(false);
             
             String from;
-            if(event == null)
-                from = ": Unknown (Probably from methods that cannot access MessageReceivedEvent)";
-            else if(event.getChannelType() == event.getChannelType().TEXT)
-                from = " guild: " + event.getGuild().getName();
-            else if (event.getChannelType() == event.getChannelType().PRIVATE)
-                from = " PM: " + event.getAuthor().getName();
-            else
-                from = ": Unknown (From unknown channel type.)";
+
+            if(obj instanceof MessageReceivedEvent) {
+                MessageReceivedEvent event = (MessageReceivedEvent) obj;
+                if (event.getChannelType() == event.getChannelType().TEXT)
+                    from = "guild: " + event.getGuild().getName();
+                else if (event.getChannelType() == event.getChannelType().PRIVATE)
+                    from = "PM: " + event.getAuthor().getName();
+                else
+                    from = ": Unknown (From unknown channel type.)";
+            } else {
+                from = "Class; " + obj.toString();
+            }
             
-            Logger.getGlobal().log(Level.WARNING, "Error in " + at + " from" + from);
+            Logger.getGlobal().log(Level.WARNING, "Error in " + at + " from " + from);
             errorLogger.log(Level.WARNING, "From" + from + "\n\t Cause: " + at + " -> " + cause, ex);
             fhe.close();
         } catch (FileNotFoundException fnfe) {

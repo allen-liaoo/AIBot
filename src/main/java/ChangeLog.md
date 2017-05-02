@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
-#### [0.2.6] - 2017-04-12 ~ 2017-04-27
+#### [0.3.0] - 2017-04-12 ~ 2017-04-30
 ##### Added
 - ShuffleCommand to shuffle the queue
 - TextRespond for hidden responds to some trigger words. (For example: "lmao")
@@ -10,9 +10,11 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - RepeatCommand for repeating the songs.
 - JumpCommand for jumping to a certain position of the current playing song.
 - PlayerCommand for a neat player and emoji reaction controller.
+- Add emoji reaction controller for PlayerCommmand, QueueCommand, ListCommand. (Planning to add it to SongCommand)
 ##### Fixed
 - Change Command.java from interface to abstract class to reduce code.
 - PlayerCommand now have reaction control function
+- Massively add/change the short aliases for MusicModule
 
 #### [0.2.5] - 2017-04-16 ~ 2017-04-21
 ##### Added

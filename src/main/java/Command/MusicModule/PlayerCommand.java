@@ -21,6 +21,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import java.util.Arrays;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -53,20 +54,22 @@ public class PlayerCommand extends Command {
         
         if(args.length == 0)
         {
-            if(!Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack().isEmpty())
+            if(!Main.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack().isEmpty())
             {
-                AudioPlayer player = Main.guilds.get(e.getGuild().getId()).getPlayer();
+                AudioPlayer player = Main.getGuild(e.getGuild()).getPlayer();
                 AudioTrack track = player.getPlayingTrack();
+                String state = player.isPaused() ? "Paused" : UtilString.VariableToString("_", player.getPlayingTrack().getState().toString());
+                String playing = "**["+track.getInfo().title+"]("+track.getInfo().uri+")**\n";
+
                 String progress = Music.positionToString(e) + Emoji.STOP;
                 String volume = Music.volumeToString(e);
                 String posdur = "[`"+UtilString.formatDurationToString(track.getPosition())
                         +"`/`"+UtilString.formatDurationToString(track.getDuration())+"`]";
-                
-                String state = player.isPaused() ? "Paused" : UtilString.VariableToString("_", player.getPlayingTrack().getState().toString());
-                String playing = "**["+track.getInfo().title+"]("+track.getInfo().uri+")**\n";
+                String skips = Emoji.NEXT_TRACK+" "+Main.getGuild(e.getGuild()).getScheduler().getVote().size()+
+                        "/"+Main.getGuild(e.getGuild()).getScheduler().getRequiredVote();
                 
                 EmbedBuilder embedplayer = new EmbedBuilder();
-                embedplayer.addField(state+"...", playing+"\n"+progress+"\n"+volume+"  "+posdur, true);
+                embedplayer.addField(state+"...", playing+"  "+posdur+"\n"+progress+"\n"+volume+"  "+skips, true);
                 embedplayer.setColor(UtilBot.randomColor());
                 e.getChannel().sendMessage(embedplayer.build()).queue((Message msg) -> {
                     SelectorListener.addEmojiSelection(e.getAuthor().getId(), 
@@ -75,7 +78,8 @@ public class PlayerCommand extends Command {
                         public void action(int chose) {
                             switch(chose) {
                                 case 0:
-                                    Music.pauseOrPlay(e);
+                                    PauseCommand pc = new PauseCommand();
+                                    pc.action(args, e);
                                     break;
                                 case 1:
                                     SkipCommand sc = new SkipCommand();

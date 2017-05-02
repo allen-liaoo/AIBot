@@ -12,7 +12,7 @@ package Constants;
  */
 public class FilePath {
 
-    private static final String BasePath = "/Users/liaoyilin/IdeaProjects/DiscordBot/src/main/java/";
+    public static final String BasePath = "/Users/liaoyilin/IdeaProjects/DiscordBot/src/main/java/";
     
     public static final String RadioStations = BasePath + "Audio/RadioStations.toml";
     public static final String LP = BasePath + "Audio/LocalPlaylist/";

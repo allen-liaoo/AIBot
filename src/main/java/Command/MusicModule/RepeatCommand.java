@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class RepeatCommand extends Command {
     public final static  String HELP = "Repeat the queued songs.\n"
-                                     + "Command Usage: `" + Prefix.getDefaultPrefix() +"repeat`\n"
+                                     + "Command Usage: `" + Prefix.getDefaultPrefix() +"repeat` or `" + Prefix.getDefaultPrefix() +"rp`\n"
                                      + "Parameter: `-h | null`\n";    
 
     @Override
@@ -44,7 +44,7 @@ public class RepeatCommand extends Command {
         
         if(args.length == 0)
         {
-            if(Main.guilds.get(e.getGuild().getId()).getScheduler().getMode() == TrackScheduler.PlayerMode.FM) {
+            if(Main.getGuild(e.getGuild()).getScheduler().getMode() == TrackScheduler.PlayerMode.FM) {
                 e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only set the repeat mode when FM is not playing.").queue();
                 return;
             }

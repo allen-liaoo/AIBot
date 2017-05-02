@@ -72,11 +72,11 @@ public class QueueCommand extends Command{
      * @param page
      */
     public void queueList(MessageReceivedEvent e, int page) {
-        BlockingQueue<AudioTrackWrapper> queue = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueue();
-        Iterator<AudioTrackWrapper> list = Main.guilds.get(e.getGuild().getId()).getScheduler().getQueueIterator();
+        BlockingQueue<AudioTrackWrapper> queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
+        Iterator<AudioTrackWrapper> list = Main.getGuild(e.getGuild()).getScheduler().getQueueIterator();
         EmbedBuilder embed = new EmbedBuilder();
         //Now Playing
-        AudioTrackWrapper playing = Main.guilds.get(e.getGuild().getId()).getScheduler().getNowPlayingTrack();
+        AudioTrackWrapper playing = Main.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack();
         Long position = 0L;
         Long duration = 0L;
         if (playing.isEmpty()) {
@@ -84,7 +84,7 @@ public class QueueCommand extends Command{
         } else {
             String ptitle = playing.getTrack().getInfo().title;
             String purl = playing.getTrack().getInfo().uri;
-            String mode = Main.guilds.get(e.getGuild().getId()).getScheduler().getMode().toString();
+            String mode = Main.getGuild(e.getGuild()).getScheduler().getMode().toString();
             String text = "**Player Mode:** " + mode + "\n" + "**[" + ptitle + "](" + purl + ")**\n" + "Requested by `" + playing.getRequester() + "`\nType: `" + playing.getType().toString() + "`\n";
             embed.addField("Now Playing", text, false);
             //Current Position / Total Duration

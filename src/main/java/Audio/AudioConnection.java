@@ -9,6 +9,7 @@ import Constants.Emoji;
 import Main.*;
 import AISystem.AILogger;
 
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.managers.AudioManager;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
@@ -33,32 +34,40 @@ public class AudioConnection {
             
             //Prevent user from requesting to join another voice channel
             if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() //When the user and the bot are in a different channel
-                    && Main.guilds.get(e.getGuild().getId()).getPlayer().getPlayingTrack() != null //When the PLAYER is playing
-                    && !Main.guilds.get(e.getGuild().getId()).getPlayer().isPaused() ) { //When the PLAYER is not paused
+                    && Main.getGuild(e.getGuild()).getPlayer().getPlayingTrack() != null //When the PLAYER is playing
+                    && !Main.getGuild(e.getGuild()).getPlayer().isPaused() ) { //When the PLAYER is not paused
                 e.getChannel().sendMessage(Emoji.ERROR + " I am already playing songs in a voice channel.").queue();
+                return;
+            }
+
+            //Prevent joining a channel that exceeds user limit
+            if(e.getMember().getVoiceState().getChannel().getUserLimit() != 0 &&
+                    e.getMember().getVoiceState().getChannel().getUserLimit() <= e.getMember().getVoiceState().getChannel().getMembers().size()) {
+                e.getChannel().sendMessage(Emoji.ERROR + " Cannot connect to the voice channel due to the user limit.").queue();
                 return;
             }
             
             //Set Voice Channel and Text Channel
-            Main.guilds.get(e.getGuild().getId()).setVc(e.getMember().getVoiceState().getChannel());
-            Main.guilds.get(e.getGuild().getId()).setTc(e.getTextChannel());
+            Main.getGuild(e.getGuild()).setVc(e.getMember().getVoiceState().getChannel());
+            Main.getGuild(e.getGuild()).setTc(e.getTextChannel());
             
             //Open Connection
             AudioManager am = e.getGuild().getAudioManager();
-            am.openAudioConnection(Main.guilds.get(e.getGuild().getId()).getVc());
+            am.setAutoReconnect(true);
+            am.openAudioConnection(Main.getGuild(e.getGuild()).getVc());
             
-        } catch (IllegalArgumentException iea) {
+        } catch (NullPointerException  | IllegalArgumentException ex) {
             e.getChannel().sendMessage(Emoji.ERROR + " You must connect to a voice channel first.").queue();
             return;
         } catch (PermissionException pe) {
-            e.getChannel().sendMessage(Emoji.ERROR + " I don't have the permission to join `" + Main.guilds.get(e.getGuild().getId()).getVc().getName() + "`.").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " I don't have the permission to join `" + Main.getGuild(e.getGuild()).getVc().getName() + "`.").queue();
             AILogger.errorLog(pe, e, "AudioConnection", "Do not have permission to join a voice channel");
             return;
         }
         
         //Inform the users that the bot joined a voice channel
         if(inform)
-            e.getChannel().sendMessage(Emoji.GLOBE + " Joined Voice Channel `" + Main.guilds.get(e.getGuild().getId()).getVc().getName() + "`").queue();
+            e.getChannel().sendMessage(Emoji.GLOBE + " Joined Voice Channel `" + Main.getGuild(e.getGuild()).getVc().getName() + "`").queue();
     }
     
     public static void disconnect(MessageReceivedEvent e, boolean inform)
@@ -82,7 +91,7 @@ public class AudioConnection {
             
             //Inform the users that the bot joined a voice channel
             if(inform)
-                e.getChannel().sendMessage(Emoji.GLOBE + " Left Voice Channel `" + Main.guilds.get(e.getGuild().getId()).getVc().getName() + "`").queue();
+                e.getChannel().sendMessage(Emoji.GLOBE + " Left Voice Channel `" + Main.getGuild(e.getGuild()).getVc().getName() + "`").queue();
         } catch (NullPointerException npe) { 
             e.getChannel().sendMessage(Emoji.ERROR + " I am not in a voice channel.").queue();
         }

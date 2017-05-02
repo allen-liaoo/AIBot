@@ -20,13 +20,14 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class SayCommand extends Command{
-public final static  String HELP = "This command is for letting a bot say something for you.\n"
+    public final static  String HELP = "This command is for letting a bot say something for you.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"say`\n"
                                      + "Parameter: `-h | [Content] | embed [Content]| null`\n"
                                      + "[Content]: The sentence you want AIBot to say in normal message form.\n"
                                      + "embed [Content]: The sentence you want AIBot to say in embed message form.\n"
                                      + "Support @mention(s): @everyone, @here, and @user.";
-            
+
+    private final String zero_width = "\u200B";
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -102,7 +103,7 @@ public final static  String HELP = "This command is for letting a bot say someth
             {
                 e.getTextChannel().deleteMessageById(e.getMessage().getId()).queue();
             }
-            e.getChannel().sendMessage(input).queue();
+            e.getChannel().sendMessage(zero_width+input).queue();
         }
     }
 
