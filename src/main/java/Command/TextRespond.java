@@ -52,12 +52,13 @@ public class TextRespond {
         responds.put("ayy", "Um... should I say lmao?");
         responds.put("lmao", "lm**f**ao");
         responds.put("wew", "lad");
+        responds.put("pew pew pew", "pewww... oops");
         responds.put("owo", "mhmmmmm");
         responds.put("\\o", "o/");
         responds.put("/o", "o\\");
         responds.put("(╯°□°）╯︵ ┻━┻", "┬─┬﻿ ノ( ゜-゜ノ) We do **NOT** throw tables in this server.\n"
                 + "We are civilized people!");
-        responds.put("┬─┬﻿ ノ( ゜-゜ノ)", "Yep, that's the right thing to do. Clean up the server, table by table! ┬─┬﻿ ノ( ゜-゜ノ)");
+        responds.put("┬─┬﻿ ノ( ゜-゜ノ)", "Yep, that's the right thing to do. Clean up the server, table by table! \n┬─┬﻿ ノ( ゜-゜ノ)");
     }
 
     private String getKeyFromValue(String value) {
@@ -81,9 +82,9 @@ public class TextRespond {
             @Override
             public void execute (String args[], MessageReceivedEvent e) {
                 if(!e.getChannelType().isGuild() ||
-                    !e.getMember().isOwner() ||
+                    !e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_TTS) ||
                     !Constants.D_ID.equals(e.getAuthor().getId()) ||
-                    !e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_TTS))
+                    !e.getMember().isOwner())
                     return;
                 MessageBuilder tts = new MessageBuilder();
                 tts.setTTS(true);

@@ -8,13 +8,8 @@ package Command.MusicModule;
 import Command.*;
 import Audio.Music;
 import Constants.Emoji;
-import Constants.Constants;
 import Setting.Prefix;
-import Main.Main;
-import java.awt.Color;
-import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -42,7 +37,7 @@ public class PauseCommand extends Command{
         }
 
         try {
-            if (Music.isInSameVoiceChannel(e))
+            if (Music.checkVoiceChannel(e))
                 Music.pauseOrPlay(e);
         } catch (NullPointerException npe) {
             e.getTextChannel().sendMessage(Emoji.ERROR + " No song is plaing!").queue();

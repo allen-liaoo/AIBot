@@ -10,6 +10,8 @@ import Audio.TrackScheduler.PlayerMode;
 import Main.Main;
 import Constants.Emoji;
 import AISystem.AILogger;
+import Setting.Prefix;
+import Utility.UtilString;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;;
@@ -23,7 +25,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -49,7 +50,7 @@ public class Music  {
     public static void play(String link, MessageReceivedEvent e, TrackType type)
     {
         Matcher m = Music.urlPattern.matcher(link);
-        AudioConnection.connect(e, false);
+        Connection.connect(e, false);
         
         if(!e.getMember().getVoiceState().inVoiceChannel())
             return;
@@ -118,7 +119,7 @@ public class Music  {
      */
     public static void pauseOrPlay(MessageReceivedEvent e)
     {
-        if(!isInSameVoiceChannel(e))
+        if(!checkVoiceChannel(e))
             return;
 
         if(Main.getGuild(e.getGuild()).getPlayer().getPlayingTrack() == null)
@@ -128,6 +129,20 @@ public class Music  {
             Music.resume(e);
         else if(!Main.getGuild(e.getGuild()).getPlayer().isPaused())
             Music.pause(e);
+    }
+
+    public static void autoPlay(MessageReceivedEvent e)
+    {
+        if(!checkVoiceChannel(e))
+            return;
+
+        if(Main.getGuild(e.getGuild()).getScheduler().getMode() != PlayerMode.AUTO_PLAY) {
+            Main.getGuild(e.getGuild()).getScheduler().setMode(PlayerMode.AUTO_PLAY);
+            e.getChannel().sendMessage(Emoji.AUTOPLAY + " AutoPlay mode on.\nAIBot will automatically play the next song from YouTube.").queue();
+        } else {
+            Main.getGuild(e.getGuild()).getScheduler().setMode(PlayerMode.NORMAL);
+            e.getChannel().sendMessage(Emoji.AUTOPLAY + " AutoPlay mode off.").queue();
+        }
     }
     
     /**
@@ -148,7 +163,7 @@ public class Music  {
     public static void jump(MessageReceivedEvent e, long position) 
     {
         //Prevent user that is not in the same voice channel from jumping to song
-        if(!isInSameVoiceChannel(e)) {
+        if(!checkVoiceChannel(e)) {
             return;
         }
         
@@ -165,7 +180,7 @@ public class Music  {
     public static void shuffle(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from shuffling the Queue
-        if(!isInSameVoiceChannel(e)) {
+        if(!checkVoiceChannel(e)) {
             return;
         }
         
@@ -176,12 +191,11 @@ public class Music  {
     public static void repeat(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from shuffling the Queue
-        if(!isInSameVoiceChannel(e)) {
+        if(!checkVoiceChannel(e)) {
             return;
         }
         
-        if(Main.getGuild(e.getGuild()).getScheduler().getMode() == PlayerMode.NORMAL ||
-                Main.getGuild(e.getGuild()).getScheduler().getMode() == PlayerMode.DEFAULT) {
+        if(Main.getGuild(e.getGuild()).getScheduler().getMode() != PlayerMode.REPEAT) {
             Main.getGuild(e.getGuild()).getScheduler().setMode(PlayerMode.REPEAT);
             e.getChannel().sendMessage(Emoji.REPEAT + " Repeat mode on.").queue();
         }
@@ -194,12 +208,12 @@ public class Music  {
     public static void stop(MessageReceivedEvent e)
     {
         //Prevent user that is not in the same voice channel from stopping the Player
-        if(!isInSameVoiceChannel(e)) {
+        if(!checkVoiceChannel(e)) {
             return;
         }
         
         Main.getGuild(e.getGuild()).getScheduler().stopPlayer();
-        AudioConnection.disconnect(e, false);
+        Connection.disconnect(e, false);
         e.getChannel().sendMessage(Emoji.STOP + " Stopped the player, left the voice channel and cleared queue.").queue();
     }
     
@@ -263,9 +277,9 @@ public class Music  {
     /**
      * Check if the user is in the same voice channel than the bot
      * @param e
-     * @return
+     * @return true if the bot can play music
      */
-    public static boolean isInSameVoiceChannel(MessageReceivedEvent e)
+    public static boolean checkVoiceChannel(MessageReceivedEvent e)
     {
         //Check if the user is in a voice channel
         if(!e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
@@ -280,6 +294,55 @@ public class Music  {
         } else {
             return true;
         }
+    }
+
+    /**
+     * Check if the mode is not restricted(controversial).
+     * Decide between Normal, AutoPlay or FM Mode.
+     * @param e
+     * @param mode the mode wish to proceed
+     * @return true if can proceed
+     */
+    public static boolean checkMode(MessageReceivedEvent e, PlayerMode mode)
+    {
+        /**
+         * PlayerMode Rules:
+         * Default mode is only when no music is playing.
+         * Normal is the general mode, can be override by Repeat or AutoPlay.
+         * FM is strictly unique. It does not work with any mode.
+         * Repeat or AutoPlay can not work with each other.
+         */
+        PlayerMode current = Main.getGuild(e.getGuild()).getScheduler().getMode();
+
+        if(current == PlayerMode.DEFAULT)
+            return true;
+
+        /* Unique Mode */
+        //Playing mode other than FM, and wish to proceed with FM
+        if(mode == PlayerMode.FM && current != PlayerMode.FM) {
+            e.getChannel().sendMessage(Emoji.ERROR + " There is already music playing!\nTo reset it, use `" + Prefix.getDefaultPrefix() + "stop`.").queue();
+            return false;
+        }
+        //Playing FM mode but wish to change
+        else if(mode != PlayerMode.FM && current == PlayerMode.FM) {
+            e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only set the " + mode.toString().toLowerCase()
+                    + " mode when FM is not playing.").queue();
+            return false;
+        }
+
+        /* Overriding Mode */
+        if(mode == PlayerMode.REPEAT && current == PlayerMode.AUTO_PLAY) {
+            e.getChannel().sendMessage(Emoji.ERROR + " AutoPlay mode is ON! Only set the " + mode.toString().toLowerCase()
+                    + " mode when AutoPlay Mode is OFF.").queue();
+            return false;
+        }
+        else if(mode == PlayerMode.AUTO_PLAY && current == PlayerMode.REPEAT) {
+            e.getChannel().sendMessage(Emoji.ERROR + " Repeat mode is ON! Only set the " + mode.toString().toLowerCase()
+                    + " mode when Repeat Mode is OFF.").queue();
+            return false;
+        }
+
+        return true;
     }
     
     /**

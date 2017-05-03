@@ -43,10 +43,8 @@ public class FM {
         JSONArray array = loadLibrary(input);
         String[] local = loadLocalLibrary(input);
         
-        if(Main.getGuild(e.getGuild()).getScheduler().getMode() == PlayerMode.NORMAL) {
-            e.getChannel().sendMessage(Emoji.ERROR + " There is already music playing!\nTo reset it, use `" + Prefix.getDefaultPrefix() + "stop`.").queue();
+        if(!Music.checkMode(e, PlayerMode.FM))
             return;
-        }
         
         if(array == null && local == null) {
             e.getChannel().sendMessage(Emoji.ERROR + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "fm` for available playlists.").queue();
@@ -76,11 +74,11 @@ public class FM {
         }
         
         //Prevent user from calling FM outside of voice channel
-        AudioConnection.connect(e, false);
+        Connection.connect(e, false);
         if(!e.getMember().getVoiceState().inVoiceChannel())
             return;
         
-        Main.getGuild(e.getGuild()).getScheduler().autoPlay();
+        Main.getGuild(e.getGuild()).getScheduler().autoFM();
         
         //Log
         AILogger.commandLog(e, "FM#loadFM", "Fm loaded");

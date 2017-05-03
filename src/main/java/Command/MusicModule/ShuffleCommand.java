@@ -53,9 +53,7 @@ public class ShuffleCommand extends Command {
             }
             
             if(UtilBot.isMajority(e.getMember()) ||
-                e.getMember().isOwner() || 
-                e.getMember().hasPermission(Constants.PERM_MOD) ||
-                Constants.D_ID.equals(e.getAuthor().getId()))
+                UtilBot.isMod(e.getMember()))
             {
                 if(Main.getGuild(e.getGuild()).getScheduler().getQueue().isEmpty()) {
                    e.getChannel().sendMessage(Emoji.ERROR + " No song in the queue to shuffle.").queue();

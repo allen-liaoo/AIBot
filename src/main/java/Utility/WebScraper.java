@@ -201,4 +201,18 @@ public class WebScraper {
         String img = doc.select("img").attr("src");
         return link;
     }
+
+    /**
+     * Get the YouTube autoplay next song from the provided link
+     * @param link
+     * @return
+     */
+    public static String getYouTubeAutoPlay(String link) throws IOException {
+        Document doc = Jsoup.connect(link).timeout(0).get();
+        String next = doc.select("#body-container>#page-container>#page>#content>#watch7-container>#watch7-main-container>#watch7-main")
+                .select("#watch7-sidebar>#watch7-sidebar-contents>#watch7-sidebar-modules>.watch-sidebar-section>.autoplay-bar>.watch-sidebar-body")
+                .select(".video-list>.video-list-item>.content-wrapper>.content-link").attr("href");
+
+        return "https://www.youtube.com" + next;
+    }
 }

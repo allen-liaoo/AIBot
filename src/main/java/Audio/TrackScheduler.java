@@ -8,9 +8,9 @@ package Audio;
 import Audio.AudioTrackWrapper.TrackType;
 import Constants.Emoji;
 import AISystem.AILogger;
-import Main.Main;
-import Setting.MessageFilter;
 import Utility.UtilNum;
+import Utility.UtilString;
+import Utility.WebScraper;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
@@ -18,6 +18,8 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -25,7 +27,6 @@ import java.util.List;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.regex.Matcher;
 
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -71,13 +72,20 @@ public class TrackScheduler extends AudioEventAdapter {
 
     public enum PlayerMode {
         DEFAULT,    //Default Mode, nothing playing
+
+        /* Modes that can be override */
         NORMAL,     //Normal Mode, playing track radio, or playlist
+
+        /* Overriding Mode */
+        AUTO_PLAY,  //AutoPlay Mode, play the next song from YouTube AutoPlay mode
         REPEAT,     //Repeat Mode, retrieve the first queue and add to the last
+
+        /* Unique Modes */
         FM;         //FM Mode, play automatic playlist
 
         @Override
         public String toString() {
-            return name().charAt(0) + name().substring(1).toLowerCase();
+            return UtilString.VariableToString("_", name());
         }
     }
 
@@ -101,23 +109,24 @@ public class TrackScheduler extends AudioEventAdapter {
 
         clearVote();
 
-        switch (Mode) {
-            case FM:
+        if(Mode == PlayerMode.FM) {
+            autoFM();
+        } else if(Mode == PlayerMode.REPEAT) {
+            AudioTrackWrapper repeat = NowPlayingTrack.makeClone();
+            queue.add(repeat);
+            NowPlayingTrack = queue.peek();
+            player.startTrack(queue.poll().getTrack(), false);
+        } else if(Mode == PlayerMode.AUTO_PLAY) {
+            try {
                 autoPlay();
-                break;
-            case REPEAT:
-                AudioTrackWrapper repeat = NowPlayingTrack.makeClone();
-                queue.add(repeat);
-                NowPlayingTrack = queue.peek();
-                player.startTrack(queue.poll().getTrack(), false);
-                break;
-            case NORMAL:
-                NowPlayingTrack = queue.peek();
-                player.startTrack(queue.poll().getTrack(), false);
-                break;
-            default:
-                stopPlayer();
-                break;
+            } catch (IOException e) {
+                tc.sendMessage(Emoji.ERROR + " Fail to load the next song.").queue();
+            }
+        } else if(queue.peek() == null) {
+            stopPlayer();
+        } else if(Mode == PlayerMode.NORMAL) {
+            NowPlayingTrack = queue.peek();
+            player.startTrack(queue.poll().getTrack(), false);
         }
     }
 
@@ -145,9 +154,27 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
     /**
+     * Add the play list to the queue
+     * @param list
+     * @param requester
+     */
+    public void addPlayList(AudioPlaylist list, String requester) {
+        List<AudioTrack> tracklist = list.getTracks();
+
+        for(AudioTrack track : tracklist) {
+            AudioTrackWrapper wrapper = new AudioTrackWrapper(track, requester, TrackType.PLAYLIST);
+            if (!player.startTrack(wrapper.getTrack(), true)) {
+                queue.offer(wrapper);
+                continue;
+            }
+            NowPlayingTrack = wrapper;
+        }
+    }
+
+    /**
      * Automatically load a FM song from fmSongs.
      */
-    public void autoPlay() {
+    public void autoFM() {
         Mode = PlayerMode.FM;
 
         while (auto == previous) {
@@ -156,8 +183,7 @@ public class TrackScheduler extends AudioEventAdapter {
         previous = auto;
         String url = this.fmSongs.get(auto);
 
-        Matcher m = Music.urlPattern.matcher(url);
-        if (m.find()) {
+        if (Music.urlPattern.matcher(url).find()) {
             Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
                 @Override
                 public void trackLoaded(AudioTrack track) {
@@ -177,28 +203,42 @@ public class TrackScheduler extends AudioEventAdapter {
 
                 @Override
                 public void loadFailed(FriendlyException exception) {
-                    tc.sendMessage(Emoji.ERROR + " Fail to load the video.").queue();
+                    tc.sendMessage(Emoji.ERROR + " Fail to load the song.").queue();
                     AILogger.errorLog(exception, null, this.getClass().getName(), "Failed to load fm");
                 }
             });
         }
     }
 
-    /**
-     * Add the play list to the queue
-     * @param list
-     * @param requester
-     */
-    public void addPlayList(AudioPlaylist list, String requester) {
-        List<AudioTrack> tracklist = list.getTracks();
+    public void autoPlay() throws IOException {
+        Mode = PlayerMode.AUTO_PLAY;
 
-        for(AudioTrack track : tracklist) {
-            AudioTrackWrapper wrapper = new AudioTrackWrapper(track, requester, TrackType.PLAYLIST);
-            if (!player.startTrack(wrapper.getTrack(), true)) {
-                queue.offer(wrapper);
-                continue;
-            }
-            NowPlayingTrack = wrapper;
+        String url = WebScraper.getYouTubeAutoPlay(NowPlayingTrack.getTrack().getInfo().uri);
+
+        if (Music.urlPattern.matcher(url).find()) {
+            Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
+                @Override
+                public void trackLoaded(AudioTrack track) {
+                    NowPlayingTrack = new AudioTrackWrapper(track, "AIBot AutoPlay", TrackType.NORMAL_REQUEST);
+                    player.startTrack(track, false);
+                }
+
+                @Override
+                public void playlistLoaded(AudioPlaylist playlist) {
+                    addPlayList(playlist, "AIBot AutoPlay");
+                }
+
+                @Override
+                public void noMatches() {
+                    tc.sendMessage(Emoji.ERROR + " No match found.").queue();
+                }
+
+                @Override
+                public void loadFailed(FriendlyException exception) {
+                    tc.sendMessage(Emoji.ERROR + " Fail to load the next song.").queue();
+                    AILogger.errorLog(exception, null, this.getClass().getName(), "Failed to load AutoPlay");
+                }
+            });
         }
     }
 
@@ -298,21 +338,20 @@ public class TrackScheduler extends AudioEventAdapter {
     * @return TrackScheduler, easier for chaining
     */
     public void stopPlayer() {
-        Mode = PlayerMode.DEFAULT;
         clearNowPlayingTrack()
         .clearQueue()
         .clearVote()
-        .clearFM()
+        .clearMode()
         .player.stopTrack();
     }
 
     public TrackScheduler clearQueue() {
         queue.clear();
+        fmSongs.clear();
         return this;
     }
 
-    public TrackScheduler clearFM() {
-        fmSongs.clear();
+    public TrackScheduler clearMode() {
         Mode = PlayerMode.DEFAULT;
         return this;
     }

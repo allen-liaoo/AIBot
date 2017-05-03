@@ -15,6 +15,8 @@ import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.concurrent.BlockingQueue;
+
+import Utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -51,11 +53,8 @@ public class SkipCommand extends Command {
         
         else if(args.length == 0)
         {
-            //Prevent users that is not in the same voice channel from skipping the song
-            if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel()) {
-                e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
+            if(!Music.checkVoiceChannel(e))
                 return;
-            }
             
             int skip = Music.skip(e, 0, false);
             if(skip > 0)
@@ -70,9 +69,7 @@ public class SkipCommand extends Command {
         
         else if("-f".equals(args[0]))
         {
-            if(e.getMember().isOwner() || 
-                e.getMember().hasPermission(Constants.PERM_MOD) ||
-                Constants.D_ID.equals(e.getAuthor().getId()))
+            if(UtilBot.isMod(e.getMember()))
             {
                 Music.skip(e, 0, true);
                 e.getChannel().sendMessage(Emoji.NEXT_TRACK + " Force skipped current song.").queue();
@@ -101,9 +98,7 @@ public class SkipCommand extends Command {
             }
             
             if((rapsong.getRequester() != null && rapsong.getRequester().equals(e.getAuthor().getId())) ||
-                e.getMember().isOwner() || 
-                e.getMember().hasPermission(Permission.ADMINISTRATOR) ||
-                Constants.D_ID.equals(e.getAuthor().getId()))
+                UtilBot.isMod(e.getMember()))
             {
                 if(Music.skip(e, target, false) == 0) {
                     e.getChannel().sendMessage(Emoji.NEXT_TRACK + " Skipped track in queue index " + target + ".").queue();

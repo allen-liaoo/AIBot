@@ -12,12 +12,14 @@ import net.dv8tion.jda.core.events.message.GenericMessageEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
 
+import java.util.List;
+
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public abstract class AISelector<T> {
-    
+
     private Message message;
     private Member author;
     private Guild guild;

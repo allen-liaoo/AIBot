@@ -56,7 +56,7 @@ public class SourceCommand extends Command{
             else
             {
                 try{
-                    String output = "", folder = "", folder2 = "", file = "";
+                    String output = "", file = "";
                     int count = 1, fromOrig = Integer.parseInt(args[1]), from = 0, to = Integer.parseInt(args[2]);
                         
                     //Check if fromOrig and to are negative.

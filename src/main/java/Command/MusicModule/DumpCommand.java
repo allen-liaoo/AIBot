@@ -7,6 +7,7 @@
  */
 package Command.MusicModule;
 
+import Audio.Music;
 import Command.Command;
 import Main.Main;
 import Constants.Constants;
@@ -41,29 +42,22 @@ public class DumpCommand extends Command {
             e.getChannel().sendMessage(help(e).build()).queue();
             return;
         }
-        
-        if(!e.getMember().getVoiceState().inVoiceChannel()) {
-            e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel.").queue();
+
+        if(!Music.checkVoiceChannel(e)) {
             return;
-        } else if (Main.getGuild(e.getGuild()).getScheduler().getQueue().isEmpty()) {
+        }
+
+        if (Main.getGuild(e.getGuild()).getScheduler().getQueue().isEmpty()) {
             e.getChannel().sendMessage(Emoji.ERROR + " There is no song in the queue.").queue();
             return;
         }
 
         if(UtilBot.isMajority(e.getMember()) ||
-            e.getMember().isOwner() || 
-            e.getMember().hasPermission(Constants.PERM_MOD) ||
-            Constants.D_ID.equals(e.getAuthor().getId()))
+                UtilBot.isMod(e.getMember()))
         {
-            //Prevent user that is not in the same voice channel from stopping the PLAYER
-            if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel() ||
-                    !e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-                e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
-                return;
-            }
             Main.getGuild(e.getGuild()).getScheduler().clearQueue().clearVote();
 
-            e.getChannel().sendMessage(Emoji.STOP + " Cleared queue and dumped Trump.").queue();
+            e.getChannel().sendMessage(Emoji.STOP + " Cleared the queue.").queue();
         }
         else
         {

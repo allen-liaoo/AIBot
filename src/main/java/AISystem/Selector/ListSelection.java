@@ -1,24 +1,18 @@
-/*
- * 
- * AIBot, a Discord bot made by AlienIdeology
- * 
- * 
- * 2017 (c) AIBot
- */
 package AISystem.Selector;
 
-import java.util.List;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.GenericMessageEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
 
-/**
- *
- * @author Alien Ideology <alien.ideology at alien.org>
- */
-public abstract class EmojiSelection extends AISelector {
+import java.util.List;
+
+	/**
+	 *
+	 * @author Alien Ideology <alien.ideology at alien.org>
+	 */
+public abstract class ListSelection extends AISelector {
 
     private List<String> option;
 
@@ -28,12 +22,12 @@ public abstract class EmojiSelection extends AISelector {
      * @param ar
      * @param opt
      */
-    public EmojiSelection(Message msg, Member ar, List<String> opt) {
+    public ListSelection(Message msg, Member ar, List<String> opt) {
         super(msg, ar);
         this.option = opt;
     }
 
-    public EmojiSelection() {
+    public ListSelection() {
         super();
     }
 
@@ -44,17 +38,14 @@ public abstract class EmojiSelection extends AISelector {
      */
     @Override
     public boolean isSelection(GenericMessageEvent event) {
-        if(event instanceof MessageReactionAddEvent) {
-            MessageReactionAddEvent e = (MessageReactionAddEvent) event;
+        if(event instanceof MessageReceivedEvent) {
+            MessageReceivedEvent e = (MessageReceivedEvent) event;
             if (!isSameAuthor(e.getMember()) || !isSamePlace(e.getGuild(), e.getTextChannel()))
                 return false;
             if (!e.getMessageId().equals(this.getMessage().getId()))
                 return false;
-            if (e.getReaction().isSelf())
+            for (Object unicode : option) {
                 return false;
-            for (String unicode : option) {
-                if (e.getReaction().getEmote().getName().equals(unicode))
-                    return true;
             }
         }
         return false;
@@ -91,5 +82,5 @@ public abstract class EmojiSelection extends AISelector {
     public void addOption(String option) {
         this.option.add(option);
     }
-    
+
 }

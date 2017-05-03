@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import Utility.WebScraper;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.ExceptionEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -63,7 +65,11 @@ public class BotListener extends ListenerAdapter implements Runnable {
             else if(input.startsWith("test"))
             {
                 System.out.println("Test wot?");
-                LyricsSearch.getSongLyrics();
+                try {
+                    WebScraper.getYouTubeAutoPlay("https://www.youtube.com/watch?v=ojRj2JK5oCI");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             
             //Presence

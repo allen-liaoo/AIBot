@@ -77,9 +77,6 @@ public class Main {
     {
         timeStart = System.currentTimeMillis();
         addCommands();
-        BotListener console = new BotListener();
-        
-        AILogger.updateLog("Bot Start Up. Commands Added.");
     }
     
     public static void shutdown() throws IOException
@@ -192,6 +189,8 @@ public class Main {
         commands.put("p", new PlayCommand());
         commands.put("fm", new FMCommand());
         commands.put("radio", new RadioCommand());
+        commands.put("autoplay", new AutoPlayCommand());
+        commands.put("ap", new AutoPlayCommand());
         commands.put("pause", new PauseCommand());
         commands.put("resume", new PauseCommand());
         commands.put("unpause", new PauseCommand());

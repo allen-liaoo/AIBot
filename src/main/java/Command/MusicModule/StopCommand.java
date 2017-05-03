@@ -44,10 +44,8 @@ public class StopCommand extends Command{
         
         else
         {
-            if(!e.getMember().getVoiceState().inVoiceChannel()) {
-                e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel.").queue();
+            if(!Music.checkVoiceChannel(e))
                 return;
-            }
             
             int mem = 0;
             //Only count non-Bot Users
@@ -58,9 +56,7 @@ public class StopCommand extends Command{
             }
             
             if(UtilBot.isMajority(e.getMember()) ||
-                e.getMember().isOwner() || 
-                e.getMember().hasPermission(Constants.PERM_MOD) ||
-                Constants.D_ID.equals(e.getAuthor().getId()))
+                UtilBot.isMod(e.getMember()))
             {
                 Music.stop(e);
             }

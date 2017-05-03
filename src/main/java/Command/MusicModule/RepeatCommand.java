@@ -44,17 +44,11 @@ public class RepeatCommand extends Command {
         
         if(args.length == 0)
         {
-            if(Main.getGuild(e.getGuild()).getScheduler().getMode() == TrackScheduler.PlayerMode.FM) {
-                e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only set the repeat mode when FM is not playing.").queue();
-                return;
-            }
-            
             if(UtilBot.isMajority(e.getMember()) ||
-                e.getMember().isOwner() || 
-                e.getMember().hasPermission(Constants.PERM_MOD) ||
-                Constants.D_ID.equals(e.getAuthor().getId()))
+                UtilBot.isMod(e.getMember()))
             {
-                Music.repeat(e);
+                if(Music.checkMode(e, TrackScheduler.PlayerMode.REPEAT))
+                    Music.repeat(e);
             }
             else {
                 e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, or "

@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
+#### [0.3.0] - 2017-05-01 ~ 2017-05-02
+##### Added
+- AutoPlayCommand which works like YouTube autoplay mode.
+- Music#checkMode for the logic from switching between modes.
+
 #### [0.3.0] - 2017-04-12 ~ 2017-04-30
 ##### Added
 - ShuffleCommand to shuffle the queue

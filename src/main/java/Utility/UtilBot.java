@@ -251,6 +251,16 @@ public class UtilBot {
             return "";
         return mention;
     }
+
+    /**
+     * Check if a member is mod: Have Administrator or Manage Server Permission, is server owner, or is bot owner.
+     * @param mem
+     * @return true if the user is mod
+     */
+    public static boolean isMod(Member mem)
+    {
+        return mem.hasPermission(Constants.PERM_MOD) || mem.isOwner() || Constants.D_ID.equals(mem.getUser().getId());
+    }
     
     /**
      * Check if an user is a majority in a voice channel

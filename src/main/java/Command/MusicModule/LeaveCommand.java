@@ -39,7 +39,7 @@ public class LeaveCommand extends Command{
         
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) {
             Main.getGuild(e.getGuild()).getPlayer().setPaused(true);
-            AudioConnection.disconnect(e, true);
+            Connection.disconnect(e, true);
         } else if (e.getChannelType() == e.getChannelType().PRIVATE) {
             e.getTextChannel(); //Return null pointer :P
         }

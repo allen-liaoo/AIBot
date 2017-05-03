@@ -54,9 +54,7 @@ public class JumpCommand extends Command {
             
             if((requester != null && requester.equals(e.getAuthor().getId())) ||
                 UtilBot.isMajority(e.getMember()) ||
-                e.getMember().isOwner() || 
-                e.getMember().hasPermission(Constants.PERM_MOD) ||
-                Constants.D_ID.equals(e.getAuthor().getId()))
+                UtilBot.isMod(e.getMember()))
             {
                 try {
                     String duration = UtilString.formatDurationString(args[0]);

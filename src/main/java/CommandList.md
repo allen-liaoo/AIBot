@@ -67,6 +67,7 @@
 - play - Play a song from YouTube.
 - fm - Play automatic playlists.
 - radio - Stream from a radio station.
+- autoplay (ap) - YouTube AutoPlay mode.
 - pause (ps) - Pause/Resume the current playing song.
 - queue (q) - Show the playlist and what's coming next.
 - skip - Skip the song.

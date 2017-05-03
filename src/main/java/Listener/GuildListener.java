@@ -128,8 +128,7 @@ public class GuildListener extends ListenerAdapter {
             //Get members
             List<Member> members = joined.getMembers();
             int mem = 0;
-            for(Member m : members)
-            {
+            for(Member m : members) {
                 if(!m.getUser().isBot())
                     mem++;
             }
@@ -156,8 +155,7 @@ public class GuildListener extends ListenerAdapter {
         if(guild != null && guild.getSelfMember().getVoiceState().getChannel() == left) {
             int mem = 0;
             List<Member> members = left.getMembers();
-            for(Member m : members)
-            {
+            for(Member m : members) {
                 if(!m.getUser().isBot())
                     mem++;
             }

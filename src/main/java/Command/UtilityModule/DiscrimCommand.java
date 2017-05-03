@@ -107,7 +107,9 @@ public class DiscrimCommand extends Command {
             }
 
             e.getChannel().sendMessage("```md\n\n[Discriminator](#" + target + ")\n\n/* " + discrim.size() + " Result(s) *\n\n" +
-                    discrims + "```").queue((Message msg) -> {
+                    discrims + "--------\n\n" +
+                    "# Page(s): " + page + " / " + pages.getPages() + "\n\n" +
+                    "# Use =list discrim [Page Number] to show more pages.```\n").queue((Message msg) -> {
                 SelectorListener.addEmojiSelection(e.getAuthor().getId(), new EmojiSelection(msg, e.getMember(), reactions) {
                     @Override
                     public void action(int chose) {
