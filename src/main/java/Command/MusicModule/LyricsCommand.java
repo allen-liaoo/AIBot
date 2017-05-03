@@ -7,25 +7,20 @@ package Command.MusicModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
 import Setting.Prefix;
 import Utility.SearchResult;
 import Utility.Search;
-import Utility.UtilNum;
 import Utility.WebScraper;
 import AISystem.AILogger;
 import Utility.UtilBot;
-import java.awt.Color;
+
 import java.io.IOException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import org.jsoup.HttpStatusException;
 
 /**
  *

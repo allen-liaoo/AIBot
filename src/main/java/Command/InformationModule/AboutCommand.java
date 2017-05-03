@@ -6,7 +6,7 @@
 package Command.InformationModule;
 
 import Command.Command;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
@@ -26,10 +26,10 @@ public class AboutCommand extends Command{
     
     public final static String BOT_DES = "The AIBot that started in the March of 2017 for music and fun commands.\n"
                                     + "**Developer:** Ayy™#3103 *aka* AlienIdeology\n"
-                                    + "**Version:** " + Constants.VERSION +"\n"
+                                    + "**Version:** " + Global.VERSION +"\n"
                                     + "**Annoucement:** Working on Eval, Dump, Shuffle, Repeat and Softban~~\n"
                                     + "**Latest Changes:** LogCommand and Server Join Message\n"
-                                    + "**Github Link:** " + Constants.B_GITHUB;
+                                    + "**Github Link:** " + Global.B_GITHUB;
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embeddes = new EmbedBuilder();
     
@@ -39,7 +39,7 @@ public class AboutCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("About -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -53,8 +53,8 @@ public class AboutCommand extends Command{
         if(args.length == 0) 
         {
             embeddes.setColor(Color.red);
-            embeddes.setAuthor("What is " + Constants.B_NAME + "?", Constants.B_DISCORD_BOT, Constants.I_INFO);
-            embeddes.setThumbnail(Constants.B_AVATAR);
+            embeddes.setAuthor("What is " + Global.B_NAME + "?", Global.B_DISCORD_BOT, Global.I_INFO);
+            embeddes.setThumbnail(Global.B_AVATAR);
             embeddes.setDescription(BOT_DES);
             embeddes.setFooter("Request by " + e.getAuthor().getName() + "#" + e.getAuthor().getDiscriminator(), e.getAuthor().getEffectiveAvatarUrl());
             embeddes.setTimestamp(Instant.now());

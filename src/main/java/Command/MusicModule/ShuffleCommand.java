@@ -11,14 +11,10 @@ import Main.Main;
 import Audio.Music;
 import Audio.TrackScheduler.PlayerMode;
 import Command.Command;
-import Constants.Constants;
 import Constants.Emoji;
 import Setting.Prefix;
 import Utility.UtilBot;
-import java.awt.Color;
-import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**

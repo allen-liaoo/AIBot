@@ -7,19 +7,14 @@ package Command.MusicModule;
 
 import Audio.AudioTrackWrapper;
 import Audio.Music;
+import Audio.QueueList;
 import Command.Command;
 import Main.Main;
 import Constants.Emoji;
-import Constants.Constants;
 import Setting.Prefix;
-import java.awt.Color;
-import java.time.Instant;
-import java.util.concurrent.BlockingQueue;
 
 import Utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -80,21 +75,14 @@ public class SkipCommand extends Command {
         }
         
         else if(args[0].length() == 1)
-        {   
-            BlockingQueue<AudioTrackWrapper> queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
-            int count = 0, target = Integer.parseInt(args[0]);
+        {
+            QueueList queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
+            int target = Integer.parseInt(args[0]);
             AudioTrackWrapper rapsong = null;
 
-            if(target > queue.size()) {
+            if(target > queue.size()-1) {
                 e.getChannel().sendMessage(Emoji.ERROR + " The position exceeds the range of this queue.").queue();
                 return;
-            }
-            
-            for(AudioTrackWrapper song : queue) {
-                count++;
-                if(count == target) {
-                    rapsong = song;
-                }   
             }
             
             if((rapsong.getRequester() != null && rapsong.getRequester().equals(e.getAuthor().getId())) ||

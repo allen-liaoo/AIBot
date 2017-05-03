@@ -9,7 +9,7 @@ package Command.InformationModule;
 
 import Constants.Emoji;
 import Setting.Prefix;
-import Constants.Constants;
+import Constants.Global;
 import Command.Command;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -31,7 +31,7 @@ public class PingCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Ping -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 

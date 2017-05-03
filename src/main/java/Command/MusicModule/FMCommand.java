@@ -9,17 +9,15 @@ package Command.MusicModule;
 
 import Audio.FM;
 import Command.Command;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
-import Utility.UtilNum;
 import AISystem.AILogger;
 import Utility.UtilBot;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import java.awt.Color;
+
 import java.io.IOException;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -67,11 +65,11 @@ public class FMCommand extends Command{
                 
                 String localLib = FM.getLocalLibrary();
                 
-                embedpl.setAuthor("AIBot FM", FM.FM_base_url, Constants.B_AVATAR);
+                embedpl.setAuthor("AIBot FM", FM.FM_base_url, Global.B_AVATAR);
                 embedpl.setDescription("Usage: `" + Prefix.DIF_PREFIX + "fm [Playlist Name]`\n");
                 embedpl.addField("Discord FM", dfm, true);
                 embedpl.addField("Local Playlists", localLib, true);
-                embedpl.setThumbnail(Constants.B_AVATAR);
+                embedpl.setThumbnail(Global.B_AVATAR);
                 embedpl.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
                 embedpl.setColor(UtilBot.randomColor());
                 embedpl.setTimestamp(Instant.now());

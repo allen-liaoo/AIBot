@@ -6,8 +6,8 @@
 package Command.InformationModule;
 
 import Constants.Emoji;
+import Constants.Global;
 import Setting.Prefix;
-import Constants.Constants;
 import Command.Command;
 import Utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -28,7 +28,7 @@ public class InviteCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Invite -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -40,11 +40,11 @@ public class InviteCommand extends Command {
         else
         {
             EmbedBuilder links = new EmbedBuilder();
-            links.setAuthor(e.getMember().getEffectiveName() + ", some spicy links", Constants.B_INVITE, e.getAuthor().getEffectiveAvatarUrl());
+            links.setAuthor(e.getMember().getEffectiveName() + ", some spicy links", Global.B_INVITE, e.getAuthor().getEffectiveAvatarUrl());
             links.setColor(UtilBot.randomColor());
             links.addField("Invite me to your server here:", Emoji.INVITE + " [Invite Link]("+"\n" +
-                    Constants.B_INVITE + "&guild_id=" + e.getGuild().getId() + ")\n",false);
-            links.addField("If you require support, join here:", "[AIBot Support Server]("+Constants.B_SERVER+")" ,false);
+                    Global.B_INVITE + "&guild_id=" + e.getGuild().getId() + ")\n",false);
+            links.addField("If you require support, join here:", "[AIBot Support Server]("+ Global.B_SERVER+")" ,false);
             e.getChannel().sendMessage(links.build()).queue();
         }
     }

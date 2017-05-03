@@ -6,7 +6,7 @@
 package Command.FunModule;
 
 import Command.Command;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import Constants.Emoji;
 import Constants.FilePath;
@@ -33,7 +33,7 @@ public class EightBallCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("EightBall -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 

@@ -3,12 +3,10 @@ package Command.UtilityModule;
 import AISystem.AIPages;
 import AISystem.Selector.EmojiSelection;
 import Command.Command;
-import Command.InformationModule.ListCommand;
-import Constants.Constants;
+import Constants.Global;
 import Constants.Emoji;
 import Listener.SelectorListener;
 import Setting.Prefix;
-import Utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
@@ -37,7 +35,7 @@ public class DiscrimCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Discrim -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 

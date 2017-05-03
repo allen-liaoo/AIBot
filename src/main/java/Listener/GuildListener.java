@@ -7,8 +7,8 @@
  */
 package Listener;
 
+import Constants.Global;
 import Main.Main;
-import Constants.Constants;
 import Utility.UtilBot;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
@@ -17,7 +17,6 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.guild.GuildAvailableEvent;
@@ -73,10 +72,10 @@ public class GuildListener extends ListenerAdapter {
             return;
         
         EmbedBuilder embedmsg = new EmbedBuilder();
-        embedmsg.setAuthor("Thanks for Adding AIBot!!", Constants.B_GITHUB, Constants.B_AVATAR);
+        embedmsg.setAuthor("Thanks for Adding AIBot!!", Global.B_GITHUB, Global.B_AVATAR);
         embedmsg.setColor(UtilBot.randomColor());
         embedmsg.setDescription(welcome);
-        embedmsg.setThumbnail(Constants.B_AVATAR);
+        embedmsg.setThumbnail(Global.B_AVATAR);
         embedmsg.addField("Links", links, false);
         g.getPublicChannel().sendMessage(embedmsg.build()).queue();
         embedmsg.clearFields();

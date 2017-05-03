@@ -6,7 +6,6 @@
 package Command.FunModule;
 
 import Command.Command;
-import Constants.Constants;
 import Setting.Prefix;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

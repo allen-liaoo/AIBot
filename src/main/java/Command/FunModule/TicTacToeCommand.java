@@ -7,7 +7,7 @@ package Command.FunModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import Game.TicTacToe;
 import AISystem.AILogger;
@@ -32,7 +32,7 @@ public class TicTacToeCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("Tic Tac Toe -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 

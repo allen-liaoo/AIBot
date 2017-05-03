@@ -7,7 +7,7 @@ package Command.RestrictedModule;
 
 import Command.*;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import AISystem.AILogger;
 import Utility.UtilBot;
@@ -57,7 +57,7 @@ public class PresenceCommand extends Command {
             //Set NickName
             if("nick".equals(type))
             {
-                if((Constants.D_ID.equals(e.getAuthor().getId()) ||
+                if((Global.D_ID.equals(e.getAuthor().getId()) ||
                     e.getMember().isOwner() ||
                     e.getMember().hasPermission(Permission.NICKNAME_MANAGE)) &&
                     (e.getGuild().getSelfMember().hasPermission(Permission.NICKNAME_CHANGE)))
@@ -88,7 +88,7 @@ public class PresenceCommand extends Command {
             //Set Status
             if("status".equals(type))
             {   
-                if(Constants.D_ID.equals(e.getAuthor().getId()))
+                if(Global.D_ID.equals(e.getAuthor().getId()))
                 {
                     OnlineStatus status;
                     try {
@@ -108,7 +108,7 @@ public class PresenceCommand extends Command {
             //Set Game
             if("game".equals(type))
             {
-                if(Constants.D_ID.equals(e.getAuthor().getId()))
+                if(Global.D_ID.equals(e.getAuthor().getId()))
                 {
                     String game = "";
                     for(String g : args) { game += g + " ";}

@@ -8,8 +8,9 @@ package Command.MusicModule;
 import AISystem.AIPages;
 import AISystem.Selector.EmojiSelection;
 import Audio.AudioTrackWrapper;
+import Audio.QueueList;
 import Command.Command;
-import Constants.Constants;
+import Constants.Global;
 import Constants.Emoji;
 import Listener.SelectorListener;
 import Main.Main;
@@ -20,9 +21,8 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
+
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -72,8 +72,8 @@ public class QueueCommand extends Command{
      * @param page
      */
     public void queueList(MessageReceivedEvent e, int page) {
-        BlockingQueue<AudioTrackWrapper> queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
-        Iterator<AudioTrackWrapper> list = Main.getGuild(e.getGuild()).getScheduler().getQueueIterator();
+        QueueList queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
+
         EmbedBuilder embed = new EmbedBuilder();
         //Now Playing
         AudioTrackWrapper playing = Main.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack();
@@ -106,15 +106,15 @@ public class QueueCommand extends Command{
             embed.addField("Coming Next", songs, false);
         } else {
             //Initialize QueueList for AIPages. Add duration
-            while (list.hasNext()) {
+            for(AudioTrackWrapper wrap : queue) {
                 count++;
-                AudioTrackWrapper trackwrapper = list.next();
-                AudioTrack track = trackwrapper.getTrack();
-                queueList.add(trackwrapper);
-                if (trackwrapper.getType() != AudioTrackWrapper.TrackType.RADIO) {
+                AudioTrack track = wrap.getTrack();
+                queueList.add(wrap);
+                if (wrap.getType() != AudioTrackWrapper.TrackType.RADIO) {
                     duration += track.getDuration();
                 }
             }
+
             songs += "**Queue Count:** " + count + "\n";
             //AIPages
             AIPages pages = new AIPages(queueList);
@@ -129,17 +129,18 @@ public class QueueCommand extends Command{
             }
             embed.addField("Coming Next (Page " + page + " / " + pages.getPages() + ")", songs, false);
         }
+
         String durationWithoutRadio = "";
         if ("00:00".equals(UtilString.formatDurationToString(duration))) {
             durationWithoutRadio = "";
         } else {
             durationWithoutRadio = " / " + UtilString.formatDurationToString(duration);
         }
-        embed.setAuthor("Queue List (" + UtilString.formatDurationToString(position) + durationWithoutRadio + ")", Constants.B_INVITE, Constants.B_AVATAR);
-        embed.setColor(UtilBot.randomColor());
-        embed.setThumbnail(Constants.B_AVATAR);
-        embed.setFooter("Reqested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
-        embed.setTimestamp(Instant.now());
+
+        embed.setAuthor("Queue List (" + UtilString.formatDurationToString(position) + durationWithoutRadio + ")", Global.B_INVITE, Global.B_AVATAR);
+        embed.setColor(UtilBot.randomColor()).setThumbnail(Global.B_AVATAR).setTimestamp(Instant.now());
+        embed.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
+
         e.getChannel().sendMessage(embed.build()).queue((Message msg) -> {
             SelectorListener.addEmojiSelection(e.getAuthor().getId(), new EmojiSelection(msg, e.getMember(), reactions) {
                 @Override

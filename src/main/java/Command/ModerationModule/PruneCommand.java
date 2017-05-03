@@ -6,19 +6,17 @@
 package Command.ModerationModule;
 
 import Constants.Emoji;
+import Constants.Global;
 import Setting.Prefix;
-import Constants.Constants;
 import Command.Command;
 import AISystem.AILogger;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
-import net.dv8tion.jda.core.requests.ErrorResponse;
 
 /**
  *
@@ -36,7 +34,7 @@ public class PruneCommand extends Command{
         embed.setTitle("Utility Module", null);
         embed.setTitle("Prune -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 

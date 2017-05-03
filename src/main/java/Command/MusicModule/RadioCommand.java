@@ -9,7 +9,7 @@ package Command.MusicModule;
 
 import Audio.Radio;
 import Command.Command;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import Utility.UtilBot;
 import java.time.Instant;
@@ -45,10 +45,10 @@ public class RadioCommand extends Command{
         {
             String stations = Radio.getStations();
             
-            embedpl.setAuthor("AIBot Radio", null, Constants.B_AVATAR);
+            embedpl.setAuthor("AIBot Radio", null, Global.B_AVATAR);
             embedpl.setDescription("Usage: `" + Prefix.DIF_PREFIX + "radio [Station Name]`\n");
             embedpl.addField("Available Radio Stations", stations, true);
-            embedpl.setThumbnail(Constants.B_AVATAR);
+            embedpl.setThumbnail(Global.B_AVATAR);
             embedpl.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
             embedpl.setColor(UtilBot.randomColor());
             embedpl.setTimestamp(Instant.now());

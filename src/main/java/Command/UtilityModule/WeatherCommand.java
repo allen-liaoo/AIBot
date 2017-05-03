@@ -7,7 +7,7 @@ package Command.UtilityModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import AISystem.AILogger;
 import com.github.fedy2.weather.*;
@@ -40,7 +40,7 @@ public class WeatherCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Utility Module", null);
         embed.addField("Weather -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -79,7 +79,7 @@ public class WeatherCommand extends Command{
                 List<Channel> list = limit.first(1);
                 Channel city = list.get(0);
                 
-                //General Constants
+                //General Global
                 title = city.getTitle();
                 title = title.substring(16);
                 link = city.getLink();
@@ -109,7 +109,7 @@ public class WeatherCommand extends Command{
                 
                 String EmojiCon = setConditionEmoji(concode);
                 
-                embedw.setAuthor("Weather of " + title, link, Constants.I_INFO);
+                embedw.setAuthor("Weather of " + title, link, Global.I_INFO);
                 embedw.setColor(Color.blue);
                 embedw.setThumbnail(null);
                 embedw.setTimestamp(Instant.now());

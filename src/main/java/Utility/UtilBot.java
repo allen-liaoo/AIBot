@@ -7,8 +7,8 @@
 package Utility;
 
 import AISystem.AILogger;
+import Constants.Global;
 import Main.Main;
-import Constants.Constants;
 import Constants.Emoji;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -17,12 +17,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -37,13 +35,13 @@ public class UtilBot {
         String set;
         switch (game.replaceAll(" ", "").toLowerCase()) {
             case "default":
-                set = Constants.B_GAME_DEFAULT;
+                set = Global.B_GAME_DEFAULT;
                 break;
             case "update":
-                set = Constants.B_GAME_UPDATE;
+                set = Global.B_GAME_UPDATE;
                 break;
             case "fix":
-                set = Constants.B_GAME_FIXING;
+                set = Global.B_GAME_FIXING;
                 break;
             case "null":
             case "":
@@ -259,7 +257,7 @@ public class UtilBot {
      */
     public static boolean isMod(Member mem)
     {
-        return mem.hasPermission(Constants.PERM_MOD) || mem.isOwner() || Constants.D_ID.equals(mem.getUser().getId());
+        return mem.hasPermission(Global.PERM_MOD) || mem.isOwner() || Global.D_ID.equals(mem.getUser().getId());
     }
     
     /**

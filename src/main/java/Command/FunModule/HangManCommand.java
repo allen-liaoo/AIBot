@@ -7,14 +7,13 @@ package Command.FunModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import Game.HangMan;
 import AISystem.AILogger;
-import java.awt.Color;
+
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -37,7 +36,7 @@ public class HangManCommand extends Command{
         
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("HangMan -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         embed.setTimestamp(Instant.now());
         return embed;
     }

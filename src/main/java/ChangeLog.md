@@ -6,6 +6,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 ##### Added
 - AutoPlayCommand which works like YouTube autoplay mode.
 - Music#checkMode for the logic from switching between modes.
+- QueueList, a custom implementation of Collection(LinkedList) for track queue.
 
 #### [0.3.0] - 2017-04-12 ~ 2017-04-30
 ##### Added

@@ -7,7 +7,7 @@ package Command.InformationModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -26,7 +26,7 @@ public class SupportCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Support -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -40,7 +40,7 @@ public class SupportCommand extends Command{
         if(args.length == 0) 
         {
             String msg = Emoji.INVITE + " Join this server for music!\n"
-                                        + Constants.L_MUSIC_HUB;
+                                        + Global.L_MUSIC_HUB;
             
             e.getChannel().sendMessage(msg).queue();
         }

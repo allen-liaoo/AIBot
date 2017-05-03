@@ -7,7 +7,7 @@ package Command.ModerationModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import AISystem.AILogger;
 import java.util.List;
@@ -36,7 +36,7 @@ public class BanCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Moderation Module", null);
         embed.addField("Ban -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 

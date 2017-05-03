@@ -6,7 +6,7 @@
 package Command.InformationModule;
 
 import Command.Command;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import Constants.Emoji;
 import java.awt.Color;
@@ -18,8 +18,6 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Invite;
-import net.dv8tion.jda.core.requests.restaction.InviteAction;
 
 /**
  *
@@ -38,7 +36,7 @@ public class InfoServerCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("ServerInfo -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -88,11 +86,11 @@ public class InfoServerCommand extends Command{
                     .setMaxAge(120).setMaxUses(1).setTemporary(true)
                     .queue(
                         (Invite i) -> {
-                            embedsi.setAuthor(name, "https://discord.gg/" + i.getCode(), Constants.I_INFO);
+                            embedsi.setAuthor(name, "https://discord.gg/" + i.getCode(), Global.I_INFO);
                         }
                     );*/
 
-            embedsi.setAuthor(name, null, Constants.I_INFO);
+            embedsi.setAuthor(name, null, Global.I_INFO);
             embedsi.setColor(Color.blue);
             embedsi.setThumbnail(icon);
             embedsi.setTimestamp(Instant.now());

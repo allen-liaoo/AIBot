@@ -10,7 +10,7 @@ package Command.RestrictedModule;
 import Command.Command;
 import Constants.Emoji;
 import Constants.FilePath;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import AISystem.AILogger;
 import java.io.BufferedReader;
@@ -53,7 +53,7 @@ public class LogCommand extends Command {
             (!e.getChannelType().isGuild() || 
             e.getMember().isOwner() || 
             e.getMember().hasPermission(Permission.MESSAGE_MANAGE) ||
-            Constants.D_ID.equals(e.getAuthor().getId())))
+            Global.D_ID.equals(e.getAuthor().getId())))
         {
             String filepath = "", line;
 

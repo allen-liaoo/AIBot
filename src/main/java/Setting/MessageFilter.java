@@ -1,6 +1,6 @@
 package Setting;
 
-import Constants.Constants;
+import Constants.Global;
 import Constants.Emoji;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
@@ -8,7 +8,6 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -32,7 +31,7 @@ public class MessageFilter extends ListenerAdapter {
         if(e.getGuild().getMembers().size()>100)
             return;
 
-        if(e.getAuthor().isBot() || e.getAuthor().isFake() || e.getMember().isOwner() || e.getMember().hasPermission(Constants.PERM_MOD))
+        if(e.getAuthor().isBot() || e.getAuthor().isFake() || e.getMember().isOwner() || e.getMember().hasPermission(Global.PERM_MOD))
             return;
 
         try {

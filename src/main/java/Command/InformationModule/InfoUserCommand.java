@@ -5,8 +5,8 @@
  */
 package Command.InformationModule;
 
+import Constants.Global;
 import Setting.Prefix;
-import Constants.Constants;
 import Command.Command;
 import java.awt.Color;
 import java.time.Instant;
@@ -34,7 +34,7 @@ public class InfoUserCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("UserInfo -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -113,7 +113,7 @@ public class InfoUserCommand extends Command{
         
         EmbedBuilder embedui = new EmbedBuilder();
         
-        embedui.setAuthor(name, null, Constants.I_INFO);
+        embedui.setAuthor(name, null, Global.I_INFO);
         embedui.setColor(Color.blue);
         embedui.setThumbnail(icon);
         embedui.setTimestamp(Instant.now());

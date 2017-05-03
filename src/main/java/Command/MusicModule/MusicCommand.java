@@ -8,13 +8,12 @@
 package Command.MusicModule;
 
 import Command.Command;
-import static Command.MusicModule.PlayCommand.HELP;
+
+import Constants.Global;
 import Constants.HelpText;
-import Constants.Constants;
 import Setting.Prefix;
 import Utility.UtilBot;
-import Utility.UtilNum;
-import java.awt.Color;
+
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -50,7 +49,7 @@ public class MusicCommand extends Command{
             EmbedBuilder embedm = new EmbedBuilder();
             
             embedm.setColor(UtilBot.randomColor());
-            embedm.setAuthor("Music Module", null, Constants.I_HELP);
+            embedm.setAuthor("Music Module", null, Global.I_HELP);
             embedm.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
             embedm.setTimestamp(Instant.now());
             embedm.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());

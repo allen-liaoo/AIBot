@@ -17,7 +17,7 @@ import net.dv8tion.jda.core.Permission;
  *
  * @author liaoyilin
  */
-public class Constants {
+public class Global {
     //Main
     public final static String VERSION = "[0.2.0]";
     
@@ -26,7 +26,7 @@ public class Constants {
     public final static String I_HELP = "https://maxcdn.icons8.com/Share/icon/Programming//help1600.png";
     
     //Bot
-    //-Bot Constants
+    //-Bot Global
     public final static String B_NAME = Main.jda.getSelfUser().getName();
     public final static String B_AVATAR = Main.jda.getSelfUser().getEffectiveAvatarUrl();
     public final static String B_DISCRIMINATOR = Main.jda.getSelfUser().getDiscriminator();

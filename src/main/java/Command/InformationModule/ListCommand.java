@@ -8,13 +8,11 @@
 package Command.InformationModule;
 
 import Command.Command;
-import Constants.Constants;
+import Constants.Global;
 import Constants.Emoji;
 import Setting.Prefix;
 import AISystem.AIPages;
 import AISystem.Selector.EmojiSelection;
-import Command.MusicModule.QueueCommand;
-import Command.MusicModule.SongCommand;
 import Listener.SelectorListener;
 import Utility.UtilBot;
 import java.util.ArrayList;
@@ -50,7 +48,7 @@ public class ListCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("List -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 

@@ -7,7 +7,7 @@ package Command.RestrictedModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import Main.*;
 import AISystem.AILogger;
@@ -44,7 +44,7 @@ public class ShutDownCommand extends Command{
         
         if(args.length == 0) 
         {
-            if(Constants.D_ID.equals(e.getAuthor().getId()))
+            if(Global.D_ID.equals(e.getAuthor().getId()))
             {
                 e.getChannel().sendMessage(Emoji.SUCCESS + " Shutting down...").queue();
 

@@ -7,8 +7,8 @@ package Command.InformationModule;
 
 //Set to SUPPORT PRIVATE CHANNEL.
 
+import Constants.Global;
 import Setting.Prefix;
-import Constants.Constants;
 import Command.Command;
 import java.awt.Color;
 import java.time.Instant;
@@ -60,7 +60,7 @@ public class InfoBotCommand extends Command{
             if(e.getChannelType() != e.getChannelType().PRIVATE)
                 nickname = e.getGuild().getSelfMember().getEffectiveName();
             
-            owner = bot.getUserById(Constants.D_ID).getName();
+            owner = bot.getUserById(Global.D_ID).getName();
             avatar = bot.getSelfUser().getAvatarUrl();
             id = bot.getSelfUser().getId();
             register = bot.getSelfUser().getCreationTime().toString();
@@ -71,7 +71,7 @@ public class InfoBotCommand extends Command{
             //Bot Status
             game = bot.getPresence().getGame().getName();
             
-            //Bot /w Guild Constants
+            //Bot /w Guild Global
             if(e.getChannelType() != e.getChannelType().PRIVATE)
             {
                 perm = e.getGuild().getSelfMember().getPermissions(e.getTextChannel()).toString();
@@ -84,11 +84,11 @@ public class InfoBotCommand extends Command{
                 permString = permString.substring(0, permString.length()-2);
             }
             
-            embedinfo.setAuthor(name, null, Constants.I_INFO);
+            embedinfo.setAuthor(name, null, Global.I_INFO);
             embedinfo.setColor(Color.blue);
             embedinfo.setThumbnail(avatar);
             embedinfo.setTimestamp(Instant.now());
-            embedinfo.setFooter("AIBot Information", Constants.B_DISCORD_BOT);
+            embedinfo.setFooter("AIBot Information", Global.B_DISCORD_BOT);
             
             embedinfo.addField("ID", id, true);
             if(e.getChannelType() != e.getChannelType().PRIVATE)

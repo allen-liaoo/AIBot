@@ -6,15 +6,12 @@
 package Command.FunModule;
 
 import Command.Command;
+import Constants.Global;
 import Game.GuessNumber;
 import Constants.Emoji;
-import Constants.Constants;
 import Setting.Prefix;
 import AISystem.AILogger;
-import java.awt.Color;
-import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -39,7 +36,7 @@ public class GuessNumberCommand extends Command{
         
         embed.setTitle("Fun Module", null);
         embed.addField("Guess Number -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 

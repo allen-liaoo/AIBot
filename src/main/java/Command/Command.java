@@ -5,9 +5,10 @@
  */
 package Command;
 
-import Constants.Constants;
+import Constants.Global;
 import java.awt.Color;
 import java.time.Instant;
+
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -27,7 +28,7 @@ public abstract class Command {
         EmbedBuilder embed = new EmbedBuilder();
         embed.setColor(Color.red);
         embed.setTimestamp(Instant.now());
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
     

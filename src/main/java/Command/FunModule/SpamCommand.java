@@ -8,7 +8,7 @@
 package Command.FunModule;
 
 import Command.Command;
-import Constants.Constants;
+import Constants.Global;
 import Constants.Emoji;
 import Setting.Prefix;
 import Utility.UtilNum;
@@ -43,7 +43,7 @@ public class SpamCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("Spam -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -78,7 +78,7 @@ public class SpamCommand extends Command {
                     if(u.getId().equals(e.getJDA().getSelfUser().getId()))
                         continue;
 
-                    if(Constants.D_ID.equals(u.getId())) {
+                    if(Global.D_ID.equals(u.getId())) {
                         e.getChannel().sendMessage(Emoji.EYES + " How dare you? Spamming my creator!?").queue();
                         u = e.getAuthor();
                     }

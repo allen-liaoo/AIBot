@@ -7,7 +7,7 @@ package Command.RestrictedModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Constants.FilePath;
 import Setting.Prefix;
 import AISystem.AILogger;
@@ -48,7 +48,7 @@ public class SourceCommand extends Command{
         
         if(args.length >= 1 && !"-h".equals(args[0])) 
         {
-            if(!Constants.D_ID.equals(e.getAuthor().getId()) && !e.getMember().isOwner())
+            if(!Global.D_ID.equals(e.getAuthor().getId()) && !e.getMember().isOwner())
             {
                 e.getChannel().sendMessage(Emoji.ERROR + " This command is for **Server Owner** or **Bot Owner** only.").queue();
             }

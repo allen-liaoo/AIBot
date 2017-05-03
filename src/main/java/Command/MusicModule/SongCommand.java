@@ -7,10 +7,11 @@ package Command.MusicModule;
 
 import AISystem.AILogger;
 import Audio.AudioTrackWrapper;
+import Audio.QueueList;
 import Command.Command;
 import Main.Main;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import Utility.UtilBot;
 import Utility.UtilString;
@@ -18,7 +19,7 @@ import Utility.WebScraper;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.concurrent.BlockingQueue;
+
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -59,7 +60,7 @@ public class SongCommand extends Command{
             }
             else if(args.length >= 1 && Character.isDigit(args[0].charAt(0)))
             {
-                BlockingQueue<AudioTrackWrapper> queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
+                QueueList queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
                 int count = 0, target = Integer.parseInt(args[0]);
                 AudioTrackWrapper songinfo = null;
                 
@@ -69,12 +70,7 @@ public class SongCommand extends Command{
                     return;
                 }
 
-                for(AudioTrackWrapper song : queue)
-                {
-                    count++;
-                    if(count == target)
-                        songinfo = song;
-                }
+                Main.getGuild(e.getGuild()).getScheduler().getQueue().get(target);
 
                 e.getChannel().sendMessage(trackInfo(e, songinfo, "Queue Song (Position " + args[0] + ")").build()).queue();
             }
@@ -91,7 +87,7 @@ public class SongCommand extends Command{
         AudioTrackInfo trackInfo = track.getTrack().getInfo();
         String trackTime = UtilString.formatDurationToString(track.getTrack().getPosition());
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setAuthor(title, trackInfo.uri, Constants.B_AVATAR);
+        embedBuilder.setAuthor(title, trackInfo.uri, Global.B_AVATAR);
         embedBuilder.setColor(UtilBot.randomColor());
         embedBuilder.addField("Song Title:", trackInfo.title, true);
         embedBuilder.addField("Author:", trackInfo.author, true);
@@ -103,7 +99,7 @@ public class SongCommand extends Command{
         embedBuilder.addField("Track Type:", track.getType().toString(), true);
         embedBuilder.addField("Stream:", UtilString.VariableToString(null, trackInfo.isStream + "") + "", true);
         embedBuilder.addField("Requested by:", track.getRequester(), true);
-        embedBuilder.setThumbnail(Constants.B_AVATAR);
+        embedBuilder.setThumbnail(Global.B_AVATAR);
         embedBuilder.setTimestamp(Instant.now());
         try {
             embedBuilder.setImage(WebScraper.getYouTubeThumbNail(track.getTrack().getInfo().uri));

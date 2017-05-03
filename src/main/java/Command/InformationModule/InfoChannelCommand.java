@@ -7,7 +7,7 @@ package Command.InformationModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import AISystem.AILogger;
 import java.awt.Color;
@@ -16,7 +16,6 @@ import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 
@@ -36,7 +35,7 @@ public class InfoChannelCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("ChannelInfo -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -76,7 +75,7 @@ public class InfoChannelCommand extends Command{
             }
             
             EmbedBuilder embedci = new EmbedBuilder();
-            embedci.setAuthor(name, null, Constants.I_INFO);
+            embedci.setAuthor(name, null, Global.I_INFO);
             embedci.setColor(Color.blue);
             embedci.setThumbnail(icon);
             embedci.setTimestamp(Instant.now());
@@ -124,7 +123,7 @@ public class InfoChannelCommand extends Command{
                 }
                 
                 EmbedBuilder embedci = new EmbedBuilder();
-                embedci.setAuthor(name, null, Constants.I_INFO);
+                embedci.setAuthor(name, null, Global.I_INFO);
                 embedci.setColor(Color.blue);
                 embedci.setThumbnail(icon);
                 embedci.setTimestamp(Instant.now());

@@ -60,7 +60,7 @@ public class Music  {
         if(m.find()){
             try {
                 //Only turn the mode to normal is this was in default mode,
-                //So repeat mode will not be turned off
+                //So repeat or autoplay mode will not be turned off
                 if(Main.getGuild(e.getGuild()).getScheduler().getMode() == PlayerMode.DEFAULT)
                     Main.getGuild(e.getGuild()).getScheduler().setMode(PlayerMode.NORMAL);
                         
@@ -184,7 +184,7 @@ public class Music  {
             return;
         }
         
-        Main.getGuild(e.getGuild()).getScheduler().shuffle();
+        Main.getGuild(e.getGuild()).getScheduler().getQueue().shuffle();
         e.getChannel().sendMessage(Emoji.SHUFFLE + " Shuffled queue.").queue();
     }
     
@@ -232,6 +232,7 @@ public class Music  {
         if(Main.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack().isEmpty()) {
             return -2;
         }
+
         //Force skip the current song
         if(force) {
             Main.getGuild(e.getGuild()).getScheduler().nextTrack();
@@ -261,14 +262,8 @@ public class Music  {
         //Skip a song in the queue
         else if(position != 0)
         {
-            BlockingQueue<AudioTrackWrapper> queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
-            int countindex = 0;
-            for(AudioTrackWrapper song : queue) {
-                countindex++;
-                if(countindex == position) {
-                    queue.remove(song);
-                }
-            }
+            QueueList queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
+            queue.remove(position);
             return 0;
         }
         return -1;

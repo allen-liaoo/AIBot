@@ -9,7 +9,7 @@ package Command.ModerationModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
@@ -49,7 +49,7 @@ public class WarnCommand extends Command {
                 e.getMember().hasPermission(Permission.ADMINISTRATOR) || 
                 e.getMember().hasPermission(Permission.MANAGE_SERVER) || 
                 e.getMember().hasPermission(Permission.MANAGE_CHANNEL) || 
-                Constants.D_ID.equals(e.getAuthor().getId()))
+                Global.D_ID.equals(e.getAuthor().getId()))
         {
             List<User> mention = e.getMessage().getMentionedUsers();
             if(mention.isEmpty())
@@ -74,7 +74,7 @@ public class WarnCommand extends Command {
                 
                 EmbedBuilder warn = new EmbedBuilder();
                 warn.setColor(Color.red);
-                warn.setAuthor("Warning from Server: " + e.getGuild().getName(), null, Constants.B_AVATAR);
+                warn.setAuthor("Warning from Server: " + e.getGuild().getName(), null, Global.B_AVATAR);
                 warn.addField("To:", names + e.getAuthor().getDiscriminator(), false);
                 warn.addField("Moderator:", e.getMember().getEffectiveName() + e.getAuthor().getDiscriminator(), false);
                 warn.addField("Reason:", reason, false);

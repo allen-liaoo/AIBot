@@ -8,7 +8,7 @@
 package Command;
 
 import java.util.HashMap;
-import Constants.Constants;
+import Constants.Global;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -83,7 +83,7 @@ public class TextRespond {
             public void execute (String args[], MessageReceivedEvent e) {
                 if(!e.getChannelType().isGuild() ||
                     !e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_TTS) ||
-                    !Constants.D_ID.equals(e.getAuthor().getId()) ||
+                    !Global.D_ID.equals(e.getAuthor().getId()) ||
                     !e.getMember().isOwner())
                     return;
                 MessageBuilder tts = new MessageBuilder();

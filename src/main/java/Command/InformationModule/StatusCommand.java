@@ -7,7 +7,7 @@ package Command.InformationModule;
 
 import Command.*;
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import Setting.Prefix;
 import Main.Main;
 import Utility.UtilBot;
@@ -45,7 +45,7 @@ public class StatusCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Status -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Constants.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 

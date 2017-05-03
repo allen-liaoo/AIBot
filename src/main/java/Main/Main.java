@@ -6,6 +6,7 @@
  */
 package Main;
 
+import Constants.Global;
 import Setting.GuildWrapper;
 import Private.Private;
 import Command.*;
@@ -17,7 +18,6 @@ import Command.FunModule.*;
 import Command.RestrictedModule.*;
 import Listener.*;
 import Audio.*;
-import Constants.Constants;
 import AISystem.AILogger;
 import Setting.*;
 import com.mashape.unirest.http.Unirest;
@@ -64,7 +64,7 @@ public class Main {
                     .setMaxReconnectDelay(300)
                     .buildBlocking();
 
-            jda.getPresence().setGame(Game.of(Constants.B_GAME_DEFAULT));
+            jda.getPresence().setGame(Game.of(Global.B_GAME_DEFAULT));
             
             startUp();
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {

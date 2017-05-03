@@ -7,7 +7,6 @@ package Command.ModerationModule;
 
 import Command.Command;
 import Constants.Emoji;
-import Constants.Constants;
 import Setting.Prefix;
 import AISystem.AILogger;
 import java.awt.Color;

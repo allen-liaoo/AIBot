@@ -20,10 +20,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -51,7 +48,7 @@ public class TrackScheduler extends AudioEventAdapter {
     * Track fields.
     */
     private final AudioPlayer player;
-    private BlockingQueue<AudioTrackWrapper> queue;
+    private QueueList queue;
     private AudioTrackWrapper NowPlayingTrack;
 
     /**
@@ -94,7 +91,8 @@ public class TrackScheduler extends AudioEventAdapter {
    */
     public TrackScheduler(AudioPlayer player) {
         this.player = player;
-        this.queue = new LinkedBlockingQueue<>();
+
+        this.queue = new QueueList();
         this.NowPlayingTrack = new AudioTrackWrapper();
         this.skipper = new ArrayList<>();
         this.Mode = PlayerMode.DEFAULT;
@@ -117,12 +115,17 @@ public class TrackScheduler extends AudioEventAdapter {
             NowPlayingTrack = queue.peek();
             player.startTrack(queue.poll().getTrack(), false);
         } else if(Mode == PlayerMode.AUTO_PLAY) {
-            try {
-                autoPlay();
-            } catch (IOException e) {
-                tc.sendMessage(Emoji.ERROR + " Fail to load the next song.").queue();
+            if(!queue.isEmpty()) {
+                NowPlayingTrack = queue.peek();
+                player.startTrack(queue.poll().getTrack(), false);
+            } else {
+                try {
+                    autoPlay();
+                } catch (IOException e) {
+                    tc.sendMessage(Emoji.ERROR + " Fail to load the next song.").queue();
+                }
             }
-        } else if(queue.peek() == null) {
+        } else if(queue.isEmpty()) {
             stopPlayer();
         } else if(Mode == PlayerMode.NORMAL) {
             NowPlayingTrack = queue.peek();
@@ -240,15 +243,6 @@ public class TrackScheduler extends AudioEventAdapter {
                 }
             });
         }
-    }
-
-    /**
-     * Shuffle the queue.
-     */
-    public void shuffle() {
-        List<AudioTrackWrapper> queueList = new ArrayList(queue);
-        Collections.shuffle(queueList);
-        queue = new LinkedBlockingQueue (queueList);
     }
 
     /**
@@ -393,12 +387,8 @@ public class TrackScheduler extends AudioEventAdapter {
         this.Mode = Mode;
     }
 
-    public BlockingQueue<AudioTrackWrapper> getQueue() {
+    public QueueList getQueue() {
         return queue;
-    }
-
-    public Iterator getQueueIterator() {
-        return queue.iterator();
     }
 
     public ArrayList<String> getFmSongs() {

@@ -7,12 +7,12 @@
 package Utility;
 
 import Constants.Emoji;
-import Constants.Constants;
+import Constants.Global;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import net.dv8tion.jda.core.EmbedBuilder;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -38,7 +38,7 @@ public class WebScraper {
      */
     public static String[] getSongLyrics(String input) throws IOException, HttpStatusException {
         List<String> lyrics = new ArrayList<String>();
-        String lyricsURL = Constants.LYRICSURL + input.substring(0, 1).toUpperCase() + input.substring(1).replace(" ", "-").toLowerCase();
+        String lyricsURL = Global.LYRICSURL + input.substring(0, 1).toUpperCase() + input.substring(1).replace(" ", "-").toLowerCase();
         Document doc = Jsoup.connect(input).get();
         
         int count = 0;
