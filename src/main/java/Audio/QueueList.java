@@ -14,25 +14,25 @@ public class QueueList extends LinkedList<AudioTrackWrapper> {
     }
 
     /**
+     * Find a AudioTrackWrapper's index by Keyword
+     * @param keyword
+     * @return
+     */
+    public int findIndex(String keyword) {
+        return queue.indexOf(find(keyword));
+    }
+
+    /**
      * Find a AudioTrackWrapper by Keyword
      * @param keyword
      * @return
      */
-    public AudioTrackWrapper find(String keyword) {
+    private AudioTrackWrapper find(String keyword) {
         for(AudioTrackWrapper each : queue) {
             if(each.getTrack().getInfo().title.toLowerCase().contains(keyword.toLowerCase()))
                 return each;
         }
         return null;
-    }
-
-    /**
-     * Find a AudioTrackWrapper's index by Keyword
-     * @param keyword
-     * @return
-     */
-    public int findIndex(String keyword){
-        return queue.indexOf(find(keyword));
     }
 
     /**

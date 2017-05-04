@@ -222,13 +222,13 @@ public class TrackScheduler extends AudioEventAdapter {
             Music.playerManager.loadItemOrdered(Music.playerManager, url, new AudioLoadResultHandler() {
                 @Override
                 public void trackLoaded(AudioTrack track) {
-                    NowPlayingTrack = new AudioTrackWrapper(track, "AIBot AutoPlay", TrackType.NORMAL_REQUEST);
+                    NowPlayingTrack = new AudioTrackWrapper(track, "YouTube auto play", TrackType.NORMAL_REQUEST);
                     player.startTrack(track, false);
                 }
 
                 @Override
                 public void playlistLoaded(AudioPlaylist playlist) {
-                    addPlayList(playlist, "AIBot AutoPlay");
+                    addPlayList(playlist, "YouTube auto play");
                 }
 
                 @Override
@@ -252,7 +252,6 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
-        super.onTrackStart(player, track);
         if(tc!=null)
             tc.sendMessage(Emoji.NOTES + " Now playing `" + track.getInfo().title + "`").queue();
 
@@ -269,6 +268,12 @@ public class TrackScheduler extends AudioEventAdapter {
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
         clearVote();
+
+        if (endReason == AudioTrackEndReason.REPLACED)
+            tc.sendMessage(Emoji.NEXT_TRACK + " Skipped the current song `" + track.getInfo().title + "`").queue();
+        else if (endReason == AudioTrackEndReason.STOPPED)
+            tc.sendMessage(Emoji.STOP + " Stopped and reset the player.").queue();
+
         if (endReason.mayStartNext) {
             nextTrack();
         }
@@ -283,9 +288,7 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     @Override
     public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
-        super.onTrackStuck(player, track, thresholdMs);
-        if(tc!=null)
-            tc.sendMessage(Emoji.ERROR + " Track stuck! Skipping to the next track...").queue();
+        tc.sendMessage(Emoji.ERROR + " Track stuck! Skipping to the next track...").queue();
         nextTrack();
     }
 
@@ -297,10 +300,8 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     @Override
     public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
-        super.onTrackException(player, track, exception);
-        if(tc!=null)
-            tc.sendMessage(Emoji.ERROR + " An error occurred! (Informed the owner)\n```\n\n"+exception.getLocalizedMessage()+"\n\n...```").queue();
-
+        tc.sendMessage(Emoji.ERROR + " An error occurred! (Informed the owner)\n```\n\n"+exception.getLocalizedMessage()+"\n\n...```").queue();
+        nextTrack();
         AILogger.errorLog(exception, this.getClass(), "TrackException(FriendlyException)", "Probably track decoding problem");
     }
 
@@ -310,9 +311,7 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     @Override
     public void onPlayerPause(AudioPlayer player) {
-        super.onPlayerPause(player);
-        if(tc!=null)
-            tc.sendMessage(Emoji.PAUSE + " Player paused.").queue();
+        tc.sendMessage(Emoji.PAUSE + " Player paused.").queue();
     }
 
     /**
@@ -321,10 +320,7 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     @Override
     public void onPlayerResume(AudioPlayer player) {
-        super.onPlayerResume(player);
-
-        if(tc!=null)
-            tc.sendMessage(Emoji.RESUME + " Player resumed.").queue();
+        tc.sendMessage(Emoji.RESUME + " Player resumed.").queue();
     }
 
     /**

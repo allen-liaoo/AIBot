@@ -12,7 +12,7 @@ import java.util.List;
 	 *
 	 * @author Alien Ideology <alien.ideology at alien.org>
 	 */
-public abstract class ListSelection extends AISelector {
+public abstract class StringSelection extends AISelector {
 
     private List<String> option;
 
@@ -22,12 +22,12 @@ public abstract class ListSelection extends AISelector {
      * @param ar
      * @param opt
      */
-    public ListSelection(Message msg, Member ar, List<String> opt) {
+    public StringSelection(Message msg, Member ar, List<String> opt) {
         super(msg, ar);
         this.option = opt;
     }
 
-    public ListSelection() {
+    public StringSelection() {
         super();
     }
 
@@ -44,9 +44,6 @@ public abstract class ListSelection extends AISelector {
                 return false;
             if (!e.getMessageId().equals(this.getMessage().getId()))
                 return false;
-            for (Object unicode : option) {
-                return false;
-            }
         }
         return false;
     }

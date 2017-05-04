@@ -51,14 +51,11 @@ public class MathCommand extends Command{
                 if(!in.equals("math") && !in.equals("calc") && !in.equals("m"))
                     input += in;
             }
-            
-
-            double result;
 
             try {
                 Expression ex = new ExpressionBuilder(input)
                     .build();
-                result = ex.evaluate();
+                double result = ex.evaluate();
                 int integer = (int)result;
                 
                 if(result >= 2147483647 || result <= -2147483647)
@@ -75,8 +72,10 @@ public class MathCommand extends Command{
                     + result + "`").queue();
                 }
                 
-            } catch (ArithmeticException ae) {
-                e.getChannel().sendMessage(Emoji.ERROR + " Do not devide a value by 0.").queue();
+            } catch (IllegalArgumentException iae) {
+                e.getChannel().sendMessage(Emoji.ERROR + iae.getLocalizedMessage() + ".").queue();
+            }catch (ArithmeticException ae) {
+                e.getChannel().sendMessage(Emoji.ERROR + " Do not divide a value by 0.").queue();
             } catch (RuntimeException rte) {
                 e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid math operation.").queue();
                 AILogger.errorLog(rte, e, this.getClass().getName(), "Unvalid operation \"" + input + "\"");

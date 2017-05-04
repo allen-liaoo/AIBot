@@ -14,6 +14,7 @@ import Constants.Emoji;
 import Constants.Global;
 import Setting.Prefix;
 import Utility.UtilBot;
+import Utility.UtilNum;
 import Utility.UtilString;
 import Utility.WebScraper;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
@@ -58,21 +59,40 @@ public class SongCommand extends Command{
                     e.getChannel().sendMessage(Emoji.ERROR + " No song is playing.").queue();
                 }
             }
-            else if(args.length >= 1 && Character.isDigit(args[0].charAt(0)))
+            else
             {
                 QueueList queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
-                int count = 0, target = Integer.parseInt(args[0]);
-                AudioTrackWrapper songinfo = null;
-                
-                if(target > queue.size()) 
+                AudioTrackWrapper np = Main.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack();
+
+                int target = 0;
+                String search = "";
+                if(UtilNum.isInteger(args[0]))
+                    target = Integer.parseInt(args[0]);
+                else {
+                    for(String s : args) { search += s; }
+                    target = queue.findIndex(search);
+                    // If return queue from QueueList#findIndex(), then check nowplayingtrack.
+                    // Return -1 if nowplayingtrack is the result. If no result, return -2.
+                    target = target == -1 ? (np.getTrack().getInfo().title.toLowerCase().contains(search) ? -1 : -2) : target;
+                }
+
+                if(target > queue.size()-1)
                 {
                     e.getChannel().sendMessage(Emoji.ERROR + " The position exceeds the range of this queue (" + queue.size() + ").").queue();
                     return;
+                } else if(target == -2) { //No search result
+                    e.getChannel().sendMessage(Emoji.ERROR + " No result of " + search + " in the queue.").queue();
+                    return;
                 }
 
-                Main.getGuild(e.getGuild()).getScheduler().getQueue().get(target);
-
-                e.getChannel().sendMessage(trackInfo(e, songinfo, "Queue Song (Position " + args[0] + ")").build()).queue();
+                AudioTrackWrapper songinfo = null;
+                if(target == -1) {
+                    songinfo = np;
+                    e.getChannel().sendMessage(trackInfo(e, songinfo, "Now Playing").build()).queue();
+                } else if(target == -2) {
+                    songinfo = Main.getGuild(e.getGuild()).getScheduler().getQueue().get(target);
+                    e.getChannel().sendMessage(trackInfo(e, songinfo, "Queue Song (Position " + target + ")").build()).queue();
+                }
             }
         }
     }

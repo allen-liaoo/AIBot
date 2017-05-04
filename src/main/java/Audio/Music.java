@@ -214,61 +214,8 @@ public class Music  {
         
         Main.getGuild(e.getGuild()).getScheduler().stopPlayer();
         Connection.disconnect(e, false);
-        e.getChannel().sendMessage(Emoji.STOP + " Stopped the player, left the voice channel and cleared queue.").queue();
     }
-    
-    /**
-     * Vote Skip System
-     * @param e
-     * @param position The position of the song
-     * @param force force skip
-     * @return 0 if the song is skipped
-     * @return a NUMBER more than 0 for the required votes
-     * @return -1 if the voter already voted
-     * @return -2 if there is no song playing
-     */
-    public static int skip(MessageReceivedEvent e, int position, boolean force)
-    {
-        if(Main.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack().isEmpty()) {
-            return -2;
-        }
 
-        //Force skip the current song
-        if(force) {
-            Main.getGuild(e.getGuild()).getScheduler().nextTrack();
-            Main.getGuild(e.getGuild()).getScheduler().clearVote();
-            return 0;
-        }
-        
-        //Vote Skip for current song
-        if(position == 0)
-        {
-            boolean isAdded = Main.getGuild(e.getGuild()).getScheduler().addVote(e.getAuthor());
-            int votes = Main.getGuild(e.getGuild()).getScheduler().getVote().size();
-            if(isAdded)
-            {
-                int mem = Main.getGuild(e.getGuild()).getScheduler().getRequiredVote();
-                if(votes >= mem) {
-                    Main.getGuild(e.getGuild()).getScheduler().nextTrack();
-                    Main.getGuild(e.getGuild()).getScheduler().clearVote();
-                    return 0;
-                }
-                return votes - mem;
-            }
-            else
-                return -1;
-        }
-        
-        //Skip a song in the queue
-        else if(position != 0)
-        {
-            QueueList queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
-            queue.remove(position);
-            return 0;
-        }
-        return -1;
-    }    
-    
     /**
      * Check if the user is in the same voice channel than the bot
      * @param e
