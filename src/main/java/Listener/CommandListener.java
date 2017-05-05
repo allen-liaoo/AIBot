@@ -7,6 +7,7 @@
  */
 package Listener;
 
+import Constants.Global;
 import Setting.Prefix;
 import Main.*;
 import Setting.GuildWrapper;
@@ -15,13 +16,17 @@ import static Main.Main.commands;
 import Constants.Emoji;
 import Setting.RateLimiter;
 import AISystem.AILogger;
+import jdk.nashorn.internal.runtime.GlobalConstants;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.ChannelType;
 
 import net.dv8tion.jda.core.exceptions.ErrorResponseException;
-import net.dv8tion.jda.core.requests.ErrorResponse;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+
+import java.awt.*;
+import java.time.Instant;
 
 /**
  *
@@ -77,7 +82,7 @@ public class CommandListener extends ListenerAdapter {
                     if(RateLimiter.isSpam(e)) return;
                     handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
                 } catch (Exception ex) {
-                    e.getChannel().sendMessage(Emoji.ERROR + " An error occurred!"+"```\n\n"+AILogger.stackTractToString(ex)+"```").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " An error occurred!"+"```\n\n"+AILogger.stackToString(ex)+"```").queue();
                 }
             }
              
@@ -109,8 +114,10 @@ public class CommandListener extends ListenerAdapter {
                     if(!errorResponseHandler(ere,e))
                         throw ere;
                 } catch (Exception ex) {
-                    e.getChannel().sendMessage(Emoji.ERROR + " An error occurred!"+"```\n\n"+AILogger.stackTractToString(ex)+"```").queue();
-                } 
+                    String hastePaste = AILogger.toHasteBin(AILogger.stackToString(ex));
+                    e.getChannel().sendMessage(Emoji.ERROR + " An error occurred! Please inform the owner.\n"+hastePaste).queue();
+                    handleExceptionLog(ex,e,hastePaste);
+                }
             });
         }
     }
@@ -144,6 +151,35 @@ public class CommandListener extends ListenerAdapter {
         }
 
         return handled;
+    }
+
+    /**
+     * Log the exception to AIBot server's #bug-report
+     * @param ex
+     * @param e
+     * @param hasteBinURL
+     */
+    public static void handleExceptionLog(Exception ex, MessageReceivedEvent e, String hasteBinURL)
+    {
+        String from = "", ID = "";
+        if(e instanceof MessageReceivedEvent) {
+            if (e.isFromType(ChannelType.TEXT)) {
+                from = "guild: " + e.getGuild().getName();
+                ID = e.getGuild().getId();
+            } else if (e.isFromType(ChannelType.PRIVATE)) {
+                from = "user: " + e.getAuthor().getName();
+                ID = e.getAuthor().getId();
+            }
+        } else if(e != null) {
+            from = "Class: " + e.toString();
+        } else {
+            from = "Unknown";
+        }
+
+        EmbedBuilder error = new EmbedBuilder().setAuthor("Exception: " + ex.getClass().getName(), hasteBinURL, Global.B_AVATAR)
+                .setColor(Color.RED).setTimestamp(Instant.now()).setFooter("ID: "+ID, null)
+                .appendDescription("From "+from+"\tLogged here: "+hasteBinURL);
+        e.getJDA().getTextChannelById(Global.B_SERVER_ERROR).sendMessage(error.build());
     }
     
 }

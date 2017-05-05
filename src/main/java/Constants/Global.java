@@ -40,6 +40,10 @@ public class Global {
     public final static String B_INVITE = "https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=368573567";
     public final static String B_SERVER = "https://discord.gg/EABc8Kc";
     public final static String B_GITHUB = "https://github.com/AlienIdeology/AIBot/";
+
+    //-Bot Server
+    public final static String B_SERVER_ID = "293928413029466114";
+    public final static String B_SERVER_ERROR = "294487318797090816";
     
     //Link
     public final static String L_MUSIC_HUB = "https://discord.gg/UMCqtZN";

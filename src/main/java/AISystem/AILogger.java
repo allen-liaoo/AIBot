@@ -2,21 +2,29 @@
  * AIBot by AlienIdeology
  * 
  * AILogger
- * Log when commands called, error occured, or bot joined a server
+ * Log when commands called, error occurred, or bot joined a server
  */
 package AISystem;
 
+import Listener.CommandListener;
 import Main.Main;
 import Constants.FilePath;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import org.json.JSONObject;
 
 /**
  *
@@ -63,9 +71,9 @@ public class AILogger {
             SimpleFormatter formatter = new SimpleFormatter();
             fhe.setFormatter(formatter);
             errorLogger.setUseParentHandlers(false);
-            
-            String from;
 
+            /* Get where the exception is from */
+            String from;
             if(obj instanceof MessageReceivedEvent) {
                 MessageReceivedEvent event = (MessageReceivedEvent) obj;
                 if (event.getChannelType() == event.getChannelType().TEXT)
@@ -74,13 +82,20 @@ public class AILogger {
                     from = "PM: " + event.getAuthor().getName();
                 else
                     from = ": Unknown (From unknown channel type.)";
+            } else if(obj != null) {
+                from = "Class: " + obj.toString();
             } else {
-                from = "Class; " + obj.toString();
+                from = "Unknown";
             }
-            
+
+            /* Log the exception in local file */
             Logger.getGlobal().log(Level.WARNING, "Error in " + at + " from " + from);
             errorLogger.log(Level.WARNING, "From" + from + "\n\t Cause: " + at + " -> " + cause, ex);
             fhe.close();
+
+            /* Log the exception in AIBot Server #bug_report */
+            CommandListener.handleExceptionLog(ex, (MessageReceivedEvent) obj, toHasteBin(stackToString(ex)));
+
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
         } catch (IOException ioe) {
@@ -124,10 +139,36 @@ public class AILogger {
      * @param ex
      * @return
      */
-    public static String stackTractToString(Exception ex) {
+    public static String stackToString(Exception ex) {
         StringWriter sw = new StringWriter();
         PrintWriter w = new PrintWriter(sw);
         ex.printStackTrace(w);
         return sw.toString();
     }
+
+    /**
+     * Paste a String to HasteBin and return the URL
+     *
+     * @param message The string to be sent in the body of the POST request
+     * @return A formatted URL which links to the pasted file
+     */
+    public static String toHasteBin(String message) {
+        try {
+            System.out.println("ayy");
+
+            JsonNode obj = Unirest.post("https://hastebin.com/documents")
+                    .header("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)")
+                    .header("Content-Type", "text/plain")
+                    .body(message)
+                    .asJson()
+                    .getBody();
+
+            return "https://hastebin.com/" + obj.getObject().getString("key");
+
+        } catch (UnirestException e) {
+            AILogger.errorLog(e, null, "Pasting to HasteBin", "Probably server side");
+        }
+        return null;
+    }
+
 }

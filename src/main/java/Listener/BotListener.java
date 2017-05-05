@@ -6,6 +6,7 @@
  */
 package Listener;
 
+import AISystem.AILogger;
 import Main.Main;
 import Utility.LyricsSearch;
 import Utility.UtilBot;
@@ -48,7 +49,6 @@ public class BotListener extends ListenerAdapter implements Runnable {
         Scanner scanner = new Scanner(System.in);
         while (true) 
         {
-            System.out.print("AIBot Console $ ");
             String input = scanner.nextLine();
             
             //ShutDown
@@ -64,12 +64,8 @@ public class BotListener extends ListenerAdapter implements Runnable {
             //Test Commands
             else if(input.startsWith("test"))
             {
-                System.out.println("Test wot?");
-                try {
-                    WebScraper.getYouTubeAutoPlay("https://www.youtube.com/watch?v=ojRj2JK5oCI");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                //System.out.println("Test wot?");
+                System.out.println(AILogger.toHasteBin("Testing"));
             }
             
             //Presence

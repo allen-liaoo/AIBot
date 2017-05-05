@@ -27,11 +27,9 @@ public class AboutCommand extends Command{
     public final static String BOT_DES = "The AIBot that started in the March of 2017 for music and fun commands.\n"
                                     + "**Developer:** Ayy™#3103 *aka* AlienIdeology\n"
                                     + "**Version:** " + Global.VERSION +"\n"
-                                    + "**Annoucement:** Working on Eval, Dump, Shuffle, Repeat and Softban~~\n"
-                                    + "**Latest Changes:** LogCommand and Server Join Message\n"
+                                    + "**Announcement:** Working on Eval and Soft Ban~~\n"
+                                    + "**Latest Changes:** MusicModule- AutoPlay\n"
                                     + "**Github Link:** " + Global.B_GITHUB;
-    private final EmbedBuilder embed = new EmbedBuilder();
-    private final EmbedBuilder embeddes = new EmbedBuilder();
     
 
     @Override
@@ -52,16 +50,12 @@ public class AboutCommand extends Command{
         
         if(args.length == 0) 
         {
-            embeddes.setColor(Color.red);
-            embeddes.setAuthor("What is " + Global.B_NAME + "?", Global.B_DISCORD_BOT, Global.I_INFO);
-            embeddes.setThumbnail(Global.B_AVATAR);
-            embeddes.setDescription(BOT_DES);
-            embeddes.setFooter("Request by " + e.getAuthor().getName() + "#" + e.getAuthor().getDiscriminator(), e.getAuthor().getEffectiveAvatarUrl());
-            embeddes.setTimestamp(Instant.now());
-
-            MessageEmbed medes = embeddes.build();
-            
-            e.getChannel().sendMessage(medes).queue();
+            EmbedBuilder embeds = new EmbedBuilder();
+            embeds.setColor(Color.red).setTimestamp(Instant.now()).setThumbnail(Global.B_AVATAR);
+            embeds.setAuthor("What is " + Global.B_NAME + "?", Global.B_DISCORD_BOT, Global.I_INFO);
+            embeds.setDescription(BOT_DES);
+            embeds.setFooter("Request by " + e.getAuthor().getName() + "#" + e.getAuthor().getDiscriminator(), e.getAuthor().getEffectiveAvatarUrl());
+            e.getChannel().sendMessage(embeds.build()).queue();
         }
     }
 
