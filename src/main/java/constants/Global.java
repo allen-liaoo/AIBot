@@ -43,6 +43,8 @@ public class Global {
     //-Bot Server
     public final static String B_SERVER_ID = "293928413029466114";
     public final static String B_SERVER_ERROR = "294487318797090816";
+    public final static String B_SERVER_STATUS = "310453321972449290";
+    public final static String B_SERVER_STATUS_MSG = "310458751645908992";
     
     //Link
     public final static String L_MUSIC_HUB = "https://discord.gg/UMCqtZN";

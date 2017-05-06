@@ -4,7 +4,7 @@
  * Selector Listener
  * Send selections to specific selector in some Command Class
  */
-package Listener;
+package listener;
 
 import system.selector.EmojiSelection;
 import command.music.PlayCommand;

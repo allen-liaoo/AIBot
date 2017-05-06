@@ -4,7 +4,7 @@
  * RateLimitter
  * Rate limited the users
  */
-package Setting;
+package setting;
 
 import constants.Emoji;
 import utility.UtilString;

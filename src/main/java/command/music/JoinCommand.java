@@ -5,7 +5,7 @@
  */
 package command.music;
 
-import Setting.Prefix;
+import setting.Prefix;
 import audio.*;
 import command.Command;
 import net.dv8tion.jda.core.EmbedBuilder;

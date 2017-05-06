@@ -7,7 +7,7 @@ package command.fun;
 
 import command.Command;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import constants.Emoji;
 import constants.FilePath;
 import system.AILogger;

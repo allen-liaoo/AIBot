@@ -8,7 +8,7 @@ package command.music;
 import command.*;
 import audio.Music;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 

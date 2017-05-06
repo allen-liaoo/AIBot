@@ -8,7 +8,7 @@ package command.fun;
 import command.*;
 import constants.Emoji;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import java.awt.Color;
 import java.io.BufferedReader;

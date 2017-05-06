@@ -7,7 +7,7 @@ package command.utility;
 
 import command.Command;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.SearchResult;
 import java.io.IOException;
 

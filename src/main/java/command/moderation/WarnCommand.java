@@ -10,7 +10,7 @@ package command.moderation;
 import command.Command;
 import constants.Emoji;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
 import java.util.List;
@@ -25,7 +25,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class WarnCommand extends Command {
     public final static String HELP = "This command is for banning members.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"warn`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"warn`\n"
                                     + "Parameter: `-h | @Member(s) [Reason]\n`"
                                     + "@Member(s) [Reason]: Mention members to warn, then give a reason.\n";
     

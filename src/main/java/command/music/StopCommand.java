@@ -10,7 +10,7 @@ import audio.Music;
 import command.Command;
 import main.AIBot;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.UtilBot;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;

@@ -11,7 +11,7 @@ import command.Command;
 import constants.Emoji;
 import constants.FilePath;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import java.io.BufferedReader;
 import java.io.FileReader;

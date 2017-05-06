@@ -8,17 +8,12 @@ package command.information;
 import command.*;
 import constants.Emoji;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import main.AIBot;
 import utility.UtilBot;
 import utility.UtilString;
-import java.awt.Color;
-import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import java.lang.management.*;
 
 /**
  *
@@ -58,70 +53,17 @@ public class StatusCommand extends Command{
         
         if(args.length == 0)
         {
-            long timeCurrent = System.currentTimeMillis(), uptime;
-            uptime = timeCurrent - AIBot.timeStart;
-            String upinfo = UtilString.formatTime(uptime);
-            
-            
             if("uptime".equals(type))
             {
-                e.getChannel().sendMessage(Emoji.STOPWATCH + " AIBot has been up for: " + upinfo).queue();
+                String uptime = UtilString.formatTime(System.currentTimeMillis() - AIBot.timeStart);
+                e.getChannel().sendMessage(Emoji.STOPWATCH + " AIBot has been up for: " + uptime).queue();
             }
 
             else if("status".equals(type))
             {
-                JDA bot = e.getJDA();
-                String avatar, status, shard, more;
-                int guild, textchannels, privatechannels, audiochannels, voicechannels;
-
-                avatar = bot.getSelfUser().getAvatarUrl();
-                status = UtilBot.getStatusString(e.getJDA().getPresence().getStatus()) + ", " + UtilString.VariableToString("_", bot.getStatus().name());
-                guild = bot.getGuilds().size();
-                textchannels = bot.getTextChannels().size();
-                privatechannels = bot.getPrivateChannels().size();
-                audiochannels = bot.getVoiceChannels().size();
-                voicechannels = UtilBot.getConnectedVoiceChannels() == null ? 0 : UtilBot.getConnectedVoiceChannels().size();
-                try{shard = bot.getShardInfo().getShardString();} catch(NullPointerException ne) {shard = "None";}
-
-                //More info
-                OperatingSystemMXBean os = (OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
-                double loadAverage = Math.round(os.getSystemLoadAverage()*1000)/1000;
-                int processors = os.getAvailableProcessors();
-                String osversion = os.getVersion();
-
-                MemoryUsage osx = (MemoryUsage)ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
-                String used = UtilString.convertBytes(osx.getUsed(), true);
-                String available = UtilString.convertBytes(osx.getCommitted(), true);
-                String memory = used + "/" + available;
-
-                more = "Operating System Version: Mac Sierra " + osversion
-                       + "\nUsed Memory: " + memory
-                       + "\nAvailable Processors: " + processors 
-                       + "\nLoad Average: " + loadAverage;
-                
-                embedstatus.setColor(Color.blue);
-                embedstatus.setTitle("AIBot Status", null);
-                embedstatus.setThumbnail(avatar);
-
-                embedstatus.addField(Emoji.STOPWATCH + " Uptime", upinfo, true);
-                embedstatus.addField(Emoji.STATUS + " Status", status, true);
-                embedstatus.addField(Emoji.GUILDS + " Servers", String.valueOf(guild), true);
-                embedstatus.addField(Emoji.SHARDS + " Shards", shard, true);
-                embedstatus.addField(Emoji.TEXT + " Text Channels", String.valueOf(textchannels), true);
-                embedstatus.addField(Emoji.SPY + " PrivateConstant Channels", String.valueOf(privatechannels), true);
-                embedstatus.addField(Emoji.MUSIC + " Voice Channels", String.valueOf(audiochannels), true);
-                embedstatus.addField(Emoji.NOTES + " Playing Music in", String.valueOf(voicechannels) + " voice channel(s)", true);
-                embedstatus.addField("More...", more, true);
-                embedstatus.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
-                embedstatus.setTimestamp(Instant.now());
-
-                MessageEmbed me = embedstatus.build();
-                e.getChannel().sendMessage(me).queue();
-                embedstatus.clearFields();   
+                e.getChannel().sendMessage(UtilBot.postStatus(e.getJDA()).build()).queue();
             }
         }
     }
-
-    
     
 }

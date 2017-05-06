@@ -7,8 +7,8 @@
 package main;
 
 import constants.Global;
-import Private.PrivateConstant;
-import Setting.GuildWrapper;
+import secret.PrivateConstant;
+import setting.GuildWrapper;
 import command.*;
 import command.information.*;
 import command.moderation.*;
@@ -16,10 +16,10 @@ import command.utility.*;
 import command.music.*;
 import command.fun.*;
 import command.restricted.*;
-import Listener.*;
+import listener.*;
 import audio.*;
 import system.AILogger;
-import Setting.*;
+import setting.*;
 import utility.UtilBot;
 import com.mashape.unirest.http.Unirest;
 
@@ -76,31 +76,35 @@ public class AIBot {
                     .buildBlocking();
 
             jda.getPresence().setGame(Game.of(Global.B_GAME_DEFAULT));
-
-            if(jda.getToken().equals(PrivateConstant.BOT_BETA_TOKEN)) {
-                isBeta = true;
-            } else {
-                isBeta = false;
-            }
-
-            startUp();
+            isBeta = jda.getToken().equals(PrivateConstant.BOT_BETA_TOKEN) ? true : false;
+            if(!isBeta) startUp();
+            else startUpBeta();
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
             e.printStackTrace();
             AILogger.updateLog("Exception thrown while logging.");
         }
     }
     
-    public static void startUp()
+    public synchronized static void startUp()
     {
         timeStart = System.currentTimeMillis();
 
+        //Post API and Status
         UtilBot.setUnirestCookie();
-        if(!isBeta)
-            apiPoster = new APIPostAgent(jda);
+        apiPoster = new APIPostAgent(jda);
+        jda.getGuildById(Global.B_SERVER_ID).getTextChannelById(Global.B_SERVER_STATUS).
+                editMessageById(Global.B_SERVER_STATUS_MSG, UtilBot.postStatus(jda).build()).queue();
 
         addCommands();
     }
-    
+
+    public synchronized static void startUpBeta()
+    {
+        timeStart = System.currentTimeMillis();
+        UtilBot.setUnirestCookie();
+        addCommands();
+    }
+
     public static void shutdown() throws IOException
     {
         System.out.println("Bot Shut Down Successfully");
@@ -148,6 +152,7 @@ public class AIBot {
         
         commands.put("ban", new BanCommand());
         commands.put("unban", new UnbanCommand());
+        commands.put("softban", new SoftBanCommand());
         
         //utility Commands
         commands.put("number", new NumberCommand());

@@ -7,7 +7,7 @@ package command.moderation;
 
 import command.Command;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import java.awt.Color;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
 public class UnbanCommand extends Command{
 
     public final static  String HELP = "This command is for unbanning members.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"unban`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"unban`\n"
                                      + "Parameter: `-h | Member(s)' ID`\n"
                                      + "**Note: ** To get ID, put `\\` in front of a @menton.";
    

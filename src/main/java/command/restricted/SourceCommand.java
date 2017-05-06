@@ -9,7 +9,7 @@ import command.Command;
 import constants.Emoji;
 import constants.Global;
 import constants.FilePath;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import java.io.*;  
 import java.util.ArrayList;

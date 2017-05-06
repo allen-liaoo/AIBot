@@ -1,6 +1,6 @@
 package main;
 
-import Private.PrivateConstant;
+import secret.PrivateConstant;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import net.dv8tion.jda.core.JDA;
@@ -13,10 +13,10 @@ public class APIPostAgent {
     private JDA jda;
 
     /* Discord Bots */
-    private String DiscordBotsURL = "https://bots.discord.pw/api/bots/"+ PrivateConstant.BOT_ID+"/stats";
+    private String DiscordBotsURL = "https://bots.discord.pw/api/bots/"+ PrivateConstant.BOT_ID + "/stats";
 
     /* Discord Bots List */
-    private String DiscordBotsListURL = "https://discordbots.org/api/bots/"+ PrivateConstant.BOT_ID+"/stats";
+    private String DiscordBotsListURL = "https://discordbots.org/api/bots/"+ PrivateConstant.BOT_ID + "/stats";
 
 
     public APIPostAgent(JDA jda) {

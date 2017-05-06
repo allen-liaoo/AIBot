@@ -8,7 +8,7 @@ package command.information;
 //Set to SUPPORT PRIVATE CHANNEL.
 
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import command.Command;
 import java.awt.Color;
 import java.time.Instant;

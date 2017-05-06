@@ -7,7 +7,7 @@ package command.information;
 
 import command.Command;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import constants.Emoji;
 import java.awt.Color;
 import java.util.List;

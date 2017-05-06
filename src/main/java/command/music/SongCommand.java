@@ -12,7 +12,7 @@ import command.Command;
 import main.AIBot;
 import constants.Emoji;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.UtilBot;
 import utility.UtilNum;
 import utility.UtilString;

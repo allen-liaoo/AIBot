@@ -13,7 +13,7 @@ import audio.TrackScheduler;
 import command.Command;
 import constants.Emoji;
 import main.AIBot;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

@@ -10,7 +10,7 @@ package audio;
 import main.AIBot;
 import constants.Emoji;
 import constants.FilePath;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import utility.UtilBot;
 import com.mashape.unirest.http.Unirest;

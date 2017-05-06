@@ -8,7 +8,7 @@ package command.fun;
 import command.Command;
 import constants.Emoji;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import game.HangMan;
 import system.AILogger;
 

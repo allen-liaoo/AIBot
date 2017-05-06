@@ -10,7 +10,7 @@ package command.music;
 import audio.Radio;
 import command.Command;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.UtilBot;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;

@@ -8,7 +8,7 @@ package command.information;
 //Set to SUPPORT PRIVATE CHANNEL.
 
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import constants.Global;
 import command.Command;
 

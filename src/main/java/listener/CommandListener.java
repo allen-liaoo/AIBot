@@ -5,15 +5,15 @@
  * Deliver commands to CommandParser, then handle the command by calling the corisponding
  * Command Class.
  */
-package Listener;
+package listener;
 
-import Setting.Prefix;
+import setting.Prefix;
 import main.*;
-import Setting.GuildWrapper;
+import setting.GuildWrapper;
 import audio.Music;
 import static main.AIBot.commands;
 import constants.Emoji;
-import Setting.RateLimiter;
+import setting.RateLimiter;
 import system.AILogger;
 import net.dv8tion.jda.core.entities.ChannelType;
 

@@ -11,7 +11,7 @@ import command.Command;
 
 import constants.Global;
 import constants.HelpText;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.UtilBot;
 
 import java.time.Instant;

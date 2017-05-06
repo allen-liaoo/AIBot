@@ -7,7 +7,7 @@ package command.utility;
 
 import command.Command;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import com.vdurmont.emoji.EmojiManager;
 import java.awt.Color;
 import java.time.Instant;

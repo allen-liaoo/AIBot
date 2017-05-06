@@ -60,14 +60,16 @@ public class HelpText {
             + "**kick**\n"
             + "**warn**\n"
             + "**ban**\n"
-            + "**unban**\n";
+            + "**unban**\n"
+            + "**softban**\n\n";
     
     public final static String MOD_DES = 
             "Delete messages.\n"
             + "Kick member(s).\n"
             + "Warn a user in dm.\n"
             + "Ban member(s) by Mention.\n"
-            + "Unban member(s) by ID.\n";
+            + "Unban member(s) by ID.\n"
+            + "kick and clean up member(s)\n messages.\n";
     
     /*
     * utility Module

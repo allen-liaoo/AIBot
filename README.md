@@ -23,6 +23,7 @@ __**Moderation Commands**__
 - kick (k) - Kick member(s). 
 - ban (b) - Ban member(s) by Mention. 
 - unban (ub) - Unban member(s) by ID. 
+- softban - Kick and clean up member(s) messages.
 
 __**utility Commands**__ 
 - number (n) - Generate random numbers, roll a dice, or flip a coin. * 
@@ -69,7 +70,7 @@ These commands are for **Server Owner** or **Bot Owner** only.
 
 __**Note:**__ <br />
 Adding the command/module name after help will show the command/module usage. <br />
-\* - Available directly from Private Message. (Private Channel) <br />
+\* - Available directly from secret Message. (secret Channel) <br />
 
 ## Libraries
 1. Java http://www.oracle.com/technetwork/java/javase/overview/index.html (JDK 8)

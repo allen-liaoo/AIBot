@@ -6,7 +6,7 @@ import constants.Emoji;
 import constants.Global;
 import main.AIBot;
 import command.Command;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

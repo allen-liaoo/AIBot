@@ -6,7 +6,7 @@
  */
 package main;
 
-import Setting.Prefix;
+import setting.Prefix;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;

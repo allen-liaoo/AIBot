@@ -5,7 +5,7 @@
  * 
  * 2017 (c) AIBot
  */
-package Listener;
+package listener;
 
 import constants.Global;
 import main.AIBot;
@@ -44,7 +44,7 @@ public class GuildListener extends ListenerAdapter {
                                 + "[Support Server](https://discordapp.com/invite/EABc8Kc) for bug reports, suggestions and help";
     
     /**
-     * Guild Listener
+     * Guild listener
      */
     
     @Override
@@ -79,7 +79,7 @@ public class GuildListener extends ListenerAdapter {
     }
     
     /**
-     * Bot Listener
+     * Bot listener
      */
     
     @Override
@@ -93,7 +93,7 @@ public class GuildListener extends ListenerAdapter {
     }
     
     /**
-     * Voice Channel Listener
+     * Voice Channel listener
      */
     
     @Override

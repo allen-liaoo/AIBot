@@ -8,7 +8,7 @@ package command.fun;
 import command.Command;
 import constants.Emoji;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import game.TicTacToe;
 import system.AILogger;
 import net.dv8tion.jda.core.EmbedBuilder;

@@ -22,8 +22,8 @@ public class FilePath {
     public static final String EightBall = BasePath + "game/8Ball.txt";
     public static final String HangMan = BasePath + "game/WordBank.txt";
     
-    public static String LogError = BasePath + "Private/LogError.txt";
-    public static String LogCommand = BasePath + "/Private/LogCommand.txt";
-    public static String LogMain = BasePath + "Private/LogMain.txt";
+    public static String LogError = BasePath + "secret/LogError.txt";
+    public static String LogCommand = BasePath + "/secret/LogCommand.txt";
+    public static String LogMain = BasePath + "secret/LogMain.txt";
     
 }

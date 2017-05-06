@@ -11,7 +11,7 @@ import audio.Music;
 import command.Command;
 import constants.Emoji;
 import main.AIBot;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.UtilBot;
 import utility.UtilString;
 import java.time.Duration;

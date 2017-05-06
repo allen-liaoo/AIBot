@@ -10,7 +10,7 @@ package command.fun;
 import command.Command;
 import constants.Global;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.UtilNum;
 import java.util.HashMap;
 import java.util.List;

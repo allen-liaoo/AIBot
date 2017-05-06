@@ -7,7 +7,7 @@ package command.music;
 
 import command.Command;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.SearchResult;
 import utility.Search;
 import utility.WebScraper;

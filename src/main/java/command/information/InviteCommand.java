@@ -7,7 +7,7 @@ package command.information;
 
 import constants.Emoji;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import command.Command;
 import utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;

@@ -11,7 +11,7 @@ import main.AIBot;
 import audio.Music;
 import command.Command;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

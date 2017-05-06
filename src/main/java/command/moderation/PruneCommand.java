@@ -7,7 +7,7 @@ package command.moderation;
 
 import constants.Emoji;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import command.Command;
 import system.AILogger;
 import java.util.List;
@@ -25,7 +25,7 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
 public class PruneCommand extends Command{
     
     public final static  String HELP = "This command is for deleting messages.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"prune`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"prune`\n"
                                      + "Parameter: `-h | Number`";
     
     @Override

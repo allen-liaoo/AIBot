@@ -2,12 +2,13 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
-#### [0.3.2] - 2017-05-01 ~ 2017-05-05
+#### [0.3.2] - 2017-05-01 ~ 2017-05-06
 ##### Added
 - AutoPlayCommand which works like YouTube autoplay mode.
 - Music#checkMode for the logic from switching between modes.
 - QueueList, a custom implementation of Collection(LinkedList) for track queue.
 - PreviousCommand that will replay the previous song. Added a QueueList for storing up to 5 previous songs.
+- SoftBanCommand that will kick and clean up member(s) messages.
 
 #### [0.3.0] - 2017-04-12 ~ 2017-04-30
 ##### Added
@@ -95,7 +96,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 ##### Added 
 - GuessNumber game and GuessNumberCommand. Enjoy~
 ##### Changed
-- Log System from input `String guild` to `MessageReceivedEvent event` in order to supports Private Message Logging.
+- Log System from input `String guild` to `MessageReceivedEvent event` in order to supports secret Message Logging.
 - Changed the CommandListener to listen to commands with mention. 
 
 #### [0.1.6] - 2017-04-06

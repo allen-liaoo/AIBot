@@ -7,7 +7,7 @@ package command.information;
 
 import command.Command;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import java.awt.Color;
 import java.time.Instant;
 import net.dv8tion.jda.core.EmbedBuilder;

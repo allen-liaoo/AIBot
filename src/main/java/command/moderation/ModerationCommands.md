@@ -29,3 +29,9 @@ command Usage: =unban
 Parameter: `-h | Member(s)' ID
 Note: To get ID, put \ in front of a @menton.
 ```
+
+- 
+```Soft ban is ban and immediately unban a member to kick and clean up the member's message.
+Command Usage: softban
+Parameter: -h | @Member(s)
+```

@@ -4,7 +4,7 @@
  * ConsoleListener
  * Listener for console commands
  */
-package Listener;
+package listener;
 
 import system.AILogger;
 import main.AIBot;
@@ -25,7 +25,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 public class BotListener extends ListenerAdapter implements Runnable {
     
     private Thread t;
-    private final String threadName = "Console Listener Thread";
+    private final String threadName = "Console listener Thread";
     
     public BotListener()
     {

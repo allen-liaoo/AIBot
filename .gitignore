@@ -1,6 +1,10 @@
-/src/main/java/Resource/Private.java
-/src/main/java/Setting/LogCommand.txt
-/src/main/java/Setting/LogError.txt
-/src/main/java/Setting/LogMain.txt
-/src/main/java/Private/
+/src/main/java/secret/
 /.idea
+.gradle/
+build/
+gradlew
+gradlew.bat
+settings.gradle
+src/main/java/com/
+src/main/resources/
+src/test/

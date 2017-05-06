@@ -7,7 +7,7 @@ package command.utility;
 
 import constants.Emoji;
 import utility.Search;
-import Setting.Prefix;
+import setting.Prefix;
 import utility.SearchResult;
 import command.Command;
 import system.AILogger;

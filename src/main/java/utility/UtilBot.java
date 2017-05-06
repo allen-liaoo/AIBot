@@ -2,15 +2,22 @@
  * AIBot by AlienIdeology
  * 
  * UtilBot
- * All Bot utilities
+ * All jda utilities
  */
 package utility;
 
+import main.AIBot;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.*;
 import system.AILogger;
 import constants.Global;
-import main.AIBot;
 import constants.Emoji;
 import java.awt.Color;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryUsage;
+import java.lang.management.OperatingSystemMXBean;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,12 +26,6 @@ import java.util.Random;
 
 import com.mashape.unirest.http.Unirest;
 import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Channel;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.CookieSpecs;
@@ -64,12 +65,12 @@ public class UtilBot {
             set = "No game";
         }
         AIBot.jda.getPresence().setGame(g);
-        AILogger.updateLog("Bot game set to " + set);
+        AILogger.updateLog("jda game set to " + set);
         return set;
     }
 
     /**
-     * Set the STATUS of the bot
+     * Set the STATUS of the jda
      * @param stat
      * @return
      */
@@ -102,7 +103,7 @@ public class UtilBot {
                 break;
         }
         AIBot.jda.getPresence().setStatus(status);
-        AILogger.updateLog("Bot Status set to " + status.toString());
+        AILogger.updateLog("jda Status set to " + status.toString());
         return status;
     }
     
@@ -138,7 +139,7 @@ public class UtilBot {
     }
     
     /**
-     * Get the guild list of this bot (Sorted by member count)
+     * Get the guild list of this jda (Sorted by member count)
      * @return
      */
     public static List<Guild> getServerList()
@@ -257,7 +258,7 @@ public class UtilBot {
     }
 
     /**
-     * Check if a member is mod: Have Administrator or Manage Server Permission, is server owner, or is bot owner.
+     * Check if a member is mod: Have Administrator or Manage Server Permission, is server owner, or is jda owner.
      * @param mem
      * @return true if the user is mod
      */
@@ -274,7 +275,7 @@ public class UtilBot {
     public static boolean isMajority(Member mem)
     {
         if(mem.getVoiceState().getChannel() != null) {
-            //Only count non-Bot Users
+            //Only count non-jda Users
             double mems = 0;
             List<Member> members = mem.getVoiceState().getChannel().getMembers();
             for(Member m : members) {
@@ -320,5 +321,54 @@ public class UtilBot {
 
         HttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(globalConfig).build();
         Unirest.setHttpClient(httpclient);
+    }
+
+    /**
+     * Post the status of this bot
+     * @param jda
+     * @return
+     */
+    public static EmbedBuilder postStatus(JDA jda)
+    {
+        String avatar, status, uptime, shard, more;
+        int guild, voicechannels;
+        EmbedBuilder embedstatus = new EmbedBuilder();
+
+        avatar = jda.getSelfUser().getAvatarUrl();
+        uptime = UtilString.formatTime(System.currentTimeMillis() - AIBot.timeStart);
+        status = getStatusString(jda.getPresence().getStatus()) + ", " + UtilString.VariableToString("_", jda.getStatus().name());
+        guild = jda.getGuilds().size();
+        voicechannels = getConnectedVoiceChannels() == null ? 0 : getConnectedVoiceChannels().size();
+        try{shard = jda.getShardInfo().getShardString();} catch(NullPointerException ne) {shard = "None";}
+
+        //More info
+        OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
+        double loadAverage = Math.round(os.getSystemLoadAverage()*1000)/1000;
+        int processors = os.getAvailableProcessors();
+        String osversion = os.getVersion();
+
+        MemoryUsage osx = ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
+        String used = UtilString.convertBytes(osx.getUsed(), true);
+        String available = UtilString.convertBytes(osx.getCommitted(), true);
+        String memory = used + "/" + available;
+
+        more = "Operating System Version: Mac Sierra " + osversion
+                + "\nUsed Memory: " + memory
+                + "\nAvailable Processors: " + processors
+                + "\nLoad Average: " + loadAverage;
+
+        embedstatus.setColor(Color.blue);
+        embedstatus.setTitle("AIBot Status", null);
+        embedstatus.setThumbnail(avatar);
+
+        embedstatus.addField(Emoji.STOPWATCH + " Uptime", uptime, true);
+        embedstatus.addField(Emoji.STATUS + " Status", status, true);
+        embedstatus.addField(Emoji.GUILDS + " Servers", String.valueOf(guild), true);
+        embedstatus.addField(Emoji.SHARDS + " Shards", shard, true);
+        embedstatus.addField(Emoji.NOTES + " Playing Music in", String.valueOf(voicechannels) + " voice channel(s)", true);
+        embedstatus.addField("More...", more, true);
+        embedstatus.setTimestamp(Instant.now());
+
+        return embedstatus;
     }
 }

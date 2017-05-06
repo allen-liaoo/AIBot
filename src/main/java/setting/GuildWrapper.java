@@ -4,7 +4,7 @@
  * GuildWrapper
  * Custom settings per guild
  */
-package Setting;
+package setting;
 
 import audio.AudioPlayerSendHandler;
 import audio.TrackScheduler;

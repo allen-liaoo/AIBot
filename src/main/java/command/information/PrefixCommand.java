@@ -6,7 +6,7 @@
 package command.information;
 
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import constants.Global;
 import command.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -44,7 +44,7 @@ public class PrefixCommand extends Command {
         
         else {
             //Prefix.setPrefix(args[0], e);
-            e.getChannel().sendMessage(Emoji.ERROR + " Setting Prefix is not supported.").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " setting Prefix is not supported.").queue();
         }
             
     }

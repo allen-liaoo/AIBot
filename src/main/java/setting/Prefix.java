@@ -4,7 +4,7 @@
  * Prefix
  * Accessing prefix
  */
-package Setting;
+package setting;
 
 import main.*;
 

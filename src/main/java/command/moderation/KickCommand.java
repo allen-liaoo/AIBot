@@ -7,7 +7,7 @@ package command.moderation;
 
 import command.Command;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -55,10 +55,12 @@ public class KickCommand extends Command{
             if (!selfMember.hasPermission(Permission.KICK_MEMBERS)) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " I need to have **Kick Members* Permission to kick members.").queue();
                 return;
+            }else if(e.getMember().hasPermission(Permission.KICK_MEMBERS)) {
+                e.getTextChannel().sendMessage(Emoji.ERROR + " You need to have **Kick Members** Permission to ban members.").queue();
+                return;
             }
             
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
-            
             AILogger.commandLog(e, "KickCommand", "Called to kick " + mentionedUsers.size() + " users.");
             
             for (User user : mentionedUsers)

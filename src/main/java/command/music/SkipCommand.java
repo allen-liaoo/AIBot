@@ -10,7 +10,7 @@ import audio.QueueList;
 import command.Command;
 import main.AIBot;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 
 import utility.UtilBot;
 import utility.UtilNum;

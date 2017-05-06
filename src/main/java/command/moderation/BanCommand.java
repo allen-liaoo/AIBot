@@ -8,7 +8,7 @@ package command.moderation;
 import command.Command;
 import constants.Emoji;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -25,8 +25,8 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
  */
 public class BanCommand extends Command{
 
-    public final static  String HELP = "This command is for banning members.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"ban`\n"
+    public final static String HELP = "This command is for banning members.\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"ban`\n"
                                      + "Parameter: `-h | @Member(s)`";
     private final int delDays = 7;
     
@@ -60,9 +60,12 @@ public class BanCommand extends Command{
             if (!selfMember.hasPermission(Permission.BAN_MEMBERS)) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " I need to have **Ban Members** Permission to ban members.").queue();
                 return;
+            } else if(e.getMember().hasPermission(Permission.BAN_MEMBERS)) {
+                e.getTextChannel().sendMessage(Emoji.ERROR + " You need to have **Ban Members** Permission to ban members.").queue();
+                return;
             }
+
             List<User> mentionedUsers = e.getMessage().getMentionedUsers();
-            
             AILogger.commandLog(e, "BanCommand", "Called to ban " + mentionedUsers.size() + " users.");
             
             for (User user : mentionedUsers)

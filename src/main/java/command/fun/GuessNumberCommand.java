@@ -9,7 +9,7 @@ import command.Command;
 import constants.Global;
 import game.GuessNumber;
 import constants.Emoji;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;

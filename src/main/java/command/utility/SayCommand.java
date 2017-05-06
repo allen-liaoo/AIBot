@@ -6,7 +6,7 @@
 package command.utility;
 
 import command.Command;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import java.awt.Color;
 import java.util.List;

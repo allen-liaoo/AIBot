@@ -8,7 +8,7 @@ package command.utility;
 import command.Command;
 import constants.Emoji;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import com.github.fedy2.weather.*;
 import com.github.fedy2.weather.data.*;

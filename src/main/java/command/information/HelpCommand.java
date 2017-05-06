@@ -8,7 +8,7 @@ package command.information;
 import constants.Emoji;
 import constants.Global;
 import constants.HelpText;
-import Setting.Prefix;
+import setting.Prefix;
 import command.fun.EightBallCommand;
 import command.*;
 import command.moderation.*;
@@ -18,7 +18,7 @@ import command.fun.*;
 import command.restricted.*;
 import system.AILogger;
 import system.selector.EmojiSelection;
-import Listener.SelectorListener;
+import listener.SelectorListener;
 import utility.UtilBot;
 
 import java.time.Instant;

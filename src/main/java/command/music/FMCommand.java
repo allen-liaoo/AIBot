@@ -10,7 +10,7 @@ package command.music;
 import audio.FM;
 import command.Command;
 import constants.Global;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import utility.UtilBot;
 import com.mashape.unirest.http.exceptions.UnirestException;

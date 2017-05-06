@@ -10,7 +10,7 @@ package audio;
 import audio.AudioTrackWrapper.TrackType;
 import constants.Emoji;
 import constants.FilePath;
-import Setting.Prefix;
+import setting.Prefix;
 import system.AILogger;
 import com.moandjiezana.toml.Toml;
 import java.io.File;

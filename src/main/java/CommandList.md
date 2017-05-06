@@ -23,8 +23,9 @@
 - prune (p) - Delete messages.
 - kick (k) - Kick member(s).
 - warn - Warn a user in direct message.
-- ban (b) - Ban member(s) by Mention.
-- unban (ub) - Unban member(s) by ID.
+- ban - Ban member(s) by Mention.
+- unban - Unban member(s) by ID.
+- softban - Kick and clean up member(s) messages.
 
 ## utility Commands
 - number (n) - Generate random numbers, roll a dice, or flip a coin. *
@@ -95,5 +96,5 @@ These commands are for **Server Owner** or **Bot Owner** only. <br />
 - @Mention the bot with commands will also trigger the respond. <br />
 - Adding the command/module name after help will show the command/module usage. <br />
 - Adding `-h` after a command will show the command usage. <br />
-- \* - Available directly from Private Message. (Private Channel) <br />
+- \* - Available directly from secret Message. (secret Channel) <br />
 - ^ - Available directly from Console. <br />

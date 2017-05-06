@@ -6,7 +6,7 @@
 package command.fun;
 
 import command.Command;
-import Setting.Prefix;
+import setting.Prefix;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 

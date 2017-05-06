@@ -1,4 +1,4 @@
-package Setting;
+package setting;
 
 import constants.Global;
 import constants.Emoji;
