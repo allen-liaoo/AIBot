@@ -41,7 +41,7 @@ public class QueueList extends LinkedList<AudioTrackWrapper> {
     public void shuffle() {
         Collections.shuffle(queue);
     }
-
+    /*
     @Override
     public void sort(Comparator c) {
         Collections.sort(queue, c);
@@ -121,5 +121,6 @@ public class QueueList extends LinkedList<AudioTrackWrapper> {
     public void clear() {
         queue.clear();
     }
+    */
 
 }

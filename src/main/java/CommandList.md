@@ -71,6 +71,7 @@
 - pause (ps) - Pause/Resume the current playing song.
 - queue (q) - Show the playlist and what's coming next.
 - skip - Skip the song.
+- previous (pre) - Replay previous song.
 - nowplaying (np) - Get the information of the current playing song.
 - volume - Set the volume of the bot.
 - jump (jp) - Jump to a position of the song.

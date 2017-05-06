@@ -5,6 +5,7 @@
  */
 package Command.MusicModule;
 
+import Audio.Connection;
 import Audio.Music;
 import Command.Command;
 import Main.Main;
@@ -57,7 +58,7 @@ public class StopCommand extends Command{
             if(UtilBot.isMajority(e.getMember()) ||
                 UtilBot.isMod(e.getMember()))
             {
-                Music.stop(e);
+                stop(e);
             }
             else 
             {
@@ -68,5 +69,18 @@ public class StopCommand extends Command{
         }
     }
 
+    public void stop(MessageReceivedEvent e)
+    {
+        //Prevent user that is not in the same voice channel from stopping the Player
+        if(!Music.checkVoiceChannel(e)) {
+            return;
+        }
+
+        if (Main.getGuild(e.getGuild()).getPlayer().getPlayingTrack() == null)
+            e.getChannel().sendMessage(Emoji.STOP + " Stopped and reset the player.").queue();
+
+        Main.getGuild(e.getGuild()).getScheduler().stopPlayer();
+        Connection.disconnect(e, false);
+    }
     
 }

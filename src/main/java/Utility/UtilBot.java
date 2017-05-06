@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+
+import com.mashape.unirest.http.Unirest;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Game;
@@ -24,6 +26,10 @@ import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.impl.client.HttpClients;
 
 /**
  *
@@ -305,5 +311,14 @@ public class UtilBot {
     public static String getHexCode(Color color) {
         return "#"+Integer.toHexString(color.getRGB()).substring(2);
     }
-    
+
+    public static synchronized void setUnirestCookie()
+    {
+        //Set Unirest cookie
+        RequestConfig globalConfig = RequestConfig.custom()
+        .setCookieSpec(CookieSpecs.IGNORE_COOKIES).build();
+
+        HttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(globalConfig).build();
+        Unirest.setHttpClient(httpclient);
+    }
 }

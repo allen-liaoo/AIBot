@@ -7,7 +7,6 @@
  */
 package Listener;
 
-import Constants.Global;
 import Setting.Prefix;
 import Main.*;
 import Setting.GuildWrapper;
@@ -16,17 +15,12 @@ import static Main.Main.commands;
 import Constants.Emoji;
 import Setting.RateLimiter;
 import AISystem.AILogger;
-import jdk.nashorn.internal.runtime.GlobalConstants;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.ChannelType;
 
 import net.dv8tion.jda.core.exceptions.ErrorResponseException;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-
-import java.awt.*;
-import java.time.Instant;
 
 /**
  *
@@ -111,75 +105,15 @@ public class CommandListener extends ListenerAdapter {
                     e.getChannel().sendMessage(Emoji.ERROR + " I need the following permission to the command!\n"
                         +"`"+pe.getPermission().getName()+"`").queue();
                 } catch (ErrorResponseException ere) {
-                    if(!errorResponseHandler(ere,e))
+                    if(!AILogger.errorResponseHandler(ere,e))
                         throw ere;
                 } catch (Exception ex) {
                     String hastePaste = AILogger.toHasteBin(AILogger.stackToString(ex));
                     e.getChannel().sendMessage(Emoji.ERROR + " An error occurred! Please inform the owner.\n"+hastePaste).queue();
-                    handleExceptionLog(ex,e,hastePaste);
+                    AILogger.handleExceptionLog(ex,e,hastePaste);
                 }
             });
         }
     }
 
-    public static boolean errorResponseHandler(ErrorResponseException ere, MessageReceivedEvent e) {
-        boolean handled = true;
-        String error = Emoji.ERROR + " ";
-        switch (ere.getErrorResponse()) {
-            case CANNOT_SEND_TO_USER:
-                e.getChannel().sendMessage(error+"I can not send message to "+e.getAuthor().getName()).queue();
-                break;
-            case EMBED_DISABLED:
-                e.getChannel().sendMessage(error+"Please enable embed so I can talk freely.").queue();
-                break;
-            case INVALID_BULK_DELETE:
-            case INVALID_BULK_DELETE_MESSAGE_AGE:
-                e.getChannel().sendMessage(error+"Error while deleting messages.\n" +
-                        "The messages might be too old (older than 2 weeks).").queue();
-                break;
-            case MISSING_ACCESS:
-                e.getChannel().sendMessage(error+"Missing access.").queue();
-                break;
-            case UNKNOWN_GUILD:
-            case UNKNOWN_CHANNEL:
-            case UNKNOWN_MEMBER:
-                AILogger.errorLog(ere,e,"ErrorResponseHandler","Unknown guild,channel,or member");
-                break;
-            default:
-                handled = false;
-                break;
-        }
-
-        return handled;
-    }
-
-    /**
-     * Log the exception to AIBot server's #bug-report
-     * @param ex
-     * @param e
-     * @param hasteBinURL
-     */
-    public static void handleExceptionLog(Exception ex, MessageReceivedEvent e, String hasteBinURL)
-    {
-        String from = "", ID = "";
-        if(e instanceof MessageReceivedEvent) {
-            if (e.isFromType(ChannelType.TEXT)) {
-                from = "guild: " + e.getGuild().getName();
-                ID = e.getGuild().getId();
-            } else if (e.isFromType(ChannelType.PRIVATE)) {
-                from = "user: " + e.getAuthor().getName();
-                ID = e.getAuthor().getId();
-            }
-        } else if(e != null) {
-            from = "Class: " + e.toString();
-        } else {
-            from = "Unknown";
-        }
-
-        EmbedBuilder error = new EmbedBuilder().setAuthor("Exception: " + ex.getClass().getName(), hasteBinURL, Global.B_AVATAR)
-                .setColor(Color.RED).setTimestamp(Instant.now()).setFooter("ID: "+ID, null)
-                .appendDescription("From "+from+"\tLogged here: "+hasteBinURL);
-        e.getJDA().getTextChannelById(Global.B_SERVER_ERROR).sendMessage(error.build());
-    }
-    
 }

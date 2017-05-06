@@ -6,15 +6,14 @@
  */
 package AISystem;
 
-import Listener.CommandListener;
+import Constants.Emoji;
+import Constants.Global;
 import Main.Main;
 import Constants.FilePath;
 
+import java.awt.*;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.time.Instant;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,8 +22,10 @@ import java.util.logging.SimpleFormatter;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import org.json.JSONObject;
+import net.dv8tion.jda.core.exceptions.ErrorResponseException;
 
 /**
  *
@@ -35,7 +36,7 @@ public class AILogger {
     public static Logger startLogger = Logger.getLogger(Main.class.getName());
     public static Logger errorLogger = Logger.getLogger("Error");
     public static Logger commandLogger = Logger.getLogger("Command");
-    
+
     /**
      * Logging when bot status changed
      * @param msg the message for logging
@@ -94,7 +95,7 @@ public class AILogger {
             fhe.close();
 
             /* Log the exception in AIBot Server #bug_report */
-            CommandListener.handleExceptionLog(ex, (MessageReceivedEvent) obj, toHasteBin(stackToString(ex)));
+            handleExceptionLog(ex, obj, toHasteBin(stackToString(ex)));
 
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
@@ -154,14 +155,12 @@ public class AILogger {
      */
     public static String toHasteBin(String message) {
         try {
-            System.out.println("ayy");
-
             JsonNode obj = Unirest.post("https://hastebin.com/documents")
-                    .header("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)")
-                    .header("Content-Type", "text/plain")
-                    .body(message)
-                    .asJson()
-                    .getBody();
+                .header("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)")
+                .header("Content-Type", "text/plain")
+                .body(message)
+                .asJson()
+                .getBody();
 
             return "https://hastebin.com/" + obj.getObject().getString("key");
 
@@ -171,4 +170,73 @@ public class AILogger {
         return null;
     }
 
+    /**
+     * Log the exception to AIBot server's #bug-report
+     * @param ex
+     * @param obj Any object (MessageReceivedEvent recommended)
+     * @param hasteBinURL
+     */
+    public static void handleExceptionLog(Exception ex, Object obj, String hasteBinURL)
+    {
+        String from = "", name = "None", ID = "";
+        if(obj instanceof MessageReceivedEvent) {
+            MessageReceivedEvent e = (MessageReceivedEvent) obj ;
+            if (e.isFromType(ChannelType.TEXT)) {
+                from = "Guild: ";
+                name = e.getGuild().getName();
+                ID = e.getGuild().getId();
+            } else if (e.isFromType(ChannelType.PRIVATE)) {
+                from = "User: ";
+                name = e.getAuthor().getName();
+                ID = e.getAuthor().getId();
+            }
+        } else if(obj != null) {
+            from = "Class: " + obj.toString();
+        } else {
+            from = "Unknown";
+        }
+
+        EmbedBuilder error = new EmbedBuilder().setAuthor(ex.getClass().getName(), hasteBinURL, Global.B_AVATAR)
+                .setColor(Color.RED).setTimestamp(Instant.now()).setFooter("ID: "+ID, null)
+                .addField("From "+from, name, true)
+                .addField("Trace:", "**[" + hasteBinURL + "]("+hasteBinURL+")**", true);
+        Main.jda.getTextChannelById(Global.B_SERVER_ERROR).sendMessage(error.build()).queue();
+    }
+
+    /**
+     * Handle ErrorResponse.
+     * @param ere
+     * @param e
+     * @return true if the response if handled
+     */
+    public static boolean errorResponseHandler(ErrorResponseException ere, MessageReceivedEvent e) {
+        boolean handled = true;
+        String error = Emoji.ERROR + " ";
+        switch (ere.getErrorResponse()) {
+            case CANNOT_SEND_TO_USER:
+                e.getChannel().sendMessage(error+"I can not send message to "+e.getAuthor().getName()).queue();
+                break;
+            case EMBED_DISABLED:
+                e.getChannel().sendMessage(error+"Please enable embed so I can talk freely.").queue();
+                break;
+            case INVALID_BULK_DELETE:
+            case INVALID_BULK_DELETE_MESSAGE_AGE:
+                e.getChannel().sendMessage(error+"Error while deleting messages.\n" +
+                        "The messages might be too old (older than 2 weeks).").queue();
+                break;
+            case MISSING_ACCESS:
+                e.getChannel().sendMessage(error+"Missing access.").queue();
+                break;
+            case UNKNOWN_GUILD:
+            case UNKNOWN_CHANNEL:
+            case UNKNOWN_MEMBER:
+                errorLog(ere,e,"ErrorResponseHandler","Unknown guild,channel,or member");
+                break;
+            default:
+                handled = false;
+                break;
+        }
+
+        return handled;
+    }
 }

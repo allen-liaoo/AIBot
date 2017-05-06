@@ -5,7 +5,6 @@
  */
 package Command.MusicModule;
 
-import Audio.AudioTrackWrapper;
 import Audio.Music;
 import Audio.QueueList;
 import Command.Command;
@@ -121,11 +120,11 @@ public class SkipCommand extends Command {
         //Vote Skip for current song
         else if(position == 0)
         {
-            boolean isAdded = Main.getGuild(e.getGuild()).getScheduler().addVote(e.getAuthor());
+            boolean isAdded = Main.getGuild(e.getGuild()).getScheduler().addSkip(e.getAuthor());
             int votes = Main.getGuild(e.getGuild()).getScheduler().getVote().size();
             if(isAdded)
             {
-                int mem = Main.getGuild(e.getGuild()).getScheduler().getRequiredVote();
+                int mem = Main.getGuild(e.getGuild()).getScheduler().requiredVote();
                 if(votes >= mem) {
                     Main.getGuild(e.getGuild()).getScheduler().nextTrack();
                     return;

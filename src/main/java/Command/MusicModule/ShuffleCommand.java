@@ -9,7 +9,6 @@ package Command.MusicModule;
 
 import Main.Main;
 import Audio.Music;
-import Audio.TrackScheduler.PlayerMode;
 import Command.Command;
 import Constants.Emoji;
 import Setting.Prefix;
@@ -43,7 +42,7 @@ public class ShuffleCommand extends Command {
         
         if(args.length == 0)
         {
-            if(Main.getGuild(e.getGuild()).getScheduler().getMode() == PlayerMode.FM) {
+            if(Main.getGuild(e.getGuild()).getScheduler().getMode() == Audio.PlayerMode.FM) {
                 e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only shuffle queue when FM is not playing.").queue();
                 return;
             }

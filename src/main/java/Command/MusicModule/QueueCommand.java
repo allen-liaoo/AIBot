@@ -71,7 +71,8 @@ public class QueueCommand extends Command{
      * @param e
      * @param page
      */
-    public void queueList(MessageReceivedEvent e, int page) {
+    public void queueList(MessageReceivedEvent e, int page)
+    {
         QueueList queue = Main.getGuild(e.getGuild()).getScheduler().getQueue();
 
         EmbedBuilder embed = new EmbedBuilder();
@@ -98,7 +99,7 @@ public class QueueCommand extends Command{
         String songs = "";
         List<AudioTrackWrapper> queueList = new ArrayList();
         if (queue.peek() == null) {
-            songs += "The queue is curently empty.";
+            songs += "The queue is currently empty.";
             if (playing.isEmpty()) {
                 e.getChannel().sendMessage("The queue is currently empty, and there is no song playing.").queue();
                 return;

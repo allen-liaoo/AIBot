@@ -28,10 +28,14 @@ import java.util.Date;
  */
 public class Prefix {
     public static String DIF_PREFIX = "=";
+    public static String BETA_PREFIX = ".";
     
-    public static String getDefaultPrefix()
+    public synchronized static String getDefaultPrefix()
     {   
-        return DIF_PREFIX;
+        if(!Main.isBeta)
+            return DIF_PREFIX;
+        else
+            return BETA_PREFIX;
     }
     /*
     public static String getGuildPrefix(String id)

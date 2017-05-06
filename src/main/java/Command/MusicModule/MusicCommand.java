@@ -33,7 +33,7 @@ public class MusicCommand extends Command{
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Music Module", null);
-        embed.addField("Play -Help", HELP, true);
+        embed.addField("Music -Help", HELP, true);
         return embed;
     }
 

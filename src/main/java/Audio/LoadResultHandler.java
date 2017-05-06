@@ -12,26 +12,22 @@ import net.dv8tion.jda.core.entities.TextChannel;
 /**
  * Created by liaoyilin on 5/4/17.
  */
-public class LoadResultHandler implements AudioLoadResultHandler {
+public abstract class LoadResultHandler implements AudioLoadResultHandler {
 
-    private String requester;
-    private TrackType type;
+    private final TrackScheduler scheduler;
     private TextChannel tc;
 
-    public LoadResultHandler (String requester, TrackType type, TextChannel tc) {
-        this.requester = requester;
-        this.type = type;
-        this.tc = tc;
+    public LoadResultHandler (TrackScheduler scheduler) {
+        this.scheduler = scheduler;
+        this.tc = scheduler.getTc();
     }
 
     @Override
-    public void trackLoaded(AudioTrack track) {
-
-    }
+    public abstract void trackLoaded(AudioTrack track);
 
     @Override
     public void playlistLoaded(AudioPlaylist playlist) {
-        addPlayList(playlist, requester);
+        scheduler.addPlayList(playlist, scheduler.getMode().toString());
     }
 
     @Override

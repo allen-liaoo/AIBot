@@ -49,8 +49,6 @@ public class GuildListener extends ListenerAdapter {
     
     @Override
     public void onGuildJoin(GuildJoinEvent event) {
-        super.onGuildJoin(event);
-        
         // Only send welcome message if the bot is new (10 sec) to the server. 
         // Note that this event may be triggered due to Discord downtime.
         if(ChronoUnit.SECONDS.between(event.getGuild().getSelfMember().getJoinDate(), ZonedDateTime.now())<10) {
@@ -62,7 +60,6 @@ public class GuildListener extends ListenerAdapter {
     
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
-        super.onGuildLeave(event);
         System.out.println("Left guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
         UtilBot.setGame("default");
     }
@@ -92,7 +89,7 @@ public class GuildListener extends ListenerAdapter {
     
     @Override
     public void onGuildAvailable(GuildAvailableEvent event) {
-        System.out.println("Guild Avaliable:" + event.getGuild().getName());
+        System.out.println("Guild Available:" + event.getGuild().getName());
     }
     
     /**

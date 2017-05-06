@@ -7,12 +7,12 @@
  */
 package Audio;
 
-import Audio.TrackScheduler.PlayerMode;
 import Main.Main;
 import Constants.Emoji;
 import Constants.FilePath;
 import Setting.Prefix;
 import AISystem.AILogger;
+import Utility.UtilBot;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.io.BufferedReader;
@@ -20,10 +20,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.CookieSpecs;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -43,7 +39,7 @@ public class FM {
         JSONArray array = loadLibrary(input);
         String[] local = loadLocalLibrary(input);
         
-        if(!Music.checkMode(e, PlayerMode.FM))
+        if(!Music.checkMode(e, Audio.PlayerMode.FM))
             return;
         
         if(array == null && local == null) {
@@ -88,9 +84,6 @@ public class FM {
     public static JSONArray loadLibrary(String input) throws UnirestException, IOException 
     {
         String id = "";
-        
-        setUnirestCookie();
-        
         JSONArray array = Unirest
                 .get(FM_libraries_url)
                 .header("User-Agent", "AIBot")
@@ -122,7 +115,7 @@ public class FM {
     
     public static String[] getLibrary() throws UnirestException
     {
-        setUnirestCookie();
+        UtilBot.setUnirestCookie();
         
         JSONArray array = Unirest.get(FM_libraries_url).header("User-Agent", "AIBot").asJson().getBody().getArray();
         String[] libs = new String[array.length()];
@@ -176,15 +169,6 @@ public class FM {
         
         return plString;
     }
-    
-    public static void setUnirestCookie()
-    {
-        //Set Unirest cookie
-        RequestConfig globalConfig = RequestConfig.custom()
-        .setCookieSpec(CookieSpecs.IGNORE_COOKIES).build();
 
-        HttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(globalConfig).build();
-        Unirest.setHttpClient(httpclient);
-    }
 }
     

@@ -20,6 +20,7 @@ import Listener.*;
 import Audio.*;
 import AISystem.AILogger;
 import Setting.*;
+import Utility.UtilBot;
 import com.mashape.unirest.http.Unirest;
 
 import net.dv8tion.jda.core.AccountType;
@@ -40,12 +41,19 @@ import java.io.IOException;
 public class Main {
 
     public static JDA jda;
+    public static boolean isBeta;
+
     public static final CommandParser parser = new CommandParser();
     public static final TextRespond respond = new TextRespond();
+
+    public static APIPostAgent apiPoster;
+
     public static HashMap<String, Command> commands = new HashMap<String, Command>();
     public static HashMap<String, GuildWrapper> guilds = new HashMap<String, GuildWrapper>();
     public static long timeStart = 0;
-    
+
+
+
     /**
      * @param args the command line arguments
      */
@@ -56,16 +64,25 @@ public class Main {
             jda = new JDABuilder(AccountType.BOT)
                     .setToken(Private.BOT_TOKEN)
                     .addEventListener(new BotListener())
-                    .addEventListener(new GuildListener())
-                    .addEventListener(new CommandListener())
                     .addEventListener(new MessageFilter())
+                    .addEventListener(new GuildListener())
+
+                    .addEventListener(new CommandListener())
                     .addEventListener(new SelectorListener())
+
                     .setAutoReconnect(true)
+                    .setEnableShutdownHook(true)
                     .setMaxReconnectDelay(300)
                     .buildBlocking();
 
             jda.getPresence().setGame(Game.of(Global.B_GAME_DEFAULT));
-            
+
+            if(jda.getToken().equals(Private.BOT_BETA_TOKEN)) {
+                isBeta = true;
+            } else {
+                isBeta = false;
+            }
+
             startUp();
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
             e.printStackTrace();
@@ -76,6 +93,11 @@ public class Main {
     public static void startUp()
     {
         timeStart = System.currentTimeMillis();
+
+        UtilBot.setUnirestCookie();
+        if(!isBeta)
+            apiPoster = new APIPostAgent(jda);
+
         addCommands();
     }
     
@@ -196,6 +218,8 @@ public class Main {
         commands.put("unpause", new PauseCommand());
         commands.put("ps", new PauseCommand());
         commands.put("skip", new SkipCommand());
+        commands.put("previous", new PreviousCommand());
+        commands.put("pre", new PreviousCommand());
         commands.put("nowplaying", new SongCommand());
         commands.put("song", new SongCommand());
         commands.put("np", new SongCommand());

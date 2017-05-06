@@ -1,7 +1,7 @@
 package Command.MusicModule;
 
 import Audio.Music;
-import Audio.TrackScheduler;
+import Audio.PlayerMode;
 import Command.Command;
 import Constants.Emoji;
 import Main.Main;
@@ -9,8 +9,6 @@ import Setting.Prefix;
 import Utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-
-import java.io.IOException;
 
 /**
  * Created by liaoyilin on 5/2/17.
@@ -39,14 +37,27 @@ public class AutoPlayCommand extends Command{
         if(UtilBot.isMajority(e.getMember()) ||
             UtilBot.isMod(e.getMember()))
         {
-            if(Music.checkMode(e, TrackScheduler.PlayerMode.AUTO_PLAY))
-                Music.autoPlay(e);
+            if(Music.checkMode(e, PlayerMode.AUTO_PLAY))
+                autoPlay(e);
         }
         else {
             e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, or "
                     + "members with `Administrator` or `Manage Server` permissions only.\n"
                     + "You can also stop the player if there is less than 3 members in the voice channel.").queue();
         }
+    }
 
+    public void autoPlay(MessageReceivedEvent e)
+    {
+        if(!Music.checkVoiceChannel(e))
+            return;
+
+        if(Main.getGuild(e.getGuild()).getScheduler().getMode() != Audio.PlayerMode.AUTO_PLAY) {
+            Main.getGuild(e.getGuild()).getScheduler().setMode(Audio.PlayerMode.AUTO_PLAY);
+            e.getChannel().sendMessage(Emoji.AUTOPLAY + " AutoPlay mode on.").queue();
+        } else {
+            Main.getGuild(e.getGuild()).getScheduler().setMode(Audio.PlayerMode.NORMAL);
+            e.getChannel().sendMessage(Emoji.AUTOPLAY + " AutoPlay mode off.").queue();
+        }
     }
 }

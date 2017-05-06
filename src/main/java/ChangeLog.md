@@ -2,11 +2,12 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
-#### [0.3.0] - 2017-05-01 ~ 2017-05-02
+#### [0.3.2] - 2017-05-01 ~ 2017-05-05
 ##### Added
 - AutoPlayCommand which works like YouTube autoplay mode.
 - Music#checkMode for the logic from switching between modes.
 - QueueList, a custom implementation of Collection(LinkedList) for track queue.
+- PreviousCommand that will replay the previous song. Added a QueueList for storing up to 5 previous songs.
 
 #### [0.3.0] - 2017-04-12 ~ 2017-04-30
 ##### Added

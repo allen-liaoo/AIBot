@@ -37,7 +37,7 @@ public class PlayCommand extends Command{
                                      + "Parameter: `-h | [Keywords or Youtube Url] | -m [Keywords] | null`\n"
                                      + "[Keywords or Youtube Url]: Play the first video of a YouTube search or a specified YouTube video.\n"
                                      + "-m [Keywords]: Get the top 5 search results and choose one to play.\n";
-    private String num = "5";
+    private final String num = "5";
     
 
     @Override

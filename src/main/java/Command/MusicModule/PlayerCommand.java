@@ -35,7 +35,7 @@ public class PlayerCommand extends Command {
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"player` or `"+ Prefix.getDefaultPrefix() +"pl`\n"
                                     + "Parameter: `-h | null`";
     
-    private final List<String> reactions = Arrays.asList(Emoji.PLAYER, Emoji.NEXT_TRACK, Emoji.SHUFFLE, Emoji.REPEAT);
+    private final List<String> reactions = Arrays.asList(Emoji.PLAYER, Emoji.NEXT_TRACK, Emoji.SHUFFLE, Emoji.REPEAT, Emoji.AUTOPLAY);
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -66,7 +66,7 @@ public class PlayerCommand extends Command {
                 String posdur = "[`"+UtilString.formatDurationToString(track.getPosition())
                         +"`/`"+UtilString.formatDurationToString(track.getDuration())+"`]";
                 String skips = Emoji.NEXT_TRACK+" "+Main.getGuild(e.getGuild()).getScheduler().getVote().size()+
-                        "/"+Main.getGuild(e.getGuild()).getScheduler().getRequiredVote();
+                        "/"+Main.getGuild(e.getGuild()).getScheduler().requiredVote();
                 
                 EmbedBuilder embedplayer = new EmbedBuilder();
                 embedplayer.addField(state+"...", playing+"  "+posdur+"\n"+progress+"\n"+volume+"  "+skips, true);
@@ -93,6 +93,9 @@ public class PlayerCommand extends Command {
                                     RepeatCommand rc = new RepeatCommand();
                                     rc.action(args, e);
                                     break;
+                                case 4:
+                                    AutoPlayCommand apc = new AutoPlayCommand();
+                                    apc.action(args, e);
                                 default:
                                     break;
                             }
