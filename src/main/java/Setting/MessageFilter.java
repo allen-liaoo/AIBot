@@ -1,7 +1,7 @@
 package Setting;
 
-import Constants.Global;
-import Constants.Emoji;
+import constants.Global;
+import constants.Emoji;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;

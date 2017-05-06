@@ -6,8 +6,8 @@
  */
 package Setting;
 
-import Audio.AudioPlayerSendHandler;
-import Audio.TrackScheduler;
+import audio.AudioPlayerSendHandler;
+import audio.TrackScheduler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -18,7 +18,7 @@ import net.dv8tion.jda.core.entities.VoiceChannel;
  */
 public class GuildWrapper {
   /**
-   * Audio player for the guild.
+   * audio player for the guild.
    */
   private final AudioPlayer player;
   /**
@@ -39,7 +39,7 @@ public class GuildWrapper {
   
   /**
    * Creates a player and a track scheduler
-   * @param manager Audio player manager to use for creating the player.
+   * @param manager audio player manager to use for creating the player.
    * @param guildId Guild ID
    * @param prefix Custom Guild prefix
    */

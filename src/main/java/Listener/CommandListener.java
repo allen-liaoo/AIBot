@@ -8,13 +8,13 @@
 package Listener;
 
 import Setting.Prefix;
-import Main.*;
+import main.*;
 import Setting.GuildWrapper;
-import Audio.Music;
-import static Main.Main.commands;
-import Constants.Emoji;
+import audio.Music;
+import static main.AIBot.commands;
+import constants.Emoji;
 import Setting.RateLimiter;
-import AISystem.AILogger;
+import system.AILogger;
 import net.dv8tion.jda.core.entities.ChannelType;
 
 import net.dv8tion.jda.core.exceptions.ErrorResponseException;
@@ -38,7 +38,7 @@ public class CommandListener extends ListenerAdapter {
         
         /**
          * Reject Commands from unavailable guild, Text Channels that the bot 
-         * does not have permission to send message or fake Private Channels.
+         * does not have permission to send message or fake PrivateConstant Channels.
          */
         if(e.getChannelType().isGuild() && !e.getGuild().isAvailable() ||
             (e.getChannelType().isGuild() && !e.getTextChannel().canTalk()) || 
@@ -48,10 +48,10 @@ public class CommandListener extends ListenerAdapter {
         /**
          * Create GuildSetting for each Guild.
          */
-        if(!e.isFromType(ChannelType.PRIVATE) && !Main.guilds.containsKey(e.getGuild().getId()))
+        if(!e.isFromType(ChannelType.PRIVATE) && !AIBot.guilds.containsKey(e.getGuild().getId()))
         {
             GuildWrapper newGuild = new GuildWrapper(Music.playerManager, e.getGuild().getId(), "=");
-            Main.guilds.put(e.getGuild().getId(), newGuild);
+            AIBot.guilds.put(e.getGuild().getId(), newGuild);
             e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
             AILogger.updateLog("\tNew Server: " + e.getGuild().getId() + " " + e.getGuild().getName());
         }
@@ -59,8 +59,8 @@ public class CommandListener extends ListenerAdapter {
         /**
          * Detect Trigger Words and Respond.
          */
-        Main.respond.checkRespond(e.getMessage().getContent(), e);
-        Main.respond.checkDynamicRespond(Main.parser.parseRespond(e.getMessage().getRawContent(), e), e);
+        AIBot.respond.checkRespond(e.getMessage().getContent(), e);
+        AIBot.respond.checkDynamicRespond(AIBot.parser.parseRespond(e.getMessage().getRawContent(), e), e);
         
         /**
          * Detect commands.
@@ -74,7 +74,7 @@ public class CommandListener extends ListenerAdapter {
             {
                 try {
                     if(RateLimiter.isSpam(e)) return;
-                    handleCommand(Main.parser.parse(e.getMessage().getContent(), e));
+                    handleCommand(AIBot.parser.parse(e.getMessage().getContent(), e));
                 } catch (Exception ex) {
                     e.getChannel().sendMessage(Emoji.ERROR + " An error occurred!"+"```\n\n"+AILogger.stackToString(ex)+"```").queue();
                 }
@@ -83,7 +83,7 @@ public class CommandListener extends ListenerAdapter {
             else if (e.getChannelType() == ChannelType.PRIVATE)
             {
                 if(RateLimiter.isSpam(e)) return;
-                handleCommand(Main.parser.parsePrivate(e.getMessage().getContent(), e));
+                handleCommand(AIBot.parser.parsePrivate(e.getMessage().getContent(), e));
             }
         }
     }

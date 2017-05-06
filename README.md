@@ -7,8 +7,8 @@ Defualt Prefix: `=`<br />
 [Invite Link Without Permissions](https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=0) <br />
 [Discord Support Server](https://discord.gg/EABc8Kc)
 
-## Brief Command List <br />
-For a full command list, go to [Full Command List](src/main/java/CommandList.md) <br />
+## Brief command List <br />
+For a full command list, go to [Full command List](src/main/java/CommandList.md) <br />
 __**Information Commands**__ 
 - help (h) - Get a list of commands. * 
 - invite - Get a invite link for this bot. * 
@@ -24,7 +24,7 @@ __**Moderation Commands**__
 - ban (b) - Ban member(s) by Mention. 
 - unban (ub) - Unban member(s) by ID. 
 
-__**Utility Commands**__ 
+__**utility Commands**__ 
 - number (n) - Generate random numbers, roll a dice, or flip a coin. * 
 - say - Let the bot say something for you. Support Embed Message. * 
 - emoji (e) - Translate words into the Emoji language. *
@@ -39,7 +39,7 @@ __**Fun Commands**__
 - spam - Spam yummy spams! *
 - rockpaperscissors (rps) - Play Rock Paper Scissors with the bot. * 
 - guessnum (gn) - Guess a number! * 
-- tictactoe (ttt) - Play a Tic Tac Toe Game XO!! 
+- tictactoe (ttt) - Play a Tic Tac Toe game XO!! 
 - hangman (hm) - Play HangMan. * 
 - hangmancheater (hmc) - Hang Man Cheater base on the unknown word and missed letters. *
 
@@ -63,7 +63,7 @@ __**Music Commands**__
 __**Restricted Commands**__ <br />
 These commands are for **Server Owner** or **Bot Owner** only. 
 - shutdown - Shut down the bot remotely. (Bot Owner) * 
-- Presence - Set the Status, Game or NickName of the bot. * 
+- Presence - Set the Status, game or NickName of the bot. * 
 - source - Get the source code of a command class. * 
 - log - Get the logs of this bot. *
 

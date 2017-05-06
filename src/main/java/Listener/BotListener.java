@@ -6,16 +6,14 @@
  */
 package Listener;
 
-import AISystem.AILogger;
-import Main.Main;
-import Utility.LyricsSearch;
-import Utility.UtilBot;
+import system.AILogger;
+import main.AIBot;
+import utility.UtilBot;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Utility.WebScraper;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.ExceptionEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -55,7 +53,7 @@ public class BotListener extends ListenerAdapter implements Runnable {
             if (input.equals("shutdown")) 
             {
                 try {
-                    Main.shutdown();
+                    AIBot.shutdown();
                 } catch (IOException ex) {
                     Logger.getLogger(BotListener.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -72,7 +70,7 @@ public class BotListener extends ListenerAdapter implements Runnable {
             //-SetGame
             else if(input.startsWith("setGame"))
             {
-                System.out.println("Game set to " + UtilBot.setGame(input.substring(8)));
+                System.out.println("game set to " + UtilBot.setGame(input.substring(8)));
             }
             
             //-SetStatus

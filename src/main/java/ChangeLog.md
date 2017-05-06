@@ -19,7 +19,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - PlayerCommand for a neat player and emoji reaction controller.
 - Add emoji reaction controller for PlayerCommmand, QueueCommand, ListCommand. (Planning to add it to SongCommand)
 ##### Fixed
-- Change Command.java from interface to abstract class to reduce code.
+- Change command.java from interface to abstract class to reduce code.
 - PlayerCommand now have reaction control function
 - Massively add/change the short aliases for MusicModule
 
@@ -37,7 +37,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - Enhance prune command
 - Add npe check for unsupported private messages
 - Enhance delete command call
-- Deleted `Called()` and `Execute()` because they are never used in any Command Class.
+- Deleted `Called()` and `Execute()` because they are never used in any command Class.
 
 #### [0.2.5] - 2017-04-15
 ##### Added 
@@ -88,12 +88,12 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - IMDbCommand for getting results from IMDb.
 ##### Fixed
 - PresenceCommand to work with @Mention prefix.
-- HangManCommand: Start Game properly, and allow multiple start game to refresh the game.
+- HangManCommand: Start game properly, and allow multiple start game to refresh the game.
 - HangManCheaterCommand to change the output based on number of results.
 
 #### [0.1.7] - 2017-04-07
 ##### Added 
-- GuessNumber Game and GuessNumberCommand. Enjoy~
+- GuessNumber game and GuessNumberCommand. Enjoy~
 ##### Changed
 - Log System from input `String guild` to `MessageReceivedEvent event` in order to supports Private Message Logging.
 - Changed the CommandListener to listen to commands with mention. 
@@ -111,7 +111,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
 #### [0.1.2] - 2017-04-04
 ##### Added
-- Add Play, Pause, Skip, Volume, and Stop Command for Music Module. Pretty straight forward.
+- Add Play, Pause, Skip, Volume, and Stop command for Music Module. Pretty straight forward.
 - Bot can detect mention from CommandListener and send help message.
 ##### Changed
 - Reconstruct the Search System, added the new class SearchResult. Remove Web#searchImage and combine it 

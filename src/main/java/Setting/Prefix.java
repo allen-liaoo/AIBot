@@ -6,20 +6,7 @@
  */
 package Setting;
 
-import Main.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Date;
+import main.*;
 
 
 /**
@@ -32,7 +19,7 @@ public class Prefix {
     
     public synchronized static String getDefaultPrefix()
     {   
-        if(!Main.isBeta)
+        if(!AIBot.isBeta)
             return DIF_PREFIX;
         else
             return BETA_PREFIX;

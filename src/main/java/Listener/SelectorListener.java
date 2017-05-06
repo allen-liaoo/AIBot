@@ -6,8 +6,8 @@
  */
 package Listener;
 
-import AISystem.Selector.EmojiSelection;
-import Command.MusicModule.PlayCommand;
+import system.selector.EmojiSelection;
+import command.music.PlayCommand;
 import java.util.HashMap;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Channel;
@@ -33,14 +33,14 @@ public class SelectorListener extends ListenerAdapter {
         
         /**
          * Reject Commands from unavailable guild, Text Channels that the bot 
-         * does not have permission to send message or fake Private Channels.
+         * does not have permission to send message or fake PrivateConstant Channels.
          */
         if(e.getChannelType().isGuild() && !e.getGuild().isAvailable() ||
             (e.getChannelType().isGuild() && !e.getTextChannel().canTalk()) || 
             (!e.getChannelType().isGuild() && e.getPrivateChannel().isFake()))
             return;
         
-        //Selector
+        //selector
         char choice = '\u0000';
         if(e.getMessage().getContent().length() > 0)
             choice = e.getMessage().getContent().charAt(0);

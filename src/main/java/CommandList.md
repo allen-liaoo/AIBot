@@ -1,5 +1,5 @@
 ## Information Commands
-[Information Commands Description](Command/InformationModule/InformationCommands.md) <br />
+[Information Commands Description](command/information/InformationCommands.md) <br />
 - help (h) - Get a list of commands. *
 - invite - Get a invite link for this bot. *
 - botinfo (bi) - Get bot info. *
@@ -19,14 +19,14 @@
 - support - Related servers and bots. *
 
 ## Moderation Commands
-[Moderation Commands Description](Command/ModerationModule/ModerationCommands.md) <br />
+[Moderation Commands Description](command/moderation/ModerationCommands.md) <br />
 - prune (p) - Delete messages.
 - kick (k) - Kick member(s).
 - warn - Warn a user in direct message.
 - ban (b) - Ban member(s) by Mention.
 - unban (ub) - Unban member(s) by ID.
 
-## Utility Commands
+## utility Commands
 - number (n) - Generate random numbers, roll a dice, or flip a coin. *
     - num random (n r) - Generate random numbers.
     - num count (n c) - Count numbers.
@@ -48,14 +48,14 @@
     - meme - Search from KnowYourMeme.
 
 ## Fun Commands
-[Fun Commands Description](Command/FunModule/FunCommands.md) <br />
+[Fun Commands Description](command/fun/FunCommands.md) <br />
 - 8ball - Ask the magic 8ball a question. *
 - face - Lenny * 
 - spam - Spam yummy spams! *
 - game - Play a game. 
     - rockpaperscissors (rps) - Play Rock Paper Scissors with the bot. * 
     - guessnum (gn) - Guess a number! *
-    - tictactoe (ttt) - Play a Tic Tac Toe Game XO!! 
+    - tictactoe (ttt) - Play a Tic Tac Toe game XO!! 
     - hangman (hm) - Play HangMan. * 
     - hangmancheater (hmc) - Hang Man Cheater base on the unknown word and missed letters. *
 

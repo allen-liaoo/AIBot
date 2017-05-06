@@ -7,9 +7,9 @@
  */
 package Listener;
 
-import Constants.Global;
-import Main.Main;
-import Utility.UtilBot;
+import constants.Global;
+import main.AIBot;
+import utility.UtilBot;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -130,10 +130,10 @@ public class GuildListener extends ListenerAdapter {
             }
             
             //Check is the player is playing, if it is not, resume
-            if(Main.getGuild(guild).getPlayer().isPaused()
-                    && Main.getGuild(guild).getPlayer().getPlayingTrack() != null
+            if(AIBot.getGuild(guild).getPlayer().isPaused()
+                    && AIBot.getGuild(guild).getPlayer().getPlayingTrack() != null
                     && mem > 0) {
-                Main.getGuild(guild).getPlayer().setPaused(false);
+                AIBot.getGuild(guild).getPlayer().setPaused(false);
             }
         }
     }
@@ -156,10 +156,10 @@ public class GuildListener extends ListenerAdapter {
                     mem++;
             }
             
-            if(!Main.getGuild(guild).getPlayer().isPaused()
-                    && Main.getGuild(guild).getPlayer().getPlayingTrack() != null
+            if(!AIBot.getGuild(guild).getPlayer().isPaused()
+                    && AIBot.getGuild(guild).getPlayer().getPlayingTrack() != null
                     && mem == 0) {
-                Main.getGuild(guild).getPlayer().setPaused(true);
+                AIBot.getGuild(guild).getPlayer().setPaused(true);
             }
         }
     }
