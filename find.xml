@@ -1,7 +1,7 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="Directory '.../src/main/java - [AIBot_main]'" />
-    <option name="defaultScopeName" value="Directory '.../src/main/java - [AIBot_main]'" />
-    <option name="SEARCH_SCOPE" value="Directory '.../src/main/java - [AIBot_main]'" />
+    <option name="customScope" value="File '.../src/main/java/Audio/TrackScheduler.java - [AIBot_main]'" />
+    <option name="defaultScopeName" value="File '.../src/main/java/Audio/TrackScheduler.java - [AIBot_main]'" />
+    <option name="SEARCH_SCOPE" value="File '.../src/main/java/Audio/TrackScheduler.java - [AIBot_main]'" />
   </component>
 </application>
