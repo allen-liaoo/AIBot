@@ -20,7 +20,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public abstract class Command {
     
     /**
-     * command Usage
+     * Command Usage
      * @param e the value of e
      * @return the net.dv8tion.jda.core.EmbedBuilder
      */

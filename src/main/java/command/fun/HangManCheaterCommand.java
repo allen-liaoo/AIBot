@@ -26,7 +26,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class HangManCheaterCommand extends Command {
     public final static String HELP = "Hang Man Cheater based on the Word Bank.\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "hangmancheater` or `" + Prefix.getDefaultPrefix() + "hmc`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "hangmancheater` or `" + Prefix.getDefaultPrefix() + "hmc`\n"
                                     + "Parameter: `-h | [Unknown Word] [Missed Letters] [Page] | null`\n"
                                     + "[Unknown Word] [Missed Letters] [Page]: Use `?` for unknow letters in the [Unknown Word]. "
                                     + "Type in the incorrect letters for [Missed Letters], and the page number you want. (50 words per page)";

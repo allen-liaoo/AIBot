@@ -22,7 +22,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class StatusCommand extends Command{
 
     public final static String HELP = "This command is for getting this bot's status.\n"
-                              + "command Usage: `" + Prefix.getDefaultPrefix() + "status` or `" + Prefix.getDefaultPrefix() + "uptime`\n"
+                              + "Command Usage: `" + Prefix.getDefaultPrefix() + "status` or `" + Prefix.getDefaultPrefix() + "uptime`\n"
                               + "Parameter: `-h | null`";
     
     private EmbedBuilder embedstatus = new EmbedBuilder();

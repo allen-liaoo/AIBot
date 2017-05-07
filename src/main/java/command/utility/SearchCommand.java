@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class SearchCommand extends Command{
     public final static  String HELP = "This command is for searching the ~~dark~~ web.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"search` or `"+ Prefix.getDefaultPrefix() +"google` or `"+ Prefix.getDefaultPrefix() +"wiki`  `"+ Prefix.getDefaultPrefix() +"urban` or  `"+ Prefix.getDefaultPrefix() +"github`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"search` or `"+ Prefix.getDefaultPrefix() +"google` or `"+ Prefix.getDefaultPrefix() +"wiki`  `"+ Prefix.getDefaultPrefix() +"urban` or  `"+ Prefix.getDefaultPrefix() +"github`\n"
                                      + "Parameter: `-h | (For search) [Custom Search Site] [Keywords] | (For google, wiki, urban, github) [Keywords] | null`\n"
                                      + "(For search) [Custom Search Domain] [Keywords]: Search a custom site with [Keywords], i.e. `"+ Prefix.getDefaultPrefix() +"search dictionary.com artificial intelligence`\n\n"
                                      + "Related/Alter Commads:\n"

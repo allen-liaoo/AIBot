@@ -23,7 +23,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class SkipCommand extends Command {
     public final static String HELP = "This command is for skipping the current song.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"skip`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"skip`\n"
                                     + "Parameter: `-h | -f | [Number/Index of the queue] | null`\n"
                                     + "null: Vote to skipp current song.\n"
                                     + "-f: Force skipp current song. Requires Administrator, Manage Channel Permission or Server Owner.\n"

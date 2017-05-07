@@ -21,7 +21,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class NumberCommand extends Command {
 
     public final static String HELP = "This command is for Number tools.\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "number`, `" + Prefix.getDefaultPrefix() + "num` or  `" + Prefix.getDefaultPrefix() + "n`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "number`, `" + Prefix.getDefaultPrefix() + "num` or  `" + Prefix.getDefaultPrefix() + "n`\n"
                                     + "Parameter: `-h | count [from] [to] | random [from] [to] | roll | coinflip | null`\n"
                                     + "random: Return a random number between 0 to 100 if the range is not specified.\n"
                                     + "roll: Dice roller, generates random number bewteen 1 and 6.";

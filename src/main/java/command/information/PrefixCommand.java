@@ -19,7 +19,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class PrefixCommand extends Command {
     public final static String HELP = "This command is for setting the prefix.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() + "prefix`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() + "prefix`\n"
                                     + "Parameter: `-h | Prefix`";
 
     @Override

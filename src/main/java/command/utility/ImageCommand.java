@@ -22,7 +22,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class ImageCommand extends Command{
     public final static String HELP = "This command is for searching the ~~spicy memes~~ images.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"imgur` or `"+ Prefix.getDefaultPrefix() +"gif` or `"+ Prefix.getDefaultPrefix() +"meme`  `"+ Prefix.getDefaultPrefix() +"urban` or  `"+ Prefix.getDefaultPrefix() +"github`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"imgur` or `"+ Prefix.getDefaultPrefix() +"gif` or `"+ Prefix.getDefaultPrefix() +"meme`  `"+ Prefix.getDefaultPrefix() +"urban` or  `"+ Prefix.getDefaultPrefix() +"github`\n"
                                     + "Parameter: `-h | [Keywords] | null`\n\n"
                                     + "Related/Alter Commads:\n"
                                     + "**imgur** - Search `Imgur.com`.\n"

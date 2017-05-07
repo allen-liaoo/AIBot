@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.exceptions.PermissionException;
  */
 public class KickCommand extends Command{
     public final static  String HELP = "This command is for kicking members.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"kick`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"kick`\n"
                                      + "Parameter: `-h | @Member(s)`";
 
     @Override

@@ -25,7 +25,7 @@ import net.dv8tion.jda.core.entities.Guild;
  */
 public class InfoServerCommand extends Command{
     public final static String HELP = "This command is for getting informations about this server.\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "serverinfo` or `" + Prefix.getDefaultPrefix() + "si` \n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "serverinfo` or `" + Prefix.getDefaultPrefix() + "si` \n"
                                     + "Parameter: `-h | -m | [ID] | -m [ID] | null`\n"
                                     + "-m: Get more info about the current server.\n"
                                     + "[ID]: Get a server by ID (The Bot must be in that server).\n"

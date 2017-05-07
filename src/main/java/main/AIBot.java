@@ -62,23 +62,27 @@ public class AIBot {
             Music.musicStartup();
 
             jda = new JDABuilder(AccountType.BOT)
-                    .setToken(PrivateConstant.BOT_TOKEN)
-                    .addEventListener(new BotListener())
-                    .addEventListener(new MessageFilter())
-                    .addEventListener(new GuildListener())
-
-                    .addEventListener(new CommandListener())
-                    .addEventListener(new SelectorListener())
-
+                    .setToken(PrivateConstant.BOT_BETA_TOKEN)
+                    .addEventListener(new BotListener(), new MessageFilter(),
+                        new GuildListener(), new CommandListener(), new SelectorListener())
                     .setAutoReconnect(true)
-                    .setEnableShutdownHook(true)
+                    .setEnableShutdownHook(false)
                     .setMaxReconnectDelay(300)
                     .buildBlocking();
 
             jda.getPresence().setGame(Game.of(Global.B_GAME_DEFAULT));
-            isBeta = jda.getToken().equals(PrivateConstant.BOT_BETA_TOKEN) ? true : false;
+
+            /* Add guilds to GuildWrapper */
+            for(Guild g : jda.getGuilds()) {
+                GuildWrapper newGuild = new GuildWrapper(Music.playerManager, g.getId(), "=");
+                AIBot.guilds.put(g.getId(), newGuild);
+                g.getAudioManager().setSendingHandler(newGuild.getSendHandler());
+            }
+
+            isBeta = jda.getToken().equals("Bot " + PrivateConstant.BOT_BETA_TOKEN);
             if(!isBeta) startUp();
             else startUpBeta();
+
         } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
             e.printStackTrace();
             AILogger.updateLog("Exception thrown while logging.");
@@ -91,10 +95,8 @@ public class AIBot {
 
         //Post API and Status
         UtilBot.setUnirestCookie();
-        apiPoster = new APIPostAgent(jda);
-        jda.getGuildById(Global.B_SERVER_ID).getTextChannelById(Global.B_SERVER_STATUS).
-                editMessageById(Global.B_SERVER_STATUS_MSG, UtilBot.postStatus(jda).build()).queue();
-
+        apiPoster = new APIPostAgent(jda).postAllAPI();
+        updateStatus();
         addCommands();
     }
 
@@ -118,6 +120,11 @@ public class AIBot {
     public static GuildWrapper getGuild(Guild guild)
     {
         return guilds.get(guild.getId());
+    }
+
+    public static void updateStatus() {
+        jda.getGuildById(Global.B_SERVER_ID).getTextChannelById(Global.B_SERVER_STATUS).
+                editMessageById(Global.B_SERVER_STATUS_MSG, UtilBot.postStatus(jda).build()).queue();
     }
         
     private static void addCommands() {

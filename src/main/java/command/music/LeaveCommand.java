@@ -19,7 +19,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class LeaveCommand extends Command{
 
     public final static String HELP = "This command is for removing the bot to your current voice channel.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"leave`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"leave`\n"
                                     + "Parameter: `-h | null`";
 
     @Override

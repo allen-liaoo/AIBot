@@ -16,7 +16,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class AutoPlayCommand extends Command{
 
     public final static String HELP = "The bot will automatically get the next song from YouTube.\n"
-            + "command Usage: `"+ Prefix.getDefaultPrefix() +"autoplay` or `"+ Prefix.getDefaultPrefix() +"ap`\n"
+            + "Command Usage: `"+ Prefix.getDefaultPrefix() +"autoplay` or `"+ Prefix.getDefaultPrefix() +"ap`\n"
             + "Parameter: `-h | null`";
 
     @Override

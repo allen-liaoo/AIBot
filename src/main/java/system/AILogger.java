@@ -83,6 +83,9 @@ public class AILogger {
                     from = "PM: " + event.getAuthor().getName();
                 else
                     from = ": Unknown (From unknown channel type.)";
+
+                /* Log the exception in AIBot Server #bug_report */
+                handleExceptionLog(ex, event, toHasteBin(stackToString(ex)));
             } else if(obj != null) {
                 from = "Class: " + obj.toString();
             } else {
@@ -93,9 +96,6 @@ public class AILogger {
             Logger.getGlobal().log(Level.WARNING, "Error in " + at + " from " + from);
             errorLogger.log(Level.WARNING, "From" + from + "\n\t Cause: " + at + " -> " + cause, ex);
             fhe.close();
-
-            /* Log the exception in AIBot Server #bug_report */
-            handleExceptionLog(ex, obj, toHasteBin(stackToString(ex)));
 
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
@@ -173,33 +173,29 @@ public class AILogger {
     /**
      * Log the exception to AIBot server's #bug-report
      * @param ex
-     * @param obj Any object (MessageReceivedEvent recommended)
+     * @param e
      * @param hasteBinURL
      */
-    public static void handleExceptionLog(Exception ex, Object obj, String hasteBinURL)
+    public static void handleExceptionLog(Exception ex, MessageReceivedEvent e, String hasteBinURL)
     {
-        String from = "", name = "None", ID = "";
-        if(obj instanceof MessageReceivedEvent) {
-            MessageReceivedEvent e = (MessageReceivedEvent) obj ;
-            if (e.isFromType(ChannelType.TEXT)) {
-                from = "Guild: ";
-                name = e.getGuild().getName();
-                ID = e.getGuild().getId();
-            } else if (e.isFromType(ChannelType.PRIVATE)) {
-                from = "User: ";
-                name = e.getAuthor().getName();
-                ID = e.getAuthor().getId();
-            }
-        } else if(obj != null) {
-            from = "Class: " + obj.toString();
-        } else {
-            from = "Unknown";
+        String user = "", id = "", from = "", from2 = "None", channel = "";
+        EmbedBuilder error = new EmbedBuilder().setAuthor(ex.getClass().getName(), hasteBinURL, Global.B_AVATAR)
+            .setColor(Color.RED).setTimestamp(Instant.now())
+            .addField("User", e.getAuthor().getName()+" #"+e.getAuthor().getDiscriminator()+" ("+e.getAuthor().getId()+")", true);
+
+        if (e.isFromType(ChannelType.TEXT)) {
+            from = "Guild";
+            from2 = e.getGuild().getName()+"("+e.getGuild().getId()+")";
+            channel = e.getChannel().getName()+" ("+e.getChannel().getId()+")";
+        } else if (e.isFromType(ChannelType.PRIVATE)) {
+            from = "PM";
+            from2 = e.getAuthor().getName();
+            channel = e.getPrivateChannel().getName()+" ("+e.getPrivateChannel().getId()+")";
         }
 
-        EmbedBuilder error = new EmbedBuilder().setAuthor(ex.getClass().getName(), hasteBinURL, Global.B_AVATAR)
-                .setColor(Color.RED).setTimestamp(Instant.now()).setFooter("ID: "+ID, null)
-                .addField("From "+from, name, true)
-                .addField("Trace:", "**[" + hasteBinURL + "]("+hasteBinURL+")**", true);
+        error.addField(from, from2, true)
+        .addField("Channel", channel, true)
+        .addField("Stack Trace", "**[" + hasteBinURL + "]("+hasteBinURL+")**", true);
         AIBot.jda.getTextChannelById(Global.B_SERVER_ERROR).sendMessage(error.build()).queue();
     }
 

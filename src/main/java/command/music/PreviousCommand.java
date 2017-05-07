@@ -17,7 +17,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class PreviousCommand extends Command {
 
     public final static String HELP = "This command is for replaying the previous song.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"previous` or `"+ Prefix.getDefaultPrefix() +"pre`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"previous` or `"+ Prefix.getDefaultPrefix() +"pre`\n"
                                     + "Parameter: `-h | list/queue | null`\n"
                                     + "list/queue: Get a list of previous songs. (Maximum of 5 songs)\n";
 

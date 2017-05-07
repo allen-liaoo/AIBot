@@ -29,7 +29,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class LyricsCommand extends Command{
 
     public final static  String HELP = "This command is showing the lyrics of a song.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"lyrics`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"lyrics`\n"
                                      + "Parameter: `-h | [Artist Name] [Song Name] |null`\n"
                                      + "[Artist Name] [Song Name]: The exact name of the artist(s) and the song.";
     

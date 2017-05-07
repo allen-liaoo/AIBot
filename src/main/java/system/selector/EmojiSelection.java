@@ -8,6 +8,9 @@
 package system.selector;
 
 import java.util.List;
+
+import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.GenericMessageEvent;

@@ -33,7 +33,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class QueueCommand extends Command{
     public final static String HELP = "This command is getting a list of queued songs\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"queue`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"queue`\n"
                                     + "Parameter: `-h | [Number] | null`\n"
                                     + "[Number]: Page number of the queue.\n";
 
@@ -61,6 +61,7 @@ public class QueueCommand extends Command{
                 queueList(e, page);
             } catch (IllegalArgumentException  | IndexOutOfBoundsException ex) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " Please enter a valid page number.").queue();
+                ex.printStackTrace();
                 return;
             }
         }
@@ -118,7 +119,7 @@ public class QueueCommand extends Command{
 
             songs += "**Queue Count:** " + count + "\n";
             //AIPages
-            AIPages pages = new AIPages(queueList);
+            AIPages pages = new AIPages(queueList, 9 , true);
             List<AudioTrackWrapper> song = pages.getPage(page);
             //Add each queued songs to songQueue
             for (int i = 0; i < song.size(); i++) {

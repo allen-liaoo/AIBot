@@ -22,7 +22,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 public class MathCommand extends Command{
 
     public final static String HELP = "This command is for calculating math operations.\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "math` or `" + Prefix.getDefaultPrefix() + "calc` or `" + Prefix.getDefaultPrefix() + "m`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "math` or `" + Prefix.getDefaultPrefix() + "calc` or `" + Prefix.getDefaultPrefix() + "m`\n"
                                     + "Parameter: `-h | [Math Operation] | null`\n"
                                     + "Supported values: `pi, π, e, φ`\n";
 

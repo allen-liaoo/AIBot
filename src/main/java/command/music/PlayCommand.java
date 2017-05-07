@@ -33,7 +33,7 @@ public class PlayCommand extends Command{
     private static List<SearchResult> results;
     
     public final static  String HELP = "This command is for playing an youtube music in the voice channel.\n"
-                                     + "command Usage: `" + Prefix.getDefaultPrefix() +"play` or `" + Prefix.getDefaultPrefix() + "p`\n"
+                                     + "Command Usage: `" + Prefix.getDefaultPrefix() +"play` or `" + Prefix.getDefaultPrefix() + "p`\n"
                                      + "Parameter: `-h | [Keywords or Youtube Url] | -m [Keywords] | null`\n"
                                      + "[Keywords or Youtube Url]: Play the first video of a YouTube search or a specified YouTube video.\n"
                                      + "-m [Keywords]: Get the top 5 search results and choose one to play.\n";
@@ -104,7 +104,9 @@ public class PlayCommand extends Command{
         
         else
         {
-            if(!args[0].startsWith("http"))
+            if("random".equals(args[0]) || "r".equals(args[0])) {
+                action(new String[]{Music.randomBillboardSong()}, e);
+            } else if(!Music.urlPattern.matcher(args[0]).find())
             {
                 String input = "";
                 for(int i = 0; i < args.length; i++){
@@ -126,9 +128,9 @@ public class PlayCommand extends Command{
                     e.getChannel().sendMessage(Emoji.ERROR + " No results.").queue();
                     AILogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly. Input: " + input);
                 }
-            }
-            else
+            } else {
                 Music.play(args[0], e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
+            }
         }
     }
 

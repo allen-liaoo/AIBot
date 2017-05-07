@@ -182,7 +182,7 @@ public class HelpText {
             + "Stream from a radio station.\n"
             + "YouTube AutoPlay mode.\n"
             + "Pause/Resume the current playing song.\n"
-            + "Show the playlist and what's \ncoming next\n"
+            + "Show the playlist and what's \ncoming next.\n"
             + "Skip a song.\n"
             + "Replay previous song.\n"
             + "Get the information of the \ncurrent playing song.\n"

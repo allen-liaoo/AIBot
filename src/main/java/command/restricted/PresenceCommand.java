@@ -22,7 +22,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class PresenceCommand extends Command {
     public final static String HELP = "This command is for setting the bot's nickname, status and game.\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "setNick` or `"+ Prefix.getDefaultPrefix() + "setStatus` or `"+ Prefix.getDefaultPrefix() + "setGame`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "setNick` or `"+ Prefix.getDefaultPrefix() + "setStatus` or `"+ Prefix.getDefaultPrefix() + "setGame`\n"
                                     + "Parameter: `-h | [Status] | [game | default] | null`\n"
                                     + "[NickName]: String of the nickname or null.\n"
                                     + "[Status]: Online, idle, dnd, invisible, offline. (Bot Owner Only)\n"

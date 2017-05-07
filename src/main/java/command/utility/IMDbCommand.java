@@ -29,7 +29,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class IMDbCommand extends Command {
 
     public final static String HELP = "This command is for a search result from IMDB.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"imdb`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"imdb`\n"
                                     + "Parameter: `-h | [Keywords] | -m [Keywods] |null`\n"
                                     + "[Keywords]: Search IMDB with [Keywords].\n"
                                     + "-m [Keywods]: Get the specific information for a title.\n";

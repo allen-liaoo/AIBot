@@ -23,7 +23,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class DumpCommand extends Command {
 
     public final static String HELP = "This command is for clearing the queue and skip votes.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"stop`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"stop`\n"
                                     + "Parameter: `-h | null`";
     
 

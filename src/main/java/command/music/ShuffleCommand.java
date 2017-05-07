@@ -22,7 +22,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class ShuffleCommand extends Command {
     public final static  String HELP = "Shuffle the queue.\n"
-                                     + "command Usage: `" + Prefix.getDefaultPrefix() +"shuffle` or `" + Prefix.getDefaultPrefix() +"sf`\n"
+                                     + "Command Usage: `" + Prefix.getDefaultPrefix() +"shuffle` or `" + Prefix.getDefaultPrefix() +"sf`\n"
                                      + "Parameter: `-h | null`\n";    
 
     @Override

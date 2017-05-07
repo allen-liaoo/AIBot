@@ -8,6 +8,9 @@ package audio;
 import audio.AudioTrackWrapper.TrackType;
 import main.AIBot;
 import constants.Emoji;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import system.AILogger;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;;
@@ -15,11 +18,13 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import utility.UtilNum;
 
 /**
  *
@@ -158,6 +163,25 @@ public class Music  {
     }
 
     /**
+     * Generate a random bill board song
+     * @return the title of a random bill board song to be put into YouTube search
+     */
+    public static String randomBillboardSong()
+    {
+        try {
+            Document doc = Jsoup.connect("http://www.billboard.com/rss/charts/hot-100").timeout(0).get();
+            Elements titles = doc.select("item>chart_item_title");
+
+            int random = UtilNum.randomNum(0,99);
+            System.out.println(titles.get(random).text());
+            return titles.get(random).text();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
      * Check if the user is in the same voice channel than the bot
      * @param e
      * @return true if the bot can play music
@@ -166,13 +190,13 @@ public class Music  {
     {
         //Check if the user is in a voice channel
         if(!e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-            e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + "I am not in a voice channel").queue();
             return false;
         }
 
         //Prevent user that is not in the same voice channel from executing a command
         if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel()) {
-            e.getChannel().sendMessage(Emoji.ERROR + " You and I are not in the same voice channel.").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " You need to be in my voice channel.").queue();
             return false;
         } else {
             return true;

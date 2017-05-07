@@ -27,7 +27,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class JumpCommand extends Command {
     
     public final static String HELP = "This command is for jumping to a certain position of the current playing song.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"jump`  or `" + Prefix.getDefaultPrefix() +"jp`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"jump`  or `" + Prefix.getDefaultPrefix() +"jp`\n"
                                     + "Parameter: `-h | [Position] | null`\n"
                                     + "[Position]: The time you want to jump to in HH:MM:SS format.\n"
                                     + "Hours and minutes are optional.";

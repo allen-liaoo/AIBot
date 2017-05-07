@@ -22,7 +22,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class HangManCommand extends Command{
     public final static String HELP = "Play Hang Man with anyone!\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "hangman` or `" + Prefix.getDefaultPrefix() + "hm`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "hangman` or `" + Prefix.getDefaultPrefix() + "hm`\n"
                                     + "Parameter: `-h | start | [letter] | end | null`\n"
                                     + "start: Start the game.\n"
                                     + "[letter]: Type in the letter to guess.\n"

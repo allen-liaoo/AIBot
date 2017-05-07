@@ -21,14 +21,12 @@ public class APIPostAgent {
 
     public APIPostAgent(JDA jda) {
         this.jda = jda;
-
-        if(!AIBot.isBeta)
-            postAllAPI();
     }
 
-    public void postAllAPI() {
+    public APIPostAgent postAllAPI() {
         toDiscordBots();
         toDiscordBotsList();
+        return this;
     }
 
     public void toDiscordBots() {

@@ -17,7 +17,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class GameCommand extends Command {
 
     public final static String HELP = "*command Group:* game\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "game`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "game`\n"
                                     + "Parameter: `-h | [Number] | null`\n"
                                     + "[Number]: Choose the games to get help message.";
     

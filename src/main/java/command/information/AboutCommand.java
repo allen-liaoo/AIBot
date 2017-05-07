@@ -20,7 +20,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class AboutCommand extends Command{
 
     public final static  String HELP = "This command is for getting the bot's description.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"about`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"about`\n"
                                      + "Parameter: `-h | null`";
     
     public final static String BOT_DES = "The AIBot that started in the March of 2017 for music and fun commands.\n"

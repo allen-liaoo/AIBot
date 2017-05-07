@@ -20,7 +20,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class VolumeCommand extends Command {
     
     public final static String HELP = "This command is for playing an youtube music in the voice channel.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"play`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"play`\n"
                                     + "Parameter: `-h | [Youtube Url] | null`";
     
 

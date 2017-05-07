@@ -23,7 +23,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class RadioCommand extends Command{
 
     public final static String HELP = "This command is for loading an automatic playlist.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"radio`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"radio`\n"
                                     + "Parameter: `-h | [Station Name] | null`\n"
                                     + "[Station Name]: Load the radio station and start playing.\n"
                                     + "null: Get a list of available radio stations.\n";

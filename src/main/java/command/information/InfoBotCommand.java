@@ -26,7 +26,7 @@ import net.dv8tion.jda.core.Permission;
 public class InfoBotCommand extends Command{
 
     public final static String HELP = "This command is for getting this bot's information.\n"
-                              + "command Usage: `" + Prefix.getDefaultPrefix() + "botinfo` or `" + Prefix.getDefaultPrefix() + "bi`\n"
+                              + "Command Usage: `" + Prefix.getDefaultPrefix() + "botinfo` or `" + Prefix.getDefaultPrefix() + "bi`\n"
                               + "Parameter: `-h | null`";
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embedinfo = new EmbedBuilder();

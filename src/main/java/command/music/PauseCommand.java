@@ -18,7 +18,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class PauseCommand extends Command{
     public final static  String HELP = "This command is for pausing/resuming the bot if the bot is playing music.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"pause` or `"+ Prefix.getDefaultPrefix() +"resume` or `"+ Prefix.getDefaultPrefix() +"unpause`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"pause` or `"+ Prefix.getDefaultPrefix() +"resume` or `"+ Prefix.getDefaultPrefix() +"unpause`\n"
                                      + "Parameter: `-h | null`";
 
     @Override
@@ -40,7 +40,7 @@ public class PauseCommand extends Command{
             if (Music.checkVoiceChannel(e))
                 Music.pauseOrPlay(e);
         } catch (NullPointerException npe) {
-            e.getTextChannel().sendMessage(Emoji.ERROR + " No song is plaing!").queue();
+            e.getTextChannel().sendMessage(Emoji.ERROR + " No song is playing!").queue();
         }
         
     }

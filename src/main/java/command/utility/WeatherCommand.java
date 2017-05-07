@@ -29,7 +29,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class WeatherCommand extends Command{
 
     public final static  String HELP = "This command is for getting the weather of a specific city.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"weather`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"weather`\n"
                                      + "Parameter: `-h | City Name | null`";
     private final EmbedBuilder embed = new EmbedBuilder();
     private final EmbedBuilder embedw = new EmbedBuilder();

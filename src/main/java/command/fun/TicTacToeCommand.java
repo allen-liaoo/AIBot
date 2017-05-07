@@ -21,7 +21,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class TicTacToeCommand extends Command {
 
     public final static String HELP = "Play a Tic Tac Toe game with anyone!\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "tictactoe` or `" + Prefix.getDefaultPrefix() + "ttt`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "tictactoe` or `" + Prefix.getDefaultPrefix() + "ttt`\n"
                                     + "Parameter: `-h | start @mention | x y | end | null`\n"
                                     + "start @mention: Mention an opponent to start the game.\n"
                                     + "x y: Type in the cordinate of the Tic Tac Toe board.\n"

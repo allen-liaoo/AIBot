@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class RepeatCommand extends Command {
     public final static String HELP = "Repeat the queued songs or current track.\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() +"repeat` or `" + Prefix.getDefaultPrefix() +"rp`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() +"repeat` or `" + Prefix.getDefaultPrefix() +"rp`\n"
                                     + "Parameter: `-h | this/track | null`\n"
                                     + "this/track: Repeat the current track.\n";
 

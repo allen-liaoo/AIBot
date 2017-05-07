@@ -1,31 +1,31 @@
 ## Moderation Commands
 - prune (p) - Delete messages.
 ```This command is for deleting messages.
-command Usage: =prune
+Command Usage: =prune
 Parameter: -h | Number
 ```
 
 - kick (k) - Kick member(s).
 ```This command is for kicking members.
-command Usage: =kick
+Command Usage: =kick
 Parameter: -h | @Member(s)
 ```
 - warn - Warn a user in direct message.
 ```This command is for banning members.
-command Usage: =warn
+Command Usage: =warn
 Parameter: `-h | @Member(s) [Reason]
 @Member(s) [Reason]: Mention members to warn, then give a reason.
 ```
 
 - ban (b) - Ban member(s) by Mention.
 ```This command is for banning members.
-command Usage: =ban
+Command Usage: =ban
 Parameter: -h | @Member(s)
 ```
 
 - unban (ub) - Unban member(s) by ID.
 ```This command is for unbanning members.
-command Usage: =unban
+Command Usage: =unban
 Parameter: `-h | Member(s)' ID
 Note: To get ID, put \ in front of a @menton.
 ```

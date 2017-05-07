@@ -56,12 +56,15 @@ public class GuildListener extends ListenerAdapter {
             System.out.println("Joined guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
             UtilBot.setGame("default");
         }
+        AIBot.updateStatus();
     }
     
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
         System.out.println("Left guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
         UtilBot.setGame("default");
+
+        AIBot.updateStatus();
     }
     
     public void welcome(Guild g) {
@@ -76,15 +79,6 @@ public class GuildListener extends ListenerAdapter {
         embedmsg.addField("Links", links, false);
         g.getPublicChannel().sendMessage(embedmsg.build()).queue();
         embedmsg.clearFields();
-    }
-    
-    /**
-     * Bot listener
-     */
-    
-    @Override
-    public void onReady(ReadyEvent e) {
-        System.out.println("Status - Logged in as: " + e.getJDA().getSelfUser().getName());
     }
     
     @Override

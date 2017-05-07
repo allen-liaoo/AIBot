@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class SourceCommand extends Command{
 
     public final static  String HELP = "This command is for getting the source code of a command class.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"source`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"source`\n"
                                      + "Parameter: `-h | [Package Name] [Class Name] [from] [to] | [Module Name] [Class Name] [from] [to] | null`\n"
                                      + "[Package Name] [Class Name] [from] [to]: Get java files outside of command package.\n"
                                      + "[Module Name] [Class Name] [from] [to]: Return the command class's codes from line `[from]` to `[to]`.";

@@ -31,7 +31,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class SongCommand extends Command{
 
     public final static  String HELP = "This command is for getting informations about a current playing or queued song.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"nowplaying` or `"+ Prefix.getDefaultPrefix() +"song` or `"+ Prefix.getDefaultPrefix() +"np`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"nowplaying` or `"+ Prefix.getDefaultPrefix() +"song` or `"+ Prefix.getDefaultPrefix() +"np`\n"
                                      + "Parameter: `-h | [Queue Position] | null`";
     
 

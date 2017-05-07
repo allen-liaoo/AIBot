@@ -20,7 +20,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class InviteCommand extends Command {
 
     public final static  String HELP = "This command is for inviting the bot to your own server.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"invite`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"invite`\n"
                                      + "Parameter: `-h | null`";        
 
     @Override

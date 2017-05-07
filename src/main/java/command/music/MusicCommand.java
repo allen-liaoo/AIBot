@@ -25,7 +25,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class MusicCommand extends Command{
 
     public final static  String HELP = "This command is for getting a list of commands of Music Module.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"music` or `"+ Prefix.getDefaultPrefix() +"m`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"music` or `"+ Prefix.getDefaultPrefix() +"m`\n"
                                      + "Parameter: `-h | null`\n";
     
 

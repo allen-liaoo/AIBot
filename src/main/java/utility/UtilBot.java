@@ -9,6 +9,7 @@ package utility;
 import main.AIBot;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.*;
 import system.AILogger;
 import constants.Global;
@@ -287,6 +288,19 @@ public class UtilBot {
                 return true;
         }
         return false;
+    }
+
+    /**
+     * Only delete message that is from Text Channel and has proper permission
+     * @param msg
+     */
+    public static void deleteMessage(Message msg) {
+        if(msg.isFromType(ChannelType.PRIVATE))
+            return;
+
+        if(msg.getGuild().getSelfMember().hasPermission(msg.getTextChannel(), Permission.MESSAGE_MANAGE)) {
+            msg.delete().queue();
+        }
     }
 
     /**

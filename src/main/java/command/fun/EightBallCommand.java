@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class EightBallCommand extends Command{
     public final static String HELP = "Ask the Magic 8Ball a question!\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "8ball`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "8ball`\n"
                                     + "Parameter: `-h | question | null`";
 
 

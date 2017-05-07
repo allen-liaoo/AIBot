@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 public class PingCommand extends Command {
 
     public final static String HELP = "This command is for Pong.\n"
-                             + "command Usage: `" + Prefix.getDefaultPrefix() + "ping`\n"
+                             + "Command Usage: `" + Prefix.getDefaultPrefix() + "ping`\n"
                              + "Parameter: `-h | null`";
 
     @Override

@@ -6,6 +6,8 @@
  */
 package listener;
 
+import audio.Music;
+import net.dv8tion.jda.core.events.ReadyEvent;
 import system.AILogger;
 import main.AIBot;
 import utility.UtilBot;
@@ -33,14 +35,6 @@ public class BotListener extends ListenerAdapter implements Runnable {
         t.start();
     }
     
-    public void start()
-    {
-        if (t == null) {
-         t = new Thread (this, threadName);
-         t.start ();
-      }
-    }
-    
     @Override
     public void run() 
     {
@@ -63,7 +57,7 @@ public class BotListener extends ListenerAdapter implements Runnable {
             else if(input.startsWith("test"))
             {
                 //System.out.println("Test wot?");
-                System.out.println(AILogger.toHasteBin("Testing"));
+                System.out.println(Music.randomBillboardSong());
             }
             
             //Presence
@@ -84,6 +78,11 @@ public class BotListener extends ListenerAdapter implements Runnable {
                 }
             }
         }
+    }
+
+    @Override
+    public void onReady(ReadyEvent e) {
+        System.out.println("Status - Logged in as: " + e.getJDA().getSelfUser().getName());
     }
 
     @Override

@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class EmojiCommand extends Command {
     public final static String HELP = "This command is for emoji utilities.\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "emoji`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "emoji`\n"
                                     + "Parameter: `-h | [Words and Letters] | -m [Emoji Name] | null`\n"
                                     + "[Words and Letters]: Let the bot say [Words and Letters] in emoji language for you.\n"
                                     + "-m [Emoji Name]: Get infotmations about an emoji.";

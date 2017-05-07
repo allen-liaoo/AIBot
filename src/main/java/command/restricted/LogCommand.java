@@ -30,7 +30,7 @@ public class LogCommand extends Command {
     
     public final static String HELP = "This command is for getting the logs of this bot. Server owner, bot owner or or "
                                     + "members that have `Manage Message` permissions only.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"log`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"log`\n"
                                     + "Parameter: `-h | main | error | command | null`";
     
 

@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class ShutDownCommand extends Command{
 
     public final static  String HELP = "This command is for shutting down the bot remotely. **(Server Owner Only)**\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"shutdown`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"shutdown`\n"
                                      + "Parameter: `-h | null`";
     
     @Override

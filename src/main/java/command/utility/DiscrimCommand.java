@@ -23,7 +23,7 @@ import java.util.List;
 public class DiscrimCommand extends Command {
 
     public final static String HELP = "This command is for getting a list of users or bots with the same discriminator.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"discrim`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"discrim`\n"
                                     + "Parameter: `-h | [Discriminator] | [Discriminator] page | null`\n"
                                     + "[Discriminator]: Can use @Mention, 4 digits discriminator, or User ID.\n"
                                     + "null: Get the results base on self's discriminator.\n";

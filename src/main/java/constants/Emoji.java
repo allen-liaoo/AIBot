@@ -15,7 +15,9 @@ import com.vdurmont.emoji.*;
 public class Emoji {
     
     //General
+    public final static String SUCCESS = EmojiParser.parseToUnicode(":white_check_mark:");
     public final static String ERROR = EmojiParser.parseToUnicode(":fire:");
+    public final static String CLOSE = EmojiParser.parseToUnicode(":x:");
     public final static String UP = EmojiParser.parseToUnicode(":arrow_up:");
     public final static String DOWN = EmojiParser.parseToUnicode(":arrow_down:");
     public final static String RIGHT = EmojiParser.parseToUnicode(":arrow_right:");
@@ -53,7 +55,6 @@ public class Emoji {
     
     //utility Commands
     //-NumberCommand
-    public final static String SUCCESS = EmojiParser.parseToUnicode(":white_check_mark:");
     public final static String NUMBER = EmojiParser.parseToUnicode(":1234:");
     public final static String PRINT = EmojiParser.parseToUnicode(":printer:");
     public final static String ROLL = EmojiParser.parseToUnicode(":game_die:");

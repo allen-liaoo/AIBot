@@ -25,7 +25,7 @@ import net.dv8tion.jda.core.entities.VoiceChannel;
  */
 public class InfoChannelCommand extends Command{
     public final static String HELP = "This command is for getting informations about this text channel.\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "channelinfo` or `" + Prefix.getDefaultPrefix() + "ci` \n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "channelinfo` or `" + Prefix.getDefaultPrefix() + "ci` \n"
                                     + "Parameter: `-h | audio or voice or vc | null`\n"
                                     + "null: Will get the current text channel info.\n"
                                     + "audio: Will get the voice channel info that requested user are in.";

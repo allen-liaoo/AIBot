@@ -27,7 +27,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class FMCommand extends Command{
 
     public final static String HELP = "This command is for loading an automatic playlist.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"fm`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"fm`\n"
                                     + "Parameter: `-h | [Playlist Name] | null`\n"
                                     + "[Playlist Name]: Load the playlist and play songs randomly.\n"
                                     + "null: Get a list of available playlists.\n";

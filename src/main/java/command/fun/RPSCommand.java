@@ -20,7 +20,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class RPSCommand extends Command {
     
     public final static String HELP = "Play Rock Paper Scissors with the bot!\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "rockpaperscissors` or `" + Prefix.getDefaultPrefix() + "rps`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "rockpaperscissors` or `" + Prefix.getDefaultPrefix() + "rps`\n"
                                     + "Parameter: `-h | rock | paper | scissors | null`\n";
     
     private String emoji2 = "";

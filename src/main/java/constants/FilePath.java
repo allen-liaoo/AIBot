@@ -13,8 +13,8 @@ package constants;
 public class FilePath {
 
     public static final String BasePath = "/Users/liaoyilin/IdeaProjects/AIBot/src/main/java/";
-    
-    public static final String RadioStations = BasePath + "audio/RadioStations.toml";
+
+    public static final String RadioStation = BasePath + "audio/RadioStation.json";
     public static final String LP = BasePath + "audio/LocalPlaylist/";
     public static final String LP_List = BasePath + "audio/LocalPlaylist/Playlists.txt";
     

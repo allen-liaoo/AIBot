@@ -25,7 +25,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class InfoUserCommand extends Command{
     public final static String HELP = "This command is for getting informations about a user.\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "userinfo` or `" + Prefix.getDefaultPrefix() + "ui` \n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "userinfo` or `" + Prefix.getDefaultPrefix() + "ui` \n"
                                     + "Parameter: `-h | -m | @mention(s) | null`";
     
 

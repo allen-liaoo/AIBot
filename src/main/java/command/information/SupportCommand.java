@@ -18,7 +18,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class SupportCommand extends Command{
     public final static  String HELP = "This command is for supporting the bot.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"support`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"support`\n"
                                      + "Parameter: `-h | null`";
 
     @Override

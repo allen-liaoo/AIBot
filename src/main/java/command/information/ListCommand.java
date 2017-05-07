@@ -33,7 +33,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class ListCommand extends Command {
 
     public final static String HELP = "This command is for getting a list of servers, members or other entities.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"list` or `"+ Prefix.getDefaultPrefix() +"l`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"list` or `"+ Prefix.getDefaultPrefix() +"l`\n"
                                     + "Parameter: `-h | server | member | role | channel | null`\n"
                                     + "server: Get a list of servers this bot is in. *\n"
                                     + "member: Get a list of members in this server.\n"

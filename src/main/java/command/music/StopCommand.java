@@ -24,7 +24,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class StopCommand extends Command{
 
     public final static String HELP = "This command is for stopping the bot from playing music and unbind to the voice channel.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"stop`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"stop`\n"
                                     + "Parameter: `-h | null`";
     
 

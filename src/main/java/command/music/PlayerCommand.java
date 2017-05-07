@@ -31,7 +31,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class PlayerCommand extends Command {
 
     public final static String HELP = "This command is for contolling the music player.\n"
-                                    + "command Usage: `"+ Prefix.getDefaultPrefix() +"player` or `"+ Prefix.getDefaultPrefix() +"pl`\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"player` or `"+ Prefix.getDefaultPrefix() +"pl`\n"
                                     + "Parameter: `-h | null`";
     
     private final List<String> reactions = Arrays.asList(Emoji.PLAYER, Emoji.NEXT_TRACK, Emoji.SHUFFLE, Emoji.REPEAT, Emoji.AUTOPLAY);

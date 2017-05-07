@@ -25,7 +25,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class SpamCommand extends Command {
 
     public final static String HELP = "Spam yummy spams!\n"
-                                    + "command Usage: `" + Prefix.getDefaultPrefix() + "spam`\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() + "spam`\n"
                                     + "Parameter: `-h | [Number] | @Mention(s) | null`\n"
                                     + "[Number]: Spam an amount of spams.\n"
                                     + "@Mention(s): Spam spams to mentioned member(s) in dm.\n";

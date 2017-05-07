@@ -30,6 +30,8 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+import javax.rmi.CORBA.Util;
+
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
@@ -37,11 +39,11 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class HelpCommand extends Command {
     
     public final static String HELP = "This command is for getting this bot's commands.\n"
-                               + "command Usage: `" + Prefix.getDefaultPrefix() + "help` or `" + Prefix.getDefaultPrefix() + "h`\n"
+                               + "Command Usage: `" + Prefix.getDefaultPrefix() + "help` or `" + Prefix.getDefaultPrefix() + "h`\n"
                                + "Parameter: `-h | -dm [Page Number] | command/Module Name  | [Page Number] | null`\n"
                                + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
 
-    private static final List<String> reactions = Arrays.asList(Emoji.ONE, Emoji.TWO, Emoji.THREE, Emoji.FOUR);
+    private static final List<String> reactions = Arrays.asList(Emoji.ONE, Emoji.TWO, Emoji.THREE, Emoji.FOUR, Emoji.CLOSE);
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -86,13 +88,16 @@ public class HelpCommand extends Command {
                                     HelpCommand hc2 = new HelpCommand();
                                     hc2.action(new String[] {3+""},e);
                                     break;
-                                case 4:
+                                case 3:
                                     HelpCommand hc3 = new HelpCommand();
                                     hc3.action(new String[] {4+""},e);
                                     break;
-                                default:
+                                case 4:
                                     break;
+                                default:
+                                    return;
                             }
+                            UtilBot.deleteMessage(msg);
                         }
                     });
                 });

@@ -34,6 +34,21 @@ public class AIPages<T> {
         this.pageSize = pageSize;
         calculatePages();
     }
+
+    /**
+     * Constructor with max page size
+     * @param list
+     * @param pageSize
+     */
+    public AIPages(List<T> list, int pageSize, boolean caculate) {
+        this.list = list;
+        if(caculate)
+            calculatePageSize(pageSize);
+        else
+            this.pageSize = pageSize;
+
+        calculatePages();
+    }
     
     /**
      * Constructor with unknown page size
@@ -81,6 +96,25 @@ public class AIPages<T> {
             if(i > max) max = i;
         }
         
+        pageSize = max;
+    }
+
+    /**
+     * Calculate page size for an unknown list.
+     * @param max Page size cannot be larger than max.
+     */
+    private void calculatePageSize(int max) {
+        if(list == null) return;
+
+        int maximum = Integer.MIN_VALUE;
+
+        for(int i = 1; i <= list.size(); i++) {
+            if(list.size() % i > 3) continue;
+            if((list.size() % i + i) > DEFUALT_PAGE_SIZE) continue;
+            if(i > max) continue;
+            if(i > maximum) maximum = i;
+        }
+
         pageSize = max;
     }
     

@@ -21,7 +21,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class SayCommand extends Command{
     public final static  String HELP = "This command is for letting a bot say something for you.\n"
-                                     + "command Usage: `"+ Prefix.getDefaultPrefix() +"say`\n"
+                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"say`\n"
                                      + "Parameter: `-h | [Content] | embed [Content]| null`\n"
                                      + "[Content]: The sentence you want AIBot to say in normal message form.\n"
                                      + "embed [Content]: The sentence you want AIBot to say in embed message form.\n"
