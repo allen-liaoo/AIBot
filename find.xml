@@ -1,9 +1,9 @@
 <application>
   <component name="FindSettings">
     <option name="caseSensitive" value="true" />
-    <option name="customScope" value="File '.../src/main/java/audio/LocalPlaylist/Playlists.json - [AIBot_main]'" />
-    <option name="defaultScopeName" value="File '.../src/main/java/audio/LocalPlaylist/Playlists.json - [AIBot_main]'" />
+    <option name="customScope" value="Project 'ServerMan'" />
+    <option name="defaultScopeName" value="Project 'ServerMan'" />
     <option name="CASE_SENSITIVE_SEARCH" value="true" />
-    <option name="SEARCH_SCOPE" value="File '.../src/main/java/audio/LocalPlaylist/Playlists.json - [AIBot_main]'" />
+    <option name="SEARCH_SCOPE" value="Project 'ServerMan'" />
   </component>
 </application>
