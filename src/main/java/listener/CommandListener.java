@@ -7,6 +7,7 @@
  */
 package listener;
 
+import constants.Global;
 import setting.Prefix;
 import main.*;
 import setting.GuildWrapper;
@@ -50,7 +51,7 @@ public class CommandListener extends ListenerAdapter {
          */
         if(!e.isFromType(ChannelType.PRIVATE) && !AIBot.guilds.containsKey(e.getGuild().getId()))
         {
-            GuildWrapper newGuild = new GuildWrapper(Music.playerManager, e.getGuild().getId(), "=");
+            GuildWrapper newGuild = new GuildWrapper(e.getJDA(), AIBot.playerManager, e.getGuild().getId(), "=");
             AIBot.guilds.put(e.getGuild().getId(), newGuild);
             e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
             AILogger.updateLog("\tNew Server: " + e.getGuild().getId() + " " + e.getGuild().getName());

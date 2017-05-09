@@ -10,6 +10,8 @@ import main.AIBot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.regex.Pattern;
+
 import net.dv8tion.jda.core.Permission;
 
 /**
@@ -55,6 +57,8 @@ public class Global {
             (Arrays.asList(new Permission[] {Permission.ADMINISTRATOR, Permission.MANAGE_SERVER}));
     
     //Bot Developer ID
-    public final static String D_ID = "248214880379863041";    
-    
+    public final static String D_ID = "248214880379863041";
+
+    public static final Pattern urlPattern = Pattern.compile("^(https?|ftp)://([A-Za-z0-9-._~/?#\\\\[\\\\]:!$&'()*+,;=]+)$");
+
 }

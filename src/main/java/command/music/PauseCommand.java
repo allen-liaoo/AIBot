@@ -5,9 +5,11 @@
  */
 package command.music;
 
+import audio.GuildPlayer;
 import command.*;
 import audio.Music;
 import constants.Emoji;
+import main.AIBot;
 import setting.Prefix;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -37,8 +39,11 @@ public class PauseCommand extends Command{
         }
 
         try {
-            if (Music.checkVoiceChannel(e))
-                Music.pauseOrPlay(e);
+            if (Music.checkVoiceChannel(e)) {
+                GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+                player.setTc(e.getTextChannel());
+                player.pauseOrPlay();
+            }
         } catch (NullPointerException npe) {
             e.getTextChannel().sendMessage(Emoji.ERROR + " No song is playing!").queue();
         }

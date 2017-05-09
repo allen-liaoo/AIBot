@@ -53,7 +53,7 @@ public class PlayerCommand extends Command {
         
         if(args.length == 0)
         {
-            if(!AIBot.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack().isEmpty())
+            if(!AIBot.getGuild(e.getGuild()).getGuildPlayer().getNowPlayingTrack().isEmpty())
             {
                 AudioPlayer player = AIBot.getGuild(e.getGuild()).getPlayer();
                 AudioTrack track = player.getPlayingTrack();
@@ -64,8 +64,8 @@ public class PlayerCommand extends Command {
                 String volume = Music.volumeToString(e);
                 String posdur = "[`"+UtilString.formatDurationToString(track.getPosition())
                         +"`/`"+UtilString.formatDurationToString(track.getDuration())+"`]";
-                String skips = Emoji.NEXT_TRACK+" "+ AIBot.getGuild(e.getGuild()).getScheduler().getVote().size()+
-                        "/"+ AIBot.getGuild(e.getGuild()).getScheduler().requiredVote();
+                String skips = Emoji.NEXT_TRACK+" "+ AIBot.getGuild(e.getGuild()).getGuildPlayer().getVote().size()+
+                        "/"+ AIBot.getGuild(e.getGuild()).getGuildPlayer().requiredVote();
                 
                 EmbedBuilder embedplayer = new EmbedBuilder();
                 embedplayer.addField(state+"...", playing+"  "+posdur+"\n"+progress+"\n"+volume+"  "+skips, true);

@@ -40,7 +40,7 @@ public class JoinCommand extends Command{
         
         if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
         {
-            Connection.connect(e, true);
+            Music.connect(e, true);
         }
     }
 

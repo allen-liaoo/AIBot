@@ -7,6 +7,7 @@
  */
 package command.music;
 
+import audio.GuildPlayer;
 import audio.Music;
 import command.Command;
 import main.AIBot;
@@ -46,7 +47,10 @@ public class DumpCommand extends Command {
             return;
         }
 
-        if (AIBot.getGuild(e.getGuild()).getScheduler().getQueue().isEmpty()) {
+        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+        player.setTc(e.getTextChannel());
+
+        if (player.getQueue().isEmpty()) {
             e.getChannel().sendMessage(Emoji.ERROR + " There is no song in the queue.").queue();
             return;
         }
@@ -54,8 +58,7 @@ public class DumpCommand extends Command {
         if(UtilBot.isMajority(e.getMember()) ||
                 UtilBot.isMod(e.getMember()))
         {
-            AIBot.getGuild(e.getGuild()).getScheduler().clearQueue().clearVote();
-
+            player.clearQueue().clearVote();
             e.getChannel().sendMessage(Emoji.STOP + " Cleared the queue.").queue();
         }
         else

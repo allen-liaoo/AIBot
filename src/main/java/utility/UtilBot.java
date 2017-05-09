@@ -298,7 +298,9 @@ public class UtilBot {
         if(msg.isFromType(ChannelType.PRIVATE))
             return;
 
-        if(msg.getGuild().getSelfMember().hasPermission(msg.getTextChannel(), Permission.MESSAGE_MANAGE)) {
+        if(msg.getAuthor().getId().equals(msg.getGuild().getSelfMember().getUser().getId())) {
+            msg.delete().queue();
+        } else if(msg.getGuild().getSelfMember().hasPermission(msg.getTextChannel(), Permission.MESSAGE_MANAGE)) {
             msg.delete().queue();
         }
     }

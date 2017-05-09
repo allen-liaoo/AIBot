@@ -7,24 +7,28 @@
 package setting;
 
 import audio.AudioPlayerSendHandler;
-import audio.TrackScheduler;
+import audio.GuildPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 
 /**
- * Holder for both the player and a track scheduler for one guild.
+ * Holder for both the player and a track guildPlayer for one guild.
  */
 public class GuildWrapper {
+
   /**
-   * audio player for the guild.
+   * JDA
+   */
+  private final JDA jda;
+
+  /**
+   * Audio players for the guild.
    */
   private final AudioPlayer player;
-  /**
-   * Track scheduler for the player.
-   */
-  private final TrackScheduler scheduler;
+  private final GuildPlayer guildPlayer;
   /**
    * Binded Voice Channel for the guild.
    */
@@ -38,15 +42,16 @@ public class GuildWrapper {
   private String guildId, prefix;
   
   /**
-   * Creates a player and a track scheduler
+   * Creates a player and a track guildPlayer
    * @param manager audio player manager to use for creating the player.
    * @param guildId Guild ID
    * @param prefix Custom Guild prefix
    */
-  public GuildWrapper(AudioPlayerManager manager, String guildId, String prefix) {
+  public GuildWrapper(JDA jda, AudioPlayerManager manager, String guildId, String prefix) {
+    this.jda = jda;
     player = manager.createPlayer();
-    scheduler = new TrackScheduler(player);
-    player.addListener(scheduler);
+    guildPlayer = new GuildPlayer(player, jda.getGuildById(guildId).getPublicChannel());
+    player.addListener(guildPlayer);
     
     this.guildId = guildId;
     this.prefix = prefix;
@@ -60,9 +65,9 @@ public class GuildWrapper {
       return new AudioPlayerSendHandler(player);
     }
 
-    public TrackScheduler getScheduler()
+    public GuildPlayer getGuildPlayer()
     {
-        return scheduler;
+        return guildPlayer;
     }
 
     public AudioPlayer getPlayer()
@@ -76,7 +81,7 @@ public class GuildWrapper {
 
     public void setVc(VoiceChannel vc) {
         this.vc = vc;
-        scheduler.setVc(vc);
+        guildPlayer.setVc(vc);
     }
 
     public TextChannel getTc() {
@@ -85,7 +90,7 @@ public class GuildWrapper {
     
     public void setTc(TextChannel tc) {
         this.tc = tc;
-        scheduler.setTc(tc);
+        guildPlayer.setTc(tc);
     }
 
     public String getPrefix()

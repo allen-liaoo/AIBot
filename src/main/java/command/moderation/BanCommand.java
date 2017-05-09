@@ -36,7 +36,7 @@ public class BanCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Moderation Module", null);
         embed.addField("Ban -Help", HELP, true);
-        embed.setFooter("command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -60,7 +60,7 @@ public class BanCommand extends Command{
             if (!selfMember.hasPermission(Permission.BAN_MEMBERS)) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " I need to have **Ban Members** Permission to ban members.").queue();
                 return;
-            } else if(e.getMember().hasPermission(Permission.BAN_MEMBERS)) {
+            } else if(!e.getMember().hasPermission(Permission.BAN_MEMBERS)) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " You need to have **Ban Members** Permission to ban members.").queue();
                 return;
             }

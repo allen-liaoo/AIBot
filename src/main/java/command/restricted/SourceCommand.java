@@ -119,7 +119,6 @@ public class SourceCommand extends Command{
                     
                 } catch(FileNotFoundException fnfe) {
                     e.getChannel().sendMessage(Emoji.ERROR + " `" + args[0] +  "` does not exist.").queue();
-                    
                 } catch(Exception ex){
                     AILogger.errorLog(ex, e, this.getClass().getName(), "Unspecified Exception.");
                 }

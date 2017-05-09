@@ -5,6 +5,9 @@
  */
 package audio;
 
+import constants.Global;
+import main.AIBot;
+import net.dv8tion.jda.core.managers.AudioManager;
 import system.AIVote;
 import audio.AudioTrackWrapper.TrackType;
 import constants.Emoji;
@@ -20,12 +23,15 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
 
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+
+import javax.xml.soap.Text;
 
 /**
  *
@@ -35,15 +41,18 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 /**
  * This class schedules tracks for the audio PLAYER. It contains the queue of tracks.
  */
-public class TrackScheduler extends AudioEventAdapter {
+public class GuildPlayer extends AudioEventAdapter {
 
+    /**
+     * Channels and players
+     */
     private VoiceChannel vc;
     private TextChannel tc;
+    private final AudioPlayer player;
 
     /**
     * Track fields.
     */
-    private final AudioPlayer player;
     private AudioTrackWrapper NowPlayingTrack;
     private final QueueList queue;
     private final QueueList preQueue;
@@ -67,8 +76,9 @@ public class TrackScheduler extends AudioEventAdapter {
     /**
    * @param player The audio PLAYER this scheduler uses=
    */
-    public TrackScheduler(AudioPlayer player) {
+    public GuildPlayer(AudioPlayer player, TextChannel tc) {
         this.player = player;
+        this.tc = tc;
         this.Mode = audio.PlayerMode.DEFAULT;
 
         this.queue = new QueueList();
@@ -125,24 +135,61 @@ public class TrackScheduler extends AudioEventAdapter {
     /**
      * Add the next track to queue or play right away if nothing is in the queue.
      * @param track The track to play or add to queue.
-     * @param e
      */
-    public void queue(AudioTrackWrapper track, MessageReceivedEvent e) {
+    public void queue(AudioTrackWrapper track) {
         // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
         // something is playing, it returns false and does nothing. In that case the PLAYER was already playing so this
         // track goes to the queue instead.
 
         if(this.Mode == audio.PlayerMode.FM) {
-            e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only request radio or songs when FM is not playing.").queue();
+            tc.sendMessage(Emoji.ERROR + " FM mode is ON! Only request radio or songs when FM is not playing.").queue();
             return;
         }
 
         if (!player.startTrack(track.getTrack(), true)) {
             queue.offer(track);
-            e.getTextChannel().sendMessage(Emoji.SUCCESS + " Queued `" + track.getTrack().getInfo().title + "`").queue();
+            tc.sendMessage(Emoji.SUCCESS + " Queued `" + track.getTrack().getInfo().title + "`").queue();
             return;
         }
         NowPlayingTrack = track;
+    }
+
+    /**
+     * Play the song
+     * @param link the link to play the song
+     * @param type Track Type: NORMAL_REQUEST, RADIO
+     */
+    public void play(String link, String author, TrackType type)
+    {
+        Matcher m = Global.urlPattern.matcher(link);
+
+        if(m.find()){
+            try {
+                //Only turn the mode to normal is this was in default mode,
+                //So repeat or AutoPlay mode will not be turned off
+                if(this.getMode() == audio.PlayerMode.DEFAULT)
+                    setMode(audio.PlayerMode.NORMAL);
+
+                AIBot.playerManager.loadItemOrdered(AIBot.playerManager, link, new LoadResultHandler(this) {
+                    @Override
+                    public void trackLoaded(AudioTrack track) {
+                        queue(new AudioTrackWrapper(track, author, type));
+                    }
+
+                    @Override
+                    public void playlistLoaded(AudioPlaylist playlist) {
+                        addPlayList(playlist, author);
+                        tc.sendMessage(Emoji.SUCCESS + " Queued Playlist: `" + playlist.getName() + "`").queue();
+                    }
+                }).get();
+            } catch (InterruptedException ex) {
+
+            } catch (ExecutionException ex) {
+
+            }
+        } else {
+            tc.sendMessage(Emoji.ERROR + " No match found.").queue();
+        }
     }
 
     /**
@@ -175,8 +222,8 @@ public class TrackScheduler extends AudioEventAdapter {
         previous = auto;
         String url = this.fmSongs.get(auto);
 
-        if (Music.urlPattern.matcher(url).find()) {
-            Music.playerManager.loadItemOrdered(Music.playerManager, url, new LoadResultHandler(this) {
+        if (Global.urlPattern.matcher(url).find()) {
+            AIBot.playerManager.loadItemOrdered(AIBot.playerManager, url, new LoadResultHandler(this) {
                 @Override
                 public void trackLoaded(AudioTrack track) {
                     NowPlayingTrack = new AudioTrackWrapper(track, "AIBot FM", AudioTrackWrapper.TrackType.FM);
@@ -191,8 +238,8 @@ public class TrackScheduler extends AudioEventAdapter {
 
         String url = WebScraper.getYouTubeAutoPlay(NowPlayingTrack.getTrack().getInfo().uri);
 
-        if (Music.urlPattern.matcher(url).find()) {
-            Music.playerManager.loadItemOrdered(Music.playerManager, url, new LoadResultHandler(this) {
+        if (Global.urlPattern.matcher(url).find()) {
+            AIBot.playerManager.loadItemOrdered(AIBot.playerManager, url, new LoadResultHandler(this) {
                 @Override
                 public void trackLoaded(AudioTrack track) {
                     NowPlayingTrack = new AudioTrackWrapper(track, "YouTube AutoPlay", TrackType.NORMAL_REQUEST);
@@ -205,8 +252,7 @@ public class TrackScheduler extends AudioEventAdapter {
     /**
      * Play the previous track and add the current one to queue.
      */
-    public void playPrevious()
-    {
+    public void playPrevious() {
         if(preQueue.isEmpty())
             return;
 
@@ -220,8 +266,7 @@ public class TrackScheduler extends AudioEventAdapter {
      * Add the finished song to previous queue
      * @param track
      */
-    private void addToPreviousQueue(AudioTrackWrapper track)
-    {
+    private void addToPreviousQueue(AudioTrackWrapper track) {
         preQueue.add(0, track.makeClone());
         if(preQueue.size() > 5)
             preQueue.removeLast();
@@ -242,6 +287,39 @@ public class TrackScheduler extends AudioEventAdapter {
 
         //Check if majority of the members agree to skip
         return (int) Math.ceil(mem / 2);
+    }
+
+    public void connect(VoiceChannel vc) {
+        setVc(vc);
+        AudioManager am = vc.getGuild().getAudioManager();
+        am.setAutoReconnect(true);
+        am.openAudioConnection(vc);
+    }
+
+    public void disconnect() {
+        vc.getGuild().getAudioManager().closeAudioConnection();
+    }
+
+    /**
+     * Play or pause
+     */
+    public void pauseOrPlay() {
+        if(NowPlayingTrack == null)
+            return;
+        if(player.isPaused())
+            player.setPaused(false);
+        else if(!player.isPaused())
+            player.setPaused(true);
+    }
+
+    /**
+     * Jump/Seek to a position
+     * @param position
+     */
+    public void jump(long position) {
+        if(NowPlayingTrack.getTrack().isSeekable()) {
+            NowPlayingTrack.getTrack().setPosition(position);
+        }
     }
 
     /**
@@ -280,6 +358,24 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
     /**
+     * Inform the user when the player is paused
+     * @param player
+     */
+    @Override
+    public void onPlayerPause(AudioPlayer player) {
+        tc.sendMessage(Emoji.PAUSE + " Player paused.").queue();
+    }
+
+    /**
+     * Inform the user when the player is resumed
+     * @param player
+     */
+    @Override
+    public void onPlayerResume(AudioPlayer player) {
+        tc.sendMessage(Emoji.RESUME + " Player resumed.").queue();
+    }
+
+    /**
      * Inform the user that track has stuck
      * @param player
      * @param track
@@ -299,32 +395,14 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     @Override
     public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
-        tc.sendMessage(Emoji.ERROR + " An error occurred! (Informed the owner)\n```\n\n"+exception.getLocalizedMessage()+"\n\n...```").queue();
+        tc.sendMessage(Emoji.ERROR + " An error occurred:\n"+exception.getLocalizedMessage()).queue();
         nextTrack();
         AILogger.errorLog(exception, this.getClass(), "TrackException(FriendlyException)", "Probably track decoding problem");
     }
 
     /**
-     * Inform the user when the player is paused
-     * @param player
-     */
-    @Override
-    public void onPlayerPause(AudioPlayer player) {
-        tc.sendMessage(Emoji.PAUSE + " Player paused.").queue();
-    }
-
-    /**
-     * Inform the user when the player is resumed
-     * @param player
-     */
-    @Override
-    public void onPlayerResume(AudioPlayer player) {
-        tc.sendMessage(Emoji.RESUME + " Player resumed.").queue();
-    }
-
-    /**
     * Clear methods
-    * @return TrackScheduler, easier for chaining
+    * @return GuildPlayer, easier for chaining
     */
     public void stopPlayer() {
         clearNowPlayingTrack()
@@ -334,24 +412,24 @@ public class TrackScheduler extends AudioEventAdapter {
         .player.stopTrack();
     }
 
-    public TrackScheduler clearQueue() {
+    public GuildPlayer clearQueue() {
         queue.clear();
         preQueue.clear();
         fmSongs.clear();
         return this;
     }
 
-    private TrackScheduler clearMode() {
+    private GuildPlayer clearMode() {
         Mode = audio.PlayerMode.DEFAULT;
         return this;
     }
 
-    private TrackScheduler clearNowPlayingTrack() {
+    private GuildPlayer clearNowPlayingTrack() {
         NowPlayingTrack = new AudioTrackWrapper();
         return this;
     }
 
-    public TrackScheduler clearVote() {
+    public GuildPlayer clearVote() {
         skips.clear();
         return this;
     }
@@ -359,6 +437,10 @@ public class TrackScheduler extends AudioEventAdapter {
     /**
      * Getter and Setter
      */
+    public AudioPlayer getPlayer() {
+        return player;
+    }
+
     public TextChannel getTc() {
         return tc;
     }
@@ -412,4 +494,3 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
 }
-

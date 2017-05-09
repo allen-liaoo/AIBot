@@ -7,6 +7,7 @@
  */
 package command.music;
 
+import audio.GuildPlayer;
 import audio.Music;
 import command.Command;
 import constants.Emoji;
@@ -49,7 +50,9 @@ public class JumpCommand extends Command {
         
         else
         {
-            String requester = AIBot.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack().getRequester();
+            String requester = AIBot.getGuild(e.getGuild()).getGuildPlayer().getNowPlayingTrack().getRequester();
+            GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+            player.setTc(e.getTextChannel());
             
             if((requester != null && requester.equals(e.getAuthor().getId())) ||
                 UtilBot.isMajority(e.getMember()) ||
@@ -72,7 +75,7 @@ public class JumpCommand extends Command {
                         return;
                     }
 
-                    Music.jump(e, position);
+                    player.jump(position);
                     e.getChannel().sendMessage(Emoji.JUMP + " Jumped to `"+duration+"`.").queue();
                 } catch (ArithmeticException | DateTimeParseException ae) {
                     e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid duration.").queue();

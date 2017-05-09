@@ -10,6 +10,7 @@ package audio;
 import audio.AudioTrackWrapper.TrackType;
 import constants.Emoji;
 import constants.FilePath;
+import main.AIBot;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import setting.Prefix;
@@ -37,8 +38,12 @@ public class Radio {
             e.getTextChannel().sendMessage(Emoji.ERROR + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "radio` for available playlists.").queue();
             return;
         }
-        
-        Music.play(link, e, TrackType.RADIO);
+
+        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+        player.setTc(e.getTextChannel());
+
+        Music.connect(e, false);
+        player.play(link, e.getMember().getEffectiveName(), TrackType.RADIO);
         
         //Log
         AILogger.commandLog(e, "FM#loadFM", "Fm loaded");

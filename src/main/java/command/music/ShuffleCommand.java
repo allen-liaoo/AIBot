@@ -7,6 +7,7 @@
  */
 package command.music;
 
+import audio.GuildPlayer;
 import main.AIBot;
 import audio.Music;
 import command.Command;
@@ -42,7 +43,9 @@ public class ShuffleCommand extends Command {
         
         if(args.length == 0)
         {
-            if(AIBot.getGuild(e.getGuild()).getScheduler().getMode() == audio.PlayerMode.FM) {
+            GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+            player.setTc(e.getTextChannel());
+            if(player.getMode() == audio.PlayerMode.FM) {
                 e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only shuffle queue when FM is not playing.").queue();
                 return;
             }
@@ -50,12 +53,13 @@ public class ShuffleCommand extends Command {
             if(UtilBot.isMajority(e.getMember()) ||
                 UtilBot.isMod(e.getMember()))
             {
-                if(AIBot.getGuild(e.getGuild()).getScheduler().getQueue().isEmpty()) {
+                if(player.getQueue().isEmpty()) {
                    e.getChannel().sendMessage(Emoji.ERROR + " No song in the queue to shuffle.").queue();
                    return;
                 }
-                
-                Music.shuffle(e);
+
+                player.getQueue().shuffle();
+                e.getChannel().sendMessage(Emoji.SHUFFLE + " Shuffled queue.").queue();
             }
             else {
                 e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, or "

@@ -28,7 +28,7 @@ public class InviteCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Invite -Help", HELP, true);
-        embed.setFooter("command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -42,9 +42,8 @@ public class InviteCommand extends Command {
             EmbedBuilder links = new EmbedBuilder();
             links.setAuthor(e.getMember().getEffectiveName() + ", some spicy links", Global.B_INVITE, e.getAuthor().getEffectiveAvatarUrl());
             links.setColor(UtilBot.randomColor());
-            links.addField("Invite me to your server here:", Emoji.INVITE + " [Invite Link]("+"\n" +
-                    Global.B_INVITE + "&guild_id=" + e.getGuild().getId() + ")\n",false);
-            links.addField("If you require support, join here:", "[AIBot Support Server]("+ Global.B_SERVER+")" ,false);
+            links.appendDescription(Emoji.INVITE + " **[Invite Link](" + Global.B_INVITE + "&guild_id=" + e.getGuild().getId() + ")  |  " +
+                    "[AIBot Support Server]("+ Global.B_SERVER+")**");
             e.getChannel().sendMessage(links.build()).queue();
         }
     }

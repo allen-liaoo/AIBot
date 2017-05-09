@@ -36,7 +36,7 @@ public class HangManCommand extends Command{
         
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("HangMan -Help", HELP, true);
-        embed.setFooter("command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         embed.setTimestamp(Instant.now());
         return embed;
     }

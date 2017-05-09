@@ -10,15 +10,15 @@ package audio;
 import main.AIBot;
 import constants.Emoji;
 import constants.FilePath;
+import org.json.JSONTokener;
 import setting.Prefix;
 import system.AILogger;
 import utility.UtilBot;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
+
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -50,7 +50,7 @@ public class FM {
         if(local != null) {
             for(int i = 0; i < local.length; i ++)
             {
-                AIBot.getGuild(e.getGuild()).getScheduler().addFMSong(local[i]);
+                AIBot.getGuild(e.getGuild()).getGuildPlayer().addFMSong(local[i]);
             }
         }
         
@@ -61,8 +61,8 @@ public class FM {
                 JSONObject jo = array.getJSONObject(i);
 
                 try {
-                    AIBot.getGuild(e.getGuild()).getScheduler().addFMSong("https://www.youtube.com/watch?v=" + jo.get("identifier").toString());
-                } catch (org.json.JSONException jsex) {
+                    AIBot.getGuild(e.getGuild()).getGuildPlayer().addFMSong("https://www.youtube.com/watch?v=" + jo.get("identifier").toString());
+                } catch (org.json.JSONException jex) {
                     e.getChannel().sendMessage(Emoji.ERROR + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "fm` for available playlists.").queue();
                     return;
                 }
@@ -70,11 +70,11 @@ public class FM {
         }
         
         //Prevent user from calling FM outside of voice channel
-        Connection.connect(e, false);
         if(!e.getMember().getVoiceState().inVoiceChannel())
             return;
-        
-        AIBot.getGuild(e.getGuild()).getScheduler().autoFM();
+
+        Music.connect(e, false);
+        AIBot.getGuild(e.getGuild()).getGuildPlayer().autoFM();
         
         //Log
         AILogger.commandLog(e, "FM#loadFM", "Fm loaded");
@@ -131,43 +131,52 @@ public class FM {
     
     public static String[] loadLocalLibrary(String input) throws IOException
     {
-        //Load A List of Play Lists
-        BufferedReader br = new BufferedReader(new FileReader(FilePath.LP_List));
-        String pl;
-        
-        while((pl = br.readLine()) != null) {
-            if(pl.toLowerCase().contains(input.toLowerCase()))
-                break;
-        }
-        
-        try {
-            //Load Play Lists
-            BufferedReader br2 = new BufferedReader(new FileReader(FilePath.LP + pl + ".txt"));
-            String line, songString = "";
+        String libraries[] = getLocalLibrary().split(", ");
+        String library = "";
 
-            while((line = br2.readLine()) != null) {
-                songString += line + " ";
+        //Find the correct play list
+        for(String name : libraries) {
+            if(name.toLowerCase().contains(input.toLowerCase())) {
+                library = name;
+                break;
+            }
+        }
+
+        //Load the library
+        try {
+            InputStream targetStream = new FileInputStream(new File(FilePath.LP+library+".json"));
+            JSONTokener jsonTokener = new JSONTokener(targetStream);
+            JSONArray array = new JSONArray(jsonTokener);
+            String url[] = new String[array.length()];
+
+            for(int i = 0; i < array.length(); i++){
+                JSONObject track = array.getJSONObject(i);
+                url[i] = "https://www.youtube.com/watch?v="+track.getString("id");
             }
 
-            String[] songs = songString.split(" ");
-            return songs;
+            return url;
         } catch (FileNotFoundException fnfe) {
-            return null;
+            fnfe.printStackTrace();
         }
+        return null;
     }
     
     public static String getLocalLibrary() throws IOException
     {
-        BufferedReader br = new BufferedReader(new FileReader(FilePath.LP_List));
-        String pl = "", plString = "";
-        
-        while((pl = br.readLine()) != null)
-        {
-            plString += pl + ", ";
+        String libraries= "";
+        try {
+            InputStream targetStream = new FileInputStream(new File(FilePath.LP_List));
+            JSONTokener jsonTokener = new JSONTokener(targetStream);
+            JSONArray array = new JSONArray(jsonTokener);
+
+            for(int i = 0; i < array.length(); i++){
+                JSONObject library = array.getJSONObject(i);
+                libraries += i==array.length()-1 ? library.getString("name") : library.getString("name")+", ";
+            }
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
         }
-        plString = plString.substring(0, plString.length() - 2);
-        
-        return plString;
+        return libraries;
     }
 
 }

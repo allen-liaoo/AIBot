@@ -6,7 +6,9 @@
 package command.music;
 
 import audio.AudioTrackWrapper;
+import audio.GuildPlayer;
 import audio.Music;
+import constants.Global;
 import main.AIBot;
 import command.Command;
 import constants.Emoji;
@@ -22,6 +24,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import utility.WebScraper;
 
 /**
  *
@@ -32,11 +35,12 @@ public class PlayCommand extends Command{
     public static HashMap<String, User> selecter = new HashMap<String, User>(); //Guild ID and User
     private static List<SearchResult> results;
     
-    public final static  String HELP = "This command is for playing an youtube music in the voice channel.\n"
-                                     + "Command Usage: `" + Prefix.getDefaultPrefix() +"play` or `" + Prefix.getDefaultPrefix() + "p`\n"
-                                     + "Parameter: `-h | [Keywords or Youtube Url] | -m [Keywords] | null`\n"
-                                     + "[Keywords or Youtube Url]: Play the first video of a YouTube search or a specified YouTube video.\n"
-                                     + "-m [Keywords]: Get the top 5 search results and choose one to play.\n";
+    public final static String HELP = "This command is for playing an youtube music in the voice channel.\n"
+                                    + "Command Usage: `" + Prefix.getDefaultPrefix() +"play` or `" + Prefix.getDefaultPrefix() + "p`\n"
+                                    + "Parameter: `-h | [Keywords or Youtube Url] | -m [Keywords] | random/r | null`\n"
+                                    + "[Keywords or Youtube Url]: Play the first video of a YouTube search or a specified YouTube video.\n"
+                                    + "-m [Keywords]: Get the top 5 search results and choose one to play.\n"
+                                    + "random/r: Play a random song.\n";
     private final String num = "5";
     
 
@@ -54,6 +58,9 @@ public class PlayCommand extends Command{
             e.getChannel().sendMessage(help(e).build()).queue();
             return;
         }
+
+        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+        player.setTc(e.getTextChannel());
         
         if(args.length == 0)
         {
@@ -63,11 +70,12 @@ public class PlayCommand extends Command{
             }
             
             if(AIBot.getGuild(e.getGuild()).getPlayer().isPaused())
-                Music.resume(e);
+                player.pauseOrPlay();
         }
         
         else if(args.length > 0 && "-m".equals(args[0]))
         {
+            Music.connect(e, false);
             String input = "";
             for(int i = 0; i < args.length; i++){
                 if(i != 0)
@@ -104,10 +112,10 @@ public class PlayCommand extends Command{
         
         else
         {
+            Music.connect(e, false);
             if("random".equals(args[0]) || "r".equals(args[0])) {
-                action(new String[]{Music.randomBillboardSong()}, e);
-            } else if(!Music.urlPattern.matcher(args[0]).find())
-            {
+                action(new String[]{WebScraper.randomBillboardSong()}, e);
+            } else if(!Global.urlPattern.matcher(args[0]).find()) {
                 String input = "";
                 for(int i = 0; i < args.length; i++){
                     input += args[i] + "+";
@@ -120,7 +128,7 @@ public class PlayCommand extends Command{
                     //Do it twice because sometimes it wont get result the first time
                     if(result.isEmpty())
                         result = Search.youtubeSearch(num, input);
-                    Music.play(result.get(0).getLink(), e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
+                    player.play(result.get(0).getLink(), e.getMember().getEffectiveName(), AudioTrackWrapper.TrackType.NORMAL_REQUEST);
                     result.clear();
                 } catch (IOException ioe) {
                     AILogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result.");
@@ -129,7 +137,7 @@ public class PlayCommand extends Command{
                     AILogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly. Input: " + input);
                 }
             } else {
-                Music.play(args[0], e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
+                player.play(args[0], e.getMember().getEffectiveName(), AudioTrackWrapper.TrackType.NORMAL_REQUEST);
             }
         }
     }
@@ -155,11 +163,14 @@ public class PlayCommand extends Command{
         
         else
         {
+            GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+            player.setTc(e.getTextChannel());
+
             int i = Character.getNumericValue(character);
             AILogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());
             e.getTextChannel().deleteMessageById(e.getMessage().getId()).complete();
-        
-            Music.play(results.get(i - 1).getLink(), e, AudioTrackWrapper.TrackType.NORMAL_REQUEST);
+
+            player.play(results.get(i-1).getLink(), e.getMember().getEffectiveName(), AudioTrackWrapper.TrackType.NORMAL_REQUEST);
         }
         
         selecter.remove(e.getGuild().getId(), e.getAuthor());

@@ -6,181 +6,30 @@
 package audio;
 
 import audio.AudioTrackWrapper.TrackType;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import main.AIBot;
 import constants.Emoji;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.VoiceChannel;
+import net.dv8tion.jda.core.exceptions.PermissionException;
+import net.dv8tion.jda.core.managers.AudioManager;
+import setting.GuildWrapper;
 import system.AILogger;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import utility.UtilNum;
 
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class Music  {
-    public static AudioPlayerManager playerManager;
-    public static final Pattern urlPattern = Pattern.compile("^(https?|ftp)://([A-Za-z0-9-._~/?#\\\\[\\\\]:!$&'()*+,;=]+)$");
-    
-    public static void musicStartup(){
-        playerManager = new DefaultAudioPlayerManager();
-        AudioSourceManagers.registerRemoteSources(playerManager);
-        AudioSourceManagers.registerLocalSource(playerManager);
-    }
-    
-    /**
-     * Play the song
-     * @param link the link to play the song
-     * @param e
-     * @param type Track Type: NORMAL_REQUEST, RADIO
-     */
-    public static void play(String link, MessageReceivedEvent e, TrackType type)
-    {
-        Matcher m = Music.urlPattern.matcher(link);
-        Connection.connect(e, false);
-        
-        if(!e.getMember().getVoiceState().inVoiceChannel())
-            return;
-        
-        AILogger.commandLog(e, "Music#Play", "Music played for " + link);
-        
-        if(m.find()){
-            try {
-                TrackScheduler scheduler = AIBot.getGuild(e.getGuild()).getScheduler();
-                //Only turn the mode to normal is this was in default mode,
-                //So repeat or AutoPlay mode will not be turned off
-                if(scheduler.getMode() == audio.PlayerMode.DEFAULT)
-                    scheduler.setMode(audio.PlayerMode.NORMAL);
-                        
-                Music.playerManager.loadItemOrdered(Music.playerManager, link, new LoadResultHandler(scheduler) {
-                    @Override
-                    public void trackLoaded(AudioTrack track) {
-                        scheduler.queue(new AudioTrackWrapper(track, e.getAuthor().getName(), type), e);
-                    }
-                    
-                    @Override
-                    public void playlistLoaded(AudioPlaylist playlist) {
-                        scheduler.addPlayList(playlist, e.getAuthor().getName());
-                        e.getTextChannel().sendMessage(Emoji.SUCCESS + " Queued Playlist: `" + playlist.getName() + "`").queue();
-                    }
-                }).get();
-            } catch (InterruptedException ex) {
-                AILogger.errorLog(ex, e, "Music#play", "Interrupted when retrieving AudioTrack");
-            } catch (ExecutionException ex) {
-                AILogger.errorLog(ex, e, "Music#play", "ExecutionException when retrieving AudioTrack");
-            }
-        } else {
-            e.getTextChannel().sendMessage(Emoji.ERROR + " No match found.").queue();
-        }
-    }
-    
-    /**
-     * Pause the player
-     * @param e
-     */
-    public static void pause(MessageReceivedEvent e) { AIBot.getGuild(e.getGuild()).getPlayer().setPaused(true); }
-    
-    /**
-     * Resume the player
-     * @param e
-     */
-    public static void resume(MessageReceivedEvent e)
-    {
-        AIBot.getGuild(e.getGuild()).getPlayer().setPaused(false);
-    }
-    
-    /**
-     * Play or pause
-     * @param e
-     */
-    public static void pauseOrPlay(MessageReceivedEvent e)
-    {
-        if(!checkVoiceChannel(e))
-            return;
-
-        if(AIBot.getGuild(e.getGuild()).getPlayer().getPlayingTrack() == null)
-            throw new NullPointerException("No track is playing in this guild");
-
-        if(AIBot.getGuild(e.getGuild()).getPlayer().isPaused())
-            Music.resume(e);
-        else if(!AIBot.getGuild(e.getGuild()).getPlayer().isPaused())
-            Music.pause(e);
-    }
-    
-    /**
-     * Set volume of the bot
-     * @param e
-     * @param vol
-     */
-    public static void setVolume(MessageReceivedEvent e, int vol)
-    {
-        AIBot.getGuild(e.getGuild()).getPlayer().setVolume(vol);
-    }
-    
-    /**
-     * Jump/Seek to a position
-     * @param e
-     * @param position
-     */
-    public static void jump(MessageReceivedEvent e, long position) 
-    {
-        //Prevent user that is not in the same voice channel from jumping to song
-        if(!checkVoiceChannel(e)) {
-            return;
-        }
-        
-        AudioTrack track = AIBot.getGuild(e.getGuild()).getPlayer().getPlayingTrack();
-        if(track.isSeekable()) {
-            track.setPosition(position);
-        }
-    }
-    
-    /**
-     * Shuffle queue
-     * @param e
-     */
-    public static void shuffle(MessageReceivedEvent e)
-    {
-        //Prevent user that is not in the same voice channel from shuffling the Queue
-        if(!checkVoiceChannel(e)) {
-            return;
-        }
-        
-        AIBot.getGuild(e.getGuild()).getScheduler().getQueue().shuffle();
-        e.getChannel().sendMessage(Emoji.SHUFFLE + " Shuffled queue.").queue();
-    }
-
-    /**
-     * Generate a random bill board song
-     * @return the title of a random bill board song to be put into YouTube search
-     */
-    public static String randomBillboardSong()
-    {
-        try {
-            Document doc = Jsoup.connect("http://www.billboard.com/rss/charts/hot-100").timeout(0).get();
-            Elements titles = doc.select("item>chart_item_title");
-
-            int random = UtilNum.randomNum(0,99);
-            System.out.println(titles.get(random).text());
-            return titles.get(random).text();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
     /**
      * Check if the user is in the same voice channel than the bot
      * @param e
@@ -190,7 +39,7 @@ public class Music  {
     {
         //Check if the user is in a voice channel
         if(!e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-            e.getChannel().sendMessage(Emoji.ERROR + "I am not in a voice channel").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + "I am not in a voice channel.").queue();
             return false;
         }
 
@@ -219,7 +68,7 @@ public class Music  {
          * FM is strictly unique. It does not work with any mode.
          * Repeat or AutoPlay can not work with each other.
          */
-        PlayerMode current = AIBot.getGuild(e.getGuild()).getScheduler().getMode();
+        PlayerMode current = AIBot.getGuild(e.getGuild()).getGuildPlayer().getMode();
         if((mode == PlayerMode.AUTO_PLAY && !current.canAutoPlay()) ||
             (mode == PlayerMode.REPEAT && !current.canRepeat()) ||
             (mode == PlayerMode.REPEAT_SINGLE && !current.canRepeatSingle()) ||
@@ -229,6 +78,79 @@ public class Music  {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Connect to a Voice Channel
+     * @param e
+     * @param inform
+     */
+    public static void connect(MessageReceivedEvent e, boolean inform)
+    {
+        try {
+            GuildWrapper guild = AIBot.getGuild(e.getGuild());
+            AudioPlayer player = AIBot.getGuild(e.getGuild()).getPlayer();
+            VoiceChannel vc = e.getMember().getVoiceState().getChannel();
+            Member self = e.getGuild().getSelfMember();
+
+            if(!e.getMember().getVoiceState().inVoiceChannel()) {
+                e.getChannel().sendMessage(Emoji.ERROR + " You must connect to a voice channel first.").queue();
+                return;
+            }
+
+            //Prevent user from requesting to join another voice channel
+            if(self.getVoiceState().inVoiceChannel()
+                && !self.getVoiceState().getChannel().getId().equals(vc.getId()) //When the user and the bot are in a different channel
+                && player.getPlayingTrack() != null //When the PLAYER is playing
+                && !player.isPaused() ) { //When the PLAYER is not paused
+                e.getChannel().sendMessage(Emoji.ERROR + " I am already playing songs in a voice channel.").queue();
+                return;
+            }
+
+            //Prevent joining a channel that exceeds user limit
+            if(vc.getUserLimit() != 0 &&
+                vc.getUserLimit() <= vc.getMembers().size()) {
+                e.getChannel().sendMessage(Emoji.ERROR + " Cannot connect to the voice channel due to the user limit.").queue();
+                return;
+            }
+
+            //Set Text Channel and connect
+            guild.setTc(e.getTextChannel());
+            guild.setVc(vc);
+            guild.getGuildPlayer().connect(vc);
+
+        } catch (PermissionException pe) {
+            e.getChannel().sendMessage(Emoji.ERROR + " I don't have the permission to join `" + AIBot.getGuild(e.getGuild()).getVc().getName() + "`.").queue();
+            AILogger.errorLog(pe, e, "Connection", "Do not have permission to join a voice channel");
+            return;
+        }
+
+        //Inform the users that the bot joined a voice channel
+        if(inform)
+            e.getChannel().sendMessage(Emoji.GLOBE + " Joined Voice Channel `" + AIBot.getGuild(e.getGuild()).getVc().getName() + "`").queue();
+    }
+
+    public static void disconnect(MessageReceivedEvent e, boolean inform)
+    {
+        VoiceChannel vc = e.getMember().getVoiceState().getChannel();
+        //Inform user that the bot is not in a Voice Channel
+        if(e.getGuild().getSelfMember().getVoiceState().getChannel() == null) {
+            e.getChannel().sendMessage(Emoji.ERROR + " I am not in a voice channel.").queue();
+            return;
+        }
+
+        //Prevent user from commanding the bot to leave a voice channel
+        if(!e.getGuild().getSelfMember().getVoiceState().getChannel().getId().equals(vc.getId())) {
+            e.getChannel().sendMessage(Emoji.ERROR + " Do not tell me to leave a voice channel when you are not in it.").queue();
+            return;
+        }
+
+        GuildWrapper guild = AIBot.getGuild(e.getGuild());
+        guild.getGuildPlayer().disconnect();
+
+        //Inform the users that the bot joined a voice channel
+        if(inform)
+            e.getChannel().sendMessage(Emoji.GLOBE + " Left Voice Channel `" + AIBot.getGuild(e.getGuild()).getVc().getName() + "`").queue();
     }
     
     /**
@@ -268,4 +190,5 @@ public class Music  {
         int vol = AIBot.getGuild(e.getGuild()).getPlayer().getVolume();
         return (vol>49 ? Emoji.VOLUME_HIGH : vol>0 ? Emoji.VOLUME_LOW : Emoji.VOLUME_NONE)+" "+vol;
     }
+
 }

@@ -7,6 +7,7 @@ package command.moderation;
 
 import constants.Emoji;
 import constants.Global;
+import net.dv8tion.jda.core.Permission;
 import setting.Prefix;
 import command.Command;
 import system.AILogger;
@@ -34,7 +35,7 @@ public class PruneCommand extends Command{
         embed.setTitle("utility Module", null);
         embed.setTitle("Prune -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -54,11 +55,13 @@ public class PruneCommand extends Command{
         else
         {
             TextChannel chan = e.getTextChannel();
-            /*if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE) ||
-                !e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_HISTORY)) {
+            if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
                 chan.sendMessage(Emoji.ERROR + " I do not have the `Manage Message` and `Message History` Permission!").queue();
                 return;
-            }*/
+            } else if(!e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
+                chan.sendMessage(Emoji.ERROR + " You need to have the `Manage Message` and `Message History` Permission!").queue();
+                return;
+            }
             
             //Parse String to int, detect it the input is valid.
             Integer msgs = new Integer(0);

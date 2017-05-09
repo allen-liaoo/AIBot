@@ -7,9 +7,9 @@
  */
 package command.music;
 
+import audio.GuildPlayer;
 import audio.Music;
 import audio.PlayerMode;
-import audio.TrackScheduler;
 import command.Command;
 import constants.Emoji;
 import main.AIBot;
@@ -46,6 +46,7 @@ public class RepeatCommand extends Command {
         if(UtilBot.isMajority(e.getMember()) ||
             UtilBot.isMod(e.getMember()))
         {
+            AIBot.getGuild(e.getGuild()).getGuildPlayer().setTc(e.getTextChannel());
             if(args.length == 0) {
                 if (Music.checkMode(e, PlayerMode.REPEAT))
                     repeat(e);
@@ -68,12 +69,12 @@ public class RepeatCommand extends Command {
             return;
         }
 
-        TrackScheduler scheduler = AIBot.getGuild(e.getGuild()).getScheduler();
-        if(scheduler.getMode() != PlayerMode.REPEAT) {
-            scheduler.setMode(PlayerMode.REPEAT);
+        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+        if(player.getMode() != PlayerMode.REPEAT) {
+            player.setMode(PlayerMode.REPEAT);
             e.getChannel().sendMessage(Emoji.REPEAT + " Repeat mode on.").queue();
         } else {
-            scheduler.setMode(PlayerMode.NORMAL);
+            player.setMode(PlayerMode.NORMAL);
             e.getChannel().sendMessage(Emoji.REPEAT + " Repeat mode off.").queue();
         }
     }
@@ -85,12 +86,12 @@ public class RepeatCommand extends Command {
             return;
         }
 
-        TrackScheduler scheduler = AIBot.getGuild(e.getGuild()).getScheduler();
-        if(scheduler.getMode() != PlayerMode.REPEAT_SINGLE) {
-            scheduler.setMode(PlayerMode.REPEAT_SINGLE);
+        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+        if(player.getMode() != PlayerMode.REPEAT_SINGLE) {
+            player.setMode(PlayerMode.REPEAT_SINGLE);
             e.getChannel().sendMessage(Emoji.REPEAT + " Repeat (Current Track) mode on.").queue();
         } else {
-            scheduler.setMode(PlayerMode.NORMAL);
+            player.setMode(PlayerMode.NORMAL);
             e.getChannel().sendMessage(Emoji.REPEAT + " Repeat (Current Track) mode off.").queue();
         }
     }

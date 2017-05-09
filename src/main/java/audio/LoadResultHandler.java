@@ -13,10 +13,10 @@ import net.dv8tion.jda.core.entities.TextChannel;
  */
 public abstract class LoadResultHandler implements AudioLoadResultHandler {
 
-    private final TrackScheduler scheduler;
+    private final GuildPlayer scheduler;
     private TextChannel tc;
 
-    public LoadResultHandler (TrackScheduler scheduler) {
+    public LoadResultHandler (GuildPlayer scheduler) {
         this.scheduler = scheduler;
         this.tc = scheduler.getTc();
     }

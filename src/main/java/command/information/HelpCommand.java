@@ -50,7 +50,7 @@ public class HelpCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Help -Help", HELP, true);
-        embed.setFooter("command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
@@ -273,6 +273,8 @@ public class HelpCommand extends Command {
             case "unban": 
             case "ub": cmdhelp = UnbanCommand.HELP;
                 break;
+            case "softban": cmdhelp = SoftBanCommand.HELP;
+                break;
 
             //utility Module
             case "utility":
@@ -392,6 +394,10 @@ public class HelpCommand extends Command {
             case "radio":
                 cmdhelp = RadioCommand.HELP;
                 break;
+            case "autoplay":
+            case "ap":
+                cmdhelp = AutoPlayCommand.HELP;
+                break;
             case "pause":
             case "resume":
             case "unpause":
@@ -399,6 +405,10 @@ public class HelpCommand extends Command {
                 break;
             case "skip":
                 cmdhelp = SkipCommand.HELP;
+                break;
+            case "previous":
+            case "pre":
+                cmdhelp = PreviousCommand.HELP;
                 break;
             case "nowplaying":
             case "song":
@@ -417,6 +427,9 @@ public class HelpCommand extends Command {
                 break;
             case "shuffle":
                 cmdhelp = ShuffleCommand.HELP;
+                break;
+            case "repeat":
+                cmdhelp = RepeatCommand.HELP;
                 break;
             case "stop":
                 cmdhelp = StopCommand.HELP;
@@ -442,7 +455,7 @@ public class HelpCommand extends Command {
             case "setNick":
             case "setStatus":
             case "setGame":
-                cmdhelp = LogCommand.HELP;
+                cmdhelp = PresenceCommand.HELP;
                 break;
             case "source": 
                 cmdhelp = SourceCommand.HELP;

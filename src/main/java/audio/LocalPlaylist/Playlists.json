@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Favorite",
+    "type": "mix",
+    "songs": 6
+  },
+  {
+    "name": "Christina Perri",
+    "type": "artist",
+    "songs": 11
+  },
+  {
+    "name": "Faydee",
+    "type": "artist",
+    "songs": 10
+  },
+  {
+    "name": "Troll",
+    "type": "fun",
+    "songs": 17
+  }
+]

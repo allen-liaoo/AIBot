@@ -9,6 +9,8 @@ package listener;
 
 import constants.Global;
 import main.AIBot;
+import net.dv8tion.jda.core.entities.Game;
+import secret.PrivateConstant;
 import utility.UtilBot;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
@@ -54,7 +56,8 @@ public class GuildListener extends ListenerAdapter {
         if(ChronoUnit.SECONDS.between(event.getGuild().getSelfMember().getJoinDate(), ZonedDateTime.now())<10) {
             welcome(event.getGuild());
             System.out.println("Joined guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
-            UtilBot.setGame("default");
+            PrivateConstant pri = new PrivateConstant();
+            AIBot.jda.getPresence().setGame(Game.of(Global.B_GAME_DEFAULT));
         }
         AIBot.updateStatus();
     }
@@ -62,8 +65,8 @@ public class GuildListener extends ListenerAdapter {
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
         System.out.println("Left guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
-        UtilBot.setGame("default");
-
+        PrivateConstant pri = new PrivateConstant();
+        AIBot.jda.getPresence().setGame(Game.of(Global.B_GAME_DEFAULT));
         AIBot.updateStatus();
     }
     

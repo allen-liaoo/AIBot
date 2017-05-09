@@ -5,6 +5,7 @@
  */
 package command.music;
 
+import audio.GuildPlayer;
 import audio.Music;
 import audio.QueueList;
 import command.Command;
@@ -65,26 +66,27 @@ public class SkipCommand extends Command {
         
         else if(args.length == 1)
         {
-            QueueList queue = AIBot.getGuild(e.getGuild()).getScheduler().getQueue();
+            QueueList queue = AIBot.getGuild(e.getGuild()).getGuildPlayer().getQueue();
 
             int target;
             String search = "";
-            if(UtilNum.isInteger(args[0]))
-                target = Integer.parseInt(args[0]);
+            if(UtilNum.isInteger(args[0])) {
+                target = Integer.parseInt(args[0]) - 1;
+                if (target > queue.size() || target < 0) { //Trying to skip songs out of the queue
+                    e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid position of the queue.").queue();
+                    return;
+                } else if(target == 0) {  //Trying to skip the current song
+                    e.getChannel().sendMessage(Emoji.ERROR + " Only skip songs in the queue.").queue();
+                    return;
+                }
+            }
             else {
                 for(String s : args) { search += s; }
                 target = queue.findIndex(search);
-            }
-
-            if(target == 0) { //Trying to skip the current song
-                e.getChannel().sendMessage(Emoji.ERROR + " Only skip songs in the queue.").queue();
-                return;
-            } else if(target > queue.size()-1) {
-                e.getChannel().sendMessage(Emoji.ERROR + " The position exceeds the range of this queue.").queue();
-                return;
-            } else if(target == -1) { //No search result
-                e.getChannel().sendMessage(Emoji.ERROR + " No result of " + search + " in the queue.").queue();
-                return;
+                if(target == -1) { //No search result
+                    e.getChannel().sendMessage(Emoji.ERROR + " No result of " + search + " in the queue.").queue();
+                    return;
+                }
             }
             
             if(queue.get(target).getRequester().equals(e.getAuthor().getName()) || UtilBot.isMod(e.getMember())) {
@@ -104,15 +106,18 @@ public class SkipCommand extends Command {
      */
     public void skip(MessageReceivedEvent e, int position, boolean force)
     {
+        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+        player.setTc(e.getTextChannel());
+
         //Force skip the current song
         if(force && position == 0) {
-            AIBot.getGuild(e.getGuild()).getScheduler().nextTrack();
+            player.nextTrack();
         }
 
         //Skip a song in the queue
         else if(force)
         {
-            QueueList queue = AIBot.getGuild(e.getGuild()).getScheduler().getQueue();
+            QueueList queue = player.getQueue();
             e.getChannel().sendMessage(Emoji.NEXT_TRACK + " Skipped track in position " +
                     position + ":\n`" + queue.remove(position-1).getTrack().getInfo().title + "`").queue();
         }
@@ -120,13 +125,13 @@ public class SkipCommand extends Command {
         //Vote Skip for current song
         else if(position == 0)
         {
-            boolean isAdded = AIBot.getGuild(e.getGuild()).getScheduler().addSkip(e.getAuthor());
-            int votes = AIBot.getGuild(e.getGuild()).getScheduler().getVote().size();
+            boolean isAdded = player.addSkip(e.getAuthor());
+            int votes = player.getVote().size();
             if(isAdded)
             {
-                int mem = AIBot.getGuild(e.getGuild()).getScheduler().requiredVote();
+                int mem = player.requiredVote();
                 if(votes >= mem) {
-                    AIBot.getGuild(e.getGuild()).getScheduler().nextTrack();
+                    player.nextTrack();
                     return;
                 }
                 e.getChannel().sendMessage(Emoji.UP_VOTE + " Added your vote. Still require " + (mem-votes) + " votes to skip the song.").queue();

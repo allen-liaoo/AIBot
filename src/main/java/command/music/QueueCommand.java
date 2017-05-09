@@ -74,11 +74,11 @@ public class QueueCommand extends Command{
      */
     public void queueList(MessageReceivedEvent e, int page)
     {
-        QueueList queue = AIBot.getGuild(e.getGuild()).getScheduler().getQueue();
+        QueueList queue = AIBot.getGuild(e.getGuild()).getGuildPlayer().getQueue();
 
         EmbedBuilder embed = new EmbedBuilder();
         //Now Playing
-        AudioTrackWrapper playing = AIBot.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack();
+        AudioTrackWrapper playing = AIBot.getGuild(e.getGuild()).getGuildPlayer().getNowPlayingTrack();
         Long position = 0L;
         Long duration = 0L;
         if (playing.isEmpty()) {
@@ -86,7 +86,7 @@ public class QueueCommand extends Command{
         } else {
             String ptitle = playing.getTrack().getInfo().title;
             String purl = playing.getTrack().getInfo().uri;
-            String mode = AIBot.getGuild(e.getGuild()).getScheduler().getMode().toString();
+            String mode = AIBot.getGuild(e.getGuild()).getGuildPlayer().getMode().toString();
             String text = "**Player Mode:** " + mode + "\n" + "**[" + ptitle + "](" + purl + ")**\n" + "Requested by `" + playing.getRequester() + "`\nType: `" + playing.getType().toString() + "`\n";
             embed.addField("Now Playing", text, false);
             //Current Position / Total Duration

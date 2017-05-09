@@ -5,7 +5,7 @@
  */
 package command.music;
 
-import audio.Connection;
+import audio.GuildPlayer;
 import audio.Music;
 import command.Command;
 import main.AIBot;
@@ -79,8 +79,10 @@ public class StopCommand extends Command{
         if (AIBot.getGuild(e.getGuild()).getPlayer().getPlayingTrack() == null)
             e.getChannel().sendMessage(Emoji.STOP + " Stopped and reset the player.").queue();
 
-        AIBot.getGuild(e.getGuild()).getScheduler().stopPlayer();
-        Connection.disconnect(e, false);
+        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+        player.setTc(e.getTextChannel());
+        player.stopPlayer();
+        Music.disconnect(e, false);
     }
     
 }

@@ -215,4 +215,21 @@ public class WebScraper {
 
         return "https://www.youtube.com" + next;
     }
+
+    /**
+     * Generate a random bill board song
+     * @return the title of a random bill board song to be put into YouTube search
+     */
+    public static String randomBillboardSong()
+    {
+        try {
+            Document doc = Jsoup.connect("http://www.billboard.com/rss/charts/hot-100").timeout(0).get();
+            Elements titles = doc.select("item>chart_item_title");
+            int random = UtilNum.randomNum(0,99);
+            return titles.get(random).text();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

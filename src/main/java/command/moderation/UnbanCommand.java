@@ -56,8 +56,12 @@ public class UnbanCommand extends Command{
                 Member selfMember = guild.getSelfMember(); 
 
                 //Check if the bot have permission to kick.
-                if (!selfMember.hasPermission(Permission.BAN_MEMBERS))
+                if (!selfMember.hasPermission(Permission.BAN_MEMBERS)) {
                     e.getTextChannel().sendMessage(Emoji.ERROR + " I need to have **Ban Members* Permission to unban members.").queue();
+                } else if(!e.getMember().hasPermission(Permission.BAN_MEMBERS)) {
+                    e.getTextChannel().sendMessage(Emoji.ERROR + " You need to have **Ban Members** Permission to unban members.").queue();
+                    return;
+                }
 
                 AILogger.commandLog(e, "UnbanCommand", "Called to unban " + args.length + " users.");
 

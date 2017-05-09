@@ -53,7 +53,7 @@ public class SongCommand extends Command{
             if(args.length == 0)
             {
                 try {
-                   AudioTrackWrapper nowplaying = AIBot.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack();
+                   AudioTrackWrapper nowplaying = AIBot.getGuild(e.getGuild()).getGuildPlayer().getNowPlayingTrack();
                    e.getChannel().sendMessage(trackInfo(e, nowplaying, "Now Playing").build()).queue();
                 } catch (NullPointerException npe) {
                     e.getChannel().sendMessage(Emoji.ERROR + " No song is playing.").queue();
@@ -61,8 +61,8 @@ public class SongCommand extends Command{
             }
             else
             {
-                QueueList queue = AIBot.getGuild(e.getGuild()).getScheduler().getQueue();
-                AudioTrackWrapper np = AIBot.getGuild(e.getGuild()).getScheduler().getNowPlayingTrack();
+                QueueList queue = AIBot.getGuild(e.getGuild()).getGuildPlayer().getQueue();
+                AudioTrackWrapper np = AIBot.getGuild(e.getGuild()).getGuildPlayer().getNowPlayingTrack();
 
                 int target = 0;
                 String search = "";
@@ -90,7 +90,7 @@ public class SongCommand extends Command{
                     songinfo = np;
                     e.getChannel().sendMessage(trackInfo(e, songinfo, "Now Playing").build()).queue();
                 } else if(target == -2) {
-                    songinfo = AIBot.getGuild(e.getGuild()).getScheduler().getQueue().get(target);
+                    songinfo = AIBot.getGuild(e.getGuild()).getGuildPlayer().getQueue().get(target);
                     e.getChannel().sendMessage(trackInfo(e, songinfo, "Queue Song (Position " + target + ")").build()).queue();
                 }
             }

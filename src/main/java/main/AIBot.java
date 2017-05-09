@@ -6,6 +6,9 @@
  */
 package main;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import constants.Global;
 import secret.PrivateConstant;
 import setting.GuildWrapper;
@@ -42,27 +45,25 @@ public class AIBot {
 
     public static JDA jda;
     public static boolean isBeta;
+    public static long timeStart = 0;
 
     public static final CommandParser parser = new CommandParser();
     public static final TextRespond respond = new TextRespond();
-
     public static APIPostAgent apiPoster;
 
-    public static HashMap<String, Command> commands = new HashMap<String, Command>();
-    public static HashMap<String, GuildWrapper> guilds = new HashMap<String, GuildWrapper>();
-    public static long timeStart = 0;
-
-
+    public static HashMap<String, Command> commands = new HashMap<>();
+    public static HashMap<String, GuildWrapper> guilds = new HashMap<>();
+    public static AudioPlayerManager playerManager;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         try {
-            Music.musicStartup();
+            musicStartup();
 
             jda = new JDABuilder(AccountType.BOT)
-                    .setToken(PrivateConstant.BOT_BETA_TOKEN)
+                    .setToken(PrivateConstant.BOT_TOKEN)
                     .addEventListener(new BotListener(), new MessageFilter(),
                         new GuildListener(), new CommandListener(), new SelectorListener())
                     .setAutoReconnect(true)
@@ -74,7 +75,7 @@ public class AIBot {
 
             /* Add guilds to GuildWrapper */
             for(Guild g : jda.getGuilds()) {
-                GuildWrapper newGuild = new GuildWrapper(Music.playerManager, g.getId(), "=");
+                GuildWrapper newGuild = new GuildWrapper(jda, playerManager, g.getId(), "=");
                 AIBot.guilds.put(g.getId(), newGuild);
                 g.getAudioManager().setSendingHandler(newGuild.getSendHandler());
             }
@@ -105,6 +106,12 @@ public class AIBot {
         timeStart = System.currentTimeMillis();
         UtilBot.setUnirestCookie();
         addCommands();
+    }
+
+    public static void musicStartup(){
+        playerManager = new DefaultAudioPlayerManager();
+        AudioSourceManagers.registerRemoteSources(playerManager);
+        AudioSourceManagers.registerLocalSource(playerManager);
     }
 
     public static void shutdown() throws IOException

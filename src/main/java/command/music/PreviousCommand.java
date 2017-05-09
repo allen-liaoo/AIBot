@@ -36,7 +36,7 @@ public class PreviousCommand extends Command {
             return;
         }
 
-        QueueList preList = AIBot.getGuild(e.getGuild()).getScheduler().getPreQueue();
+        QueueList preList = AIBot.getGuild(e.getGuild()).getGuildPlayer().getPreQueue();
         if(preList.isEmpty()) {
             e.getChannel().sendMessage(Emoji.ERROR + " No previous song.\n" +
                     "Use `"+ Prefix.getDefaultPrefix()+"pre list` to see previous songs.").queue();
@@ -50,7 +50,7 @@ public class PreviousCommand extends Command {
             AudioTrackWrapper previous = preList.get(0);
             if (UtilBot.isMod(e.getMember()) ||
                     e.getAuthor().getName().equals(previous.getRequester())) {
-                AIBot.getGuild(e.getGuild()).getScheduler().playPrevious();
+                AIBot.getGuild(e.getGuild()).getGuildPlayer().playPrevious();
             } else {
                 e.getChannel().sendMessage(Emoji.ERROR + " Only server owner, members with `Administrator` permission "
                         + "\nand the song requester can replay the previous song.").queue();
@@ -64,7 +64,7 @@ public class PreviousCommand extends Command {
      */
     public void preQueueList(MessageReceivedEvent e)
     {
-        QueueList preQueue = AIBot.getGuild(e.getGuild()).getScheduler().getPreQueue();
+        QueueList preQueue = AIBot.getGuild(e.getGuild()).getGuildPlayer().getPreQueue();
         if(preQueue.isEmpty() || preQueue == null) {
             e.getChannel().sendMessage("No previous songs.").queue();
             return;

@@ -1,5 +1,6 @@
 package command.music;
 
+import audio.GuildPlayer;
 import audio.Music;
 import audio.PlayerMode;
 import command.Command;
@@ -52,11 +53,14 @@ public class AutoPlayCommand extends Command{
         if(!Music.checkVoiceChannel(e))
             return;
 
-        if(AIBot.getGuild(e.getGuild()).getScheduler().getMode() != audio.PlayerMode.AUTO_PLAY) {
-            AIBot.getGuild(e.getGuild()).getScheduler().setMode(audio.PlayerMode.AUTO_PLAY);
+        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+        player.setTc(e.getTextChannel());
+
+        if(player.getMode() != audio.PlayerMode.AUTO_PLAY) {
+            player.setMode(audio.PlayerMode.AUTO_PLAY);
             e.getChannel().sendMessage(Emoji.AUTOPLAY + " AutoPlay mode on.").queue();
         } else {
-            AIBot.getGuild(e.getGuild()).getScheduler().setMode(audio.PlayerMode.NORMAL);
+            player.setMode(audio.PlayerMode.NORMAL);
             e.getChannel().sendMessage(Emoji.AUTOPLAY + " AutoPlay mode off.").queue();
         }
     }

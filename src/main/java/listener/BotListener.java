@@ -25,16 +25,16 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class BotListener extends ListenerAdapter implements Runnable {
-    
+
     private Thread t;
     private final String threadName = "Console listener Thread";
-    
+
     public BotListener()
     {
         t = new Thread(this,threadName);
-        t.start();
+        //t.start();
     }
-    
+
     @Override
     public void run() 
     {
@@ -56,8 +56,7 @@ public class BotListener extends ListenerAdapter implements Runnable {
             //Test Commands
             else if(input.startsWith("test"))
             {
-                //System.out.println("Test wot?");
-                System.out.println(Music.randomBillboardSong());
+                System.out.println("Test wot?");
             }
             
             //Presence

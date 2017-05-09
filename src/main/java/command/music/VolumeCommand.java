@@ -5,6 +5,7 @@
  */
 package command.music;
 
+import audio.GuildPlayer;
 import main.AIBot;
 import audio.Music;
 import command.Command;
@@ -54,7 +55,9 @@ public class VolumeCommand extends Command {
                     return;
                 }
 
-                Music.setVolume(e, volume);
+                GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+                player.setTc(e.getTextChannel());
+                player.getPlayer().setVolume(volume);
                 if(volume < 50)
                     e.getTextChannel().sendMessage(Emoji.VOLUME_LOW + " Volume set to " + volume).queue();
                 else
