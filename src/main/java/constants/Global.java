@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.regex.Pattern;
 
 import net.dv8tion.jda.core.Permission;
+import setting.Prefix;
 
 /**
  *
@@ -28,11 +29,14 @@ public class Global {
     
     //Bot
     //-Bot Global
-    public final static String B_NAME = AIBot.jda.getSelfUser().getName();
-    public final static String B_AVATAR = AIBot.jda.getSelfUser().getEffectiveAvatarUrl();
-    public final static String B_DISCRIMINATOR = AIBot.jda.getSelfUser().getDiscriminator();
-    public final static String B_ID = AIBot.jda.getSelfUser().getId();
-    public final static String B_GAME_DEFAULT = "=help | " + AIBot.jda.getGuilds().size() + " Servers";
+    public final static String B_NAME = "AIBot";
+    //AIBot.getSampleJDA().getSelfUser().getName()
+    public final static String B_AVATAR = "https://images-ext-2.discordapp.net/eyJ1cmwiOiJodHRwczovL2Nkbi5kaXNjb3JkYXBwLmNvbS9hdmF0YXJzLzI5NDMyNzc4NTUxMjc2MzM5Mi82NGMxMDdmN2M4YzcwZjE0ZjcxOWViZDM5MDdmMTc3Ni5wbmcifQ.xxgV3xUCZ9WyxNl74WtlHVsEqgI";
+    //AIBot.getSampleJDA().getSelfUser().getEffectiveAvatarUrl()
+    public final static String B_DISCRIMINATOR = "9987";
+    public final static String B_ID = "294327785512763392";
+    public final static int B_SHARDS = 1;
+    public final static String B_GAME_DEFAULT = "=help | " + AIBot.getGuilds().size() + " Servers";
     public final static String B_GAME_UPDATE = "\u203C Updating AIBot";
     public final static String B_GAME_FIXING = "\u2049 Fixing AIBot";
     
@@ -60,5 +64,9 @@ public class Global {
     public final static String D_ID = "248214880379863041";
 
     public static final Pattern urlPattern = Pattern.compile("^(https?|ftp)://([A-Za-z0-9-._~/?#\\\\[\\\\]:!$&'()*+,;=]+)$");
+
+    public static final String defaultGame() {
+        return Prefix.getDefaultPrefix() + "help | " + AIBot.getGuilds().size() + " Servers";
+    }
 
 }

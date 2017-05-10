@@ -8,10 +8,11 @@ package main;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import constants.Global;
+import net.dv8tion.jda.core.OnlineStatus;
 import secret.PrivateConstant;
-import setting.GuildWrapper;
 import command.*;
 import command.information.*;
 import command.moderation.*;
@@ -20,7 +21,6 @@ import command.music.*;
 import command.fun.*;
 import command.restricted.*;
 import listener.*;
-import audio.*;
 import system.AILogger;
 import setting.*;
 import utility.UtilBot;
@@ -33,9 +33,11 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.exceptions.*;
 import net.dv8tion.jda.core.entities.Game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -43,98 +45,114 @@ import java.io.IOException;
  */
 public class AIBot {
 
-    public static JDA jda;
     public static boolean isBeta;
     public static long timeStart = 0;
+
+    public static List<Shard> shards = new ArrayList<>();
 
     public static final CommandParser parser = new CommandParser();
     public static final TextRespond respond = new TextRespond();
     public static APIPostAgent apiPoster;
+    public static AudioPlayerManager playerManager;
 
     public static HashMap<String, Command> commands = new HashMap<>();
     public static HashMap<String, GuildWrapper> guilds = new HashMap<>();
-    public static AudioPlayerManager playerManager;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            musicStartup();
 
-            jda = new JDABuilder(AccountType.BOT)
-                    .setToken(PrivateConstant.BOT_TOKEN)
-                    .addEventListener(new BotListener(), new MessageFilter(),
-                        new GuildListener(), new CommandListener(), new SelectorListener())
-                    .setAutoReconnect(true)
-                    .setEnableShutdownHook(false)
-                    .setMaxReconnectDelay(300)
-                    .buildBlocking();
+        musicStartup();
+        UtilBot.setUnirestCookie();
 
-            jda.getPresence().setGame(Game.of(Global.B_GAME_DEFAULT));
+        String token = PrivateConstant.BOT_TOKEN;
 
-            /* Add guilds to GuildWrapper */
-            for(Guild g : jda.getGuilds()) {
-                GuildWrapper newGuild = new GuildWrapper(jda, playerManager, g.getId(), "=");
-                AIBot.guilds.put(g.getId(), newGuild);
-                g.getAudioManager().setSendingHandler(newGuild.getSendHandler());
-            }
-
-            isBeta = jda.getToken().equals("Bot " + PrivateConstant.BOT_BETA_TOKEN);
-            if(!isBeta) startUp();
-            else startUpBeta();
-
-        } catch (LoginException | IllegalArgumentException | InterruptedException | RateLimitedException e) {
-            e.printStackTrace();
-            AILogger.updateLog("Exception thrown while logging.");
+        for(int i = 0; i < Global.B_SHARDS; i++)  {
+            shards.add(new Shard(i, token));
+            System.out.println("Shard added: "+i);
         }
+
+        addCommands();
+        setGame(Game.of(Global.defaultGame()));
+        isBeta = !token.equals(PrivateConstant.BOT_TOKEN);
+        timeStart = System.currentTimeMillis();
+        if(!isBeta) startUp();
     }
     
-    public synchronized static void startUp()
+    private synchronized static void startUp()
     {
         timeStart = System.currentTimeMillis();
 
         //Post API and Status
-        UtilBot.setUnirestCookie();
-        apiPoster = new APIPostAgent(jda).postAllAPI();
+        apiPoster = new APIPostAgent(shards).postAllAPI();
         updateStatus();
-        addCommands();
     }
 
-    public synchronized static void startUpBeta()
+    private synchronized static void musicStartup()
     {
-        timeStart = System.currentTimeMillis();
-        UtilBot.setUnirestCookie();
-        addCommands();
-    }
-
-    public static void musicStartup(){
         playerManager = new DefaultAudioPlayerManager();
         AudioSourceManagers.registerRemoteSources(playerManager);
         AudioSourceManagers.registerLocalSource(playerManager);
     }
 
-    public static void shutdown() throws IOException
+    public synchronized static void shutdown() throws IOException
     {
         System.out.println("Bot Shut Down Successfully");
         AILogger.updateLog("Bot Shut Down Successfully");
-        
         Unirest.shutdown();
-        jda.shutdown();
         System.exit(0);
+    }
+
+    public static void updateStatus()
+    {
+        Guild botServer = getGuild(Global.B_SERVER_ID);
+        botServer.getTextChannelById(Global.B_SERVER_STATUS).
+            editMessageById(Global.B_SERVER_STATUS_MSG, UtilBot.postStatus(botServer.getJDA()).build()).queue();
+    }
+
+    public static void setStatus(OnlineStatus status)
+    {
+        for(Shard shard : shards) {
+            shard.getJda().getPresence().setStatus(status);
+        }
+    }
+
+    public static void setGame(Game game)
+    {
+        for(Shard shard : shards) {
+            shard.getJda().getPresence().setGame(game);
+        }
     }
 
     public static GuildWrapper getGuild(Guild guild)
     {
-        return guilds.get(guild.getId());
+        for(Shard shard : shards) {
+            if(shard.getGuild(guild) != null)
+                return shard.getGuild(guild);
+        }
+        return null;
     }
 
-    public static void updateStatus() {
-        jda.getGuildById(Global.B_SERVER_ID).getTextChannelById(Global.B_SERVER_STATUS).
-                editMessageById(Global.B_SERVER_STATUS_MSG, UtilBot.postStatus(jda).build()).queue();
+    public static Guild getGuild(String guildID)
+    {
+        for(Shard shard : shards) {
+            if(shard.getJda().getGuildById(guildID) != null)
+                return shard.getJda().getGuildById(guildID);
+        }
+        return null;
+    }
+
+    public static List<Guild> getGuilds()
+    {
+        List<Guild> guilds = new ArrayList<>();
+        for(Shard shard : shards) {
+            guilds.addAll(shard.getJda().getGuilds());
+        }
+        return guilds;
     }
         
-    private static void addCommands() {
+    private synchronized static void addCommands() {
         // Information Commands
         commands.put("help", new HelpCommand());
         commands.put("h", new HelpCommand());

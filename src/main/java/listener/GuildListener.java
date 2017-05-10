@@ -57,7 +57,7 @@ public class GuildListener extends ListenerAdapter {
             welcome(event.getGuild());
             System.out.println("Joined guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
             PrivateConstant pri = new PrivateConstant();
-            AIBot.jda.getPresence().setGame(Game.of(Global.B_GAME_DEFAULT));
+            AIBot.setGame(Game.of(Global.defaultGame()));
         }
         AIBot.updateStatus();
     }
@@ -65,8 +65,7 @@ public class GuildListener extends ListenerAdapter {
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
         System.out.println("Left guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
-        PrivateConstant pri = new PrivateConstant();
-        AIBot.jda.getPresence().setGame(Game.of(Global.B_GAME_DEFAULT));
+        AIBot.setGame(Game.of(Global.defaultGame()));
         AIBot.updateStatus();
     }
     

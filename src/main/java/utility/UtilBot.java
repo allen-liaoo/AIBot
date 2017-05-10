@@ -43,7 +43,7 @@ public class UtilBot {
         String set;
         switch (game.replaceAll(" ", "").toLowerCase()) {
             case "default":
-                set = Global.B_GAME_DEFAULT;
+                set = Global.defaultGame();
                 break;
             case "update":
                 set = Global.B_GAME_UPDATE;
@@ -65,7 +65,7 @@ public class UtilBot {
         } else {
             set = "No game";
         }
-        AIBot.jda.getPresence().setGame(g);
+        AIBot.setGame(g);
         AILogger.updateLog("jda game set to " + set);
         return set;
     }
@@ -103,7 +103,7 @@ public class UtilBot {
                 setGame("null");
                 break;
         }
-        AIBot.jda.getPresence().setStatus(status);
+        AIBot.setStatus(status);
         AILogger.updateLog("jda Status set to " + status.toString());
         return status;
     }
@@ -145,7 +145,7 @@ public class UtilBot {
      */
     public static List<Guild> getServerList()
     {
-        List<Guild> guildsList = new ArrayList(AIBot.jda.getGuilds());
+        List<Guild> guildsList = new ArrayList(AIBot.getGuilds());
         
             Collections.sort(guildsList, (Guild g1, Guild g2) -> 
                     g1.getMembers().size() > g2.getMembers().size() ? -1 : (g1.getMembers().size() < g2.getMembers().size() ) ? 1 : 0 );
@@ -223,7 +223,7 @@ public class UtilBot {
      */
     public static List<VoiceChannel> getConnectedVoiceChannels()
     {
-        List<Guild> gui = AIBot.jda.getGuilds();
+        List<Guild> gui = AIBot.getGuilds();
         List<VoiceChannel> vc = new ArrayList();
         
         for(Guild g : gui) {
@@ -353,7 +353,7 @@ public class UtilBot {
         avatar = jda.getSelfUser().getAvatarUrl();
         uptime = UtilString.formatTime(System.currentTimeMillis() - AIBot.timeStart);
         status = getStatusString(jda.getPresence().getStatus()) + ", " + UtilString.VariableToString("_", jda.getStatus().name());
-        guild = jda.getGuilds().size();
+        guild = AIBot.getGuilds().size();
         voicechannels = getConnectedVoiceChannels() == null ? 0 : getConnectedVoiceChannels().size();
         try{shard = jda.getShardInfo().getShardString();} catch(NullPointerException ne) {shard = "None";}
 

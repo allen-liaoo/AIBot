@@ -196,7 +196,7 @@ public class AILogger {
         error.addField(from, from2, true)
         .addField("Channel", channel, true)
         .addField("Stack Trace", "**[" + hasteBinURL + "]("+hasteBinURL+")**", true);
-        AIBot.jda.getTextChannelById(Global.B_SERVER_ERROR).sendMessage(error.build()).queue();
+        AIBot.getGuild(Global.B_SERVER_ID).getTextChannelById(Global.B_SERVER_ERROR).sendMessage(error.build()).queue();
     }
 
     /**

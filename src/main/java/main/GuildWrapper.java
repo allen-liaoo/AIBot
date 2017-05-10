@@ -4,13 +4,14 @@
  * GuildWrapper
  * Custom settings per guild
  */
-package setting;
+package main;
 
 import audio.AudioPlayerSendHandler;
 import audio.GuildPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 
@@ -23,6 +24,7 @@ public class GuildWrapper {
    * JDA
    */
   private final JDA jda;
+  private final Guild guild;
 
   /**
    * Audio players for the guild.
@@ -49,6 +51,7 @@ public class GuildWrapper {
    */
   public GuildWrapper(JDA jda, AudioPlayerManager manager, String guildId, String prefix) {
     this.jda = jda;
+    this.guild = jda.getGuildById(guildId);
     player = manager.createPlayer();
     guildPlayer = new GuildPlayer(player, jda.getGuildById(guildId).getPublicChannel());
     player.addListener(guildPlayer);
@@ -57,7 +60,11 @@ public class GuildWrapper {
     this.prefix = prefix;
   }
 
-    /**
+  public Guild getGuild() {
+    return guild;
+  }
+
+  /**
      * @return Wrapper around AudioPlayer to use it as an AudioSendHandler.
      */
     public AudioPlayerSendHandler getSendHandler() 

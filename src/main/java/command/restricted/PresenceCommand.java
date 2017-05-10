@@ -90,9 +90,8 @@ public class PresenceCommand extends Command {
             {   
                 if(Global.D_ID.equals(e.getAuthor().getId()))
                 {
-                    OnlineStatus status;
                     try {
-                        status = UtilBot.setStatus(args[0]);
+                        UtilBot.setStatus(args[0]);
                     } catch (IllegalArgumentException iae) {
                         e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid status.").queue();
                         AILogger.errorLog(iae, e, this.getClass().getName(), "Unknown Status");

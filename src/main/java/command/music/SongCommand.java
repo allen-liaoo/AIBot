@@ -70,8 +70,8 @@ public class SongCommand extends Command{
                     target = Integer.parseInt(args[0]);
                 else {
                     for(String s : args) { search += s; }
-                    target = queue.findIndex(search);
-                    // If return queue from QueueList#findIndex(), then check nowplayingtrack.
+                    target = queue.find(search);
+                    // If return queue from QueueList#find(), then check nowplayingtrack.
                     // Return -1 if nowplayingtrack is the result. If no result, return -2.
                     target = target == -1 ? (np.getTrack().getInfo().title.toLowerCase().contains(search) ? -1 : -2) : target;
                 }

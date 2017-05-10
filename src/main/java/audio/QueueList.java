@@ -7,10 +7,7 @@ import java.util.*;
  */
 public class QueueList extends LinkedList<AudioTrackWrapper> {
 
-    private LinkedList<AudioTrackWrapper> queue;
-
     public QueueList() {
-        this.queue = new LinkedList<>();
     }
 
     /**
@@ -18,27 +15,22 @@ public class QueueList extends LinkedList<AudioTrackWrapper> {
      * @param keyword
      * @return
      */
-    public int findIndex(String keyword) {
-        return queue.indexOf(find(keyword));
-    }
-
-    /**
-     * Find a AudioTrackWrapper by Keyword
-     * @param keyword
-     * @return
-     */
-    private AudioTrackWrapper find(String keyword) {
-        for(AudioTrackWrapper each : queue) {
-            if(each.getTrack().getInfo().title.toLowerCase().contains(keyword.toLowerCase()))
-                return each;
+    public int find(String keyword) {
+        int count = -1;
+        for(AudioTrackWrapper each : this) {
+            count++;
+            if(each.getTrack().getInfo().title.toLowerCase().contains(keyword.toLowerCase())) {
+                return count;
+            }
         }
-        return null;
+        return -1;
     }
 
     /**
      * Shuffle the queue.
      */
     public void shuffle() {
-        Collections.shuffle(queue);
+        Collections.shuffle(this);
     }
+
 }

@@ -5,23 +5,15 @@
  */
 package audio;
 
-import audio.AudioTrackWrapper.TrackType;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import main.AIBot;
 import constants.Emoji;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.exceptions.PermissionException;
-import net.dv8tion.jda.core.managers.AudioManager;
-import setting.GuildWrapper;
+import main.GuildWrapper;
 import system.AILogger;
 ;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-
-import java.util.concurrent.ExecutionException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 

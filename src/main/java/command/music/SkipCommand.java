@@ -5,6 +5,7 @@
  */
 package command.music;
 
+import audio.AudioTrackWrapper;
 import audio.GuildPlayer;
 import audio.Music;
 import audio.QueueList;
@@ -43,35 +44,36 @@ public class SkipCommand extends Command {
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 1 && "-h".equals(args[0])) {
             e.getChannel().sendMessage(help(e).build()).queue();
+            return;
         }
-        
-        else if(args.length == 0)
+
+        if(!Music.checkVoiceChannel(e))
+            return;
+
+        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+        player.setTc(e.getTextChannel());
+
+        if(args.length == 0)
         {
-            if(!Music.checkVoiceChannel(e))
-                return;
-            
-            skip(e, 0, false);
+            skip(e, player, false);
         }
         
         else if("-f".equals(args[0]))
         {
             if(UtilBot.isMod(e.getMember()))
             {
-                skip(e, 0, true);
+                skip(e, player, true);
             } else {
                 e.getChannel().sendMessage(Emoji.ERROR + " Only server owner and members with \n"
                         + "`Administrator` or `Manage Server` permission can force skip a song.").queue();
             }
         }
         
-        else if(args.length == 1)
+        else if(args.length >= 1)
         {
             QueueList queue = AIBot.getGuild(e.getGuild()).getGuildPlayer().getQueue();
-
-            int target;
-            String search = "";
-            if(UtilNum.isInteger(args[0])) {
-                target = Integer.parseInt(args[0]) - 1;
+            if(UtilNum.isInteger(args[0]) && args.length == 1) {
+                int target = Integer.parseInt(args[0]);
                 if (target > queue.size() || target < 0) { //Trying to skip songs out of the queue
                     e.getChannel().sendMessage(Emoji.ERROR + " Please enter a valid position of the queue.").queue();
                     return;
@@ -79,67 +81,70 @@ public class SkipCommand extends Command {
                     e.getChannel().sendMessage(Emoji.ERROR + " Only skip songs in the queue.").queue();
                     return;
                 }
+                skipPos(e, player, target-1);
             }
             else {
-                for(String s : args) { search += s; }
-                target = queue.findIndex(search);
+                StringBuilder search = new StringBuilder();
+                for(int i = 0; i < args.length; i++) {
+                    search.append(i == args.length - 1 ? args[i] : args[i] + " ");
+                }
+                int target = queue.find(search.toString());
                 if(target == -1) { //No search result
-                    e.getChannel().sendMessage(Emoji.ERROR + " No result of " + search + " in the queue.").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " No result of `" + search + "` in the queue.").queue();
                     return;
                 }
-            }
-            
-            if(queue.get(target).getRequester().equals(e.getAuthor().getName()) || UtilBot.isMod(e.getMember())) {
-                skip(e, target, true);
-            } else {
-                e.getChannel().sendMessage(Emoji.ERROR + " Only server owner, members with `Administrator` permission "
-                        + "\nand the song requester can skip a song at the given queue place.").queue();
+                skipPos(e, player, target);
             }
         }
     }
 
     /**
-     * Vote Skip System
+     * Skip the current song
      * @param e
-     * @param position The position of the song
      * @param force force skip
      */
-    public void skip(MessageReceivedEvent e, int position, boolean force)
+    public void skip(MessageReceivedEvent e, GuildPlayer player, boolean force)
     {
-        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-        player.setTc(e.getTextChannel());
-
-        //Force skip the current song
-        if(force && position == 0) {
+        if(force) {
             player.nextTrack();
         }
 
-        //Skip a song in the queue
-        else if(force)
-        {
-            QueueList queue = player.getQueue();
-            e.getChannel().sendMessage(Emoji.NEXT_TRACK + " Skipped track in position " +
-                    position + ":\n`" + queue.remove(position-1).getTrack().getInfo().title + "`").queue();
-        }
-
         //Vote Skip for current song
-        else if(position == 0)
+        else
         {
-            boolean isAdded = player.addSkip(e.getAuthor());
-            int votes = player.getVote().size();
-            if(isAdded)
+            if(player.addSkip(e.getAuthor())) //If the user hadn't vote yet
             {
                 int mem = player.requiredVote();
+                int votes = player.getVote().size();
                 if(votes >= mem) {
                     player.nextTrack();
                     return;
                 }
                 e.getChannel().sendMessage(Emoji.UP_VOTE + " Added your vote. Still require " + (mem-votes) + " votes to skip the song.").queue();
-            }
-            else {
+            } else {
                 e.getChannel().sendMessage(Emoji.ERROR + " Your vote is already added.").queue();
             }
         }
+    }
+
+    /**
+     * Skip a song in the queue
+     * @param e
+     * @param player
+     * @param position Starting from 0
+     */
+    public void skipPos(MessageReceivedEvent e, GuildPlayer player, int position)
+    {
+        if(!player.getQueue().get(position).getRequester().equals(e.getAuthor().getName()) || !UtilBot.isMod(e.getMember()))
+        {
+            e.getChannel().sendMessage(Emoji.ERROR + " Only server owner, members with `Administrator` permission "
+                    + "\nand the song requester can skip a song at the given queue place.").queue();
+            return;
+        }
+
+        AudioTrackWrapper removed = player.getQueue().remove(position);
+        e.getChannel().sendMessage(Emoji.NEXT_TRACK + " Skipped track in position " + (position+1) + ":\n`" +
+                removed.getTrack().getInfo().title + "`").queue();
     }
 
 }
