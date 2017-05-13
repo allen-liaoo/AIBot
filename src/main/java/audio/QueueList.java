@@ -33,4 +33,16 @@ public class QueueList extends LinkedList<AudioTrackWrapper> {
         Collections.shuffle(this);
     }
 
+    /**
+     * Skip to the index in the queue
+     * @param index the target index
+     */
+    public void skipTo(int index) {
+        for(int i = 0; i < this.size(); i++) {
+            if(i <= index) {
+                this.remove();
+            }
+        }
+    }
+
 }

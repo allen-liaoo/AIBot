@@ -62,8 +62,6 @@ public class SearchCommand extends Command{
         
         if(args.length > 0)
         {
-            AILogger.commandLog(e, "SearchCommand", "Called");
-            
             try {
                 if("&as_sitesearch=".equals(site) && args.length >= 2) //Custom Site Search
                 {

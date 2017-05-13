@@ -54,21 +54,14 @@ public class PlayCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-
         GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-        player.setTc(e.getTextChannel());
+        AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
+
+        if(!e.getMember().getVoiceState().inVoiceChannel())
+            e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel.").queue();
         
         if(args.length == 0)
         {
-            if(!e.getMember().getVoiceState().inVoiceChannel()) {
-                e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel.").queue();
-                return;
-            }
-            
             if(AIBot.getGuild(e.getGuild()).getPlayer().isPaused())
                 player.pauseOrPlay();
         }
@@ -164,7 +157,7 @@ public class PlayCommand extends Command{
         else
         {
             GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-            player.setTc(e.getTextChannel());
+            AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
 
             int i = Character.getNumericValue(character);
             AILogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());

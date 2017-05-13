@@ -12,6 +12,7 @@ import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import setting.MessageFilter;
+import setting.Prefix;
 import system.AILogger;
 import utility.UtilBot;
 
@@ -19,7 +20,8 @@ import javax.security.auth.login.LoginException;
 import java.util.HashMap;
 
 /**
- * Created by liaoyilin on 5/9/17.
+ * Shard Wrapper for every JDA instance
+ * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class Shard {
 
@@ -44,6 +46,7 @@ public class Shard {
                     .setAutoReconnect(true)
                     .setMaxReconnectDelay(300)
                     .setEnableShutdownHook(true)
+                    //.useSharding(ID, Global.B_SHARDS)
                     .buildBlocking();
             shardStartUp();
 
@@ -58,7 +61,7 @@ public class Shard {
     {
         /* Add guilds to GuildWrapper */
         for(Guild g : jda.getGuilds()) {
-            GuildWrapper newGuild = new GuildWrapper(jda, AIBot.playerManager, g.getId(), "=");
+            GuildWrapper newGuild = new GuildWrapper(jda, AIBot.playerManager, g.getId(), Prefix.getDefaultPrefix());
             guilds.put(g.getId(), newGuild);
             g.getAudioManager().setSendingHandler(newGuild.getSendHandler());
         }

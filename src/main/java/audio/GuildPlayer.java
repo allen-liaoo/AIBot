@@ -31,8 +31,6 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 
-import javax.xml.soap.Text;
-
 /**
  *
  * @author liaoyilin
@@ -65,7 +63,7 @@ public class GuildPlayer extends AudioEventAdapter {
     /**
     * FM fields.
     */
-    private ArrayList<String> fmSongs = new ArrayList<>();
+    private FM.PlayList fmSongs;
     private int auto = -1, previous = -1;
 
     /**
@@ -182,9 +180,7 @@ public class GuildPlayer extends AudioEventAdapter {
                         tc.sendMessage(Emoji.SUCCESS + " Queued Playlist: `" + playlist.getName() + "`").queue();
                     }
                 }).get();
-            } catch (InterruptedException ex) {
-
-            } catch (ExecutionException ex) {
+            } catch (InterruptedException | ExecutionException ex) {
 
             }
         } else {
@@ -216,11 +212,9 @@ public class GuildPlayer extends AudioEventAdapter {
     public void autoFM() {
         Mode = PlayerMode.FM;
 
-        while (auto == previous) {
-            auto = UtilNum.randomNum(0, this.fmSongs.size()-1);
-        }
+        while (auto == previous) { auto = UtilNum.randomNum(0, this.fmSongs.getSongs().size()-1); }
         previous = auto;
-        String url = this.fmSongs.get(auto);
+        String url = fmSongs.getSongs().get(auto);
 
         if (Global.urlPattern.matcher(url).find()) {
             AIBot.playerManager.loadItemOrdered(AIBot.playerManager, url, new LoadResultHandler(this) {
@@ -250,7 +244,7 @@ public class GuildPlayer extends AudioEventAdapter {
     }
 
     /**
-     * Play the previous track and add the current one to queue.
+     * Play the index in the preQueue
      */
     public void playPrevious() {
         if(preQueue.isEmpty())
@@ -258,7 +252,7 @@ public class GuildPlayer extends AudioEventAdapter {
 
         queue.add(0, NowPlayingTrack.makeClone());
         NowPlayingTrack = preQueue.get(0).makeClone();
-        player.startTrack(preQueue.get(0).getTrack(), false);
+        player.startTrack(preQueue.get(0).makeClone().getTrack(), false);
         preQueue.removeFirst();
     }
 
@@ -415,7 +409,7 @@ public class GuildPlayer extends AudioEventAdapter {
     public GuildPlayer clearQueue() {
         queue.clear();
         preQueue.clear();
-        fmSongs.clear();
+        fmSongs = null;
         return this;
     }
 
@@ -473,16 +467,16 @@ public class GuildPlayer extends AudioEventAdapter {
         return preQueue;
     }
 
-    public ArrayList<String> getFmSongs() {
+    public FM.PlayList getFmSongs() {
         return fmSongs;
     }
 
-    public void setFmSongs(ArrayList<String> fmSongs) {
+    public void setFmSongs(FM.PlayList fmSongs) {
         this.fmSongs = fmSongs;
     }
 
     public void addFMSong(String song) {
-        this.fmSongs.add(song);
+        this.fmSongs.getSongs().add(song);
     }
 
     public AudioTrackWrapper getNowPlayingTrack() {

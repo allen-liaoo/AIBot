@@ -48,7 +48,7 @@ public class DumpCommand extends Command {
         }
 
         GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-        player.setTc(e.getTextChannel());
+        AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
 
         if (player.getQueue().isEmpty()) {
             e.getChannel().sendMessage(Emoji.ERROR + " There is no song in the queue.").queue();

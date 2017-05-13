@@ -7,20 +7,22 @@
  */
 package listener;
 
+import audio.Music;
 import constants.Global;
 import main.AIBot;
+import main.GuildWrapper;
 import net.dv8tion.jda.core.entities.Game;
-import secret.PrivateConstant;
+import org.apache.commons.lang3.ObjectUtils;
+import setting.Prefix;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import utility.UtilBot;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.guild.GuildAvailableEvent;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
@@ -40,10 +42,10 @@ public class GuildListener extends ListenerAdapter {
                                 + "By the way, if you wanna see some awesome servers, just type in `=support`!\n"
                                 + "Enjoy the awesome features like hangman, fm(automatic playlist), or radio~~\n";
     
-    private final String links = "[Discord Bots Link](https://bots.discord.pw/bots/294327785512763392)\n"
-                                + "[Invite Link](https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=368573567)\n"
-                                + "[GitHub](https://github.com/AlienIdeology/AIBot/)\n"
-                                + "[Support Server](https://discordapp.com/invite/EABc8Kc) for bug reports, suggestions and help";
+    private final String links = "[Discord Bots Link](https://bots.discord.pw/bots/294327785512763392) | "
+                                + "[Invite Link](https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=368573567) | "
+                                + "[GitHub](https://github.com/AlienIdeology/AIBot/) | "
+                                + "[Support Server](https://discordapp.com/invite/EABc8Kc)";
     
     /**
      * Guild listener
@@ -54,22 +56,28 @@ public class GuildListener extends ListenerAdapter {
         // Only send welcome message if the bot is new (10 sec) to the server. 
         // Note that this event may be triggered due to Discord downtime.
         if(ChronoUnit.SECONDS.between(event.getGuild().getSelfMember().getJoinDate(), ZonedDateTime.now())<10) {
-            welcome(event.getGuild());
-            System.out.println("Joined guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
-            PrivateConstant pri = new PrivateConstant();
+            Guild guild = event.getGuild();
+            String id = guild.getId();
+
+            welcome(guild);
+            System.out.println("Joined guild: " + id + " " + guild.getName());
+
+            AIBot.shards.get(AIBot.shards.size()-1).getGuilds().put(id,
+                    new GuildWrapper(event.getJDA(), AIBot.playerManager, id, Prefix.getDefaultPrefix()));
+
             AIBot.setGame(Game.of(Global.defaultGame()));
+            if(!AIBot.isBeta) AIBot.updateStatus();
         }
-        AIBot.updateStatus();
     }
     
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
         System.out.println("Left guild: " + event.getGuild().getId() + " " + event.getGuild().getName());
         AIBot.setGame(Game.of(Global.defaultGame()));
-        AIBot.updateStatus();
+        if(!AIBot.isBeta) AIBot.updateStatus();
     }
     
-    public void welcome(Guild g) {
+    private void welcome(Guild g) {
         if(!g.getPublicChannel().canTalk() || !g.getSelfMember().hasPermission(g.getPublicChannel(), Permission.MESSAGE_EMBED_LINKS))
             return;
         
@@ -80,7 +88,6 @@ public class GuildListener extends ListenerAdapter {
         embedmsg.setThumbnail(Global.B_AVATAR);
         embedmsg.addField("Links", links, false);
         g.getPublicChannel().sendMessage(embedmsg.build()).queue();
-        embedmsg.clearFields();
     }
     
     @Override
@@ -91,7 +98,6 @@ public class GuildListener extends ListenerAdapter {
     /**
      * Voice Channel listener
      */
-    
     @Override
     public void onGuildVoiceJoin(GuildVoiceJoinEvent e) {
         onVoiceJoin(e.getGuild(), e.getChannelJoined());
@@ -109,55 +115,60 @@ public class GuildListener extends ListenerAdapter {
     }
     
     /**
-     * Inform user that the player is resumed
+     * Resume player when the bot join a VoiceChannel
+     * or when someone moved into the VoiceChannel
+     * Pause player when the bot join a empty VoiceChannel
      * @param guild the guild that this event happened in
      * @param joined the channel that this event happened in
      */
     private void onVoiceJoin(Guild guild, VoiceChannel joined)
     {
         if(guild.getSelfMember().getVoiceState().getChannel() == joined) {
+            if(!AIBot.isBeta) AIBot.updateStatus();
+            int mem = Music.getNonBotMember(joined);
+            AudioPlayer player = AIBot.getGuild(guild).getPlayer();
             
-            //Get members
-            List<Member> members = joined.getMembers();
-            int mem = 0;
-            for(Member m : members) {
-                if(!m.getUser().isBot())
-                    mem++;
+            // Join a VoiceChannel with members
+            // Check is the player is playing. Only resume when there is more than one user
+            if(player.getPlayingTrack() != null
+                && mem >= 1) {
+                player.setPaused(false);
             }
-            
-            //Check is the player is playing, if it is not, resume
-            if(AIBot.getGuild(guild).getPlayer().isPaused()
-                    && AIBot.getGuild(guild).getPlayer().getPlayingTrack() != null
-                    && mem > 0) {
-                AIBot.getGuild(guild).getPlayer().setPaused(false);
-            }
+
+            // Move to a empty VoiceChannel
+            if(mem == 0) player.setPaused(true);
         }
     }
     
     /**
-     * Inform user when the player is paused
+     * Pause player when the bot left VoiceChannel or
+     * when there is no listener in the VoiceChannel
      * @param guild the guild that this event happened in
      * @param left the channel that this event happened in
      */
     private void onVoiceLeave(Guild guild, VoiceChannel left)
     {
-        if(guild.getSelfMember() == null) //Left guild
-            return;
+        try {
+            if(!AIBot.isBeta) AIBot.updateStatus();
+            AudioPlayer player = AIBot.getGuild(guild).getPlayer();
+            Member self = guild.getSelfMember();
+            if (self == null) // Left guild
+                return;
 
-        if(guild != null && guild.getSelfMember().getVoiceState().getChannel() == left) {
-            int mem = 0;
-            List<Member> members = left.getMembers();
-            for(Member m : members) {
-                if(!m.getUser().isBot())
-                    mem++;
-            }
-            
-            if(!AIBot.getGuild(guild).getPlayer().isPaused()
-                    && AIBot.getGuild(guild).getPlayer().getPlayingTrack() != null
-                    && mem == 0) {
-                AIBot.getGuild(guild).getPlayer().setPaused(true);
-            }
+            // User left VoiceChannel the bot is in
+            if (self.getVoiceState().inVoiceChannel()
+                    && self.getVoiceState().getChannel().getId().equals(left.getId())
+                    && Music.getNonBotMember(left) == 0)
+                player.setPaused(true);
+
+            // Bot left VoiceChannel
+            if (!self.getVoiceState().inVoiceChannel()
+                    && player.getPlayingTrack() != null
+                    && !player.isPaused())
+                player.setPaused(true);
+        } catch (NullPointerException npe) {
+
         }
     }
-    
+
 }

@@ -9,6 +9,7 @@ import command.Command;
 import constants.Emoji;
 import constants.Global;
 import constants.FilePath;
+import net.dv8tion.jda.core.entities.ChannelType;
 import setting.Prefix;
 import system.AILogger;
 import java.io.*;  
@@ -29,8 +30,6 @@ public class SourceCommand extends Command{
                                      + "[Package Name] [Class Name] [from] [to]: Get java files outside of command package.\n"
                                      + "[Module Name] [Class Name] [from] [to]: Return the command class's codes from line `[from]` to `[to]`.";
 
-    
-
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
@@ -41,12 +40,7 @@ public class SourceCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
-        if(args.length >= 1 && !"-h".equals(args[0])) 
+        if(args.length >= 1)
         {
             if(!Global.D_ID.equals(e.getAuthor().getId()) && !e.getMember().isOwner())
             {
@@ -107,7 +101,7 @@ public class SourceCommand extends Command{
                     }
                     
                     //Success Message
-                    if(e.getChannelType() != e.getChannelType().PRIVATE) {
+                    if(e.getChannelType() != ChannelType.PRIVATE) {
                         e.getChannel().sendMessage(Emoji.SUCCESS + " This is the source code of `" + args[0] + "/" + file + "`\n").queue();
                         if(args.length == 3) e.getChannel().sendMessage("Fom line `" + fromOrig + " to " + to + "`.").queue();   
                     }

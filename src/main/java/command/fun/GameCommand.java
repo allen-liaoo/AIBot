@@ -52,23 +52,23 @@ public class GameCommand extends Command {
             if("1".equals(args[0]))
             {
                 RPSCommand rps = new RPSCommand();
-                rps.help(e);
+                e.getChannel().sendMessage(rps.help(e).build()).queue();
             }
             else if("2".equals(args[0]))
             {
-                GuessNumberCommand ttt = new GuessNumberCommand();
-                ttt.help(e);
+                GuessNumberCommand gn = new GuessNumberCommand();
+                gn.action(new String[]{"start"}, e);
             }
             else if("3".equals(args[0]))
             {
                 TicTacToeCommand ttt = new TicTacToeCommand();
-                ttt.help(e);
+                ttt.action(new String[]{"start"}, e);
             }
             
             else if("4".equals(args[0]))
             {
                 HangManCommand hm = new HangManCommand();
-                hm.help(e);
+                hm.action(new String[]{"start"}, e);
             }
         }
     }

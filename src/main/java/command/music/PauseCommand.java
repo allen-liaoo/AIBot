@@ -41,7 +41,7 @@ public class PauseCommand extends Command{
         try {
             if (Music.checkVoiceChannel(e)) {
                 GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-                player.setTc(e.getTextChannel());
+                AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
                 player.pauseOrPlay();
             }
         } catch (NullPointerException npe) {

@@ -7,12 +7,20 @@
  */
 package command.music;
 
+import audio.AudioTrackWrapper;
+import audio.GuildPlayer;
+import audio.Music;
 import audio.Radio;
 import command.Command;
+import constants.Emoji;
 import constants.Global;
+import main.AIBot;
 import setting.Prefix;
+import system.AILogger;
 import utility.UtilBot;
 import java.time.Instant;
+import java.util.List;
+
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -43,18 +51,14 @@ public class RadioCommand extends Command{
     public void action(String[] args, MessageReceivedEvent e) {
         if(args.length == 0)
         {
-            String stations = Radio.getStations();
+            String stations = "```css\n\n[AIBot Radio]\n\n/* Usage: "+Prefix.DIF_PREFIX+"radio [Station Name] */\n\n";
+
+            List<Radio.RadioStation> radios = AIBot.radio.getRadioStations();
+            for(int i = 0; i < radios.size(); i++) {
+                stations += i == radios.size()-1 ? radios.get(i).getName()+"```" : radios.get(i).getName()+", ";
+            }
             
-            embedpl.setAuthor("AIBot Radio", null, Global.B_AVATAR);
-            embedpl.setDescription("Usage: `" + Prefix.DIF_PREFIX + "radio [Station Name]`\n");
-            embedpl.addField("Available Radio Stations", stations, true);
-            embedpl.setThumbnail(Global.B_AVATAR);
-            embedpl.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
-            embedpl.setColor(UtilBot.randomColor());
-            embedpl.setTimestamp(Instant.now());
-            
-            e.getChannel().sendMessage(embedpl.build()).queue();
-            embedpl.clearFields();
+            e.getChannel().sendMessage(stations).queue();
         }
         
         else if(args.length == 1 && "-h".equals(args[0])) {
@@ -72,8 +76,28 @@ public class RadioCommand extends Command{
                     input += " " + args[i];
             }
             
-            Radio.loadRadio(input, e);
+            loadRadio(input, e);
         }
+    }
+
+    public void loadRadio(String input, MessageReceivedEvent e)
+    {
+        String link = AIBot.radio.getUrl(input);
+
+        if(link == null) {
+            e.getTextChannel().sendMessage(Emoji.ERROR + " Radio station not found. \nUse `" + Prefix.DIF_PREFIX + "radio` for available radio stations.").queue();
+            return;
+        }
+
+        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
+        AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
+
+        Music.connect(e, false);
+        player.play(link, e.getMember().getEffectiveName(), AudioTrackWrapper.TrackType.RADIO);
+
+        //Log
+        AILogger.commandLog(e, "FM#loadFM", "Fm loaded");
+        System.out.println("Radio#loadRadio --> " + link);
     }
 
 }

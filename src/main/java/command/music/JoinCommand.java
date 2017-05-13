@@ -5,6 +5,7 @@
  */
 package command.music;
 
+import net.dv8tion.jda.core.entities.ChannelType;
 import setting.Prefix;
 import audio.*;
 import command.Command;
@@ -17,11 +18,9 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class JoinCommand extends Command{
 
-    public final static  String HELP = "This command is for adding the bot to your current voice channel.\n"
-                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"join`  or `" + Prefix.getDefaultPrefix() + "summon` or `" + Prefix.getDefaultPrefix() + "j`\n"
-                                     + "Parameter: `-h | null`";
-    private final EmbedBuilder embed = new EmbedBuilder();
-    
+    public final static String HELP = "This command is for adding the bot to your current voice channel.\n"
+                                    + "Command Usage: `"+ Prefix.getDefaultPrefix() +"join`  or `" + Prefix.getDefaultPrefix() + "summon` or `" + Prefix.getDefaultPrefix() + "j`\n"
+                                    + "Parameter: `-h | null`";
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -33,13 +32,10 @@ public class JoinCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
+        if(e.getChannelType() == ChannelType.PRIVATE) {
+            throw new NullPointerException();
         }
-        
-        if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE) 
-        {
+        else if(args.length == 0) {
             Music.connect(e, true);
         }
     }

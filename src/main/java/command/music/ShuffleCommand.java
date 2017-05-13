@@ -36,15 +36,10 @@ public class ShuffleCommand extends Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
         if(args.length == 0)
         {
             GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-            player.setTc(e.getTextChannel());
+            AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
             if(player.getMode() == audio.PlayerMode.FM) {
                 e.getChannel().sendMessage(Emoji.ERROR + " FM mode is ON! Only shuffle queue when FM is not playing.").queue();
                 return;

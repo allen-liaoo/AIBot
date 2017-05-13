@@ -24,13 +24,13 @@ public class TicTacToeCommand extends Command {
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "tictactoe` or `" + Prefix.getDefaultPrefix() + "ttt`\n"
                                     + "Parameter: `-h | start @mention | x y | end | null`\n"
                                     + "start @mention: Mention an opponent to start the game.\n"
-                                    + "x y: Type in the cordinate of the Tic Tac Toe board.\n"
+                                    + "x y: Type in the coordinate of the Tic Tac Toe board.\n"
                                     + "end: End the game.";
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
-        embed.setTitle("Miscellaneous Module", null);
+        embed.setTitle("Fun Module", null);
         embed.addField("Tic Tac Toe -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
@@ -56,8 +56,8 @@ public class TicTacToeCommand extends Command {
             try {
                 game.endGame();
             } catch(NullPointerException en) {
-                e.getChannel().sendMessage(Emoji.ERROR + " game haven't started yet!").queue();
-                AILogger.errorLog(en, e, this.getClass().getName(), "game haven't started.");
+                e.getChannel().sendMessage(Emoji.ERROR + " Game haven't started yet!").queue();
+                AILogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
             }
         }
         
@@ -66,8 +66,8 @@ public class TicTacToeCommand extends Command {
             try {
                 game.sendInput(args, e);
             } catch(NullPointerException en) {
-                e.getChannel().sendMessage(Emoji.ERROR + " game haven't started yet!").queue();
-                AILogger.errorLog(en, e, this.getClass().getName(), "game haven't started.");
+                e.getChannel().sendMessage(Emoji.ERROR + " Game haven't started yet!").queue();
+                AILogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
             }
         }
     }

@@ -31,7 +31,7 @@ public class Music  {
     {
         //Check if the user is in a voice channel
         if(!e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-            e.getChannel().sendMessage(Emoji.ERROR + "I am not in a voice channel.").queue();
+            e.getChannel().sendMessage(Emoji.ERROR + " I am not in a voice channel.").queue();
             return false;
         }
 
@@ -39,9 +39,23 @@ public class Music  {
         if(e.getGuild().getSelfMember().getVoiceState().getChannel() != e.getMember().getVoiceState().getChannel()) {
             e.getChannel().sendMessage(Emoji.ERROR + " You need to be in my voice channel.").queue();
             return false;
-        } else {
-            return true;
         }
+        return true;
+    }
+
+    /**
+     * Get the amount of non bot members in a VoiceChannel
+     * @param vc
+     * @return
+     */
+    public static int getNonBotMember(VoiceChannel vc)
+    {
+        int mem = 0;
+        for(Member m : vc.getMembers()) {
+            if(!m.getUser().isBot())
+                mem++;
+        }
+        return mem;
     }
 
     /**

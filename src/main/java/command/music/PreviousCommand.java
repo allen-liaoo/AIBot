@@ -65,7 +65,7 @@ public class PreviousCommand extends Command {
     public void preQueueList(MessageReceivedEvent e)
     {
         QueueList preQueue = AIBot.getGuild(e.getGuild()).getGuildPlayer().getPreQueue();
-        if(preQueue.isEmpty() || preQueue == null) {
+        if(preQueue == null || preQueue.isEmpty()) {
             e.getChannel().sendMessage("No previous songs.").queue();
             return;
         }

@@ -7,104 +7,84 @@
  */
 package audio;
 
-import audio.AudioTrackWrapper.TrackType;
-import constants.Emoji;
 import constants.FilePath;
-import main.AIBot;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import setting.Prefix;
-import system.AILogger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.*;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class Radio {
-    
-    public static void loadRadio(String input, MessageReceivedEvent e)
-    {
-        String link = findStationNameByName(input);
-        link = getStationURLByName(link);
-        
-        if(link == null) {
-            e.getTextChannel().sendMessage(Emoji.ERROR + " Playlist not found. \nUse `" + Prefix.DIF_PREFIX + "radio` for available playlists.").queue();
-            return;
-        }
 
-        GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-        player.setTc(e.getTextChannel());
+    private List<RadioStation> radioStations;
 
-        Music.connect(e, false);
-        player.play(link, e.getMember().getEffectiveName(), TrackType.RADIO);
-        
-        //Log
-        AILogger.commandLog(e, "FM#loadFM", "Fm loaded");
-        System.out.println("Radio#loadRadio --> " + link);
+    public Radio() {
+        radioStations = new ArrayList<>();
     }
 
     /**
-     * Get station name by keyword
-     * @param input
-     * @return
+     * Load Radio Stations into a list of RadioStation from json file
      */
-    public static String findStationNameByName(String input)
+    public void loadRadioStations()
     {
-        LinkedList stations = new LinkedList(getRadioStations().keySet());
-        for(Object obj : stations) {
-            if(obj.toString().toLowerCase().contains(input.toLowerCase())) {
-                return obj.toString();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Get url by exact name
-     * @param input
-     * @return
-     */
-    public static String getStationURLByName(String input)
-    {
-        Map stations = getRadioStations();
-        return stations.containsKey(input) ? stations.get(input).toString() : null;
-    }
-    
-    public static String getStations()
-    {
-        LinkedList stations = new LinkedList(getRadioStations().keySet());
-        Collections.sort(stations);
-        String rs = "```";
-        for(int i = 0; i < stations.size(); i++) {
-            Object obj = stations.get(i);
-            rs += obj.equals(stations.getLast()) ? obj : obj + ", ";
-        }
-        
-        return rs+"```";
-    }
-
-    /**
-     * @return a map of radio stations `<name, url>`
-     */
-    public static Map getRadioStations()
-    {
-        Map map = null;
+        LinkedHashMap<String, Object> map = null;
         try {
             InputStream targetStream = new FileInputStream(new File(FilePath.RadioStation));
             JSONTokener jsonTokener = new JSONTokener(targetStream);
             JSONObject json = new JSONObject(jsonTokener);
-            map = json.toMap();
+            map = new LinkedHashMap<>(json.toMap());
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
         }
-        return map;
+
+        ArrayList<String> names = new ArrayList<>(map.keySet());
+        ArrayList<Object> urls = new ArrayList<>();
+        urls.addAll(map.values());
+
+        for(int i = 0; i < map.size(); i++) {
+            radioStations.add(new RadioStation(names.get(i), urls.get(i).toString()));
+        }
+        radioStations.sort(Comparator.comparing(RadioStation::getName));
+    }
+
+    /**
+     * Get a url from keyword
+     * @param keyword
+     * @return
+     */
+    public String getUrl(String keyword) {
+        RadioStation radioStation = radioStations.stream().filter(rs -> rs.getName().toLowerCase().contains(keyword.toLowerCase()))
+                .findAny().get();
+        return radioStation.getUrl();
+    }
+
+    public List<RadioStation> getRadioStations() {
+        return radioStations;
+    }
+
+    public class RadioStation
+    {
+        private final String name;
+        private final String url;
+
+        public RadioStation(String name, String url) {
+            this.name = name;
+            this.url = url;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getUrl() {
+            return url;
+        }
     }
     
 }

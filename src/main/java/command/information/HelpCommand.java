@@ -8,6 +8,7 @@ package command.information;
 import constants.Emoji;
 import constants.Global;
 import constants.HelpText;
+import main.AIBot;
 import setting.Prefix;
 import command.fun.EightBallCommand;
 import command.*;
@@ -21,6 +22,7 @@ import system.selector.EmojiSelection;
 import listener.SelectorListener;
 import utility.UtilBot;
 
+import java.awt.*;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
@@ -204,304 +206,50 @@ public class HelpCommand extends Command {
     
     public void helpCustom(String cmdtitle, MessageReceivedEvent e)
     {
-        String cmdhelp = Emoji.ERROR + " Cannot find such command/module.", cmdhelp2 = "";
-        boolean isMod = false; //Check if this is module or command.
+        if(AIBot.commands.containsKey(cmdtitle.toLowerCase())) {
+            e.getChannel().sendMessage(AIBot.commands.get(cmdtitle).help(e).build()).queue();
+        } else {
+            EmbedBuilder embed = new EmbedBuilder()
+                .setFooter("Module Help/Usage", Global.I_HELP)
+                .setColor(Color.RED)
+                .setTimestamp(Instant.now());
+            String name = "", des = "";
 
-        switch (cmdtitle.toLowerCase()) {
-            //Information Module
-            case "information":
-            case "info":
-                cmdhelp = HelpText.INFO_CMD;
-                cmdhelp2 = HelpText.INFO_DES;
-                isMod = true;
-                break;
-            case "invite": cmdhelp = InviteCommand.HELP;
-                break;
-            case "botinfo":
-            case "bi":
-                cmdhelp = InfoBotCommand.HELP;
-                break;
-            case "serverinfo":
-            case "si":
-                cmdhelp = InfoServerCommand.HELP;
-                break;
-            case "channelinfo":
-            case "ci":
-                cmdhelp = InfoChannelCommand.HELP;
-                break;
-            case "userinfo":
-            case "ui":
-                cmdhelp = InfoUserCommand.HELP;
-                break;
-            case "list":
-            case "server":
-            case "member":
-            case "role":
-            case "channel":
-                cmdhelp = ListCommand.HELP;
-                break;
-            case "prefix": cmdhelp = PrefixCommand.HELP;
-                break;
-            case "ping": cmdhelp = PingCommand.HELP;
-                break;
-            case "about": cmdhelp = AboutCommand.HELP;
-                break;
-            case "status": cmdhelp = StatusCommand.HELP;
-                break;
-            case "uptime": cmdhelp = StatusCommand.HELP;
-                break;
-            case "support": cmdhelp = SupportCommand.HELP;
-                break;
+            switch (cmdtitle.toLowerCase()) {
+                case "information":
+                case "info":
+                    name = HelpText.INFO_CMD;
+                    des = HelpText.INFO_CMD;
+                    break;
+                case "moderation":
+                case "mod":
+                    name = HelpText.MOD_CMD;
+                    des = HelpText.MOD_DES;
+                    break;
+                case "utility":
+                case "util":
+                    name = HelpText.UTIL_CMD;
+                    des = HelpText.UTIL_DES;
+                    break;
+                case "fun":
+                    name = HelpText.FUN_CMD;
+                    des = HelpText.FUN_DES;
+                    break;
+                case "restricted":
+                case "restrict":
+                    name = HelpText.RESTRICT_CMD;
+                    des = HelpText.RESTRICT_DES;
+                    break;
+                default:
+                    e.getChannel().sendMessage(Emoji.ERROR + " Cannot find the command or module.\n"
+                            + "Use `=help [Page]` to see full command list.").queue();
+                    return;
+            }
 
-            //Moderation Module
-            case "moderation":
-            case "mod":
-                cmdhelp = HelpText.MOD_CMD;
-                cmdhelp2 = HelpText.MOD_DES;
-                isMod = true;
-                break;
-            case "prune": cmdhelp = PruneCommand.HELP;
-                break;
-            case "kick":
-            case "k": cmdhelp = KickCommand.HELP;
-                break;
-            case "warn": cmdhelp = WarnCommand.HELP;
-                break;
-            case "ban": 
-            case "b": cmdhelp = BanCommand.HELP;
-                break;
-            case "unban": 
-            case "ub": cmdhelp = UnbanCommand.HELP;
-                break;
-            case "softban": cmdhelp = SoftBanCommand.HELP;
-                break;
-
-            //utility Module
-            case "utility":
-            case "util":
-                cmdhelp = HelpText.UTIL_CMD;
-                cmdhelp2 = HelpText.UTIL_DES;
-                isMod = true;
-                break;
-            //command Group- Number
-            case "number":
-            case "num":
-            case "n":
-                cmdhelp = NumberCommand.HELP;
-                break;
-            case "math":
-            case "calc":
-            case "m":
-                cmdhelp = MathCommand.HELP;
-                break;
-            case "say":
-                cmdhelp = SayCommand.HELP;
-                break;
-            case "emoji":
-            case "emote":
-            case "e":
-                cmdhelp = EmojiCommand.HELP;
-                break;
-            case "weather":
-            case "w":
-                cmdhelp = WeatherCommand.HELP;
-                break;
-            //command Group- Search
-            case "search":
-            case "google":
-            case "g":
-            case "wiki":
-            case "urban":
-            case "github":
-            case "git":
-                cmdhelp = SearchCommand.HELP;
-                break;
-            case "imdb":
-                cmdhelp = IMDbCommand.HELP;
-                break;
-            //command Group- Image
-            case "image":
-            case "imgur":
-            case "gif":
-            case "meme":
-                cmdhelp = ImageCommand.HELP;
-                break;
-
-            //Fun Module
-            case "fun":
-                cmdhelp = HelpText.FUN_CMD;
-                cmdhelp2 = HelpText.FUN_DES;
-                isMod = true;
-                break;
-            case "8ball": cmdhelp = EightBallCommand.HELP;
-                break;
-            case "face": 
-            case "f": 
-                cmdhelp = FaceCommand.HELP;
-                break;
-            case "spam":
-                cmdhelp = SpamCommand.HELP;
-                break;
-            //command Group- game
-            case "game": cmdhelp = GameCommand.HELP;
-                break;
-            case "rockpaperscissors": 
-            case "rps": 
-                cmdhelp = RPSCommand.HELP;
-                break;
-            case "guessnum": 
-            case "gn": 
-                cmdhelp = GuessNumberCommand.HELP;
-                break;
-            case "tictactoe": 
-            case "ttt": 
-                cmdhelp = TicTacToeCommand.HELP;
-                break;
-            case "hangman": 
-            case "hm": 
-                cmdhelp = HangManCommand.HELP;
-                break;
-            case "hangmancheater": 
-            case "hmc": 
-                cmdhelp = HangManCheaterCommand.HELP;
-                break;
-
-            //Music Module
-            case "music":
-                cmdhelp = HelpText.MUSIC_CMD;
-                cmdhelp2 = HelpText.MUSIC_DES;
-                isMod = true;
-                break;
-            case "join":
-            case "summon":
-            case "j": 
-                cmdhelp = JoinCommand.HELP;
-                break;
-            case "leave":
-            case "l":
-                cmdhelp = LeaveCommand.HELP;
-                break;
-            case "player":
-            case "pl":
-                cmdhelp = PlayerCommand.HELP;
-                break;
-            case "play":
-                cmdhelp = PlayCommand.HELP;
-                break;
-            case "fm":
-                cmdhelp = FMCommand.HELP;
-                break;
-            case "radio":
-                cmdhelp = RadioCommand.HELP;
-                break;
-            case "autoplay":
-            case "ap":
-                cmdhelp = AutoPlayCommand.HELP;
-                break;
-            case "pause":
-            case "resume":
-            case "unpause":
-                cmdhelp = PauseCommand.HELP;
-                break;
-            case "skip":
-                cmdhelp = SkipCommand.HELP;
-                break;
-            case "previous":
-            case "pre":
-                cmdhelp = PreviousCommand.HELP;
-                break;
-            case "nowplaying":
-            case "song":
-            case "np":
-                cmdhelp = SongCommand.HELP;
-                break;
-            case "queue":
-            case "q":
-                cmdhelp = QueueCommand.HELP;
-                break;
-            case "volume":
-                cmdhelp = VolumeCommand.HELP;
-                break;
-            case "jump":
-                cmdhelp = JumpCommand.HELP;
-                break;
-            case "shuffle":
-                cmdhelp = ShuffleCommand.HELP;
-                break;
-            case "repeat":
-                cmdhelp = RepeatCommand.HELP;
-                break;
-            case "stop":
-                cmdhelp = StopCommand.HELP;
-                break;
-            case "dump":
-                cmdhelp = DumpCommand.HELP;
-                break;
-            case "lyrics":
-                cmdhelp = LyricsCommand.HELP;
-                break;
-
-            //Restricted Module
-            case "restricted":
-            case "restrict":
-                cmdhelp = HelpText.RESTRICT_CMD;
-                cmdhelp2 = HelpText.RESTRICT_DES;
-                isMod = true;
-                break;
-            case "shutdown": 
-                cmdhelp = ShutDownCommand.HELP;
-                break;
-            case "presence":
-            case "setNick":
-            case "setStatus":
-            case "setGame":
-                cmdhelp = PresenceCommand.HELP;
-                break;
-            case "source": 
-                cmdhelp = SourceCommand.HELP;
-                break;
-            case "log": 
-                cmdhelp = LogCommand.HELP;
-                break;
-
-            default: break;
-
+            embed.addField(cmdtitle.substring(0,1).toUpperCase()+cmdtitle.substring(1)+" Module", name, true);
+            embed.addField("Description", des, true);
+            e.getChannel().sendMessage(embed.build()).queue();
         }
-
-        String morc = ""; //Set fields' TEXT to command/module.
-
-        if(isMod == false) //If this is a command
-        {
-            morc = "command";
-        }
-        else
-        {
-            morc = "Module";
-        }
-
-        //Set EmbedMessage addField title.
-        if(cmdhelp.equals(Emoji.ERROR + " Cannot find such command/module."))
-                cmdtitle = "NA";
-        else 
-        {
-            cmdtitle = cmdtitle.substring(0, 1).toUpperCase()+ cmdtitle.substring(1); //Make the first letter to Upper case.
-            cmdtitle += " -Help";
-        }
-        
-        EmbedBuilder embedHelp = new EmbedBuilder();
-
-        embedHelp.setAuthor("AIBot Help -" + morc, Global.B_GITHUB,null); //Set title for command
-        embedHelp.setColor(UtilBot.randomColor());
-
-        embedHelp.addField(cmdtitle, cmdhelp, true);
-        if(isMod == true)
-            embedHelp.addField("Discription", cmdhelp2, true);
-        embedHelp.setFooter(morc + " Help/Usage", Global.I_HELP);
-        embedHelp.setTimestamp(Instant.now());
-
-        MessageEmbed meh = embedHelp.build();
-        e.getChannel().sendMessage(meh).queue();
-        embedHelp.clearFields();
     }
     
 }

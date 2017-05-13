@@ -21,7 +21,7 @@ public class MessageFilter extends ListenerAdapter {
 
     public MessageFilter() {
         addBanWord();
-        invite = Pattern.compile("(discord\\.gg\\/)([A-Za-z0-9]{5,})(?=\\b|$)");
+        invite = Pattern.compile("(?i)(discord\\.gg\\/)([A-Za-z0-9]{5,})(?=\\b|$)");
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MessageFilter extends ListenerAdapter {
             return;
 
         for(String bw : banWord) {
-            if (e.getMessage().getRawContent().contains(bw) &&
+            if (e.getMessage().getRawContent().toLowerCase().contains(bw.toLowerCase()) &&
                     e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_ADD_REACTION))
                 e.getMessage().addReaction(Emoji.BAN).queue();
         }

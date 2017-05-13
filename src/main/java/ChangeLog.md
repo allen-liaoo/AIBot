@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
+#### [0.3.4] - 2017-05-7 ~ 2017-05-11
+##### Added
+- CleanCommand which cleans messages by specific targets.
+- MoveCommand which skip to a position in the queue.
+- Shard system (Reconstructed the main bot system).
+##### Fixed
+- Change TrackScheduler to GuildPlayer, and add most Music static methods into Guild Player.
+- SkipCommand to work with searching the queue and skip.
+- Local Playlist(FM) from txt to Json format.
+- GuildListener onVoiceJoin/Leave/Move to resume or pause properly.
+- Radio status methods to normal methods. Created subclass RadioStation and load them on startup.
+
 #### [0.3.2] - 2017-05-01 ~ 2017-05-06
 ##### Added
 - AutoPlayCommand which works like YouTube autoplay mode.

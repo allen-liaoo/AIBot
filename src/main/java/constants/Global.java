@@ -57,9 +57,9 @@ public class Global {
     public final static String LYRICSURL = "https://genius.com/";
     
     //Permissions
-    public final static Collection<Permission> PERM_MOD = new ArrayList<Permission> 
-            (Arrays.asList(new Permission[] {Permission.ADMINISTRATOR, Permission.MANAGE_SERVER}));
-    
+    public final static ArrayList<Permission> PERM_MOD = new ArrayList<>
+            (Arrays.asList(Permission.ADMINISTRATOR, Permission.MANAGE_SERVER));
+
     //Bot Developer ID
     public final static String D_ID = "248214880379863041";
 

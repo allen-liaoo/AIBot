@@ -57,6 +57,7 @@ public class HelpText {
     */
     public final static String MOD_CMD = 
             "**prune**\n"
+            + "**clean**\n"
             + "**kick**\n"
             + "**warn**\n"
             + "**ban**\n"
@@ -65,11 +66,12 @@ public class HelpText {
     
     public final static String MOD_DES = 
             "Delete messages.\n"
+            + "Advance prune options.\n"
             + "Kick member(s).\n"
             + "Warn a user in dm.\n"
             + "Ban member(s) by Mention.\n"
             + "Unban member(s) by ID.\n"
-            + "kick and clean up member(s)\n messages.\n";
+            + "Kick and clean up member(s)\n messages.\n";
     
     /*
     * utility Module
@@ -163,6 +165,7 @@ public class HelpText {
             + "**queue (q)**\n\n"
             + "**skip**\n"
             + "**previous (pre)**\n"
+            + "**move (mv)**\n"
             + "**nowplaying (np)**\n\n"
             + "**volume**\n"
             + "**jump (jp)**\n"
@@ -185,6 +188,7 @@ public class HelpText {
             + "Show the playlist and what's \ncoming next.\n"
             + "Skip a song.\n"
             + "Replay previous song.\n"
+            + "Skip to play a song in queue.\n"
             + "Get the information of the \ncurrent playing song.\n"
             + "Set the volume of the bot.\n"
             + "Jump to a position of the song.\n"

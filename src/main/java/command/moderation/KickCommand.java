@@ -55,7 +55,7 @@ public class KickCommand extends Command{
             if (!selfMember.hasPermission(Permission.KICK_MEMBERS)) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " I need to have **Kick Members* Permission to kick members.").queue();
                 return;
-            }else if(e.getMember().hasPermission(Permission.KICK_MEMBERS)) {
+            }else if(!e.getMember().hasPermission(Permission.KICK_MEMBERS)) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " You need to have **Kick Members** Permission to ban members.").queue();
                 return;
             }

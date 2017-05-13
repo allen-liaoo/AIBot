@@ -27,7 +27,7 @@ public class PruneCommand extends Command{
     
     public final static  String HELP = "This command is for deleting messages.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"prune`\n"
-                                     + "Parameter: `-h | Number`";
+                                     + "Parameter: `-h | [Number]`";
     
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -41,13 +41,8 @@ public class PruneCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
-        if(args.length == 0)
-        {
+
+        if(args.length == 0) {
             e.getChannel().sendMessage(Emoji.ERROR + " You must add a number after Prune command to delete an amount of messages.\n"
                                          + "Use `" + Prefix.getDefaultPrefix() + "prune -h` for help.").queue();
         }
@@ -64,7 +59,7 @@ public class PruneCommand extends Command{
             }
             
             //Parse String to int, detect it the input is valid.
-            Integer msgs = new Integer(0);
+            Integer msgs = 0;
             try {
                 msgs = Integer.parseInt(args[0]);
                 AILogger.commandLog(e, "PruneCommand", "Called to prune " + msgs + " messages.");

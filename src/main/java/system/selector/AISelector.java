@@ -72,7 +72,7 @@ public abstract class AISelector<T> {
      * @param event
      * @return
      */
-    public abstract <T> boolean isSelection(GenericMessageEvent event);
+    public abstract boolean isSelection(GenericMessageEvent event);
 
     public abstract int selector(String choice);
     

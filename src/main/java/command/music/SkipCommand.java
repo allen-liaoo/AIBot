@@ -42,16 +42,11 @@ public class SkipCommand extends Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-
         if(!Music.checkVoiceChannel(e))
             return;
 
         GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-        player.setTc(e.getTextChannel());
+        AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
 
         if(args.length == 0)
         {

@@ -46,7 +46,7 @@ public class RepeatCommand extends Command {
         if(UtilBot.isMajority(e.getMember()) ||
             UtilBot.isMod(e.getMember()))
         {
-            AIBot.getGuild(e.getGuild()).getGuildPlayer().setTc(e.getTextChannel());
+            AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
             if(args.length == 0) {
                 if (Music.checkMode(e, PlayerMode.REPEAT))
                     repeat(e);

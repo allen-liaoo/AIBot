@@ -7,6 +7,7 @@
  */
 package listener;
 
+import constants.Global;
 import setting.Prefix;
 import main.*;
 import main.GuildWrapper;
@@ -30,13 +31,13 @@ public class CommandListener extends ListenerAdapter {
     
     @Override
     public void onMessageReceived(MessageReceivedEvent e){
-        /**
+        /*
          * Reject Commands from Bots and Fake Users.
          */
         if(e.getAuthor().isBot() || e.getAuthor().isFake())
             return;
-        
-        /**
+
+        /*
          * Reject Commands from unavailable guild, Text Channels that the bot 
          * does not have permission to send message or fake PrivateConstant Channels.
          */
@@ -44,25 +45,14 @@ public class CommandListener extends ListenerAdapter {
             (e.getChannelType().isGuild() && !e.getTextChannel().canTalk()) || 
             (!e.getChannelType().isGuild() && e.getPrivateChannel().isFake()))
             return;
-
-        /**
-         * Create GuildSetting for each Guild.
-         */
-        /*if(!e.isFromType(ChannelType.PRIVATE) && !AIBot.guilds.containsKey(e.getGuild().getId()))
-        {
-            GuildWrapper newGuild = new GuildWrapper(e.getJDA(), AIBot.playerManager, e.getGuild().getId(), "=");
-            AIBot.guilds.put(e.getGuild().getId(), newGuild);
-            e.getGuild().getAudioManager().setSendingHandler(newGuild.getSendHandler());
-            AILogger.updateLog("\tNew Server: " + e.getGuild().getId() + " " + e.getGuild().getName());
-        }*/
         
-        /**
+        /*
          * Detect Trigger Words and Respond.
          */
         AIBot.respond.checkRespond(e.getMessage().getContent(), e);
         AIBot.respond.checkDynamicRespond(AIBot.parser.parseRespond(e.getMessage().getRawContent(), e), e);
         
-        /**
+        /*
          * Detect commands.
          */
         if(!e.getMessage().getAuthor().getId().equals(e.getJDA().getSelfUser().getId()))
@@ -95,6 +85,11 @@ public class CommandListener extends ListenerAdapter {
             {
                 MessageReceivedEvent e = cmd.event;
                 try {
+                    //Help message
+                    if(cmd.args.length > 0 && cmd.args[0].equals("-h")) {
+                        e.getChannel().sendMessage(commands.get(cmd.invoke).help(e).build()).queue();
+                        return;
+                    }
                     commands.get(cmd.invoke).action(cmd.args, e);
                 } catch (NullPointerException npe) {
                     if(e.isFromType(ChannelType.PRIVATE))

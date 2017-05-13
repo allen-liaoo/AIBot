@@ -8,6 +8,8 @@
 package command;
 
 import java.util.HashMap;
+
+import constants.Emoji;
 import constants.Global;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.Permission;

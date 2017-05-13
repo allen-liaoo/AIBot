@@ -45,8 +45,6 @@ public class NumberCommand extends Command {
         //Number Counter
         if("count".equals(args[0]) | "cunt".equals(args[0]) | "c".equals(args[0]))
         {
-            AILogger.commandLog(e, "NumberCommand#Count", "Called");
-            
             if(args.length == 1) //Default count from 1 to 4
             {
                 e.getChannel().sendMessage("Counting from 1 to 4...").queue();

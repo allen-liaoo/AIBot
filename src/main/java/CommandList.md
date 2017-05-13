@@ -20,8 +20,9 @@
 
 ## Moderation Commands
 [Moderation Commands Description](command/moderation/ModerationCommands.md) <br />
-- prune (p) - Delete messages.
-- kick (k) - Kick member(s).
+- prune - Delete messages.
+- clean - Advance prune options.
+- kick - Kick member(s).
 - warn - Warn a user in direct message.
 - ban - Ban member(s) by Mention.
 - unban - Unban member(s) by ID.
@@ -73,6 +74,7 @@
 - queue (q) - Show the playlist and what's coming next.
 - skip - Skip the song.
 - previous (pre) - Replay previous song.
+- move (mv) - Skip to play a song in queue.
 - nowplaying (np) - Get the information of the current playing song.
 - volume - Set the volume of the bot.
 - jump (jp) - Jump to a position of the song.

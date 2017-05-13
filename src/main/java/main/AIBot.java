@@ -6,6 +6,8 @@
  */
 package main;
 
+import audio.FM;
+import audio.Radio;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager;
@@ -45,28 +47,30 @@ import java.util.List;
  */
 public class AIBot {
 
-    public static boolean isBeta;
+    public static boolean isBeta = false;
     public static long timeStart = 0;
 
     public static List<Shard> shards = new ArrayList<>();
 
-    public static final CommandParser parser = new CommandParser();
-    public static final TextRespond respond = new TextRespond();
-    public static APIPostAgent apiPoster;
     public static AudioPlayerManager playerManager;
-
+    public static final CommandParser parser = new CommandParser();
     public static HashMap<String, Command> commands = new HashMap<>();
-    public static HashMap<String, GuildWrapper> guilds = new HashMap<>();
+    public static final TextRespond respond = new TextRespond();
+    private static APIPostAgent apiPoster;
+    public static Radio radio = new Radio();
+    public static FM fm = new FM();
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-        musicStartup();
+        timeStart = System.currentTimeMillis();
         UtilBot.setUnirestCookie();
+        musicStartup();
 
-        String token = PrivateConstant.BOT_TOKEN;
+        String token = PrivateConstant.BOT_BETA_TOKEN;
+        isBeta = !token.equals(PrivateConstant.BOT_TOKEN);
 
         for(int i = 0; i < Global.B_SHARDS; i++)  {
             shards.add(new Shard(i, token));
@@ -75,58 +79,76 @@ public class AIBot {
 
         addCommands();
         setGame(Game.of(Global.defaultGame()));
-        isBeta = !token.equals(PrivateConstant.BOT_TOKEN);
-        timeStart = System.currentTimeMillis();
         if(!isBeta) startUp();
     }
-    
-    private synchronized static void startUp()
-    {
-        timeStart = System.currentTimeMillis();
 
-        //Post API and Status
-        apiPoster = new APIPostAgent(shards).postAllAPI();
+    /**
+     * Universal Main bot start up (Not beta)
+     */
+    private synchronized static void startUp() {
+        /* Post API and Status */
+        apiPoster = new APIPostAgent(shards, getGuilds().size()).postAllAPI();
         updateStatus();
     }
 
-    private synchronized static void musicStartup()
-    {
+    /**
+     * Universal Music startup
+     */
+    private synchronized static void musicStartup() {
+        /* Load Source Managers */
         playerManager = new DefaultAudioPlayerManager();
         AudioSourceManagers.registerRemoteSources(playerManager);
         AudioSourceManagers.registerLocalSource(playerManager);
+
+        /* Load FM and Radio */
+        fm.loadDiscordFM();
+        fm.loadLocalLibraries();
+        radio.loadRadioStations();
     }
 
-    public synchronized static void shutdown() throws IOException
-    {
+    public synchronized static void shutdown() throws IOException {
         System.out.println("Bot Shut Down Successfully");
-        AILogger.updateLog("Bot Shut Down Successfully");
         Unirest.shutdown();
         System.exit(0);
     }
 
-    public static void updateStatus()
-    {
+    public synchronized static void updateStatus() {
         Guild botServer = getGuild(Global.B_SERVER_ID);
         botServer.getTextChannelById(Global.B_SERVER_STATUS).
             editMessageById(Global.B_SERVER_STATUS_MSG, UtilBot.postStatus(botServer.getJDA()).build()).queue();
     }
 
-    public static void setStatus(OnlineStatus status)
-    {
+    public synchronized static void setStatus(OnlineStatus status) {
         for(Shard shard : shards) {
             shard.getJda().getPresence().setStatus(status);
         }
     }
 
-    public static void setGame(Game game)
-    {
+    public synchronized static void setGame(Game game) {
         for(Shard shard : shards) {
             shard.getJda().getPresence().setGame(game);
         }
     }
 
-    public static GuildWrapper getGuild(Guild guild)
-    {
+    public static Shard getShard(JDA jda) {
+        for(Shard shard : shards) {
+            if(shard.getJda().getShardInfo().getShardId() == jda.getShardInfo().getShardId())
+                return shard;
+        }
+        return null;
+    }
+
+    public static Shard getShard(Guild guild) {
+        for(Shard shard : shards) {
+            for(GuildWrapper wrapper : shard.getGuilds().values()) {
+                if(wrapper.getGuild().getId().equals(guild.getId()))
+                    return shard;
+            }
+        }
+        return null;
+    }
+
+    public static GuildWrapper getGuild(Guild guild) {
         for(Shard shard : shards) {
             if(shard.getGuild(guild) != null)
                 return shard.getGuild(guild);
@@ -134,8 +156,7 @@ public class AIBot {
         return null;
     }
 
-    public static Guild getGuild(String guildID)
-    {
+    public static Guild getGuild(String guildID) {
         for(Shard shard : shards) {
             if(shard.getJda().getGuildById(guildID) != null)
                 return shard.getJda().getGuildById(guildID);
@@ -143,8 +164,7 @@ public class AIBot {
         return null;
     }
 
-    public static List<Guild> getGuilds()
-    {
+    public static List<Guild> getGuilds() {
         List<Guild> guilds = new ArrayList<>();
         for(Shard shard : shards) {
             guilds.addAll(shard.getJda().getGuilds());
@@ -152,7 +172,8 @@ public class AIBot {
         return guilds;
     }
         
-    private synchronized static void addCommands() {
+    private synchronized static void addCommands()
+    {
         // Information Commands
         commands.put("help", new HelpCommand());
         commands.put("h", new HelpCommand());
@@ -179,6 +200,7 @@ public class AIBot {
         
         // Moderation Commands
         commands.put("prune", new PruneCommand());
+        commands.put("clean", new CleanCommand());
         commands.put("kick", new KickCommand());
         commands.put("warn", new WarnCommand());
         
@@ -257,6 +279,8 @@ public class AIBot {
         commands.put("skip", new SkipCommand());
         commands.put("previous", new PreviousCommand());
         commands.put("pre", new PreviousCommand());
+        commands.put("move", new MoveCommand());
+        commands.put("mv", new MoveCommand());
         commands.put("nowplaying", new SongCommand());
         commands.put("song", new SongCommand());
         commands.put("np", new SongCommand());

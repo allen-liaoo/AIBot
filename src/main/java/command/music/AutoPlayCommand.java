@@ -54,7 +54,7 @@ public class AutoPlayCommand extends Command{
             return;
 
         GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-        player.setTc(e.getTextChannel());
+        AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
 
         if(player.getMode() != audio.PlayerMode.AUTO_PLAY) {
             player.setMode(audio.PlayerMode.AUTO_PLAY);

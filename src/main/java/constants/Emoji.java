@@ -29,6 +29,20 @@ public class Emoji {
     //-Faces
     public final static String FACE_TONGUE = EmojiParser.parseToUnicode(":stuck_out_tongue:");
     public final static String FACE_BLUSH = EmojiParser.parseToUnicode(":blush:");
+
+    //-Hand
+    public final static String HAND_OK = EmojiParser.parseToUnicode(":ok_hand:");
+    public final static String HAND_WAVE = EmojiParser.parseToUnicode(":wave:");
+    public final static String HAND_RAISE = EmojiParser.parseToUnicode(":raised_hand:");
+    public final static String HAND_HORN = EmojiParser.parseToUnicode(":horns_sign:");
+    public final static String HAND_MUSCLE = EmojiParser.parseToUnicode(":muscle:");
+    public final static String THUMB_UP = EmojiParser.parseToUnicode(":thumbsup:");
+    public final static String THUMB_DOWN = EmojiParser.parseToUnicode(":thumbsdown:");
+    public final static String POINT_UP = EmojiParser.parseToUnicode(":point_up:");
+    public final static String POINT_DOWN = EmojiParser.parseToUnicode(":point_down:");
+    public final static String POINT_LEFT = EmojiParser.parseToUnicode(":point_left:");
+    public final static String POINT_RIGHT = EmojiParser.parseToUnicode(":point_right:");
+    public final static String PRAY = EmojiParser.parseToUnicode(":pray:");
     
     //-Numbers
     public final static String ONE = EmojiParser.parseToUnicode(":one:");
@@ -127,7 +141,7 @@ public class Emoji {
     public final static String STOP = EmojiParser.parseToUnicode(":black_square_for_stop:");
     
     //Fun
-    //-game
+    //-Game
     public final static String GAME = EmojiParser.parseToUnicode(":video_game:");
     public final static String HANGED_FACE = EmojiParser.parseToUnicode(":confounded:");
     public final static String EIGHT_BALL = EmojiParser.parseToUnicode(":8ball:");
@@ -143,7 +157,12 @@ public class Emoji {
     public final static String GUILD_DND = EmojiParser.parseToUnicode("<:vpDnD:236744731088912384>");
     public final static String GUILD_OFFLINE = EmojiParser.parseToUnicode("<:vpOffline:212790005943369728>");
     public final static String GUILD_STREAMING = EmojiParser.parseToUnicode("<:vpStreaming:212789640799846400>");
-    
+
+    public class Unicode
+    {
+        public final static String zero_width = "\u200B";
+    }
+
     /**
      * Change the String of letters mixed with numbers into a String of emojis
      * @param input the String to be change to emoji

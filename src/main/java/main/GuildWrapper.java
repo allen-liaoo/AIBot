@@ -77,8 +77,7 @@ public class GuildWrapper {
         return guildPlayer;
     }
 
-    public AudioPlayer getPlayer()
-    {
+    public AudioPlayer getPlayer() {
         return player;
     }
     

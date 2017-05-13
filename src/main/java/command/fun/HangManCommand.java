@@ -67,8 +67,8 @@ public class HangManCommand extends Command{
             try {
                 game.sendInput(args, e);
             } catch(NullPointerException en) {
-                e.getChannel().sendMessage(Emoji.ERROR + " game haven't started yet!").queue();
-                AILogger.errorLog(en, e, this.getClass().getName(), "game haven't started.");
+                e.getChannel().sendMessage(Emoji.ERROR + " Game haven't started yet!").queue();
+                AILogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
             }
         }
     }

@@ -38,34 +38,27 @@ public class StopCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
+        if(!Music.checkVoiceChannel(e))
+            return;
+
+        int mem = 0;
+        //Only count non-Bot Users
+        List<Member> members = AIBot.getGuild(e.getGuild()).getVc().getMembers();
+        for(Member m : members) {
+            if(!m.getUser().isBot())
+                mem++;
         }
-        
+
+        if(UtilBot.isMajority(e.getMember()) ||
+            UtilBot.isMod(e.getMember()))
+        {
+            stop(e);
+        }
         else
         {
-            if(!Music.checkVoiceChannel(e))
-                return;
-            
-            int mem = 0;
-            //Only count non-Bot Users
-            List<Member> members = AIBot.getGuild(e.getGuild()).getVc().getMembers();
-            for(Member m : members) {
-                if(!m.getUser().isBot())
-                    mem++;
-            }
-            
-            if(UtilBot.isMajority(e.getMember()) ||
-                UtilBot.isMod(e.getMember()))
-            {
-                stop(e);
-            }
-            else 
-            {
-                e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, or "
-                        + "members with `Administrator` or `Manage Server` permissions only.\n"
-                        + "You can also stop the player if there is less than 3 members in the voice channel.").queue();
-            }
+            e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, or "
+                    + "members with `Administrator` or `Manage Server` permissions only.\n"
+                    + "You can also stop the player if there is less than 3 members in the voice channel.").queue();
         }
     }
 
@@ -80,7 +73,7 @@ public class StopCommand extends Command{
             e.getChannel().sendMessage(Emoji.STOP + " Stopped and reset the player.").queue();
 
         GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-        player.setTc(e.getTextChannel());
+        AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
         player.stopPlayer();
         Music.disconnect(e, false);
     }

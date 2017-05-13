@@ -56,7 +56,7 @@ public class VolumeCommand extends Command {
                 }
 
                 GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
-                player.setTc(e.getTextChannel());
+                AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
                 player.getPlayer().setVolume(volume);
                 if(volume < 50)
                     e.getTextChannel().sendMessage(Emoji.VOLUME_LOW + " Volume set to " + volume).queue();

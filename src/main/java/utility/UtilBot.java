@@ -224,7 +224,7 @@ public class UtilBot {
     public static List<VoiceChannel> getConnectedVoiceChannels()
     {
         List<Guild> gui = AIBot.getGuilds();
-        List<VoiceChannel> vc = new ArrayList();
+        List<VoiceChannel> vc = new ArrayList<>();
         
         for(Guild g : gui) {
             if (g.getSelfMember().getVoiceState().inVoiceChannel() &&
@@ -265,7 +265,7 @@ public class UtilBot {
      */
     public static boolean isMod(Member mem)
     {
-        return mem.hasPermission(Global.PERM_MOD) || mem.isOwner() || Global.D_ID.equals(mem.getUser().getId());
+        return mem.isOwner() || mem.hasPermission(Global.PERM_MOD) || Global.D_ID.equals(mem.getUser().getId());
     }
     
     /**

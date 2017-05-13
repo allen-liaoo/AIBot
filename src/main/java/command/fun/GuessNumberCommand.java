@@ -55,7 +55,7 @@ public class GuessNumberCommand extends Command{
         else if(args.length > 0 && "end".equals(args[0]))
         {
             gn.endGame();
-            e.getChannel().sendMessage("game ended! The number was " + gn.getNumber() + ".").queue();
+            e.getChannel().sendMessage("Game ended! The number was " + gn.getNumber() + ".").queue();
         }
         
         else
@@ -64,10 +64,10 @@ public class GuessNumberCommand extends Command{
                 if(!gn.isEnded)
                     gn.sendInput(args, e);
                 else
-                    e.getChannel().sendMessage(Emoji.ERROR + " game haven't started yet!").queue();
+                    e.getChannel().sendMessage(Emoji.ERROR + " Game haven't started yet!").queue();
             } catch(NullPointerException en) {
-                e.getChannel().sendMessage(Emoji.ERROR + " game haven't started yet!").queue();
-                AILogger.errorLog(en, e, this.getClass().getName(), "game haven't started.");
+                e.getChannel().sendMessage(Emoji.ERROR + " Game haven't started yet!").queue();
+                AILogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
             }
         }
     }
