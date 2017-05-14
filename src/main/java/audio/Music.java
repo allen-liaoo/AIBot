@@ -158,6 +158,40 @@ public class Music  {
         if(inform)
             e.getChannel().sendMessage(Emoji.GLOBE + " Left Voice Channel `" + AIBot.getGuild(e.getGuild()).getVc().getName() + "`").queue();
     }
+
+    /**
+     * Returns the emoji representing a PlayerMode
+     * @param mode
+     * @return
+     */
+    public static String playerModeEmoji(PlayerMode mode)
+    {
+        String emoji = "";
+        switch(mode) {
+            case DEFAULT:
+                emoji = Emoji.GLOBE;
+                break;
+            case NORMAL:
+                emoji = Emoji.PLAYER;
+                break;
+            case AUTO_PLAY:
+                emoji = Emoji.AUTOPLAY;
+                break;
+            case REPEAT:
+                emoji = Emoji.REPEAT;
+                break;
+            case REPEAT_SINGLE:
+                emoji = Emoji.REPEAT_SINGLE;
+                break;
+            case FM:
+                emoji = Emoji.FM;
+                break;
+            default:
+                emoji = Emoji.MUSIC;
+                break;
+        }
+        return emoji;
+    }
     
     /**
      * Turn the position of the current player to a String, i.e. "▬ ▬ ▬ O ▬ ▬ ▬"
@@ -166,17 +200,13 @@ public class Music  {
      */
     public static String positionToString(MessageReceivedEvent e)
     {
-        String start = "", progress = "";
+        GuildWrapper guild = AIBot.getGuild(e.getGuild());
+        String progress = "";
+
+        String start = playerModeEmoji(guild.getGuildPlayer().getMode());
         
-        //Inverse play and pause button, like a media player would.
-        if(!AIBot.getGuild(e.getGuild()).getPlayer().isPaused()) {
-            start = Emoji.PAUSE;
-        } else if (AIBot.getGuild(e.getGuild()).getPlayer().isPaused()) {
-            start = Emoji.RESUME;
-        }
-        
-        long duration = AIBot.getGuild(e.getGuild()).getPlayer().getPlayingTrack().getDuration();
-        long position = AIBot.getGuild(e.getGuild()).getPlayer().getPlayingTrack().getPosition();
+        long duration = guild.getPlayer().getPlayingTrack().getDuration();
+        long position = guild.getPlayer().getPlayingTrack().getPosition();
         long unit = duration/10;
         int pos = (int) ((int) position/unit);
         

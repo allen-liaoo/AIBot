@@ -32,13 +32,13 @@ public class APIPostAgent {
     }
 
     public APIPostAgent postAllAPI() {
-        toDiscordBots();
-        toDiscordBotsList();
-        toDiscordListBots();
+        toDiscordBots()
+            .toDiscordBotsList()
+            .toDiscordListBots();
         return this;
     }
 
-    public APIPostAgent toDiscordBots() {
+    private APIPostAgent toDiscordBots() {
         try {
             String response = Unirest.post(DiscordBotsURL)
                    .header("Authorization", PrivateConstant.DiscordBotsToken)
@@ -53,7 +53,7 @@ public class APIPostAgent {
         return this;
     }
 
-    public APIPostAgent toDiscordBotsList() {
+    private APIPostAgent toDiscordBotsList() {
         try {
             String response = Unirest.post(DiscordBotsListURL)
                     .header("Authorization", PrivateConstant.DiscordBotsListToken)
@@ -67,7 +67,7 @@ public class APIPostAgent {
         return this;
     }
 
-    public APIPostAgent toDiscordListBots() {
+    private APIPostAgent toDiscordListBots() {
         try {
             String response = Unirest.post(DiscordListBots)
                     .header("Authorization", PrivateConstant.DiscordListBotsToken)

@@ -69,7 +69,7 @@ public class AIBot {
         UtilBot.setUnirestCookie();
         musicStartup();
 
-        String token = PrivateConstant.BOT_BETA_TOKEN;
+        String token = PrivateConstant.BOT_TOKEN;
         isBeta = !token.equals(PrivateConstant.BOT_TOKEN);
 
         for(int i = 0; i < Global.B_SHARDS; i++)  {
@@ -108,6 +108,9 @@ public class AIBot {
 
     public synchronized static void shutdown() throws IOException {
         System.out.println("Bot Shut Down Successfully");
+        for(Shard shard : shards) {
+            shard.getJda().shutdown(true);
+        }
         Unirest.shutdown();
         System.exit(0);
     }

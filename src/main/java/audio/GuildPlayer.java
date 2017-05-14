@@ -227,6 +227,10 @@ public class GuildPlayer extends AudioEventAdapter {
         }
     }
 
+    /**
+     * Automatically get the next track from YouTube's autoplay
+     * @throws IOException
+     */
     private void autoPlay() throws IOException {
         Mode = PlayerMode.AUTO_PLAY;
 

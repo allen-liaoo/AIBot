@@ -7,22 +7,30 @@
  */
 package listener;
 
+import audio.GuildPlayer;
 import audio.Music;
+import constants.Emoji;
 import constants.Global;
 import main.AIBot;
 import main.GuildWrapper;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.*;
 import org.apache.commons.lang3.ObjectUtils;
 import setting.Prefix;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import utility.UtilBot;
+
+import java.text.DateFormat;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.guild.GuildAvailableEvent;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
@@ -46,6 +54,8 @@ public class GuildListener extends ListenerAdapter {
                                 + "[Invite Link](https://discordapp.com/oauth2/authorize?client_id=294327785512763392&scope=bot&permissions=368573567) | "
                                 + "[GitHub](https://github.com/AlienIdeology/AIBot/) | "
                                 + "[Support Server](https://discordapp.com/invite/EABc8Kc)";
+
+    private HashMap<String, ScheduledThreadPoolExecutor> scheduleLeaver = new HashMap<>();
     
     /**
      * Guild listener
@@ -136,7 +146,12 @@ public class GuildListener extends ListenerAdapter {
             }
 
             // Move to a empty VoiceChannel
-            if(mem == 0) player.setPaused(true);
+            if(mem == 0)
+                player.setPaused(true);
+
+            // Shutdown scheduled leaver if user joined
+            if(scheduleLeaver.containsKey(joined.getId()))
+                scheduleLeaver.get(joined.getId()).shutdown();
         }
     }
     
@@ -158,17 +173,37 @@ public class GuildListener extends ListenerAdapter {
             // User left VoiceChannel the bot is in
             if (self.getVoiceState().inVoiceChannel()
                     && self.getVoiceState().getChannel().getId().equals(left.getId())
-                    && Music.getNonBotMember(left) == 0)
+                    && Music.getNonBotMember(left) == 0) {
                 player.setPaused(true);
+                scheduleLeaveVc(guild, left);
+            }
 
             // Bot left VoiceChannel
             if (!self.getVoiceState().inVoiceChannel()
                     && player.getPlayingTrack() != null
-                    && !player.isPaused())
+                    && !player.isPaused()) {
                 player.setPaused(true);
+            }
         } catch (NullPointerException npe) {
 
         }
+    }
+
+    private void scheduleLeaveVc(Guild guild, VoiceChannel left)
+    {
+        ScheduledThreadPoolExecutor sch = (ScheduledThreadPoolExecutor)
+                Executors.newScheduledThreadPool(1);
+
+        Runnable leave = () -> {
+            GuildPlayer player = AIBot.getGuild(guild).getGuildPlayer();
+            player.stopPlayer();
+            player.disconnect();
+            player.getTc().sendMessage("~~Five Minutes Later...~~").queue((Message msg) ->
+                    msg.editMessage(Emoji.CLOSE + " Left voice channel because no is listening. ;-;").queueAfter(5, TimeUnit.SECONDS));
+        };
+
+        ScheduledFuture<?> leaver = sch.schedule(leave, 5, TimeUnit.MINUTES);
+        scheduleLeaver.put(left.getId(), sch);
     }
 
 }
