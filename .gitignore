@@ -1,10 +1,10 @@
-/src/main/java/secret/
+/org.alienideology.aibot/src/main/java/secret/
 /.idea
 .gradle/
 build/
 gradlew
 gradlew.bat
 settings.gradle
-src/main/java/com/
-src/main/resources/
-src/test/
+org.alienideology.aibot/src/main/java/com/
+org.alienideology.aibot/src/main/resources/
+org.alienideology.aibot/src/test/
