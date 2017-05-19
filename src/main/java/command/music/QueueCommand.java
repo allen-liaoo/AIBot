@@ -27,6 +27,8 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+import javax.naming.spi.NamingManager;
+
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
@@ -59,7 +61,7 @@ public class QueueCommand extends Command{
                 if(args.length != 0)
                     page = Integer.parseInt(args[0]);
                 queueList(e, page);
-            } catch (IllegalArgumentException  | IndexOutOfBoundsException ex) {
+            } catch (NumberFormatException | IndexOutOfBoundsException ex) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " Please enter a valid page number.").queue();
                 ex.printStackTrace();
                 return;

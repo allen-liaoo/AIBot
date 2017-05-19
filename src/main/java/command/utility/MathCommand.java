@@ -29,7 +29,7 @@ public class MathCommand extends Command{
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
-        embed.setTitle("utility Module", null);
+        embed.setTitle("Utility Module", null);
         embed.addField("Math -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
@@ -73,7 +73,7 @@ public class MathCommand extends Command{
                 }
                 
             } catch (IllegalArgumentException iae) {
-                e.getChannel().sendMessage(Emoji.ERROR + iae.getLocalizedMessage() + ".").queue();
+                e.getChannel().sendMessage(Emoji.ERROR + " " + iae.getLocalizedMessage().replace("'", "`") + ".").queue();
             }catch (ArithmeticException ae) {
                 e.getChannel().sendMessage(Emoji.ERROR + " Do not divide a value by 0.").queue();
             } catch (RuntimeException rte) {

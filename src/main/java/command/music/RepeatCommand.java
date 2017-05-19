@@ -89,10 +89,10 @@ public class RepeatCommand extends Command {
         GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
         if(player.getMode() != PlayerMode.REPEAT_SINGLE) {
             player.setMode(PlayerMode.REPEAT_SINGLE);
-            e.getChannel().sendMessage(Emoji.REPEAT + " Repeat (Current Track) mode on.").queue();
+            e.getChannel().sendMessage(Emoji.REPEAT_SINGLE + " Repeat (Current Track) mode on.").queue();
         } else {
             player.setMode(PlayerMode.NORMAL);
-            e.getChannel().sendMessage(Emoji.REPEAT + " Repeat (Current Track) mode off.").queue();
+            e.getChannel().sendMessage(Emoji.REPEAT_SINGLE + " Repeat (Current Track) mode off.").queue();
         }
     }
     

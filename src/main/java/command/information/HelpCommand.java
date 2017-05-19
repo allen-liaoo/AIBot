@@ -10,13 +10,7 @@ import constants.Global;
 import constants.HelpText;
 import main.AIBot;
 import setting.Prefix;
-import command.fun.EightBallCommand;
 import command.*;
-import command.moderation.*;
-import command.utility.*;
-import command.music.*;
-import command.fun.*;
-import command.restricted.*;
 import system.AILogger;
 import system.selector.EmojiSelection;
 import listener.SelectorListener;
@@ -27,12 +21,9 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-
-import javax.rmi.CORBA.Util;
 
 /**
  *
@@ -45,7 +36,7 @@ public class HelpCommand extends Command {
                                + "Parameter: `-h | -dm [Page Number] | command/Module Name  | [Page Number] | null`\n"
                                + "MarkDown Type: __**Module**__, ***command group***, **command**, **(alter command)**, *sub command*, ~~(Under Development)~~";
 
-    private static final List<String> reactions = Arrays.asList(Emoji.ONE, Emoji.TWO, Emoji.THREE, Emoji.FOUR, Emoji.CLOSE);
+    private static final List<String> reactions = Arrays.asList(Emoji.ONE, Emoji.TWO, Emoji.THREE, Emoji.FOUR, Emoji.NO);
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -168,7 +159,7 @@ public class HelpCommand extends Command {
         //Assign fields to a certain page
         switch (page) {
             case 2:
-                embed.addField("utility Module", HelpText.UTIL_CMD, true);
+                embed.addField("Utility Module", HelpText.UTIL_CMD, true);
                 embed.addField("Description", HelpText.UTIL_DES, true);
                 break;
             case 3:

@@ -48,7 +48,7 @@ public class SearchCommand extends Command{
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
-        embed.setTitle("utility Module", null);
+        embed.setTitle("Utility Module", null);
         embed.addField("Search -Help", HELP, true);
         return embed;
     }

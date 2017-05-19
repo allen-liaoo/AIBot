@@ -31,7 +31,7 @@ public class SayCommand extends Command{
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
-        embed.setTitle("utility Module", null);
+        embed.setTitle("Utility Module", null);
         embed.addField("Say -Help", HELP, true);
         return embed;
     }

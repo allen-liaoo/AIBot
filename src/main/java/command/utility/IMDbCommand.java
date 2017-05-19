@@ -37,7 +37,7 @@ public class IMDbCommand extends Command {
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
-        embed.setTitle("utility Module", null);
+        embed.setTitle("Utility Module", null);
         embed.addField("IMDB -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Global.I_HELP);
         embed.setTimestamp(Instant.now());

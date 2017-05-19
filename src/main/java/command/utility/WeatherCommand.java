@@ -38,7 +38,7 @@ public class WeatherCommand extends Command{
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
-        embed.setTitle("utility Module", null);
+        embed.setTitle("Utility Module", null);
         embed.addField("Weather -Help", HELP, true);
         embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;

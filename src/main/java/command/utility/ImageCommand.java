@@ -44,7 +44,7 @@ public class ImageCommand extends Command{
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
-        embed.setTitle("utility Module", null);
+        embed.setTitle("Utility Module", null);
         embed.addField("Image -Help", HELP, true);
         return embed;
     }

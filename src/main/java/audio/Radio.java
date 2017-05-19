@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  *
@@ -59,9 +60,9 @@ public class Radio {
      * @return
      */
     public String getUrl(String keyword) {
-        RadioStation radioStation = radioStations.stream().filter(rs -> rs.getName().toLowerCase().contains(keyword.toLowerCase()))
-                .findAny().get();
-        return radioStation.getUrl();
+        Optional<RadioStation> ifAny = radioStations.stream().filter(rs -> rs.getName().toLowerCase().contains(keyword.toLowerCase()))
+                .findAny();
+        return ifAny.map(RadioStation::getUrl).orElse(null);
     }
 
     public List<RadioStation> getRadioStations() {

@@ -8,6 +8,8 @@ package command.fun;
 import command.Command;
 import constants.Emoji;
 import constants.Global;
+import main.AIBot;
+import main.GuildWrapper;
 import setting.Prefix;
 import game.TicTacToe;
 import system.AILogger;
@@ -26,6 +28,7 @@ public class TicTacToeCommand extends Command {
                                     + "start @mention: Mention an opponent to start the game.\n"
                                     + "x y: Type in the coordinate of the Tic Tac Toe board.\n"
                                     + "end: End the game.";
+    private TicTacToe game = null;
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -38,36 +41,30 @@ public class TicTacToeCommand extends Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        TicTacToe game = null;
-        
-        if(args.length == 1 && "-h".equals(args[0])) {
+
+        GuildWrapper wrapper = AIBot.getGuild(e.getGuild());
+
+        if(args.length == 0) {
             e.getChannel().sendMessage(help(e).build()).queue();
-            return;
         }
         
-        if(args.length > 0 && "start".equals(args[0]))
-        {
-            AILogger.commandLog(e, this.getClass().getName(), "TicTacToe Started.");
-            game = new TicTacToe(e);
+        else if(e.getMessage().getMentionedUsers().size() == 1) {
+            wrapper.setTicTacToe(new TicTacToe(e));
         }
         
-        else if(args.length > 0 && "end".equals(args[0]))
-        {
+        else if("end".equals(args[0])) {
             try {
-                game.endGame();
+                wrapper.getTicTacToe().endGame();
             } catch(NullPointerException en) {
                 e.getChannel().sendMessage(Emoji.ERROR + " Game haven't started yet!").queue();
-                AILogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
             }
         }
         
-        else
-        {
+        else {
             try {
-                game.sendInput(args, e);
+                wrapper.getTicTacToe().sendInput(args, e);
             } catch(NullPointerException en) {
                 e.getChannel().sendMessage(Emoji.ERROR + " Game haven't started yet!").queue();
-                AILogger.errorLog(en, e, this.getClass().getName(), "Game haven't started.");
             }
         }
     }

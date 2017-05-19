@@ -32,19 +32,16 @@ public class EmojiCommand extends Command {
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
-        embed.setTitle("utility Module", null);
+        embed.setTitle("Utility Module", null);
         embed.addField("Emoji -Help", HELP, true);
         return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
+        if(args.length == 0) e.getChannel().sendMessage(help(e).build()).queue();
         
-        if("-m".equals(args[0]))
+        else if("-m".equals(args[0]))
         {
             try{
                 if(!EmojiManager.isEmoji(args[1])) {

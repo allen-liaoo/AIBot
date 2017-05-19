@@ -14,15 +14,12 @@ import constants.Global;
 import main.AIBot;
 import main.GuildWrapper;
 import net.dv8tion.jda.core.entities.*;
-import org.apache.commons.lang3.ObjectUtils;
 import setting.Prefix;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import utility.UtilBot;
 
-import java.text.DateFormat;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledFuture;
@@ -199,7 +196,9 @@ public class GuildListener extends ListenerAdapter {
             player.stopPlayer();
             player.disconnect();
             player.getTc().sendMessage("~~Five Minutes Later...~~").queue((Message msg) ->
-                    msg.editMessage(Emoji.CLOSE + " Left voice channel because no is listening. ;-;").queueAfter(5, TimeUnit.SECONDS));
+                    msg.editMessage(Emoji.NO + " Left voice channel because no one is listening. ;-;").queueAfter(5, TimeUnit.SECONDS));
+            scheduleLeaver.remove(left.getId());
+            sch.shutdown();
         };
 
         ScheduledFuture<?> leaver = sch.schedule(leave, 5, TimeUnit.MINUTES);

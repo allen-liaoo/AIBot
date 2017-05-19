@@ -8,8 +8,10 @@ package game;
 import constants.Emoji;
 import java.awt.Color;
 import java.util.List;
+import java.util.Objects;
+
+import main.AIBot;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -26,42 +28,41 @@ public class TicTacToe implements Game{
     private static String id;
     private static int row, column;
     private static User turn;
-    
-    private static EmbedBuilder embedstatus = new EmbedBuilder();
-    private static EmbedBuilder embedgame = new EmbedBuilder();
-    
-    public static String origBoard = "[     ]  [ 0 ][ 1 ][ 2 ]\n"
-                                    +"-------------------\n"
-                                    +"[ 0 ]  |     |     |     |\n"
-                                    +"-------------------\n"
-                                    +"[ 1 ]  |     |     |     |\n"
-                                    +"-------------------\n"
-                                    +"[ 2 ]  |     |     |     |\n"
-                                    +"-------------------\n";
-    
-    public TicTacToe(MessageReceivedEvent event)
-    {
+
+    public TicTacToe(MessageReceivedEvent event) {
         e = event;
-        
         startGame();
     }
     
     @Override
-    public void startGame() //Keep da GAME runn'in
+    public void startGame() // Keep da GAME runn'in
     {
-        //Set Players
+        // Set Players
         starter = e.getAuthor();
         List<User> mentionedUsers = e.getMessage().getMentionedUsers();
-        opponent = mentionedUsers.get(0);
-        
-        embedstatus.setColor(Color.green);
-        embedstatus.addField(Emoji.GAME + " Tic Tac Toe: game Mode ON!", "Starter: " + starter.getAsMention() + "\nOpponent: " + opponent.getAsMention(), true);
-        MessageEmbed me = embedstatus.build();
-        e.getChannel().sendMessage(me).queue();
-        embedstatus.clearFields();
+
+        try {
+            opponent = mentionedUsers.get(0);
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+            e.getChannel().sendMessage(Emoji.ERROR + " Please mention a person the start the game.").queue();
+        }
+
+        EmbedBuilder embedstatus = new EmbedBuilder().setColor(Color.green)
+            .addField(Emoji.GAME + " Tic Tac Toe: game Mode ON!",
+            "Starter: " + starter.getAsMention() + "\nOpponent: " + opponent.getAsMention(), true);
+        e.getChannel().sendMessage(embedstatus.build()).queue();
         
         turn = starter;
-        e.getChannel().sendMessage(origBoard).queue();
+        StringBuilder origBoard = new StringBuilder();
+
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
+                origBoard.append(getEmojiPos(i,j));
+            }
+            origBoard.append("\n");
+        }
+
+        e.getChannel().sendMessage(origBoard.toString()).queue();
     }
     
     @Override
@@ -69,28 +70,33 @@ public class TicTacToe implements Game{
     {
         if(e.getAuthor() == starter || e.getAuthor() == opponent)
         {
-            embedstatus.setColor(Color.green);
-            embedstatus.setTitle(Emoji.GAME + " Tic Tac Toe: game Mode OFF!", null);
-            embedstatus.setFooter(e.getAuthor().getName() + " ended the game.", null);
-
-            MessageEmbed me = embedstatus.build();
-            e.getChannel().sendMessage(me).queue();
-            embedstatus.clearFields();
+            EmbedBuilder embedstatus = new EmbedBuilder()
+                .setColor(Color.green)
+                .setTitle(Emoji.GAME + " Tic Tac Toe: game Mode OFF!", null)
+                .setFooter(e.getAuthor().getName() + " ended the game.", null);
+            e.getChannel().sendMessage(embedstatus.build()).queue();
         }
         game.clearBoard();
+        AIBot.getGuild(e.getGuild()).resetTicTacToe();
     }
     
     @Override
     public void sendInput(String[] in, MessageReceivedEvent event)  //Set the input called by TicTacToeCommand
     {
-        String rows = "", columns = "";
         try
         {
-            rows = in[0];
-            columns = in[1];
-
-            row = Integer.parseInt(rows);
-            column = Integer.parseInt(columns);
+            switch (in[0]) {
+                case "1" : row = 0; column = 0; break;
+                case "2" : row = 0; column = 1; break;
+                case "3" : row = 0; column = 2; break;
+                case "4" : row = 1; column = 0; break;
+                case "5" : row = 1; column = 1; break;
+                case "6" : row = 1; column = 2; break;
+                case "7" : row = 2; column = 0; break;
+                case "8" : row = 2; column = 1; break;
+                case "9" : row = 2; column = 2; break;
+                default: throw new StringIndexOutOfBoundsException();
+            }
 
             //Assign ID (Piece O/X name)
             if(event.getAuthor() == opponent)
@@ -99,10 +105,8 @@ public class TicTacToe implements Game{
                 id = "X";
             
             //Check who's turn is it
-            if(event.getAuthor() == starter || event.getAuthor() ==  opponent)
-            {
-                if(event.getAuthor() != turn)
-                {
+            if(event.getAuthor() == starter || event.getAuthor() ==  opponent) {
+                if(event.getAuthor() != turn) {
                     e.getChannel().sendMessage(Emoji.ERROR + " It's not your turn yet!").queue();
                     return;
                 }
@@ -110,193 +114,185 @@ public class TicTacToe implements Game{
             else
                 e.getChannel().sendMessage(Emoji.ERROR + " Do not interfere the game!").queue();
         
-            if(game.isOccupied(row, column) == false)
-            {
+            if(!game.isOccupied(row, column)) {
                 game.addPiece(new Piece(id), row, column);
                 game.drawBoard();
-            }
-            else
-            {
+            } else {
                 e.getChannel().sendMessage(Emoji.ERROR + " The place is occupied. Use your eyes!").queue();
                 return;
             }
 
             //Check for winner
-            if(makeLine().equals("X")) 
-            {
-                e.getChannel().sendMessage("\nPlayer " + starter.getAsMention() + " (X) Wins!").queue();
+            if(makeLine().equals("X"))  {
+                e.getChannel().sendMessage("\n" + Emoji.NO + "Player " + starter.getAsMention() + " (X) Wins!").queue();
                 game.clearBoard();
-            }
-            else if(makeLine().equals("O"))
-            {
-                e.getChannel().sendMessage("\nPlayer " + opponent.getAsMention() +  " (O) Wins!").queue();
+                AIBot.getGuild(e.getGuild()).resetTicTacToe();
+            } else if(makeLine().equals("O")) {
+                e.getChannel().sendMessage("\n" + Emoji.YES + "Player " + opponent.getAsMention() +  " Wins!").queue();
                 game.clearBoard();
-            }
-            else if(catGame() == true)
-            {
+                AIBot.getGuild(e.getGuild()).resetTicTacToe();
+            } else if(catGame()) {
                 e.getChannel().sendMessage("Cat game, no winner.").queue();
                 game.clearBoard();
+                AIBot.getGuild(e.getGuild()).resetTicTacToe();
+            } else {
+                switchTurn();
             }
-            else switchTurn();
             
-        } catch(StringIndexOutOfBoundsException | NumberFormatException es)
-        {
-            e.getChannel().sendMessage("The 'Numbers' you enter is not valid.").queue();
-            return;
-        } catch(ArrayIndexOutOfBoundsException ea)
-        {
-            e.getChannel().sendMessage("This is TicTacToe. We don't have 1,000,000 x 1,000,000 that kind of board.").queue();
-            return;
+        } catch(StringIndexOutOfBoundsException | NumberFormatException es) {
+            e.getChannel().sendMessage(Emoji.ERROR + " The 'Numbers' you enter is not valid.").queue();
+        } catch(ArrayIndexOutOfBoundsException ea) {
+            e.getChannel().sendMessage(Emoji.ERROR + " Invalid place!").queue();
         }
     }
     
-    public void switchTurn() //Switch turn between starter to opponent
-    {
-        if(starter == this.turn) 
-            this.turn = opponent;
+    private void switchTurn() { //Switch turn between starter to opponent
+        if(starter == turn)
+            turn = opponent;
         else
-            this.turn = starter;
+            turn = starter;
     }
     
     //TicTacToe Methods
-    public String makeLine() //Check for a line
+    private String makeLine() //Check for a line
     {
-            Piece[][] board = game.getBoard();
+        Piece[][] board = game.getBoard();
 
-            if (board[0][0].equals(board[0][1]) && board[0][1].equals(board[0][2]))
-                return board[0][0].getID();
-            else if (board[1][0].equals(board[1][1]) && board[1][1].equals(board[1][2]))
-                return board[1][0].getID();
-            else if (board[2][0].equals(board[2][1]) && board[2][1].equals(board[2][2]))
-                return board[2][0].getID();
+        if (board[0][0].equals(board[0][1]) && board[0][1].equals(board[0][2]))
+            return board[0][0].getID();
+        else if (board[1][0].equals(board[1][1]) && board[1][1].equals(board[1][2]))
+            return board[1][0].getID();
+        else if (board[2][0].equals(board[2][1]) && board[2][1].equals(board[2][2]))
+            return board[2][0].getID();
 
-            else if (board[0][0].equals(board[1][0]) && board[1][0].equals(board[2][0]))
-                return board[0][0].getID();
-            else if (board[0][1].equals(board[1][1]) && board[1][1].equals(board[2][1]))
-                return board[0][1].getID();
-            else if (board[0][2].equals(board[1][2]) && board[1][2].equals(board[2][2]))
-                return board[0][2].getID();
+        else if (board[0][0].equals(board[1][0]) && board[1][0].equals(board[2][0]))
+            return board[0][0].getID();
+        else if (board[0][1].equals(board[1][1]) && board[1][1].equals(board[2][1]))
+            return board[0][1].getID();
+        else if (board[0][2].equals(board[1][2]) && board[1][2].equals(board[2][2]))
+            return board[0][2].getID();
 
-            else if (board[0][0].equals(board[1][1]) && board[1][1].equals(board[2][2]))
-                return board[0][0].getID();
-            else if (board[2][0].equals(board[1][1]) && board[1][1].equals(board[0][2]))
-                return board[2][0].getID();
-            else
-                return "none";
+        else if (board[0][0].equals(board[1][1]) && board[1][1].equals(board[2][2]))
+            return board[0][0].getID();
+        else if (board[2][0].equals(board[1][1]) && board[1][1].equals(board[0][2]))
+            return board[2][0].getID();
+        else
+            return "none";
     }
 
-    public boolean catGame() //Check for cat GAME
+    private String getEmojiPos(int r, int c) {
+        String emoji = "";
+        if (r == 0) {
+            if (c == 0) emoji = Emoji.ONE;
+            else if (c == 1) emoji = Emoji.TWO;
+            else if (c == 2) emoji = Emoji.THREE;
+        } else if (r == 1) {
+            if (c == 0) emoji = Emoji.FOUR;
+            else if (c == 1) emoji = Emoji.FIVE;
+            else if (c == 2) emoji = Emoji.SIX;
+        } else if (r == 2) {
+            if (c == 0) emoji =  Emoji.SEVEN;
+            else if (c == 1) emoji = Emoji.EIGHT;
+            else if (c == 2) emoji = Emoji.NINE;
+        }
+
+        if(game.isOccupied(r,c)) {
+            if (game.getBoard()[r][c].getID().equals("X"))
+                emoji = Emoji.NO;
+            if (game.getBoard()[r][c].getID().equals("O"))
+                emoji = Emoji.YES;
+        }
+        return emoji;
+    }
+
+    private boolean catGame() //Check for cat GAME
     {
         Piece[][] end = game.getBoard();
 
-        for(int i = 0; i < end.length; i ++)
-        {
-            for(int j = 0; j < end[0].length; j++)
-            {
-                    if(game.isOccupied(i,j) == false)
+        for(int i = 0; i < end.length; i ++) {
+            for(int j = 0; j < end[0].length; j++)  {
+                    if(!game.isOccupied(i,j))
                             return false;
             }
         }
         return true;
     }
     
-    //Board Sub-class
-    public class Board
-    {
-	private int rows;
-	private int cols;
-	private Piece[][] board;
-        private int round;
+    // Board Sub-class
+    public class Board {
+        private int rows;
+        private int cols;
+        private Piece[][] board;
+            private int round;
 
-	public Board(int r, int c)
-	{
+        private Board(int r, int c) {
             rows = r;
             cols = c;
             board = new Piece[r][c];
             round = 0;
 
             Piece p;
-            for (int i=0; i<rows; i++)
-            {
-                    for (int j=0; j<cols; j++)
-                    {
-                            p = new Piece();
-                            addPiece(p, i, j);
-                    }
-            }
-	}
-
-	public void drawBoard()
-	{
-            round++;
-            String line = "------------\n";
-            for (int i=0; i<rows; i++)
-            {
-                for (int j=0; j<cols; j++)
-                {
-                        String theID = board[i][j].getID();
-                        line += "| " + theID + " ";
+            for (int i=0; i<rows; i++) {
+                for (int j=0; j<cols; j++) {
+                    p = new Piece();
+                    addPiece(p, i, j);
                 }
-                line += " |\n------------\n";
             }
-            
-            embedgame.setColor(Color.green);
-            embedgame.setTitle(Emoji.GAME + " Current Board (Round " + round + ")\n", null);
-            embedgame.setFooter(turn.getName() + " finished his/her turn.", null);
+        }
 
-            MessageEmbed me = embedgame.build();
-            e.getChannel().sendMessage(me).queue();
-            embedgame.clearFields();
-            
-            e.getChannel().sendMessage(line).queue();
-	}
+        void drawBoard() {
+            EmbedBuilder embedgame = new EmbedBuilder()
+                .setColor(Color.green).setTitle(Emoji.GAME + " Current Board (Round " + round + ")\n", null)
+                .setFooter(turn.getName() + " finished his/her turn.", null);
+            e.getChannel().sendMessage(embedgame.build()).queue();
+            round++;
+            StringBuilder line = new StringBuilder();
+            for (int i=0; i<rows; i++) {
+                for (int j=0; j<cols; j++) {
+                    line.append(getEmojiPos(i, j)).append(" ");
+                }
+                line.append("\n");
+            }
+            e.getChannel().sendMessage(line.toString()).queue();
+        }
 
-	public void addPiece(Piece x, int r, int c)
-	{
-            board[r][c] = x;    
-                
-	}
+        void addPiece(Piece x, int r, int c) {
+            board[r][c] = x;
+        }
 
-	public Piece[][] getBoard()
-	{
-            return board;
-	}
+        Piece[][] getBoard()
+        {
+                return board;
+        }
 
-	public boolean isOccupied(int r, int c)
-	{
+        boolean isOccupied(int r, int c) {
             Piece p = board[r][c];
             String q = p.getID();
 
-            if (q.equals("  "))
-                    return false;
+            return !q.equals("  ");
+        }
 
-            return true;
-	}
-        
-        public void clearBoard()
-        {
+        void clearBoard() {
             Piece p;
-            for (int i=0; i<rows; i++)
-            {
-                    for (int j=0; j<cols; j++)
-                    {
-                            p = new Piece();
-                            addPiece(p, i, j);
-                    }
+            for (int i=0; i<rows; i++) {
+                for (int j=0; j<cols; j++) {
+                        p = new Piece();
+                        addPiece(p, i, j);
+                }
             }
         }
     }
-    
-    public class Piece
-    {
+
+    // Piece Sub-class
+    public class Piece {
         private String id;
 
-        public Piece()
+        Piece()
         {
                 id = "  ";
         }
 
-        public Piece(String x)
+        Piece(String x)
         {
                 id = x;
         }
@@ -306,12 +302,8 @@ public class TicTacToe implements Game{
                 return id;
         }
 
-        public boolean equals(Piece p)
-        {
-                if (this.getID().equals(p.getID()) && !this.getID().equals(" "))
-                        return true;
-                else
-                        return false;
+        public boolean equals(Piece p) {
+            return this.getID().equals(p.getID()) && !this.getID().equals(" ");
         }
     }
 }

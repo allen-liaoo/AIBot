@@ -99,8 +99,7 @@ public class InfoServerCommand extends Command{
             embedsi.addField("ID", id, true);
             embedsi.addField("Owner", owner, true);
             embedsi.addField("Region", region, true);
-            embedsi.addField("Text Channels", txtChannel + "", true);
-            embedsi.addField("audio Channels", audioChannel + "", true);
+            embedsi.addField("Channels", "Text Channels: "+txtChannel+"\nVoice Channels: "+audioChannel, true);
             embedsi.addField("Members", member + "", true);
             embedsi.addField("Roles", role + "", true);
             
@@ -128,8 +127,7 @@ public class InfoServerCommand extends Command{
                 List<Role> roles = guild.getRoles();
 
                 String roleString = "";
-                for(int i = 0; i < 20; i ++)
-                {
+                for(int i = 0; i < (roles.size() > 20 ? 20 : roles.size()); i ++) {
                     Role roleR = roles.get(i);
                     roleString += roleR.getName() + ", ";
                 }

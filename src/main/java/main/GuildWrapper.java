@@ -10,6 +10,9 @@ import audio.AudioPlayerSendHandler;
 import audio.GuildPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import game.GuessNumber;
+import game.HangMan;
+import game.TicTacToe;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -32,17 +35,24 @@ public class GuildWrapper {
   private final AudioPlayer player;
   private final GuildPlayer guildPlayer;
   /**
-   * Binded Voice Channel for the guild.
+   * Bind Voice Channel for the guild.
    */
   private VoiceChannel vc;
   
   private TextChannel tc;
 
   /**
-   * voteSkip The vote for skipping current song
+   * Guild ID and Prefix
    */
   private String guildId, prefix;
-  
+
+  /**
+   * Guild Games
+   */
+  private GuessNumber guessNumber;
+  private HangMan hangMan;
+  private TicTacToe ticTacToe;
+
   /**
    * Creates a player and a track guildPlayer
    * @param manager audio player manager to use for creating the player.
@@ -107,5 +117,40 @@ public class GuildWrapper {
     public void setPrefix(String prefix){
         this.prefix = prefix;
     }
-    
+
+    public GuessNumber getGuessNumber() {
+      return guessNumber;
+    }
+
+    public void setGuessNumber(GuessNumber guessNumber) {
+      this.guessNumber = guessNumber;
+    }
+
+    public void resetGuessNumber(GuessNumber guessNumber) {
+    this.guessNumber = null;
+  }
+
+    public HangMan getHangMan() {
+      return hangMan;
+    }
+
+    public void setHangMan(HangMan hangMan) {
+      this.hangMan = hangMan;
+    }
+
+    public void resetHangMan() {
+    this.hangMan = null;
+  }
+
+    public TicTacToe getTicTacToe() {
+      return ticTacToe;
+    }
+
+    public void setTicTacToe(TicTacToe ticTacToe) {
+      this.ticTacToe = ticTacToe;
+    }
+
+    public void resetTicTacToe() {
+      this.ticTacToe = null;
+    }
 }

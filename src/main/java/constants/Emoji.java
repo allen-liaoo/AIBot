@@ -17,7 +17,8 @@ public class Emoji {
     //General
     public final static String SUCCESS = EmojiParser.parseToUnicode(":white_check_mark:");
     public final static String ERROR = EmojiParser.parseToUnicode(":fire:");
-    public final static String CLOSE = EmojiParser.parseToUnicode(":x:");
+    public final static String YES = EmojiParser.parseToUnicode(":o:");
+    public final static String NO = EmojiParser.parseToUnicode(":x:");
     public final static String UP = EmojiParser.parseToUnicode(":arrow_up:");
     public final static String DOWN = EmojiParser.parseToUnicode(":arrow_down:");
     public final static String RIGHT = EmojiParser.parseToUnicode(":arrow_right:");
