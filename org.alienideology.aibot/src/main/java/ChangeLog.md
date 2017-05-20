@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
+#### [0.3.5] - 2017-05-7 ~ 2017-05-11
+##### Added
+- AFKCommand for setting AFK status
+- UserWrapper, GlobalWatchDog for AFK status
+
 #### [0.3.4] - 2017-05-7 ~ 2017-05-11
 ##### Added
 - CleanCommand which cleans messages by specific targets.

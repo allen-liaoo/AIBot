@@ -26,7 +26,7 @@ public class Shard {
     private JDA jda;
     private final int ID;
     private final String token;
-    public HashMap<String, GuildWrapper> guilds = new HashMap<>();
+    private HashMap<String, GuildWrapper> guilds = new HashMap<>();
 
     public Shard(int shardID, String token) {
         this.token = token;
@@ -34,12 +34,11 @@ public class Shard {
         ID = shardID;
     }
 
-    public void buildShard()
-    {
+    private void buildShard() {
         try {
             jda = new JDABuilder(AccountType.BOT)
                     .setToken(token)
-                    .addEventListener(new BotListener(), new MessageFilter(),
+                    .addEventListener(new MessageFilter(),
                             new GuildListener(), new CommandListener(), new SelectorListener())
                     .setAutoReconnect(true)
                     .setMaxReconnectDelay(300)
@@ -55,8 +54,7 @@ public class Shard {
         }
     }
 
-    public void shardStartUp()
-    {
+    private void shardStartUp() {
         /* Add guilds to GuildWrapper */
         for(Guild g : jda.getGuilds()) {
             GuildWrapper newGuild = new GuildWrapper(jda, AIBot.playerManager, g.getId(), Prefix.getDefaultPrefix());
@@ -66,8 +64,7 @@ public class Shard {
         UtilBot.setUnirestCookie();
     }
 
-    public void revive()
-    {
+    public void revive() {
         guilds.clear();
         jda.shutdown(false);
         buildShard();

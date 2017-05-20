@@ -16,6 +16,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by liaoyilin on 4/30/17.
@@ -33,26 +34,20 @@ public class DiscrimCommand extends Command {
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
-        embed.setTitle("Information Module", null);
+        embed.setTitle("Utility Module", null);
         embed.addField("Discrim -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-
         List<Member> members = e.getGuild().getMembers();
         List<String> discrim = new ArrayList<>();
 
         String target = parseId(args, e);
 
         //Check if the discriminator is valid
-        if(target.isEmpty() || target == null || target == " ") {
+        if(target.isEmpty() || target.equals(" ")) {
             e.getChannel().sendMessage(Emoji.ERROR + " Invalid discriminator.").queue();
             return;
         }

@@ -105,7 +105,7 @@ public class InfoServerCommand extends Command{
                 .addField("Owner", owner, true);
 
             embedsi.addField(Emoji.TEXT + " Channel", "Text `"+txtChannel+"` | Voice `"+audioChannel+"`", true)
-                .addField(Emoji.SPY + " Member", "User `"+member+"` | "+Emoji.GUILD_ONLINE+" `"+online+"\nHuman `"+human+"` | Bot `"+bot+"`", true)
+                .addField(Emoji.SPY + " Member", "User `"+member+"` | "+Emoji.GUILD_ONLINE+" `"+online+"`\nHuman `"+human+"` | Bot `"+bot+"`", true)
                 .addField("Other", "Region `" + region + "` | Verification `" + verify + "`", true);
 
             e.getTextChannel().sendMessage(embedsi.build()).queue();

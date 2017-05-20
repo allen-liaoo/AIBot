@@ -28,12 +28,14 @@
 - unban - Unban member(s) by ID.
 - softban - Kick and clean up member(s) messages.
 
-## utility Commands
+## Utility Commands
 - number (n) - Generate random numbers, roll a dice, or flip a coin. *
     - num random (n r) - Generate random numbers.
     - num count (n c) - Count numbers.
     - num roll - Roll the dice.
     - num coinflip (n cf) - Flip a coin.
+- discrim - Search users with a given discriminator.
+- afk - Set afk status. *
 - math - Let the bot to solve a math operation for you. *
 - say - Let the bot say something for you. Support Embed Message. * 
 - emoji (e)- Translate words into the Emoji language. *

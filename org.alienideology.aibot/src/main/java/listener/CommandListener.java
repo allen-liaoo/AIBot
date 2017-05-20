@@ -49,6 +49,12 @@ public class CommandListener extends ListenerAdapter {
          */
         AIBot.respond.checkRespond(e.getMessage().getContent(), e);
         AIBot.respond.checkDynamicRespond(AIBot.parser.parseRespond(e.getMessage().getRawContent(), e), e);
+
+        /*
+         * Detect AFK
+         */
+        if(e.isFromType(ChannelType.TEXT))
+            AIBot.globalWatchDog.onAFKMention(e.getMessage().getMentionedUsers(), e.getTextChannel());
         
         /*
          * Detect commands.

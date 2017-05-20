@@ -12,6 +12,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import constants.Global;
+import listener.BotListener;
 import net.dv8tion.jda.core.OnlineStatus;
 import secret.PrivateConstant;
 import command.*;
@@ -45,10 +46,14 @@ public class AIBot {
     public static List<Shard> shards = new ArrayList<>();
 
     public static AudioPlayerManager playerManager;
+
     public static final CommandParser parser = new CommandParser();
     public static HashMap<String, Command> commands = new HashMap<>();
     public static final TextRespond respond = new TextRespond();
+    public static final GlobalWatchDog globalWatchDog = new GlobalWatchDog();
+
     private static APIPostAgent apiPoster;
+
     public static Radio radio = new Radio();
     public static FM fm = new FM();
 
@@ -70,6 +75,8 @@ public class AIBot {
         }
 
         addCommands();
+        BotListener botListener = new BotListener();
+        botListener.startThread();
         setGame(Game.of(Global.defaultGame()));
         if(!isBeta) startUp();
     }
@@ -169,7 +176,7 @@ public class AIBot {
         
     private synchronized static void addCommands()
     {
-        // Information Commands
+        /* Information Commands */
         commands.put("help", new HelpCommand());
         commands.put("h", new HelpCommand());
         commands.put("invite", new InviteCommand());
@@ -192,8 +199,8 @@ public class AIBot {
         commands.put("status", new StatusCommand("status"));
         commands.put("uptime", new StatusCommand("uptime"));
         commands.put("support", new SupportCommand());
-        
-        // Moderation Commands
+
+        /* Moderation Commands */
         commands.put("prune", new PruneCommand());
         commands.put("clean", new CleanCommand());
         commands.put("kick", new KickCommand());
@@ -203,15 +210,17 @@ public class AIBot {
         commands.put("unban", new UnbanCommand());
         commands.put("softban", new SoftBanCommand());
         
-        //utility Commands
+        /* Utility Commands */
         commands.put("number", new NumberCommand());
         commands.put("num", new NumberCommand());
         commands.put("n", new NumberCommand());
         commands.put("math", new MathCommand());
         commands.put("calc", new MathCommand());
-        
-        commands.put("say", new SayCommand());
+
         commands.put("discrim", new DiscrimCommand());
+        commands.put("afk", new AFKCommand());
+
+        commands.put("say", new SayCommand());
         commands.put("emoji", new EmojiCommand());
         commands.put("emote", new EmojiCommand());
         commands.put("e", new EmojiCommand());
@@ -234,7 +243,7 @@ public class AIBot {
         commands.put("gif", new ImageCommand("gif"));
         commands.put("meme", new ImageCommand("meme"));
         
-        //Fun Commands
+        /* Fun Commands */
         commands.put("8ball", new EightBallCommand());
         commands.put("face", new FaceCommand());
         commands.put("lenny", new FaceCommand());
@@ -252,7 +261,7 @@ public class AIBot {
         commands.put("hangmancheater", new HangManCheaterCommand());
         commands.put("hmc", new HangManCheaterCommand());
         
-        // Music Commands
+        /* Music Commands */
         commands.put("music", new MusicCommand());
         commands.put("m", new MusicCommand());
         commands.put("join", new JoinCommand());
