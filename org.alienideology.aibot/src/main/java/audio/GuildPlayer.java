@@ -97,7 +97,9 @@ public class GuildPlayer extends AudioEventAdapter {
      */
     public void nextTrack() {
         clearVote();
-        addToPreviousQueue(NowPlayingTrack);
+
+        if(NowPlayingTrack != null) // NowPlayingTrack sometimes is null when user try to skip a song.
+            addToPreviousQueue(NowPlayingTrack);
 
         if(Mode == audio.PlayerMode.FM) {
             autoFM();

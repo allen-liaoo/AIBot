@@ -60,8 +60,7 @@ public class PlayCommand extends Command{
         if(!e.getMember().getVoiceState().inVoiceChannel())
             e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel.").queue();
         
-        if(args.length == 0)
-        {
+        if(args.length == 0) {
             if(AIBot.getGuild(e.getGuild()).getPlayer().isPaused())
                 player.pauseOrPlay();
         }

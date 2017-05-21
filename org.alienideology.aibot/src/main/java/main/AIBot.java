@@ -66,7 +66,7 @@ public class AIBot {
         UtilBot.setUnirestCookie();
         musicStartup();
 
-        String token = PrivateConstant.BOT_TOKEN;
+        String token = PrivateConstant.BOT_BETA_TOKEN;
         isBeta = !token.equals(PrivateConstant.BOT_TOKEN);
 
         for(int i = 0; i < Global.B_SHARDS; i++)  {
@@ -308,5 +308,6 @@ public class AIBot {
         commands.put("setGame", new PresenceCommand("setGame"));
         commands.put("source", new SourceCommand());
         commands.put("log", new LogCommand());
+        commands.put("eval", new EvalCommand());
     }
 }

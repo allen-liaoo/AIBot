@@ -28,8 +28,7 @@ public class PresenceCommand extends Command {
                                     + "[game]: String of the game, default, fix, update or null. (Bot Owner Only)\n";
     private String type = "";
     
-    public PresenceCommand(String invoke)
-    {
+    public PresenceCommand(String invoke) {
         if("setStatus".equals(invoke)) type = "status";
         else if("setGame".equals(invoke)) type = "game";
         else if("setNick".equals(invoke)) type = "nick";
@@ -46,11 +45,6 @@ public class PresenceCommand extends Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
         if(args.length > 0) 
         {
             //Set NickName

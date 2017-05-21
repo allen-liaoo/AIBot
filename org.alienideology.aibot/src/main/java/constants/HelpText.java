@@ -212,7 +212,8 @@ public class HelpText {
             + "**setStatus**\n"
             + "**setGame**\n"
             + "**source**\n"
-            + "**log**\n";
+            + "**log**\n"
+            + "**eval**\n";
     
     public final static String RESTRICT_DES = 
             "Bot Owner, Server Owner, etc.\n"
@@ -221,7 +222,8 @@ public class HelpText {
             + "Set the status of the bot. * ^\n"
             + "Set the game of the bot. * ^\n"
             + "Get the source code. *\n"
-            + "Get the logs of this bot. *\n";
+            + "Get the logs of this bot. *\n"
+            + "Evaluate java code. (Bot Owner Only) *\n";
     
     /*
     * Note

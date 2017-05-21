@@ -153,7 +153,7 @@ public class ListCommand extends Command {
                    + " <Role: " + role + ">\n\n";
         }
 
-        output += "--------\n\n# Page(s): " + page + " / " + pages.getPages() + "  (Sorted by role position and alphabetical order)\n\n"
+        output += "--------\n\n# Page(s): " + page + " / " + pages.getPages() + " (Sorted by role position and alphabetical order)\n\n"
                 + "# Use " + Prefix.getDefaultPrefix() + "list member [Page Number] to show more pages.```";
         e.getChannel().sendMessage(output).queue( (Message msg) -> {
             SelectorListener.addEmojiSelection(e.getAuthor().getId(), new EmojiSelection(msg, e.getMember(), reactions) {

@@ -95,6 +95,7 @@ These commands are for **Server Owner** or **Bot Owner** only. <br />
     - setGame - Set the game of the bot. * ^
 - source - Get the source code of a command class. * 
 - log - Get the logs of this bot. *
+- eval - Evaluate java code. (Bot Owner) *
 
 ## Note: <br />
 - @Mention the bot with commands will also trigger the respond. <br />

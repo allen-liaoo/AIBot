@@ -67,6 +67,7 @@ These commands are for **Server Owner** or **Bot Owner** only.
 - Presence - Set the Status, game or NickName of the bot. * 
 - source - Get the source code of a command class. * 
 - log - Get the logs of this bot. *
+- eval - Evaluate java code. (Bot Owner) *
 
 __**Note:**__ <br />
 Adding the command/module name after help will show the command/module usage. <br />

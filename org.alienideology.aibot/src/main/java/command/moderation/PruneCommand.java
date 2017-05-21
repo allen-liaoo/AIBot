@@ -27,7 +27,7 @@ public class PruneCommand extends Command{
     
     public final static  String HELP = "This command is for deleting messages.\n"
                                      + "Command Usage: `"+ Prefix.getDefaultPrefix() +"prune`\n"
-                                     + "Parameter: `-h | [Number]`";
+                                     + "Parameter: `-h | [Number] | null`";
     
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {

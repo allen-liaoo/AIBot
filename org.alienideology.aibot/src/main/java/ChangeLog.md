@@ -6,6 +6,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 ##### Added
 - AFKCommand for setting AFK status
 - UserWrapper, GlobalWatchDog for AFK status
+- EvalCommand to evaluate java code. Use Nashorn script engine.
 
 #### [0.3.4] - 2017-05-7 ~ 2017-05-11
 ##### Added

@@ -32,7 +32,6 @@ public class LogCommand extends Command {
                                     + "members that have `Manage Message` permissions only.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"log`\n"
                                     + "Parameter: `-h | main | error | command | null`";
-    
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -44,12 +43,7 @@ public class LogCommand extends Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
-        if((args.length>0 && !"-h".equals(args[0])) && 
+        if(args.length > 0 &&
             (!e.getChannelType().isGuild() || 
             e.getMember().isOwner() || 
             e.getMember().hasPermission(Permission.MESSAGE_MANAGE) ||
