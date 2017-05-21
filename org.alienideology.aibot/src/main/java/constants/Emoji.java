@@ -131,7 +131,7 @@ public class Emoji {
     public final static String FM = EmojiParser.parseToUnicode(":arrow_heading_down:");
     public final static String RADIO = EmojiParser.parseToUnicode(":radio_button:");
     public final static String AUTOPLAY = EmojiParser.parseToUnicode(":leftwards_arrow_with_hook:");
-    public final static String REPEAT = EmojiParser.parseToUnicode(":arrows_counterclockwise:");
+    public final static String REPEAT = EmojiParser.parseToUnicode(":repeat:");
     public final static String REPEAT_SINGLE = EmojiParser.parseToUnicode(":repeat_one:");
     public final static String PAUSE = EmojiParser.parseToUnicode(":double_vertical_bar:");
     public final static String NEXT_TRACK = EmojiParser.parseToUnicode(":black_right_pointing_double_triangle_with_vertical_bar:");

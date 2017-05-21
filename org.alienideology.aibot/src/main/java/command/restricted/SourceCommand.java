@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import utility.UtilNum;
 
 /**
  *
@@ -51,7 +52,8 @@ public class SourceCommand extends Command{
             {
                 try{
                     String output = "", file = "";
-                    int count = 1, fromOrig = Integer.parseInt(args[1]), from = 0, to = Integer.parseInt(args[2]);
+                    int count = 1, fromOrig = args.length >= 2 ? Integer.parseInt(args[1]) : 0, from = 0,
+                            to = args.length >= 3 ? Integer.parseInt(args[2]) : UtilNum.getLineCount(FilePath.BasePath + args[0]);
                         
                     //Check if fromOrig and to are negative.
                     if(fromOrig < 0)
@@ -74,7 +76,7 @@ public class SourceCommand extends Command{
                     BufferedReader br = new BufferedReader(new InputStreamReader(fstream));  
 
                     String s;  
-                    if(args.length == 3 || args.length == 4) {
+                    if(args.length >= 3) {
                         while((s = br.readLine() ) != null) {
                             if(count >= from) {
                                 output += s + "\n";

@@ -61,26 +61,19 @@ public class EightBallCommand extends Command{
     {
         String respond = "", output = "";
         int totalline = 0;
-        
-        //Generate Random Number base on the lines in 8Ball.txt
+
         try {
-                BufferedReader reader = new BufferedReader(new FileReader(FilePath.EightBall));
-                
-                while((output = reader.readLine()) != null)
-                {
-                    totalline++;
-                }
-                reader.close();
-            } catch (IOException io) {
-                AILogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at reading line numbers");
+            totalline = UtilNum.getLineCount(FilePath.EightBall);
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
+
         int magic = UtilNum.randomNum(0, totalline), line = 0;
         
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FilePath.EightBall));
 
-            while((respond = reader.readLine()) != null)
-            {
+            while((respond = reader.readLine()) != null) {
                 line++;
                 if(line >= magic)
                     break;

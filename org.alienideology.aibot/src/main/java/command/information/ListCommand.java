@@ -131,6 +131,7 @@ public class ListCommand extends Command {
                         default:
                             break;
                     }
+                    UtilBot.deleteMessage(msg);
                 }
             });
         });
@@ -170,6 +171,7 @@ public class ListCommand extends Command {
                         default:
                             break;
                     }
+                    UtilBot.deleteMessage(msg);
                 }
             });
         });
@@ -209,6 +211,7 @@ public class ListCommand extends Command {
                         default:
                             break;
                     }
+                    UtilBot.deleteMessage(msg);
                 }
             });
         });
@@ -255,6 +258,7 @@ public class ListCommand extends Command {
                         default:
                             break;
                     }
+                    UtilBot.deleteMessage(msg);
                 }
             });
         });

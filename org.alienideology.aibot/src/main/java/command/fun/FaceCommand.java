@@ -8,6 +8,7 @@ package command.fun;
 import command.Command;
 import constants.Emoji;
 import constants.Global;
+import net.dv8tion.jda.core.entities.ChannelType;
 import setting.Prefix;
 import constants.FilePath;
 import system.AILogger;
@@ -61,15 +62,8 @@ public class FaceCommand extends Command{
         {
             int count = 0, lines = 0, num = 0;
             
-            //Generate Random Number base on the lines in FaceList.txt
             try {
-                BufferedReader reader = new BufferedReader(new FileReader(FilePath.FaceList));
-                
-                while((output = reader.readLine()) != null)
-                {
-                    lines++;
-                }
-                reader.close();
+                UtilNum.getLineCount(FilePath.EightBall);
                 num = UtilNum.randomNum(1, lines);
                 if(num % 2 != 0) num += 1; //Make the random NUMBER always even
             } catch (IOException io) {
@@ -78,14 +72,11 @@ public class FaceCommand extends Command{
             
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(FilePath.FaceList));
-                
-                while((output = reader.readLine()) != null)
-                {
+                while((output = reader.readLine()) != null) {
                     count++;
                     if(num == count) break;
                 }
                 reader.close();
-                
             } catch (IOException ioe) {
                 AILogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at getting face.");
             }
@@ -124,13 +115,10 @@ public class FaceCommand extends Command{
 
             MessageEmbed mefl = embedfl.build();
             
-            if(e.getChannelType() != e.getChannelType().PRIVATE)
-            {
+            if(e.getChannelType() != ChannelType.PRIVATE) {
                 e.getTextChannel().sendMessage(Emoji.ENVELOPE + "Shhh... Check your Direct Message.").queue();
                 e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage(mefl).queue());
-            }
-            else
-            {
+            } else {
                 e.getAuthor().openPrivateChannel().queue(PrivateChannel -> PrivateChannel.sendMessage(mefl).queue());
             }
             

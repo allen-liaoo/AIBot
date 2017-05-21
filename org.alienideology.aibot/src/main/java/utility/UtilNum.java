@@ -6,6 +6,8 @@
  */
 package utility;
 
+import java.io.*;
+
 /**
  *
  * @author Alien Ideology <alien.ideology at alien.org>
@@ -69,5 +71,19 @@ public class UtilNum {
             return false;
         }
         return true;
-    }    
+    }
+
+    public static int getLineCount(String filepath) throws IOException {
+        int lines = 0;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(new File(filepath)));
+            while (reader.readLine() != null) { lines ++; }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            throw e;
+        } catch (IOException e) {
+            throw new IOException();
+        }
+        return lines;
+    }
 }

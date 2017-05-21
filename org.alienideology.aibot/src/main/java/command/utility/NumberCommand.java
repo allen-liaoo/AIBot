@@ -36,13 +36,9 @@ public class NumberCommand extends Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
+        if(args.length == 0) e.getChannel().sendMessage(help(e).build()).queue();
         //Number Counter
-        if("count".equals(args[0]) | "cunt".equals(args[0]) | "c".equals(args[0]))
+        else if("count".equals(args[0]) | "cunt".equals(args[0]) | "c".equals(args[0]))
         {
             if(args.length == 1) //Default count from 1 to 4
             {

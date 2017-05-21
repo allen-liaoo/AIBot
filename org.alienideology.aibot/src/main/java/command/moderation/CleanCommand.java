@@ -58,7 +58,7 @@ public class CleanCommand extends Command {
                 for (int i = 0; i < 100; i++) {
                     msg += Emoji.Unicode.zero_width + "\n\n";
                 }
-                e.getChannel().sendMessage(msg + "Now you guys can talk. Go on ^").queue();
+                e.getChannel().sendMessage("Hold on..." + msg).queue();
             } else {
                 List<User> users = e.getMessage().getMentionedUsers();
                 deleteMemberMessage(tc, users.toArray(new User[users.size()]));

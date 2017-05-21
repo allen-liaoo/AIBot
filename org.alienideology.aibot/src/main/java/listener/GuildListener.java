@@ -147,8 +147,10 @@ public class GuildListener extends ListenerAdapter {
                 player.getPlayer().setPaused(true);
 
             // Shutdown scheduled leaver if user joined
-            if(scheduleLeaver.containsKey(joined.getId()))
-                scheduleLeaver.get(joined.getId()).shutdown();
+            if(scheduleLeaver.containsKey(joined.getId())) {
+                scheduleLeaver.get(joined.getId()).shutdownNow();
+                scheduleLeaver.remove(joined.getId());
+            }
         }
     }
     
@@ -170,9 +172,9 @@ public class GuildListener extends ListenerAdapter {
             // User left VoiceChannel the bot is in
             if (self.getVoiceState().inVoiceChannel()
                     && self.getVoiceState().getChannel().getId().equals(left.getId())
-                    && Music.getNonBotMember(left) == 0
-                    && player.isPlaying()) {
-                player.getPlayer().setPaused(true);
+                    && Music.getNonBotMember(left) == 0) {
+                if (player.isPlaying())
+                    player.getPlayer().setPaused(true);
                 scheduleLeaveVc(guild, left);
             }
 
@@ -189,14 +191,14 @@ public class GuildListener extends ListenerAdapter {
     private void scheduleLeaveVc(Guild guild, VoiceChannel left)
     {
         ScheduledThreadPoolExecutor sch = (ScheduledThreadPoolExecutor)
-                Executors.newScheduledThreadPool(1);
+                Executors.newScheduledThreadPool(0);
 
         Runnable leave = () -> {
             GuildPlayer player = AIBot.getGuild(guild).getGuildPlayer();
             player.stopPlayer();
             player.disconnect();
             player.getTc().sendMessage("~~Five Minutes Later...~~").queue((Message msg) ->
-                    msg.editMessage(Emoji.NO + " Left voice channel because no one is listening. ;-;").queueAfter(5, TimeUnit.SECONDS));
+                    msg.editMessage(Emoji.NO + " Left voice channel because no one is listening. ;-;").queueAfter(4, TimeUnit.SECONDS));
             scheduleLeaver.remove(left.getId());
             sch.shutdown();
         };
