@@ -60,6 +60,8 @@ public class EvalCommand extends Command {
             engine.put("guild", e.getGuild());
             engine.put("server", e.getGuild());
             engine.put("channel", e.getChannel());
+            engine.put("tc", e.getTextChannel());
+            engine.put("pm", e.getPrivateChannel());
             engine.put("vc", e.getMember().getVoiceState().getChannel());
             engine.put("player", AIBot.getGuild(e.getGuild()).getPlayer());
             engine.put("gp", AIBot.getGuild(e.getGuild()).getGuildPlayer());

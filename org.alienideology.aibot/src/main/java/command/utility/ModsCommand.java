@@ -43,7 +43,7 @@ public class ModsCommand extends Command {
             String message = "";
             for(int i = 0; i < args.length; i++) { message += i==0 ? "" : args[i] + " "; }
 
-            if (e.getGuild().getMembers().size() > 100) {     // Filter large servers
+            if (e.getGuild().getMembers().size() > 100) {     // ilter large servers
                 e.getChannel().sendMessage(Emoji.ERROR + " The server is too big. I'm afraid I'll get banned by pinning mod...").queue();
             } else {
                 List<Member> onlineMod = getMods(e.getGuild()).stream()
@@ -64,8 +64,10 @@ public class ModsCommand extends Command {
 
             /* Iterate through mod list */
             for (Member mem : mods) {
-                output.append(UtilBot.getStatusEmoji(mem.getOnlineStatus())).append(mem.getEffectiveName()).append("#")
-                        .append(mem.getUser().getDiscriminator()).append("\n");
+                output.append(UtilBot.getStatusEmoji(mem.getOnlineStatus()))
+                        .append(mem.getUser().getName()).append("#").append(mem.getUser().getDiscriminator())
+                        .append(mem.isOwner() ? " (Owner)" : "")
+                        .append(mem.hasPermission(Permission.ADMINISTRATOR) && !mem.isOwner() ? " (Admin)" : "").append("\n");
             }
 
             e.getChannel().sendMessage(output.toString()).queue();
@@ -73,7 +75,17 @@ public class ModsCommand extends Command {
     }
 
     private List<Member> sortByStatus(List<Member> members) {
-        Collections.sort(members, Comparator.comparing(Member::getOnlineStatus));
+        Collections.sort(members, Comparator.comparing(Member::getOnlineStatus).thenComparing((o1, o2) -> {
+            if(o1.isOwner()) return -1;
+            else if (o2.isOwner()) return 1;
+            if(!o1.getRoles().isEmpty() && !o2.getRoles().isEmpty())
+                return o1.getRoles().get(0).getPosition() > o2.getRoles().get(0).getPosition() ? -1 : (o1.getRoles().get(0).getPosition() < o2.getRoles().get(0).getPosition()) ? 1 : (o1.getEffectiveName().compareTo(o2.getEffectiveName()));
+            else if (!o1.getRoles().isEmpty() && o2.getRoles().isEmpty())
+                return -1;
+            else if (o1.getRoles().isEmpty() && !o2.getRoles().isEmpty())
+                return 1;
+            return o1.getEffectiveName().compareTo(o2.getEffectiveName());
+        }));
         return members;
     }
 

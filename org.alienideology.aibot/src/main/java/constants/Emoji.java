@@ -164,7 +164,7 @@ public class Emoji {
     public final static String GUILD_OFFLINE = EmojiParser.parseToUnicode("<:vpOffline:212790005943369728>");
     public final static String GUILD_STREAMING = EmojiParser.parseToUnicode("<:vpStreaming:212789640799846400>");
     
-    public final static String GREEN_TICK = EmojiParser.parseToUnicode("<:vpGreenTick:257437292820561920>>");
+    public final static String GREEN_TICK = EmojiParser.parseToUnicode("<:vpGreenTick:257437292820561920>");
     public final static String RED_TICK = EmojiParser.parseToUnicode("<:vpRedTick:257437215615877129>");
 
     public class Unicode {
