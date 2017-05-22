@@ -192,6 +192,7 @@ public class AIBot {
         
         commands.put("list", new ListCommand());
         commands.put("l", new ListCommand());
+        commands.put("perm", new PermCommand());
         commands.put("prefix", new PrefixCommand());
         commands.put("ping", new PingCommand());
         
