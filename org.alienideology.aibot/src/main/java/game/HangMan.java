@@ -92,7 +92,7 @@ public class HangMan implements Game{
         }
         
         embedstart.setColor(Color.green);
-        embedstart.addField(Emoji.GAME + " Hang Man: game Mode ON!",
+        embedstart.addField(Emoji.GAME + " Hang Man: Game Mode ON!",
                 "Starter: " + starter.getAsMention()
                 + "\nWord length: " + word.size()
                 + "\n" + hangman, true);
@@ -106,7 +106,7 @@ public class HangMan implements Game{
     @Override
     public void endGame() { //End the GAME
         embedend.setColor(Color.green);
-        embedend.setTitle(Emoji.GAME + " Hang Man: game Mode OFF!", null);
+        embedend.setTitle(Emoji.GAME + " Hang Man: Game Mode OFF!", null);
         embedend.setFooter(e.getAuthor().getName() + " ended the game.", null);
         MessageEmbed me = embedend.build();
         e.getChannel().sendMessage(me).queue();

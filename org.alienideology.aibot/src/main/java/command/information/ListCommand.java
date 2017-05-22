@@ -41,24 +41,17 @@ public class ListCommand extends Command {
                                     + "channel: Get a list of text and voice channels in this server.\n";  
     
     private static final List<String> reactions = Arrays.asList(Emoji.LEFT, Emoji.RIGHT);
-    
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("List -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
         if (args.length > 0) {
             try {
                 int page = 1;
