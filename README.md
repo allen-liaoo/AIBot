@@ -72,7 +72,7 @@ These commands are for **Server Owner** or **Bot Owner** only.
 
 __**Note:**__ <br />
 Adding the command/module name after help will show the command/module usage. <br />
-\* - Available directly from direct message. (secret Channel) <br />
+\* - Available directly from direct message. <br />
 
 ## Libraries
 1. Java http://www.oracle.com/technetwork/java/javase/overview/index.html (JDK 8)
