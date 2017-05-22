@@ -19,6 +19,7 @@ __**Information Commands**__
 - list (l) - Get a list of servers, members, roles or channels.
 
 __**Moderation Commands**__ 
+- mods - Get a list of mods.
 - prune (p) - Delete messages. 
 - kick (k) - Kick member(s). 
 - ban (b) - Ban member(s) by Mention. 

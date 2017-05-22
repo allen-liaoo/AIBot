@@ -56,7 +56,8 @@ public class HelpText {
     * Moderation Module
     */
     public final static String MOD_CMD = 
-            "**prune**\n"
+            "**mods**\n"
+            + "**prune**\n"
             + "**clean**\n"
             + "**kick**\n"
             + "**warn**\n"
@@ -65,7 +66,8 @@ public class HelpText {
             + "**softban**\n\n";
     
     public final static String MOD_DES = 
-            "Delete messages.\n"
+            "Get a list of mods.\n"
+            + "Delete messages.\n"
             + "Advance prune options.\n"
             + "Kick member(s).\n"
             + "Warn a user in dm.\n"

@@ -106,13 +106,13 @@ public class UtilBot {
         AILogger.updateLog("jda Status set to " + status.toString());
         return status;
     }
-    
+
     /**
-     * Get the OnlineStatus with Emojis
+     * gt tje OnlineStatus Emoji
      * @param stat
      * @return
      */
-    public static String getStatusString(OnlineStatus stat)
+    public static String getStatusEmoji(OnlineStatus stat)
     {
         String status = "";
         switch (stat) {
@@ -134,8 +134,16 @@ public class UtilBot {
             default:
                 status = Emoji.GUILD_OFFLINE;
         }
-        status += " " + UtilString.VariableToString("_",stat.getKey());
         return status;
+    }
+    
+    /**
+     * Get the OnlineStatus with Emojis
+     * @param stat
+     * @return
+     */
+    public static String getStatusString(OnlineStatus stat) {
+        return getStatusEmoji(stat) + UtilString.VariableToString("_",stat.getKey());
     }
     
     /**

@@ -20,6 +20,7 @@
 
 ## Moderation Commands
 [Moderation Commands Description](command/moderation/ModerationCommands.md) <br />
+- mods - Get a list of mods.
 - prune - Delete messages.
 - clean - Advance prune options.
 - kick - Kick member(s).

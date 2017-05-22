@@ -8,6 +8,7 @@ Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 - UserWrapper, GlobalWatchDog for AFK status
 - EvalCommand to evaluate java code. Use Nashorn script engine.
 - AvatarCommand, a simple command to get link and attachment of a avatar.
+- ModsCommand for listing and autopin mod(s).
 
 #### [0.3.4] - 2017-05-7 ~ 2017-05-11
 ##### Added

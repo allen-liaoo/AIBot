@@ -201,8 +201,11 @@ public class AIBot {
         commands.put("support", new SupportCommand());
 
         /* Moderation Commands */
+        commands.put("mods", new ModsCommand());
+
         commands.put("prune", new PruneCommand());
         commands.put("clean", new CleanCommand());
+
         commands.put("kick", new KickCommand());
         commands.put("warn", new WarnCommand());
         
