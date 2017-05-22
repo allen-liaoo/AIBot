@@ -66,7 +66,7 @@ public class AIBot {
         UtilBot.setUnirestCookie();
         musicStartup();
 
-        String token = PrivateConstant.BOT_BETA_TOKEN;
+        String token = PrivateConstant.BOT_TOKEN;
         isBeta = !token.equals(PrivateConstant.BOT_TOKEN);
 
         for(int i = 0; i < Global.B_SHARDS; i++)  {
@@ -173,7 +173,7 @@ public class AIBot {
         }
         return guilds;
     }
-        
+
     private synchronized static void addCommands()
     {
         /* Information Commands */
@@ -218,6 +218,7 @@ public class AIBot {
         commands.put("calc", new MathCommand());
 
         commands.put("discrim", new DiscrimCommand());
+        commands.put("avatar", new AvatarCommand());
         commands.put("afk", new AFKCommand());
 
         commands.put("say", new SayCommand());

@@ -66,7 +66,7 @@ public class DiscrimCommand extends Command {
 
     }
 
-    private final String parseId(String[] args, MessageReceivedEvent e) {
+    private String parseId(String[] args, MessageReceivedEvent e) {
         String target;
         //Parse the ID
         if (args.length == 0) //Self Discriminator

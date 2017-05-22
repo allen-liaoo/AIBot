@@ -25,7 +25,7 @@ public class EvalCommand extends Command {
                                     + "This commands is only for `Bot Owner` only.\n"
                                     + "Command Usage: `"+ Prefix.getDefaultPrefix() +"eval`\n"
                                     + "Parameter: `-h | [Script] | [Script Code Block] | null`\n"
-                                    + "[Script Code Block]: Accepts codes inside a codeblock. ```java\n\n[Script]```";
+                                    + "[Script Code Block]: Accepts codes inside a code block. ```java\n\n[Script]```";
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -52,6 +52,7 @@ public class EvalCommand extends Command {
             }
 
             /* Put string representations */
+            engine.put("aibot", AIBot.class);
             engine.put("jda", e.getJDA());
             engine.put("api", e.getJDA());
 

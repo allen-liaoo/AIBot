@@ -63,7 +63,7 @@ public class FaceCommand extends Command{
             int count = 0, lines = 0, num = 0;
             
             try {
-                UtilNum.getLineCount(FilePath.EightBall);
+                lines = UtilNum.getLineCount(FilePath.EightBall);
                 num = UtilNum.randomNum(1, lines);
                 if(num % 2 != 0) num += 1; //Make the random NUMBER always even
             } catch (IOException io) {

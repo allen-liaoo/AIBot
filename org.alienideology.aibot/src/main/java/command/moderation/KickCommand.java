@@ -37,11 +37,6 @@ public class KickCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
         if(args.length == 0) {
             e.getTextChannel().sendMessage(Emoji.ERROR + " You need to mention 1 or more members to kick!").queue();
         }

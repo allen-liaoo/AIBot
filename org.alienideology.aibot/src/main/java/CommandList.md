@@ -35,6 +35,7 @@
     - num roll - Roll the dice.
     - num coinflip (n cf) - Flip a coin.
 - discrim - Search users with a given discriminator.
+- avatar - Get the avatar image of a user.
 - afk - Set afk status. *
 - math - Let the bot to solve a math operation for you. *
 - say - Let the bot say something for you. Support Embed Message. * 

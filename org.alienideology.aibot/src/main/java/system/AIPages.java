@@ -22,7 +22,7 @@ public class AIPages<T> {
     //pages is the number of pages
     private int pageSize, pages;
     
-    private final int DEFUALT_PAGE_SIZE = 10;
+    private final int DEFAULT_PAGE_SIZE = 10;
     
     /**
      * Default constructor with known page size
@@ -92,7 +92,7 @@ public class AIPages<T> {
         
         for(int i = 1; i <= list.size(); i++) {
             if(list.size() % i > 3) continue;
-            if((list.size() % i + i) > DEFUALT_PAGE_SIZE) continue;
+            if((list.size() % i + i) > DEFAULT_PAGE_SIZE) continue;
             if(i > max) max = i;
         }
         
@@ -110,7 +110,7 @@ public class AIPages<T> {
 
         for(int i = 1; i <= list.size(); i++) {
             if(list.size() % i > 3) continue;
-            if((list.size() % i + i) > DEFUALT_PAGE_SIZE) continue;
+            if((list.size() % i + i) > DEFAULT_PAGE_SIZE) continue;
             if(i > max) continue;
             if(i > maximum) maximum = i;
         }
