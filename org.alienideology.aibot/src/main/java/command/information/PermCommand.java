@@ -40,12 +40,15 @@ public class PermCommand extends Command {
             mem = e.getMember();
         } else if (args[0].length == 18) {  // ID
             mem = e.getGuild().getMemberById(args[0]);
-        } else if(!e.getMessage().getMentionedUsers().isEmpty()) {  // Mention
+        } else if (!e.getMessage().getMentionedUsers().isEmpty()) {  // Mention
             mem = e.getGuild().getMemebrById(e.getMessage().getMentionedUsers().get(0).getId());
+        } else if (!e.getMessage().getMentionedRoles().isEmpty()) {  // Mention
+            Role role = e.getGuild().getRoleById(e.getMessage().getMentionedRoles().get(0).getId());
+            sebdRolePerms(e, role);
+            return;
         }
         
-        
-
+        sendMemberPerms(e, mem);        
     }
     
     private void sendMemberPerms(MessageReceivedEvent e, Member mem) {
@@ -61,7 +64,7 @@ public class PermCommand extends Command {
             message.append(perm.getName()).append("\n");
         }
         
-        e.getChannel().sendMessage(message.toString());
+        e.getChannel().sendMessage(message.toString()).queue();
     }
     
     private void sendRolePerms(MessageReceivedEvent e, Role role) {
@@ -69,7 +72,7 @@ public class PermCommand extends Command {
             .append("** ").append("(Position: ").append(role.getPosition()).append(") :");
         
         for(Permission perm : Permission.values()) {
-            if(mem.hasPermissions(perm)) {
+            if(role.hasPermissions(perm)) {
                 message.append(Emoji.GREEN_TICK);
             } else {
                 message.append(Emoji.RED_TICK);
@@ -77,7 +80,7 @@ public class PermCommand extends Command {
             message.append(perm.getName()).append("\n");
         }
         
-        e.getChannel().sendMessage(message.toString());
+        e.getChannel().sendMessage(message.toString()).queue();
     }
     
 }
