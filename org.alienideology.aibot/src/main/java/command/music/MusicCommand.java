@@ -49,7 +49,7 @@ public class MusicCommand extends Command{
             EmbedBuilder embedm = new EmbedBuilder();
             
             embedm.setColor(UtilBot.randomColor());
-            embedm.setAuthor("Music Module", null, Global.I_HELP);
+            embedm.setAuthor("Music Module", null, null);
             embedm.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
             embedm.setTimestamp(Instant.now());
             embedm.setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());

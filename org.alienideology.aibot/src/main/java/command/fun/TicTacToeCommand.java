@@ -34,7 +34,7 @@ public class TicTacToeCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Fun Module", null);
         embed.addField("Tic Tac Toe -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", null);
         return embed;
     }
 

@@ -29,7 +29,7 @@ public class SoftBanCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Moderation Module", null);
         embed.addField("SoftBan -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", null);
         return embed;
     }
 

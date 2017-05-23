@@ -39,7 +39,7 @@ public class IMDbCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Utility Module", null);
         embed.addField("IMDB -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", null);
         embed.setTimestamp(Instant.now());
         return embed;
     }

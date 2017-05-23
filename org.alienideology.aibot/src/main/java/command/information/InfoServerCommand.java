@@ -17,6 +17,7 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Guild;
+import utility.UtilString;
 
 /**
  *
@@ -33,7 +34,7 @@ public class InfoServerCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("ServerInfo -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", null);
         return embed;
     }
 
@@ -62,20 +63,26 @@ public class InfoServerCommand extends Command{
                 return;
             }
             
-            String name, id, owner, region, icon, verify;
+            String icon, name, id, owner, created, region, verify;
             int txtChannel, audioChannel, member, online = 0, human = 0, bot = 0;
-            
+
+            icon = guild.getIconUrl();
+
+            /* Identity */
             name = guild.getName();
             id = guild.getId();
             owner = guild.getOwner().getEffectiveName();
-            icon = guild.getIconUrl();
+
+            /* Channel */
             txtChannel = guild.getTextChannels().size();
             audioChannel = guild.getVoiceChannels().size();
-            member = guild.getMembers().size();
-            verify = guild.getVerificationLevel().toString();
-            region = guild.getRegion().toString();
 
+            /* Time */
+            created = UtilString.formatOffsetDateTime(guild.getCreationTime());
+
+            /* Member */
             List<Member> members = guild.getMembers();
+            member = members.size();
             for(Member memberM : members)  {
                 String status = memberM.getOnlineStatus().toString();
                 if(status.equals(OnlineStatus.ONLINE.toString()))
@@ -85,6 +92,10 @@ public class InfoServerCommand extends Command{
                 else
                     bot ++;
             }
+
+            /* Other */
+            verify = guild.getVerificationLevel().toString();
+            region = guild.getRegion().toString();
             
             /*
             //Get Invite of the server
@@ -92,27 +103,25 @@ public class InfoServerCommand extends Command{
                 .setMaxAge(120).setMaxUses(1).setTemporary(true)
                 .queue(
                     (Invite i) -> {
-                        embedsi.setAuthor(name, "https://discord.gg/" + i.getCode(), Global.I_INFO);
+                        embed.setAuthor(name, "https://discord.gg/" + i.getCode(), null);
                     }
                 );
             */
 
-            EmbedBuilder embedsi = new EmbedBuilder()
-                .setAuthor(name, null, Global.I_INFO).setColor(Color.blue).setThumbnail(icon).setTimestamp(Instant.now())
+            EmbedBuilder embed = new EmbedBuilder()
+                .setAuthor(name, null, null).setColor(Color.blue).setThumbnail(icon).setTimestamp(Instant.now())
                 .setFooter("Server Information", null);
             
-            embedsi.addField("ID", id, true)
-                .addField("Owner", owner, true);
+            embed.addField("ID", id, true);
+            embed.addField("Owner", owner, true);
 
-            embedsi.addField(Emoji.TEXT + " Channel", "Text `"+txtChannel+"` | Voice `"+audioChannel+"`", true)
-                .addField(Emoji.SPY + " Member", "User `"+member+"` | "+Emoji.GUILD_ONLINE+" `"+online+"`\nHuman `"+human+"` | Bot `"+bot+"`", true)
-                .addField("Other", "Region `" + region + "` | Verification `" + verify + "`", true);
+            embed.addField(Emoji.STOPWATCH+"Created In", created, true);
 
-            e.getTextChannel().sendMessage(embedsi.build()).queue();
-            embedsi.clearFields();
-            
+            embed.addField(Emoji.TEXT+"Channel", "Text `"+txtChannel+"` | Voice `"+audioChannel+"`", true);
+            embed.addField(Emoji.SPY + " Member", "User `"+member+"` | "+Emoji.GUILD_ONLINE+" `"+online+"`\nHuman `"+human+"` | Bot `"+bot+"`", true);
+            embed.addField("Other", "Region `" + region + "` | Verification `" + verify + "`", true);
+
+            e.getTextChannel().sendMessage(embed.build()).queue();
         }
     }
-
-    
 }

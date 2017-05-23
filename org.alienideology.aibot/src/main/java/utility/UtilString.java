@@ -6,6 +6,8 @@
  */
 package utility;
 
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 import java.util.Locale;
 
@@ -103,6 +105,15 @@ public class UtilString {
             second = String.format("%2d second(s)", seconds);
         }
         return day + hour + minute + second + " ";
+    }
+
+    /**
+     * Change OffsetDateTIme to human readable form.
+     * @param time the OffsetDateTIme to be formatted to
+     * @return a string of the date in "Month/Day/Year Hour:Minute:Second AM/PM" format
+     */
+    public static String formatOffsetDateTime(OffsetDateTime time) {
+        return DateTimeFormatter.ofPattern("M/d/u h:m:s a").format(time);
     }
 
     /**

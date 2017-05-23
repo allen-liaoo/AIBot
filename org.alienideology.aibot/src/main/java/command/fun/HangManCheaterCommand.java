@@ -44,7 +44,7 @@ public class HangManCheaterCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Miscellaneous Module", null);
         embed.addField("HangMan Cheater -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", null);
         embed.setTimestamp(Instant.now());
         return embed;
     }

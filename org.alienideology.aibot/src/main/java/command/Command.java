@@ -28,7 +28,7 @@ public abstract class Command {
         EmbedBuilder embed = new EmbedBuilder();
         embed.setColor(Color.red);
         embed.setTimestamp(Instant.now());
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage",null);
         return embed;
     }
     

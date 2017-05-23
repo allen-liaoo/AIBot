@@ -35,7 +35,7 @@ public class PruneCommand extends Command{
         embed.setTitle("Utility Module", null);
         embed.setTitle("Prune -Help", null);
         embed.setDescription(HELP);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", null);
         return embed;
     }
 

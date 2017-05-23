@@ -91,8 +91,7 @@ public class LogCommand extends Command {
             } catch (IOException io) {
                 AILogger.errorLog(io, e, this.getClass().getName(), "BufferedReader at getting logs.");
             }
-        }
-        else if(args.length>0 && !"-h".equals(args[0])) {
+        } else {
             e.getChannel().sendMessage(Emoji.ERROR + " This command is for server owner, bot owner, "
                     + "or members that have `Manage Message` permissions only.").queue();
         }

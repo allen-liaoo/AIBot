@@ -43,7 +43,7 @@ public class HelpCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Help -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", null);
         return embed;
     }
 
@@ -187,7 +187,7 @@ public class HelpCommand extends Command {
         }
         
         embed.setColor(UtilBot.randomColor());
-        embed.setAuthor("AIBot command List | Page " + page, Global.B_GITHUB, Global.I_HELP);
+        embed.setAuthor("AIBot command List | Page " + page, Global.B_GITHUB, null);
         embed.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
         embed.setTimestamp(Instant.now());
         embed.setFooter("Commands List", null);
@@ -201,7 +201,7 @@ public class HelpCommand extends Command {
             e.getChannel().sendMessage(AIBot.commands.get(cmdtitle).help(e).build()).queue();
         } else {
             EmbedBuilder embed = new EmbedBuilder()
-                .setFooter("Module Help/Usage", Global.I_HELP)
+                .setFooter("Module Help/Usage", null)
                 .setColor(Color.RED)
                 .setTimestamp(Instant.now());
             String name = "", des = "";

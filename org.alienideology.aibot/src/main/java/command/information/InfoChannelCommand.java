@@ -18,6 +18,10 @@ import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
+import utility.UtilBot;
+import utility.UtilString;
+
+import javax.rmi.CORBA.Util;
 
 /**
  *
@@ -35,116 +39,115 @@ public class InfoChannelCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("ChannelInfo -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
         return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
-        if(args.length == 0 && e.getChannelType() != e.getChannelType().PRIVATE)
+        if(args.length == 0)
         {
             TextChannel txtchannel = e.getTextChannel();
             
             String name, id, icon, type, create, topic;
-            int member, human = 0, bot = 0, position, msgcount;
-            
+            int member, human = 0, bot = 0, position;
+
+            icon = e.getGuild().getIconUrl();
+
+            /* Identity */
             name = txtchannel.getName();
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
             id = txtchannel.getId();
-            icon = e.getGuild().getIconUrl();
             type = txtchannel.getType().toString();
-            create = txtchannel.getCreationTime().toString();
-            topic = txtchannel.getTopic();
-            
-            member = txtchannel.getMembers().size();
+            topic = txtchannel.getTopic().isEmpty() ? "N/A" : txtchannel.getTopic();
             position = txtchannel.getPosition();
-            //msgcount = txtchannel.getHistory().getRetrievedHistory().size(); Not Working!!!
-            
+
+            /* Time */
+            create = UtilString.formatOffsetDateTime(txtchannel.getCreationTime());
+
+            /* Member */
             List<Member> members = txtchannel.getMembers();
-            for(Member memberM : members) 
-            {
+            member = members.size();
+
+            for(Member memberM : members) {
                 if(!memberM.getUser().isBot())
                     human ++;
                 else
                     bot ++;
             }
             
-            EmbedBuilder embedci = new EmbedBuilder();
-            embedci.setAuthor(name, null, Global.I_INFO);
-            embedci.setColor(Color.blue);
-            embedci.setThumbnail(icon);
-            embedci.setTimestamp(Instant.now());
-            embedci.setFooter("Text Channel Information", null);
+            EmbedBuilder embed = new EmbedBuilder()
+                .setAuthor(name, null, null)
+                .setColor(UtilBot.randomColor()).setThumbnail(icon).setTimestamp(Instant.now())
+                .setFooter("Channel Info", null);
             
-            embedci.addField("ID", id, true);
-            embedci.addField("Type", type, true);
-            embedci.addField("Created In", create, true);
-            embedci.addField("Channel Topic/Description", topic, true);
-            embedci.addField("Member", member + "", true);
-            embedci.addField("Humans", human + "", true);
-            embedci.addField("Bots", bot + "", true);
-            embedci.addField("Position", position + "", true);
-            e.getTextChannel().sendMessage(embedci.build()).queue();
-            embedci.clearFields();
+            embed.addField("Identity", "ID `"+id+"`\n"+
+                "Type `"+type+"` | Topic `"+topic+"`\n"+
+                "Position `"+position+"`\n", true);
+            embed.addField(Emoji.STOPWATCH+"Created In", create, true);
+
+            embed.addField(Emoji.SPY+"Members", "Total `"+member + "`\n"+
+                "Human `"+human+"` | "+
+                "Bot `"+bot+"`", true);
+
+            e.getTextChannel().sendMessage(embed.build()).queue();
         }
         
-        else if("audio".equals(args[0]) || "voice".equals(args[0]) || "vc".equals(args[0]) 
-                && e.getChannelType() != e.getChannelType().PRIVATE)
+        else if("audio".equals(args[0]) || "voice".equals(args[0]) || "vc".equals(args[0]))
         {
+            VoiceChannel voiceChannel;
             try {
-                VoiceChannel voichannel = e.getMember().getVoiceState().getChannel();
-
-                String name, id, icon, type, create;
-                int member, human = 0, bot = 0, position, bitrate, user_limit;
-
-                name = voichannel.getName();
-                id = voichannel.getId();
-                icon = e.getGuild().getIconUrl();
-                type = "AUDIO";
-                create = voichannel.getCreationTime().toString();
-
-                member = voichannel.getMembers().size();
-                position = voichannel.getPosition();
-                bitrate = voichannel.getBitrate();
-                user_limit = voichannel.getUserLimit();
-
-                List<Member> members = voichannel.getMembers();
-                for(Member memberM : members) 
-                {
-                    if(!memberM.getUser().isBot())
-                        human ++;
-                    else
-                        bot ++;
-                }
-                
-                EmbedBuilder embedci = new EmbedBuilder();
-                embedci.setAuthor(name, null, Global.I_INFO);
-                embedci.setColor(Color.blue);
-                embedci.setThumbnail(icon);
-                embedci.setTimestamp(Instant.now());
-                embedci.setFooter("audio Channel Information", null);
-
-                embedci.addField("ID", id, true);
-                embedci.addField("Type", type, true);
-                embedci.addField("Created In ", create, true);
-                embedci.addField("Member", member + "", true);
-                embedci.addField("Humans", human + "", true);
-                embedci.addField("Bots", bot + "", true);
-                embedci.addField("Position", position + "", true);
-                embedci.addField("Bitrate", bitrate + "", true);
-                embedci.addField("User Limit", user_limit + "", true);
-                e.getTextChannel().sendMessage(embedci.build()).queue();
-                embedci.clearFields();
-            } catch (RuntimeException rte) {
+                voiceChannel = e.getMember().getVoiceState().getChannel();
+            } catch (NullPointerException npe) {
                 e.getTextChannel().sendMessage(Emoji.ERROR + " You need to join a voice channel first "
-                                        + "to see the channel's information.").queue();
-                AILogger.errorLog(rte, e, this.getClass().getName(), "Requested AudioChannel Info when the user is not in a VoiceChannel.");
+                        + "to see the channel's information.").queue();
+                return;
             }
+
+            String name, id, icon, type, create;
+            int member, human = 0, bot = 0, position, bitrate, user_limit;
+
+            icon = e.getGuild().getIconUrl();
+
+            /* Identity */
+            name = voiceChannel.getName();
+            id = voiceChannel.getId();
+            type = "Audio";
+            position = voiceChannel.getPosition();
+
+            /* Audio */
+            bitrate = voiceChannel.getBitrate();
+            user_limit = voiceChannel.getUserLimit();
+
+            /* Time */
+            create = UtilString.formatOffsetDateTime(voiceChannel.getCreationTime());
+
+            /* Member */
+            List<Member> members = voiceChannel.getMembers();
+            member = members.size();
+            for(Member memberM : members) {
+                if(!memberM.getUser().isBot())
+                    human ++;
+                else
+                    bot ++;
+            }
+
+            EmbedBuilder embed = new EmbedBuilder()
+                .setAuthor(name, null, null)
+                .setColor(UtilBot.randomColor()).setThumbnail(icon).setTimestamp(Instant.now())
+                .setFooter("Voice Channel Info", null);
+
+            embed.addField("Identity", "ID `"+id+"`\n"+
+                "Type `"+type+"` | Position `"+position+"`\n", true);
+
+            embed.addField(Emoji.STOPWATCH+"Created In ", create, true);
+
+            embed.addField(Emoji.SPY+"Member", "Total `"+member+"`\n"+
+                "Human `"+human+"` | "+
+                "Bot `"+bot+"`\n", true);
+
+            embed.addField(Emoji.NOTES+"Audio", "Bit Rate `"+bitrate+"` | User Limit `"+user_limit+"`", true);
+
+            e.getTextChannel().sendMessage(embed.build()).queue();
         }
     }
 

@@ -36,7 +36,7 @@ public class AboutCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("About -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", null);
         return embed;
     }
 
@@ -51,7 +51,7 @@ public class AboutCommand extends Command{
         {
             EmbedBuilder embeds = new EmbedBuilder();
             embeds.setColor(Color.red).setTimestamp(Instant.now()).setThumbnail(Global.B_AVATAR);
-            embeds.setAuthor("What is " + Global.B_NAME + "?", Global.B_DISCORD_BOT, Global.I_INFO);
+            embeds.setAuthor("What is " + Global.B_NAME + "?", Global.B_DISCORD_BOT, null);
             embeds.setDescription(BOT_DES);
             embeds.setFooter("Request by " + e.getAuthor().getName() + "#" + e.getAuthor().getDiscriminator(), e.getAuthor().getEffectiveAvatarUrl());
             e.getChannel().sendMessage(embeds.build()).queue();

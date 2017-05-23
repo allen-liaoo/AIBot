@@ -7,7 +7,10 @@ package command.information;
 
 //Set to SUPPORT PRIVATE CHANNEL.
 
+import constants.Emoji;
 import constants.Global;
+import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.entities.User;
 import setting.Prefix;
 import command.Command;
 import java.awt.Color;
@@ -19,6 +22,11 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.Permission;
+import utility.UtilBot;
+import utility.UtilString;
+
+import javax.rmi.CORBA.Util;
+
 /**
  *
  * @author liaoyilin
@@ -28,9 +36,6 @@ public class InfoBotCommand extends Command{
     public final static String HELP = "This command is for getting this bot's information.\n"
                               + "Command Usage: `" + Prefix.getDefaultPrefix() + "botinfo` or `" + Prefix.getDefaultPrefix() + "bi`\n"
                               + "Parameter: `-h | null`";
-    private final EmbedBuilder embed = new EmbedBuilder();
-    private final EmbedBuilder embedinfo = new EmbedBuilder();
-    
 
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
@@ -50,64 +55,47 @@ public class InfoBotCommand extends Command{
         if(args.length == 0)
         {
             JDA bot = e.getJDA();
+            User user = bot.getSelfUser();
             
-            String id, name, nickname = "", dis, avatar, owner, game, join = "", register, perm, permString = "", roles;
+            String id, name, nickname, dis, avatar, owner, join, register, game, statusEmoji, status;
             
-            //Bot Information
+            // Identities
             name = bot.getSelfUser().getName();
-            dis = bot.getSelfUser().getDiscriminator();
-            
-            if(e.getChannelType() != e.getChannelType().PRIVATE)
-                nickname = e.getGuild().getSelfMember().getEffectiveName();
-            
+            nickname = e.isFromType(ChannelType.PRIVATE) ? "N/A" : e.getGuild().getSelfMember().getEffectiveName();
+            id = user.getId();
+            dis = user.getDiscriminator();
+
+            // Owner
             owner = bot.getUserById(Global.D_ID).getName();
-            avatar = bot.getSelfUser().getAvatarUrl();
-            id = bot.getSelfUser().getId();
-            register = bot.getSelfUser().getCreationTime().toString();
+            avatar = user.getEffectiveAvatarUrl();
+
+            // Time
+            register = UtilString.formatOffsetDateTime(user.getCreationTime());
+            join = e.isFromType(ChannelType.PRIVATE) ? "N/A" : UtilString.formatOffsetDateTime(e.getGuild().getSelfMember().getJoinDate());
             
-            if(e.getChannelType() != e.getChannelType().PRIVATE)
-                join = e.getGuild().getSelfMember().getJoinDate().toString();
-            
-            //Bot Status
+            // Status
             game = bot.getPresence().getGame().getName();
+            statusEmoji = UtilBot.getStatusEmoji(bot.getPresence().getStatus());
+            status = UtilString.VariableToString("_", bot.getPresence().getStatus().getKey());
+
+            EmbedBuilder embed = new EmbedBuilder()
+                .setAuthor(name, null, avatar)
+                .setColor(UtilBot.randomColor()).setThumbnail(avatar).setTimestamp(Instant.now())
+                .setFooter("Bot Info", Global.B_DISCORD_BOT);
             
-            //Bot /w Guild Global
-            if(e.getChannelType() != e.getChannelType().PRIVATE)
-            {
-                perm = e.getGuild().getSelfMember().getPermissions(e.getTextChannel()).toString();
-            
-                List<Permission> perms = e.getGuild().getSelfMember().getPermissions();
-                
-                for(Permission permP : perms) {
-                    permString += permP.getName() + ", ";
-                }
-                permString = permString.substring(0, permString.length()-2);
-            }
-            
-            embedinfo.setAuthor(name, null, Global.I_INFO);
-            embedinfo.setColor(Color.blue);
-            embedinfo.setThumbnail(avatar);
-            embedinfo.setTimestamp(Instant.now());
-            embedinfo.setFooter("AIBot Information", Global.B_DISCORD_BOT);
-            
-            embedinfo.addField("ID", id, true);
-            if(e.getChannelType() != e.getChannelType().PRIVATE)
-                embedinfo.addField("Nickname", nickname, true);
-            embedinfo.addField("Discriminator", dis, true);
-            embedinfo.addField("Owner", owner, true);
-            embedinfo.addField("game", game, true);
-            embedinfo.addField("Registered", register, true);
-            if(e.getChannelType() != e.getChannelType().PRIVATE)
-            {
-                embedinfo.addField("Joined", join, true);
-                embedinfo.addField("Permissions", permString, false);
-            }
-            
-            MessageEmbed mein = embedinfo.build();
-            e.getChannel().sendMessage(mein).queue();
-            embedinfo.clearFields();
+            embed.addField("Identity","Name `"+name+"` | Nickname `"+nickname+"`\n"+
+                "ID `"+id+"` | Discrim `#"+dis+"`\n", true);
+
+            embed.addField(Emoji.SPY + " Owner", owner, true);
+
+            embed.addField(Emoji.STOPWATCH+ " Time", "Register `"+register+"`\n"+
+                "Join `"+join+"`\n", true);
+
+            embed.addField("Status", Emoji.GAME+" `"+game+"`\n"
+                +statusEmoji+" `"+status+"`\n", true);
+
+            e.getChannel().sendMessage(embed.build()).queue();
         }
     }
-
     
 }

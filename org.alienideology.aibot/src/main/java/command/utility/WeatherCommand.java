@@ -40,7 +40,7 @@ public class WeatherCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Utility Module", null);
         embed.addField("Weather -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", Global.I_HELP);
+        embed.setFooter("Command Help/Usage", null);
         return embed;
     }
 
@@ -109,7 +109,7 @@ public class WeatherCommand extends Command{
                 
                 String EmojiCon = setConditionEmoji(concode);
                 
-                embedw.setAuthor("Weather of " + title, link, Global.I_INFO);
+                embedw.setAuthor("Weather of " + title, link, null);
                 embedw.setColor(Color.blue);
                 embedw.setThumbnail(null);
                 embedw.setTimestamp(Instant.now());

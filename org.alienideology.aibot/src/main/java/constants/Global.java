@@ -22,16 +22,10 @@ public class Global {
     //main
     public final static String VERSION = "[0.2.0]";
     
-    //Icon
-    public final static String I_INFO = "https://maxcdn.icons8.com/Share/icon/Very_Basic//info1600.png";
-    public final static String I_HELP = "https://maxcdn.icons8.com/Share/icon/Programming//help1600.png";
-    
     //Bot
     //-Bot Global
     public final static String B_NAME = "AIBot";
-    //AIBot.getSampleJDA().getSelfUser().getName()
     public final static String B_AVATAR = "https://images-ext-2.discordapp.net/eyJ1cmwiOiJodHRwczovL2Nkbi5kaXNjb3JkYXBwLmNvbS9hdmF0YXJzLzI5NDMyNzc4NTUxMjc2MzM5Mi82NGMxMDdmN2M4YzcwZjE0ZjcxOWViZDM5MDdmMTc3Ni5wbmcifQ.xxgV3xUCZ9WyxNl74WtlHVsEqgI";
-    //AIBot.getSampleJDA().getSelfUser().getEffectiveAvatarUrl()
     public final static String B_DISCRIMINATOR = "9987";
     public final static String B_ID = "294327785512763392";
     public final static int B_SHARDS = 1;
