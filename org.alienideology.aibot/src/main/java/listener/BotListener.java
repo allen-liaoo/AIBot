@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.ExceptionEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import utility.WebGetter;
 
 /**
  *
@@ -54,7 +55,7 @@ public class BotListener implements Runnable {
             
             //Test Commands
             else if(input.startsWith("test")) {
-                System.out.println("Test wot?");
+
             }
             
             //Presence

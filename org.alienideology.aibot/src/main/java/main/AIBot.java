@@ -66,7 +66,7 @@ public class AIBot {
         UtilBot.setUnirestCookie();
         musicStartup();
 
-        String token = PrivateConstant.BOT_TOKEN;
+        String token = PrivateConstant.BOT_BETA_TOKEN;
         isBeta = !token.equals(PrivateConstant.BOT_TOKEN);
 
         for(int i = 0; i < Global.B_SHARDS; i++)  {
@@ -229,8 +229,7 @@ public class AIBot {
         commands.put("emoji", new EmojiCommand());
         commands.put("emote", new EmojiCommand());
         commands.put("e", new EmojiCommand());
-        commands.put("weather", new WeatherCommand());
-        commands.put("w", new WeatherCommand());
+
         
         commands.put("search", new SearchCommand("search"));
         commands.put("google", new SearchCommand("google"));
@@ -250,6 +249,7 @@ public class AIBot {
         
         /* Fun Commands */
         commands.put("8ball", new EightBallCommand());
+        commands.put("ascii", new AsciiCommand());
         commands.put("face", new FaceCommand());
         commands.put("lenny", new FaceCommand());
         commands.put("f", new FaceCommand());

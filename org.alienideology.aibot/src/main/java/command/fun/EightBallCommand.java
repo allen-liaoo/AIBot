@@ -27,25 +27,20 @@ public class EightBallCommand extends Command{
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "8ball`\n"
                                     + "Parameter: `-h | question | null`";
 
-
     @Override
     public EmbedBuilder help(MessageReceivedEvent e) {
         EmbedBuilder embed = super.help(e);
-        embed.setTitle("Miscellaneous Module", null);
+        embed.setTitle("Fun Module", null);
         embed.addField("EightBall -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", null);
         return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
         
         String msg = e.getAuthor().getAsMention() + " " + Emoji.EIGHT_BALL + " " + eightball(e);
-        if(args.length > 0 && !"-h".equals(args[0]))
+
+        if(args.length > 0)
         {
             if(!e.getMessage().getContent().endsWith("?"))
             {

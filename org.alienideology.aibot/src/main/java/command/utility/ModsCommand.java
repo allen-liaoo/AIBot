@@ -75,16 +75,16 @@ public class ModsCommand extends Command {
     }
 
     private List<Member> sortByStatus(List<Member> members) {
-        Collections.sort(members, Comparator.comparing(Member::getOnlineStatus).thenComparing((o1, o2) -> {
-            if(o1.isOwner()) return -1;
+        members.sort(Comparator.comparing(Member::getOnlineStatus).thenComparing((o1, o2) -> {
+            if (o1.isOwner()) return -1;
             else if (o2.isOwner()) return 1;
-            if(!o1.getRoles().isEmpty() && !o2.getRoles().isEmpty())
+            if (!o1.getRoles().isEmpty() && !o2.getRoles().isEmpty())
                 return o1.getRoles().get(0).getPosition() > o2.getRoles().get(0).getPosition() ? -1 : (o1.getRoles().get(0).getPosition() < o2.getRoles().get(0).getPosition()) ? 1 : (o1.getEffectiveName().compareTo(o2.getEffectiveName()));
             else if (!o1.getRoles().isEmpty() && o2.getRoles().isEmpty())
                 return -1;
             else if (o1.getRoles().isEmpty() && !o2.getRoles().isEmpty())
                 return 1;
-            return o1.getEffectiveName().compareTo(o2.getEffectiveName());
+            return o2.getEffectiveName().compareTo(o1.getEffectiveName());
         }));
         return members;
     }

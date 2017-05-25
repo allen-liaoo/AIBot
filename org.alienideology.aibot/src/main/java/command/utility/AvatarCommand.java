@@ -33,7 +33,7 @@ public class AvatarCommand extends Command {
 
         User avatar = null;
 
-        if(args.length == 0) {      // Self
+        if(args.length == 0) {  // Self
             avatar = e.getAuthor();
         } else if(args[0].length() == 18) {  // ID (18 characters)
             avatar = e.getJDA().getUserById(args[0]);
@@ -43,7 +43,7 @@ public class AvatarCommand extends Command {
 
         if(avatar != null) {
             EmbedBuilder embed = new EmbedBuilder().setColor(UtilBot.randomColor())
-                .setDescription("**["+avatar.getName()+"#"+avatar.getDiscriminator()+"'s avatar](" + avatar.getEffectiveAvatarUrl() + ")**")
+                .setDescription("**["+avatar.getName()+"#"+avatar.getDiscriminator()+"](" + avatar.getEffectiveAvatarUrl() + ")'s Avatar:**")
                 .setImage(avatar.getEffectiveAvatarUrl());
 
             e.getChannel().sendMessage(embed.build()).queue();

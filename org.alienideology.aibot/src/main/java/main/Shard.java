@@ -82,8 +82,7 @@ public class Shard {
         return guilds;
     }
 
-    public GuildWrapper getGuild(Guild guild)
-    {
+    public GuildWrapper getGuild(Guild guild) {
         return guilds.get(guild.getId());
     }
 
