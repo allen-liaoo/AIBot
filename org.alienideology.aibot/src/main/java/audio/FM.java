@@ -88,13 +88,13 @@ public class FM {
                 String name = lib.get("name").toString();
 
                 /* Get songs in play lists */
-                InputStream stream= new FileInputStream(new File(FilePath.LP + name + ".json"));
+                InputStream stream = new FileInputStream(new File(FilePath.LP + name + ".json"));
                 JSONTokener tokener = new JSONTokener(stream);
                 JSONArray array2 = new JSONArray(tokener);
 
                 List<String> songs = new ArrayList<>();
                 for(int j = 0; j < array2.length(); j ++) {
-                    JSONObject jo = array2.getJSONObject(i);
+                    JSONObject jo = array2.getJSONObject(j);
                     songs.add("https://www.youtube.com/watch?v=" + jo.get("id").toString());
                 }
                 local.add(new PlayList(name, songs));

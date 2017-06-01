@@ -74,7 +74,7 @@ public class GuildWrapper {
     return guild;
   }
 
-  /**
+    /**
      * @return Wrapper around AudioPlayer to use it as an AudioSendHandler.
      */
     public AudioPlayerSendHandler getSendHandler() 
@@ -82,8 +82,7 @@ public class GuildWrapper {
       return new AudioPlayerSendHandler(player);
     }
 
-    public GuildPlayer getGuildPlayer()
-    {
+    public GuildPlayer getGuildPlayer() {
         return guildPlayer;
     }
 

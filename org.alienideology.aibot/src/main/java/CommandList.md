@@ -56,6 +56,7 @@
 ## Fun Commands
 [Fun Commands Description](command/fun/FunCommands.md) <br />
 - 8ball - Ask the magic 8ball a question. *
+- Ascii - Turn plain text to Ascii Art. *
 - face - Lenny * 
 - spam - Spam yummy spams! *
 - game - Play a game. 

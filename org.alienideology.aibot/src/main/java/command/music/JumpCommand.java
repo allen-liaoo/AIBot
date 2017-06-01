@@ -57,7 +57,7 @@ public class JumpCommand extends Command {
      */
     public void jump(String[] args, MessageReceivedEvent e, GuildPlayer player)
     {
-        String requester = player.getNowPlayingTrack().getRequester();
+        String requester = player.getNowPlayingTrack().getRequester().toString();
 
         if((requester != null && requester.equals(e.getAuthor().getId())) ||
                 UtilBot.isMajority(e.getMember()) ||

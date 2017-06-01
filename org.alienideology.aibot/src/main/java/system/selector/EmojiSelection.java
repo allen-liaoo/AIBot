@@ -9,6 +9,7 @@ package system.selector;
 
 import java.util.List;
 
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.GenericMessageEvent;
@@ -46,15 +47,16 @@ public abstract class EmojiSelection extends AISelector {
     public boolean isSelection(GenericMessageEvent event) {
         if(event instanceof MessageReactionAddEvent) {
             MessageReactionAddEvent e = (MessageReactionAddEvent) event;
-            if (!isSameAuthor(e.getMember()) || !isSamePlace(e.getGuild(), e.getTextChannel()))
-                return false;
-            if (!e.getMessageId().equals(this.getMessage().getId()))
-                return false;
-            if (e.getReaction().isSelf())
-                return false;
-            for (String unicode : option) {
-                if (e.getReaction().getEmote().getName().equals(unicode))
-                    return true;
+            if (e.isFromType(ChannelType.PRIVATE)) {
+                return option.contains(e.getReaction().getEmote().getName());
+            } else {
+                if (!isSameAuthor(e.getMember()) || !isSamePlace(e.getGuild(), e.getTextChannel()))
+                    return false;
+                if (!e.getMessageId().equals(this.getMessage().getId()))
+                    return false;
+                if (e.getReaction().isSelf())
+                    return false;
+                return option.contains(e.getReaction().getEmote().getName());
             }
         }
         return false;

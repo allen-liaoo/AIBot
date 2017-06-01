@@ -43,18 +43,12 @@ public class HelpCommand extends Command {
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("Help -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", null);
         return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
         AILogger.commandLog(e, this.getClass().getName(), "Triggered!");
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
         //Default
         if(args.length == 0 || args.length == 1 && Character.isDigit(args[0].charAt(0))) //Parameter null
         {
@@ -153,8 +147,13 @@ public class HelpCommand extends Command {
     
     public static EmbedBuilder helpText(MessageReceivedEvent e, int page)
     {
-        EmbedBuilder embed = new EmbedBuilder();
-        embed.setDescription("**There are more commands! Do `=help 1, 2, 3, or 4`**");
+        EmbedBuilder embed = new EmbedBuilder()
+            .setAuthor("AIBot command List | Page " + page, Global.B_GITHUB, null)
+            .setDescription("**There are more commands! Do `=help 1, 2, 3, or 4`**")
+            .setColor(Global.B_COLOR)
+            .setThumbnail(e.getJDA().getSelfUser().getAvatarUrl())
+            .setTimestamp(Instant.now())
+            .setFooter("Commands List", null);
         
         //Assign fields to a certain page
         switch (page) {
@@ -166,8 +165,8 @@ public class HelpCommand extends Command {
                 embed.addField("Fun Module", HelpText.FUN_CMD, true);
                 embed.addField("Description", HelpText.FUN_DES, true);
 
-                embed.addField("Music Module", HelpText.MUSIC_CMD, true);
-                embed.addField("Description", HelpText.MUSIC_DES, true);
+                embed.addField("Moderation Module", HelpText.MOD_CMD, true);
+                embed.addField("Description", HelpText.MOD_DES, true);
                 break;
             case 4:
                 embed.addField("Restricted Module", HelpText.RESTRICT_CMD, true);
@@ -180,17 +179,11 @@ public class HelpCommand extends Command {
                 page = 1;
                 embed.addField("Information Module", HelpText.INFO_CMD, true);
                 embed.addField("Description", HelpText.INFO_DES, true);
-                
-                embed.addField("Moderation Module", HelpText.MOD_CMD, true);
-                embed.addField("Description", HelpText.MOD_DES, true);
+
+                embed.addField("Music Module", HelpText.MUSIC_CMD, true);
+                embed.addField("Description", HelpText.MUSIC_DES, true);
                 break;
         }
-        
-        embed.setColor(UtilBot.randomColor());
-        embed.setAuthor("AIBot command List | Page " + page, Global.B_GITHUB, null);
-        embed.setThumbnail(e.getJDA().getSelfUser().getAvatarUrl());
-        embed.setTimestamp(Instant.now());
-        embed.setFooter("Commands List", null);
         
         return embed;
     }
@@ -202,7 +195,7 @@ public class HelpCommand extends Command {
         } else {
             EmbedBuilder embed = new EmbedBuilder()
                 .setFooter("Module Help/Usage", null)
-                .setColor(Color.RED)
+                .setColor(Global.B_COLOR)
                 .setTimestamp(Instant.now());
             String name = "", des = "";
 

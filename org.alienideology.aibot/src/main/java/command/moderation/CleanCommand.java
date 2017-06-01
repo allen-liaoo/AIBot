@@ -12,6 +12,7 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -40,40 +41,45 @@ public class CleanCommand extends Command {
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
         TextChannel tc = e.getTextChannel();
-        if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-            tc.sendMessage(Emoji.ERROR + " I do not have the `Manage Message` and `Message History` Permission!").queue();
-            return;
-        } else if (!e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
-            tc.sendMessage(Emoji.ERROR + " You need to have the `Manage Message` and `Message History` Permission!").queue();
-            return;
-        }
+        if (args.length == 0) {
 
-        try {
-            if (args.length == 0) {
-                deleteMemberMessage(tc, e.getJDA().getSelfUser());
-            } else if ("bot".equals(args[0])) {
-                deleteBotMessage(tc);
-            } else if ("chat".equals(args[0])) {
-                String msg = "";
-                for (int i = 0; i < 100; i++) {
-                    msg += Emoji.Unicode.zero_width + "\n\n";
-                }
-                e.getChannel().sendMessage("Hold on..." + msg).queue();
-            } else {
-                List<User> users = e.getMessage().getMentionedUsers();
-                deleteMemberMessage(tc, users.toArray(new User[users.size()]));
+            deleteMemberMessage(tc, e.getJDA().getSelfUser());
 
-                List<Role> roles = e.getMessage().getMentionedRoles();
-                deleteRoleMessage(tc, roles.toArray(new Role[roles.size()]));
+        } else if ("chat".equals(args[0])) {
+            String msg = "";
+            for (int i = 0; i < 100; i++) {
+                msg += Emoji.Unicode.zero_width + "\n\n";
             }
-        } catch (IllegalArgumentException lae) {
-            tc.sendMessage(Emoji.ERROR + " Looks like there is no message to delete...").queue();
+            e.getChannel().sendMessage("Hold on..." + msg).queue();
+        } else {
+            if (!e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+                tc.sendMessage(Emoji.ERROR + " I do not have the `Manage Message` and `Message History` Permission!").queue();
+                return;
+            } else if (!e.getMember().hasPermission(e.getTextChannel(), Permission.MESSAGE_MANAGE)) {
+                tc.sendMessage(Emoji.ERROR + " You need to have the `Manage Message` and `Message History` Permission!").queue();
+                return;
+            }
+
+            try {
+                if ("bot".equals(args[0])) {
+                    deleteBotMessage(tc);
+                } else {
+                    List<User> users = e.getMessage().getMentionedUsers();
+                    deleteMemberMessage(tc, users.toArray(new User[users.size()]));
+
+                    List<Role> roles = e.getMessage().getMentionedRoles();
+                    deleteRoleMessage(tc, roles.toArray(new Role[roles.size()]));
+                }
+            } catch (IllegalArgumentException lae) {
+                tc.sendMessage(Emoji.ERROR + " Looks like there is no message to delete...").queue();
+                return;
+            }
+            e.getMessage().delete().queueAfter(5, TimeUnit.SECONDS);
         }
     }
 
     private void deleteMemberMessage(TextChannel tc, User... users)
     {
-        if(users.length==0) return;
         List<Message> messages = new ArrayList<>();
         for (User user : users) {
             List<Message> newMsg = tc.getIterableHistory()
@@ -89,13 +95,12 @@ public class CleanCommand extends Command {
         int size = messages.size();
 
         tc.deleteMessages(messages).queue(
-                success -> tc.sendMessage(Emoji.SUCCESS + " Cleaned up " + size + " message(s) from " + users.length + " member(s).").queue()
+                success -> tc.sendMessage(Emoji.SUCCESS + " Cleaned up " + size + " message(s) from " + users.length + " member(s).").queue(msg -> msg.delete().queueAfter(5, TimeUnit.SECONDS))
         );
     }
 
     private void deleteRoleMessage(TextChannel tc, Role... roles)
     {
-        if(roles.length==0) return;
         List<Message> messages;
         messages = new ArrayList<>();
         for (Role role : roles) {
@@ -112,7 +117,7 @@ public class CleanCommand extends Command {
         messages = messages.size() > 100 ? messages.subList(0, 100) : messages;
         int size = messages.size();
         tc.deleteMessages(messages).queue(
-                success -> tc.sendMessage(Emoji.SUCCESS + " Cleaned up " + size + " message(s) from " + roles.length + " role(s).").queue()
+                success -> tc.sendMessage(Emoji.SUCCESS + " Cleaned up " + size + " message(s) from " + roles.length + " role(s).").queue(msg -> msg.delete().queueAfter(5, TimeUnit.SECONDS))
         );
     }
 
@@ -129,7 +134,7 @@ public class CleanCommand extends Command {
         int size = messages.size();
 
         tc.deleteMessages(messages).queue(
-                success -> tc.sendMessage(Emoji.SUCCESS + " Cleaned up "+size+" message(s) from bots.").queue()
+                success -> tc.sendMessage(Emoji.SUCCESS + " Cleaned up "+size+" message(s) from bots.").queue(msg -> msg.delete().queueAfter(5, TimeUnit.SECONDS))
         );
     }
 

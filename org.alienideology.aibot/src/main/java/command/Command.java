@@ -5,12 +5,11 @@
  */
 package command;
 
-import constants.Global;
 import java.awt.Color;
 import java.time.Instant;
 
+import constants.Global;
 import net.dv8tion.jda.core.EmbedBuilder;
-
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -25,15 +24,14 @@ public abstract class Command {
      * @return the net.dv8tion.jda.core.EmbedBuilder
      */
     public EmbedBuilder help(MessageReceivedEvent e) {
-        EmbedBuilder embed = new EmbedBuilder();
-        embed.setColor(Color.red);
-        embed.setTimestamp(Instant.now());
-        embed.setFooter("Command Help/Usage",null);
-        return embed;
+        return (new EmbedBuilder()
+            .setColor(Global.B_COLOR)
+            .setTimestamp(Instant.now())
+            .setFooter("Command Help/Usage",null));
     }
     
     /**
-     * command Responses and actions
+     * Command Responses and actions
      * @param args
      * @param e
      */

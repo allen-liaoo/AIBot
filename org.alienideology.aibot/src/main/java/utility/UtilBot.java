@@ -10,6 +10,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import main.AIBot;
 import net.dv8tion.jda.core.*;
 import net.dv8tion.jda.core.entities.*;
+import org.json.JSONException;
 import org.json.XML;
 import system.AILogger;
 import constants.Global;
@@ -296,12 +297,9 @@ public class UtilBot {
      */
     public static Color randomColor() {
         Random colorpicker = new Random();
-        int red;
-        int green;
-        int blue;
-        red = colorpicker.nextInt(255) + 1;
-        green = colorpicker.nextInt(255) + 1;
-        blue = colorpicker.nextInt(255) + 1;
+        int red = colorpicker.nextInt(255) + 1;
+        int green = colorpicker.nextInt(255) + 1;
+        int blue = colorpicker.nextInt(255) + 1;
         return new Color(red, green, blue);
     }
     
@@ -323,7 +321,8 @@ public class UtilBot {
         try {
             verson.append(XML.toJSONObject(Unirest.get("https://dl.bintray.com/sedmelluq/com.sedmelluq/com/sedmelluq/lavaplayer/maven-metadata.xml").asString().getBody()).getJSONObject("metadata")
                     .getJSONObject("versioning").getString("release")).append("`");
-        } catch (UnirestException e) {
+        } catch (UnirestException | JSONException e) {
+            verson.append("Unknown`");
             e.printStackTrace();
         }
         return verson.toString();

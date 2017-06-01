@@ -1,5 +1,7 @@
 package command.utility;
 
+import main.AIBot;
+import net.dv8tion.jda.core.entities.Guild;
 import system.AIPages;
 import system.selector.EmojiSelection;
 import command.Command;
@@ -13,10 +15,8 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by liaoyilin on 4/30/17.
@@ -41,8 +41,6 @@ public class DiscrimCommand extends Command {
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        List<Member> members = e.getGuild().getMembers();
-        List<String> discrim = new ArrayList<>();
 
         String target = parseId(args, e);
 
@@ -52,9 +50,12 @@ public class DiscrimCommand extends Command {
             return;
         }
 
-        for(Member mem : members) {
-            if(target.equals(mem.getUser().getDiscriminator()))
-                discrim.add(mem.getEffectiveName()+"#"+mem.getUser().getDiscriminator());
+        List<User> users = getGlobalUserList();
+        List<String> discrim = new ArrayList<>();
+
+        for(User u : users) {
+            if(target.equals(u.getDiscriminator()))
+                discrim.add(u.getName()+"#"+u.getDiscriminator());
         }
 
         //Parse the page
@@ -87,7 +88,12 @@ public class DiscrimCommand extends Command {
         return target;
     }
 
-    private final void listDiscrim(MessageReceivedEvent e, List<String> discrim, String target, int page){
+    private List<User> getGlobalUserList() {
+        return AIBot.getGuilds().stream().flatMap(g -> g.getJDA().getUsers().stream()).distinct().collect(Collectors.toList());
+    }
+
+    @SuppressWarnings("unchecked")
+    private void listDiscrim(MessageReceivedEvent e, List<String> discrim, String target, int page){
         try {
             AIPages pages = new AIPages(discrim, 10);
 

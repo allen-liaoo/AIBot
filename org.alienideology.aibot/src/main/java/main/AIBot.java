@@ -69,7 +69,7 @@ public class AIBot {
         String token = PrivateConstant.BOT_BETA_TOKEN;
         isBeta = !token.equals(PrivateConstant.BOT_TOKEN);
 
-        for(int i = 0; i < Global.B_SHARDS; i++)  {
+        for(int i = 0; i < Global.B_SHARDS; i++) {
             shards.add(new Shard(i, token));
             System.out.println("Shard added: "+i);
         }

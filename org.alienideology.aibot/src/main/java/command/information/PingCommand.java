@@ -46,9 +46,9 @@ public class PingCommand extends Command {
         if(args.length == 0) 
         {
             long time = System.currentTimeMillis();
-            String respond = Emoji.PING + " Pong.\n";
+            String respond = Emoji.PING + " Pong.";
             e.getChannel().sendMessage(respond).queue((Message m) ->
-                    m.editMessage(respond+"Current ping `%d` ms", System.currentTimeMillis() - time).queue());
+                    m.editMessageFormat(respond+" `%d` ms.\n"+Emoji.HEART_BEAT+" Tump. `%d` ms.", System.currentTimeMillis() - time, e.getJDA().getPing()).queue());
         }
     }
 

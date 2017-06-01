@@ -4,7 +4,7 @@
  * CommandParser
  * Parsing commands that start with prefix, mention, or no prefix(in Private Channel)
  */
-package main;
+package command;
 
 import setting.Prefix;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -34,11 +34,11 @@ public class CommandParser {
         else if(raw.startsWith("@" + e.getGuild().getSelfMember().getEffectiveName())) 
             beheaded = raw.replace("@" + e.getGuild().getSelfMember().getEffectiveName() + " ", "");
         
-        String[] splitBeheaded = beheaded.split(" ");
+        String[] splitBeheaded = beheaded.split("\\s+");
         
         split.addAll(Arrays.asList(splitBeheaded));
         
-        String invoke = split.get(0);
+        String invoke = split.get(0).toLowerCase();
         String[] args = new String[split.size() - 1];
         split.subList(1, split.size()).toArray(args);
         
@@ -63,7 +63,7 @@ public class CommandParser {
         else
             beheaded = raw;
         
-        String[] splitBeheaded = beheaded.split(" ");
+        String[] splitBeheaded = beheaded.split("\\s+");
         
         split.addAll(Arrays.asList(splitBeheaded));
         
@@ -81,7 +81,7 @@ public class CommandParser {
      * @return
      */
     public String[] parseRespond(String rw, MessageReceivedEvent e) {
-        String[] split = rw.split(" ");
+        String[] split = rw.split("\\s+");
         String[] splitted = new String[2];
         splitted[0] = split[0];
         splitted[1] = "";

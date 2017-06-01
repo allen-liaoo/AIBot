@@ -5,6 +5,14 @@ Command Usage: =8ball
 Parameter: -h | question | null
 ```
 
+- Ascii - Turn plain text to Ascii Art. *
+```Turn plain text into Ascii Arts!
+Command Usage: ascii
+Parameter: -h | [Text] | null
+[Text]: The text to turn into ascii art. Fonts are chosen at random.
+null: Get a list of ascii fonts.
+```
+
 - face - Lenny * 
 ```This command is for... ( ͡° ͜ʖ ͡°)
 Command Usage: =face or =lenny or =f

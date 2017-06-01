@@ -3,7 +3,6 @@ package command.information;
 import command.Command;
 import constants.Emoji;
 import net.dv8tion.jda.core.entities.TextChannel;
-import utility.UtilBot;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
@@ -65,19 +64,19 @@ public class PermCommand extends Command {
         
         for(Permission perm : Permission.values()) {
             if(mem.hasPermission(perm)) {
-                message.append(Emoji.GREEN_TICK);
+                message.append(Emoji.CHECK);
                 message.append(perm.getName()).append("\n");
             } else {
                 List<TextChannel> channels = e.getGuild().getTextChannels();
                 for (TextChannel channel : channels) {
                     if(mem.hasPermission(channel, perm)) {
-                        message.append(Emoji.GREEN_TICK).append(perm.getName()).append(" (In channel: ")
+                        message.append(Emoji.CHECK).append(perm.getName()).append(" (In channel: ")
                                 .append(channel.getAsMention()).append(")\n");
                         break;
                     }
 
                     if (channel.getId().equals(channels.get(channels.size()-1).getId())) {  // Last text channel
-                        message.append(Emoji.RED_TICK).append(perm.getName()).append("\n");
+                        message.append(Emoji.UNCHECK).append(perm.getName()).append("\n");
                     }
                 }
             }
@@ -92,18 +91,18 @@ public class PermCommand extends Command {
         
         for(Permission perm : Permission.values()) {
             if(role.hasPermission(perm)) {
-                message.append(Emoji.GREEN_TICK).append(perm.getName()).append("\n");
+                message.append(Emoji.CHECK).append(perm.getName()).append("\n");
             } else {
                 List<TextChannel> channels = e.getGuild().getTextChannels();
                 for (TextChannel channel : channels) {
                     if(role.hasPermission(channel, perm)) {
-                        message.append(Emoji.GREEN_TICK).append(perm.getName()).append(" (In channel: ")
+                        message.append(Emoji.CHECK).append(perm.getName()).append(" (In channel: ")
                                 .append(channel.getAsMention()).append(")\n");
                         break;
                     }
 
                     if (channel.getId().equals(channels.get(channels.size()-1).getId())) {  // Last text channel
-                        message.append(Emoji.RED_TICK).append(perm.getName()).append("\n");
+                        message.append(Emoji.UNCHECK).append(perm.getName()).append("\n");
                     }
                 }
             }

@@ -110,7 +110,7 @@ public class InfoServerCommand extends Command{
 
             EmbedBuilder embed = new EmbedBuilder()
                 .setAuthor(name, null, null).setColor(Color.blue).setThumbnail(icon).setTimestamp(Instant.now())
-                .setFooter("Server Information", null);
+                .setFooter("Server Info", null);
             
             embed.addField("ID", id, true);
             embed.addField("Owner", owner, true);

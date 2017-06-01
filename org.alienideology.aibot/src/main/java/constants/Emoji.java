@@ -14,7 +14,7 @@ import com.vdurmont.emoji.*;
  */
 public class Emoji {
     
-    //General
+    /* General */
     public final static String SUCCESS = EmojiParser.parseToUnicode(":white_check_mark:");
     public final static String ERROR = EmojiParser.parseToUnicode(":fire:");
     public final static String YES = EmojiParser.parseToUnicode(":o:");
@@ -29,11 +29,11 @@ public class Emoji {
     public final static String INFORMATION = EmojiParser.parseToUnicode(":information_source:");
     public final static String BAN = EmojiParser.parseToUnicode(":hammer:");
     
-    //-Faces
+    /* Faces */
     public final static String FACE_TONGUE = EmojiParser.parseToUnicode(":stuck_out_tongue:");
     public final static String FACE_BLUSH = EmojiParser.parseToUnicode(":blush:");
 
-    //-Hand
+    /* Hand */
     public final static String HAND_OK = EmojiParser.parseToUnicode(":ok_hand:");
     public final static String HAND_WAVE = EmojiParser.parseToUnicode(":wave:");
     public final static String HAND_RAISE = EmojiParser.parseToUnicode(":raised_hand:");
@@ -47,7 +47,7 @@ public class Emoji {
     public final static String POINT_RIGHT = EmojiParser.parseToUnicode(":point_right:");
     public final static String PRAY = EmojiParser.parseToUnicode(":pray:");
     
-    //-Numbers
+    /* Numbers */
     public final static String ONE = EmojiParser.parseToUnicode(":one:");
     public final static String TWO = EmojiParser.parseToUnicode(":two:");
     public final static String THREE = EmojiParser.parseToUnicode(":three:");
@@ -60,9 +60,10 @@ public class Emoji {
     public final static String ZERO = EmojiParser.parseToUnicode(":zero:");
     public final static String HUNDRED = EmojiParser.parseToUnicode(":100:");
     
-    //Information Commands
+    /* Information Commands */
     public final static String ENVELOPE = EmojiParser.parseToUnicode(":incoming_envelope:");
     public final static String PING = EmojiParser.parseToUnicode(":ping_pong:");
+    public final static String HEART_BEAT = EmojiParser.parseToUnicode(":heartbeat:");
     public final static String STOPWATCH = EmojiParser.parseToUnicode(":stopwatch:");
     public final static String STATUS = EmojiParser.parseToUnicode(":vertical_traffic_light:");
     public final static String STATISTIC = EmojiParser.parseToUnicode(":bar_chart:");
@@ -71,16 +72,16 @@ public class Emoji {
     public final static String TEXT = EmojiParser.parseToUnicode(":speech_balloon:");
     public final static String SPY = EmojiParser.parseToUnicode(":spy:");
     
-    //utility Commands
-    //-NumberCommand
+    /* Utility Commands */
+    /* NumberCommand */
     public final static String NUMBER = EmojiParser.parseToUnicode(":1234:");
     public final static String PRINT = EmojiParser.parseToUnicode(":printer:");
     public final static String ROLL = EmojiParser.parseToUnicode(":game_die:");
     
-    //-WeatherCommand
+    /* WeatherCommand */
     public final static String TEMP = EmojiParser.parseToUnicode(":thermometer:");
     public final static String WIND = EmojiParser.parseToUnicode(":dash:");
-    //--Condition
+    /* Condition */
     public final static String SUNNY = EmojiParser.parseToUnicode(":sunny:");
     public final static String CLOUD = EmojiParser.parseToUnicode(":cloud:");
     public final static String CLOUD_PART = EmojiParser.parseToUnicode(":white_sun_small_cloud:");
@@ -95,7 +96,7 @@ public class Emoji {
     public final static String SWEAT = EmojiParser.parseToUnicode(":sweat:");
     public final static String PRESS = EmojiParser.parseToUnicode(":compression:");
     public final static String EYES = EmojiParser.parseToUnicode(":eyes:");
-    //-EmojiCommmand
+    /* EmojiCommmand */
     public final static String ABC = EmojiParser.parseToUnicode(":abc:");
     public final static String ABCD = EmojiParser.parseToUnicode(":abcd:");
     public final static String VS = EmojiParser.parseToUnicode(":vs:");
@@ -114,9 +115,9 @@ public class Emoji {
     public final static String MARK_DEVIDE_SIGN = EmojiParser.parseToUnicode(":heavy_division_sign:");
     public final static String DOT = EmojiParser.parseToUnicode(":black_circle_for_record:");
     
-    //-SearchCommand
+    /* SearchCommand */
     public static String SEARCH = EmojiParser.parseToUnicode(":mag:");
-    //--IMDbCommand
+    /* IMDbCommand */
     public final static String FILM_PROJECTOR = EmojiParser.parseToUnicode(":film_projector:");
     public final static String FILM_FRAMES = EmojiParser.parseToUnicode(":film_frames:");
     public final static String DATE = EmojiParser.parseToUnicode(":date:");
@@ -125,7 +126,7 @@ public class Emoji {
     public final static String TROPHY = EmojiParser.parseToUnicode(":trophy:");
     public final static String BOOK = EmojiParser.parseToUnicode(":book:");
     
-    //Music
+    /* Music */
     public final static String MUSIC = EmojiParser.parseToUnicode(":musical_keyboard:");
     public final static String PLAYER = EmojiParser.parseToUnicode(":black_right_pointing_triangle_with_double_vertical_bar:");
     public final static String GLOBE = EmojiParser.parseToUnicode(":globe_with_meridians:");
@@ -146,26 +147,27 @@ public class Emoji {
     public final static String SHUFFLE = EmojiParser.parseToUnicode(":twisted_rightwards_arrows:");
     public final static String STOP = EmojiParser.parseToUnicode(":black_square_for_stop:");
     
-    //Fun
-    //-Game
+    /* Fun */
+    /* Game */
     public final static String GAME = EmojiParser.parseToUnicode(":video_game:");
     public final static String HANGED_FACE = EmojiParser.parseToUnicode(":confounded:");
     public final static String EIGHT_BALL = EmojiParser.parseToUnicode(":8ball:");
-    //--RPSCommand
+    /* RPSCommand */
     public final static String ROCK = EmojiParser.parseToUnicode(":last_quarter_moon:");
     public final static String PAPER = EmojiParser.parseToUnicode(":rolled_up_newspaper:");
     public final static String SCISSORS = EmojiParser.parseToUnicode(":scissors:");
     public final static String TIE = EmojiParser.parseToUnicode(":necktie:");
     
-    //Global Server Emojis
-    public final static String GUILD_ONLINE = EmojiParser.parseToUnicode("<:vpOnline:212789758110334977>");
-    public final static String GUILD_IDLE = EmojiParser.parseToUnicode("<:vpAway:212789859071426561>");
-    public final static String GUILD_DND = EmojiParser.parseToUnicode("<:vpDnD:236744731088912384>");
-    public final static String GUILD_OFFLINE = EmojiParser.parseToUnicode("<:vpOffline:212790005943369728>");
-    public final static String GUILD_STREAMING = EmojiParser.parseToUnicode("<:vpStreaming:212789640799846400>");
+    /* Server Emotes */
+    public final static String GUILD_ONLINE = "<:online:313956277808005120>";
+    public final static String GUILD_IDLE = "<:away:313956277220802560>";
+    public final static String GUILD_DND = "<:dnd:313956276893646850>";
+    public final static String GUILD_OFFLINE = "<:offline:313956277237710868>";
+    public final static String GUILD_STREAMING = "<:streaming:313956277132853248>";
     
-    public final static String GREEN_TICK = EmojiParser.parseToUnicode("<:vpGreenTick:257437292820561920>");
-    public final static String RED_TICK = EmojiParser.parseToUnicode("<:vpRedTick:257437215615877129>");
+    public final static String CHECK = "<:check:314349398811475968>";
+    public final static String UNCHECK = "<:xmark:314349398824058880>";
+    public final static String NOCHECK = "<:empty:314349398723264512>";
 
     public class Unicode {
         public final static String zero_width = "\u200B";

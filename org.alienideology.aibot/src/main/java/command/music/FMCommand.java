@@ -8,6 +8,8 @@
 package command.music;
 
 import audio.FM;
+import audio.GuildPlayer;
+import audio.Music;
 import command.Command;
 import constants.Emoji;
 import constants.Global;
@@ -43,11 +45,6 @@ public class FMCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
         if(args.length == 0)
         {
             List<FM.PlayList> discordFM = AIBot.fm.getDiscordFM();
@@ -68,7 +65,7 @@ public class FMCommand extends Command{
                     .setAuthor("AIBot FM", FM.FM_base_url, Global.B_AVATAR)
                     .setDescription("Usage: `" + Prefix.DIF_PREFIX + "fm [Playlist Name]`\n")
                     .addField("Discord FM", dfm, true)
-                    .addField("Local Playlists", localLib, true)
+                    .addField("Local Play Lists", localLib, true)
                     .setThumbnail(Global.B_AVATAR)
                     .setFooter("Requested by " + e.getAuthor().getName(), e.getAuthor().getEffectiveAvatarUrl());
             e.getChannel().sendMessage(embedpl.build()).queue();
@@ -77,16 +74,13 @@ public class FMCommand extends Command{
         else if(args.length > 0)
         {
             /* Temporarily disable FM */
-            e.getChannel().sendMessage(Emoji.PRAY + " Sorry, we are having some technical issues with FM feature. "
-                    + "Fixing soon!").queue();
-            return;
-            /*
+            /*e.getChannel().sendMessage(Emoji.PRAY + " Sorry, we are having some technical issues with FM feature. "
+                    + "Fixing soon!").queue();*/
             GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
             player.setTc(e.getTextChannel());
             String input = "";
             for(int i = 0; i < args.length; i++) {
-                if(i == 0)
-                    input += i == 0 ? args[i] : " " + args[i];
+                input += i == 0 ? args[i] : " " + args[i];
             }
             
             FM.PlayList pl = AIBot.fm.getSongs(input);
@@ -99,7 +93,7 @@ public class FMCommand extends Command{
 
                 Music.connect(e, false);
                 player.autoFM();
-            }*/
+            }
         }
     }
     

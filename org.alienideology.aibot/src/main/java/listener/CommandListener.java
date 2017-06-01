@@ -7,6 +7,7 @@
  */
 package listener;
 
+import command.CommandParser;
 import setting.Prefix;
 import main.*;
 
@@ -92,17 +93,22 @@ public class CommandListener extends ListenerAdapter {
                     //Help message
                     if(cmd.args.length > 0 && cmd.args[0].equals("-h")) {
                         e.getChannel().sendMessage(commands.get(cmd.invoke).help(e).build()).queue();
-                        return;
+                    } else {
+                        commands.get(cmd.invoke).action(cmd.args, e);
                     }
-                    commands.get(cmd.invoke).action(cmd.args, e);
                 } catch (NullPointerException npe) {
-                    if(e.isFromType(ChannelType.PRIVATE))
+
+                    if(e.isFromType(ChannelType.PRIVATE)) {
                         e.getPrivateChannel().sendMessage(Emoji.ERROR + " This command is not supported in DM.").queue();
-                    else
+                    } else {
                         throw npe;
+                    }
+
                 } catch (PermissionException pe) {
+
                     e.getChannel().sendMessage(Emoji.ERROR + " I need the following permission to the command!\n"
                         +"`"+pe.getPermission().getName()+"`").queue();
+
                 } catch (ErrorResponseException ere) {
                     if(!AILogger.errorResponseHandler(ere,e))
                         throw ere;

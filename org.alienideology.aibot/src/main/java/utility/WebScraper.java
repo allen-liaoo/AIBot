@@ -7,95 +7,57 @@
 package utility;
 
 import constants.Emoji;
-import constants.Global;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import net.dv8tion.jda.core.EmbedBuilder;
-import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
-import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
+import org.apache.commons.lang3.StringEscapeUtils;
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
- *
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class WebScraper {
-    
-    private final static Pattern lyricsPattern = Pattern.compile("(?<=<p>)(?s)(.*?)(?=<\\/p>)");
-    
+
     /**
      * Lyrics getter from Genius.com
-     * @param input the value of lyrics URI, works with Search.lyricsSearch
+     *
+     * @param link the value of lyrics URI, works with Search.lyricsSearch
      * @throws IOException
-     * @throws HttpStatusException
      */
-    public static String[] getSongLyrics(String input) throws IOException, HttpStatusException {
-        List<String> lyrics = new ArrayList<String>();
-        String lyricsURL = Global.LYRICSURL + input.substring(0, 1).toUpperCase() + input.substring(1).replace(" ", "-").toLowerCase();
-        Document doc = Jsoup.connect(input).get();
-        
-        int count = 0;
-        Element p = doc.select(".lyrics").select("p").get(0);
+    public static String getLyrics(String link) throws IOException {
+        Document doc = Jsoup.connect(link).get();
+        String html = doc.select("div.lyrics").html();
+        Matcher matcher = Pattern.compile("(?<=<p>)(?s)(.+)(?=<\\/p>)").matcher(html);
 
-        doc.select("br").append("");
-        for (Node e : p.childNodes()) {
-            if (e.hasAttr("data-id")) {
-                Element el = p.select("[data-id]").get(count);
-                for (Node en : el.childNodes()) {
-                    lyrics.add(en.toString());
-                    if (e instanceof TextNode) {
-                        lyrics.add(((TextNode) e).getWholeText());
-                    }
-                }
-                count++;
-            }
-            if (e instanceof TextNode) {
-                lyrics.add(((TextNode) e).getWholeText());
-            }
+        String result = "";
+        if (matcher.find()) {
+            result = matcher.group()
+                    .replaceAll("<br>", "\n") // Line Break
+                    .replaceAll("(?s)<.*?>", "") // Remove html elements
+                    .replaceAll("(?m)(^\\s)", "") // Remove empty space at start of the line
+                    .replaceAll("\n\n", "\n"); // Remove two line breaks
         }
-
-        //Cleanup lyrics
-        String[] lyricsText = new String[lyrics.size()];
-        for (int i = 0; i < lyricsText.length; i++) {
-            //Ignore line breaks
-            if (lyrics.get(i).equals("<br>")) {
-                lyricsText[i] = "\n";
-            } else {
-                lyricsText[i] = lyrics.get(i);
-            }
-            //Delete <i> / </i> nodes, multiple lines breaks
-            lyricsText[i] = lyricsText[i].replaceAll("<i>", "");
-            lyricsText[i] = lyricsText[i].replaceAll("</i>", "");
-            //lyricsText[i] = lyricsText[i].replaceAll("[\r\n]+", "\n");
-            //Align the texts by deleting " " infront of the line, if any
-            if (lyricsText[i].startsWith(" ")) {
-                lyricsText[i] = lyricsText[i].replaceFirst(" ", "");
-            }
-        }
-
-        return lyricsText;
+        return StringEscapeUtils.unescapeHtml4(result);
     }
-    
+
     /**
-     * Get specific informations from a IMDb Title Link.
+     * Get specific information from a IMDb Title Link.
+     *
      * @param result from Search#IMDbSearch, only used the link.
      * @return EmbedBuilder
      * @throws IOException
      */
     public static EmbedBuilder getIMDbInfo(SearchResult result) throws IOException {
         Document doc = Jsoup.connect(result.getLink()).timeout(0).get();
-        
+
         //Title, Content Rating, Duration, Genre, Release Date
         Elements info = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital")
                 .select("div.title_block>div.title_bar_wrapper");
-        
+
         String title = info.select("h1").get(0).text();
         Elements sub = info.select("div.subtext");
         String contentRating = sub.text().split(" | ")[0];
@@ -103,47 +65,47 @@ public class WebScraper {
         String genre = sub.select(".itemprop").text().replaceAll(" ", ", ");
         String releaseDate = sub.select("a[title=\"See more release dates\"]").text();
         //System.out.println(title + "\n" + contentRating + "\t" + duration + "\t" + genre + "\t" + releaseDate);
-        
+
         //Plot, Crew Credit
         Elements plot = doc.select("div#main_top>.title-overview>div.heroic-overview>div.plot_summary_wrapper");
-        
+
         String summary = plot.select("div.summary_text").text();
         String director = plot.select("span[itemprop=director]").text();
         String stars = plot.select("span[itemprop=actors").text();
         //System.out.println(summary + "\n" + director + "\t" + STARS);
-        
+
         //Ratings
         Elements rate = doc.select("div#main_top>.title-overview>div.heroic-overview>div.vital")
                 .select("div.title_block>div.title_bar_wrapper>div.ratings_wrapper>div.imdbRating");
-        
+
         String rating = "**" + rate.select("div.ratingValue").text() + "**";
         String rates = " | " + rate.select("a").text() + " rates";
         String metaScore = plot.select("div.titleReviewBar>div.titleReviewBarItem>a").text();
         //System.out.println(rating + "\t" + rates + "\t" + metaScore);
-        
+
         //Nominations
         String top = "**" + doc.select("div#main_bottom>div#titleAwardsRanks>strong").text() + "**";
         String middle = " | ";
         String nomination = doc.select("div#main_bottom>div#titleAwardsRanks>span[itemprop=awards]").text(); //doc.select("div#main_bottom>div#titleAwardsRanks").TEXT();
         //System.out.println(top + "\t" + nomination);
-        
+
         //Assign "None" to null datas
         //if("".equals(title))
-        if("".equals(summary))
+        if ("".equals(summary))
             summary = "None";
-        if("".equals(director))
+        if ("".equals(director))
             director = "None";
-        if("".equals(stars))
+        if ("".equals(stars))
             stars = "None";
-        if("".equals(metaScore))
+        if ("".equals(metaScore))
             metaScore = "None";
-        if("****".equals(top))
+        if ("****".equals(top))
             top = "";
         else
             top += middle;
-        if("".equals(nomination))
+        if ("".equals(nomination))
             nomination = "No nomination or awards.";
-        
+
         //Build MessageEmbed
         EmbedBuilder imdb = new EmbedBuilder();
         imdb.setColor(UtilBot.randomColor());
@@ -154,22 +116,23 @@ public class WebScraper {
         imdb.addField(Emoji.FILM_FRAMES + " Duration", duration, true);
         imdb.addField("Genre", genre, true);
         imdb.addField(Emoji.DATE + " Release Date", releaseDate, true);
-        
+
         imdb.addField("Director(s)", director, true);
         imdb.addField(Emoji.STARS + " Stars", stars, false);
-        
+
         imdb.addField(Emoji.STAR + "IMDb Rating", rating + rates, true);
         imdb.addField("MetaScore", metaScore, true);
-        
+
         imdb.addField(Emoji.TROPHY + " Nomination and Awards", top + nomination, true);
-        
+
         imdb.addField(Emoji.BOOK + " Plot", summary, true);
-        
+
         return imdb;
     }
-    
+
     /**
      * IMDb Thumbnail getter
+     *
      * @param result the value of SearchResult to add thumbnail
      * @throws IOException
      */
@@ -186,24 +149,21 @@ public class WebScraper {
             }
         }
         result.setThumbnail(pic);
-    }  
-    
+    }
+
     /**
      * YouTube Thumbnail Getter
+     *
      * @param link
      * @throws IOException
      */
     public static String getYouTubeThumbNail(String link) throws IOException {
-        link = link.split("\\?v=")[1];
-        link = "http://img.youtube.com/vi/" + link + "/0.jpg";
-        Document doc = Jsoup.parse(link);
-        
-        String img = doc.select("img").attr("src");
-        return link;
+        return  "http://img.youtube.com/vi/" + link.split("\\?v=")[1] + "/0.jpg";
     }
 
     /**
      * Get the YouTube autoplay next song from the provided link
+     *
      * @param link
      * @return
      */
@@ -218,14 +178,14 @@ public class WebScraper {
 
     /**
      * Generate a random bill board song
+     *
      * @return the title of a random bill board song to be put into YouTube search
      */
-    public static String randomBillboardSong()
-    {
+    public static String randomBillboardSong() {
         try {
             Document doc = Jsoup.connect("http://www.billboard.com/rss/charts/hot-100").timeout(0).get();
             Elements titles = doc.select("item>chart_item_title");
-            int random = UtilNum.randomNum(0,99);
+            int random = UtilNum.randomNum(0, 99);
             return titles.get(random).text();
         } catch (IOException e) {
             e.printStackTrace();

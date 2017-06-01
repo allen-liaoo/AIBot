@@ -49,21 +49,15 @@ public class QueueCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-        }
-        else
-        {
-            try {
-                int page = 1;
-                if(args.length != 0)
-                    page = Integer.parseInt(args[0]);
-                queueList(e, page);
-            } catch (NumberFormatException | IndexOutOfBoundsException ex) {
-                e.getTextChannel().sendMessage(Emoji.ERROR + " Please enter a valid page number.").queue();
-                ex.printStackTrace();
-                return;
-            }
+        try {
+            int page = 1;
+            if(args.length != 0)
+                page = Integer.parseInt(args[0]);
+            queueList(e, page);
+        } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+            e.getTextChannel().sendMessage(Emoji.ERROR + " Please enter a valid page number.").queue();
+            ex.printStackTrace();
+            return;
         }
     }
 

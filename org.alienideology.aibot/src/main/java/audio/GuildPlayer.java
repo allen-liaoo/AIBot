@@ -159,7 +159,8 @@ public class GuildPlayer extends AudioEventAdapter {
      * @param link the link to play the song
      * @param type Track Type: NORMAL_REQUEST, RADIO
      */
-    public void play(String link, String author, TrackType type)
+    @SuppressWarnings("unchecked")
+    public void play(String link, User author, TrackType type)
     {
         Matcher m = Global.urlPattern.matcher(link);
 
@@ -195,6 +196,21 @@ public class GuildPlayer extends AudioEventAdapter {
      * @param list
      * @param requester
      */
+    @SuppressWarnings("unchecked")
+    public void addPlayList(AudioPlaylist list, User requester) {
+        List<AudioTrack> tracklist = list.getTracks();
+
+        for(AudioTrack track : tracklist) {
+            AudioTrackWrapper wrapper = new AudioTrackWrapper(track, requester, TrackType.PLAYLIST);
+            if (!player.startTrack(wrapper.getTrack(), true)) {
+                queue.offer(wrapper);
+                continue;
+            }
+            NowPlayingTrack = wrapper;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     public void addPlayList(AudioPlaylist list, String requester) {
         List<AudioTrack> tracklist = list.getTracks();
 
@@ -211,6 +227,7 @@ public class GuildPlayer extends AudioEventAdapter {
     /**
      * Automatically load a FM song from fmSongs.
      */
+    @SuppressWarnings("unchecked")
     public void autoFM() {
         Mode = PlayerMode.FM;
 
@@ -289,15 +306,17 @@ public class GuildPlayer extends AudioEventAdapter {
         return (int) Math.ceil(mem / 2);
     }
 
-    public void connect(VoiceChannel vc) {
+    public GuildPlayer connect(VoiceChannel vc) {
         setVc(vc);
         AudioManager am = vc.getGuild().getAudioManager();
         am.setAutoReconnect(true);
         am.openAudioConnection(vc);
+        return this;
     }
 
-    public void disconnect() {
+    public GuildPlayer disconnect() {
         vc.getGuild().getAudioManager().closeAudioConnection();
+        return this;
     }
 
     /**
@@ -408,12 +427,13 @@ public class GuildPlayer extends AudioEventAdapter {
     * Clear methods
     * @return GuildPlayer, easier for chaining
     */
-    public void stopPlayer() {
+    public GuildPlayer stopPlayer() {
         clearNowPlayingTrack()
         .clearQueue()
         .clearVote()
         .clearMode()
         .player.stopTrack();
+        return this;
     }
 
     public GuildPlayer clearQueue() {

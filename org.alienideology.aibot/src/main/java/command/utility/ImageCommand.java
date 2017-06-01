@@ -31,6 +31,7 @@ public class ImageCommand extends Command{
     
     private final String num = "&num=1";
     private String site = "&as_sitesearch=";
+    private String meme = "http://images.memes.com/meme/";
     
     public ImageCommand(String invoke)
     {

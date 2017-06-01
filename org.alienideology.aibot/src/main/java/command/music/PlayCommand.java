@@ -12,6 +12,7 @@ import constants.Global;
 import main.AIBot;
 import command.Command;
 import constants.Emoji;
+import net.dv8tion.jda.core.entities.ChannelType;
 import setting.Prefix;
 import utility.SearchResult;
 import utility.Search;
@@ -57,8 +58,10 @@ public class PlayCommand extends Command{
         GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
         AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
 
-        if(!e.getMember().getVoiceState().inVoiceChannel())
+        if(!e.getMember().getVoiceState().inVoiceChannel()) {
             e.getChannel().sendMessage(Emoji.ERROR + " You are not in a voice channel.").queue();
+            return;
+        }
         
         if(args.length == 0) {
             if(AIBot.getGuild(e.getGuild()).getPlayer().isPaused())
@@ -120,41 +123,37 @@ public class PlayCommand extends Command{
                     //Do it twice because sometimes it wont get result the first time
                     if(result.isEmpty())
                         result = Search.youtubeSearch(num, input);
-                    player.play(result.get(0).getLink(), e.getMember().getEffectiveName(), AudioTrackWrapper.TrackType.NORMAL_REQUEST);
+                    player.play(result.get(0).getLink(), e.getAuthor(), AudioTrackWrapper.TrackType.NORMAL_REQUEST);
                     result.clear();
                 } catch (IOException ioe) {
                     AILogger.errorLog(ioe, e, this.getClass().getName(), "IOException at getting Youtube search result.");
                 } catch (IndexOutOfBoundsException ioobe) {
                     e.getChannel().sendMessage(Emoji.ERROR + " No results.").queue();
-                    AILogger.errorLog(ioobe, e, this.getClass().getName(), "Cannot get Yt search result correctly. Input: " + input);
                 }
             } else {
-                player.play(args[0], e.getMember().getEffectiveName(), AudioTrackWrapper.TrackType.NORMAL_REQUEST);
+                player.play(args[0], e.getAuthor(), AudioTrackWrapper.TrackType.NORMAL_REQUEST);
             }
         }
     }
 
     
     public static void selector(String message, char character, MessageReceivedEvent e) {
-        if(e.getChannelType() == e.getChannelType().PRIVATE)
+        if(e.getChannelType() == ChannelType.PRIVATE)
             return;
         
         if(!selecter.containsKey(e.getGuild().getId()) 
                     || !selecter.containsValue(e.getAuthor()))
             return;
         
-        if("cancel".equals(message) || character == 'c')
-        {
+        if("cancel".equals(message) || character == 'c') {
             e.getTextChannel().deleteMessageById(e.getMessage().getId()).complete();
             e.getChannel().sendMessage("Selection Cancelled.").queue();
-            AILogger.commandLog(e, "PlayCommand#selector", "Video selection cancelled.");
         }
         
         else if(!Character.isDigit(character))
             return;
         
-        else
-        {
+        else {
             GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
             AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
 
@@ -162,7 +161,7 @@ public class PlayCommand extends Command{
             AILogger.commandLog(e, "PlayCommand#selector", "Video selected: " + results.get(i - 1).getLink());
             e.getTextChannel().deleteMessageById(e.getMessage().getId()).complete();
 
-            player.play(results.get(i-1).getLink(), e.getMember().getEffectiveName(), AudioTrackWrapper.TrackType.NORMAL_REQUEST);
+            player.play(results.get(i-1).getLink(), e.getAuthor(), AudioTrackWrapper.TrackType.NORMAL_REQUEST);
         }
         
         selecter.remove(e.getGuild().getId(), e.getAuthor());

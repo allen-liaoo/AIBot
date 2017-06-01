@@ -48,15 +48,10 @@ public class SkipCommand extends Command {
         GuildPlayer player = AIBot.getGuild(e.getGuild()).getGuildPlayer();
         AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
 
-        if(args.length == 0)
-        {
+        if(args.length == 0) {
             skip(e, player, false);
-        }
-        
-        else if("-f".equals(args[0]))
-        {
-            if(UtilBot.isMod(e.getMember()))
-            {
+        } else if("-f".equals(args[0])) {
+            if(UtilBot.isMod(e.getMember())) {
                 skip(e, player, true);
             } else {
                 e.getChannel().sendMessage(Emoji.ERROR + " Only server owner and members with \n"
@@ -130,8 +125,7 @@ public class SkipCommand extends Command {
      */
     public void skipPos(MessageReceivedEvent e, GuildPlayer player, int position)
     {
-        if(!player.getQueue().get(position).getRequester().equals(e.getAuthor().getName()) || !UtilBot.isMod(e.getMember()))
-        {
+        if(!player.getQueue().get(position).getRequester().equals(e.getAuthor()) || !UtilBot.isMod(e.getMember())) {
             e.getChannel().sendMessage(Emoji.ERROR + " Only server owner, members with `Administrator` permission "
                     + "\nand the song requester can skip a song at the given queue place.").queue();
             return;

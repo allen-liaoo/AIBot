@@ -6,6 +6,7 @@
  */
 package listener;
 
+import net.dv8tion.jda.core.entities.ChannelType;
 import system.selector.EmojiSelection;
 import command.music.PlayCommand;
 import java.util.HashMap;
@@ -62,7 +63,7 @@ public class SelectorListener extends ListenerAdapter {
     
     public static void addEmojiSelection(String author, EmojiSelection select)
     {
-        if(select.getGuild().getSelfMember().hasPermission((Channel) select.getchannel(), Permission.MESSAGE_ADD_REACTION)) {
+        if(select.getMessage().isFromType(ChannelType.PRIVATE) || select.getGuild().getSelfMember().hasPermission((Channel) select.getchannel(), Permission.MESSAGE_ADD_REACTION)) {
             for(String em : select.getOption()) {
                 select.getMessage().addReaction(em).queue();
             }

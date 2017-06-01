@@ -7,6 +7,7 @@ package command.fun;
 
 import command.*;
 import constants.Emoji;
+import constants.FilePath;
 import constants.Global;
 import setting.Prefix;
 import system.AILogger;
@@ -78,18 +79,15 @@ public class HangManCheaterCommand extends Command {
             
             //Check missed letters
             try {
-                BufferedReader reader = new BufferedReader(new FileReader("/Users/liaoyilin/NetBeansProjects/DiscordBot/src/main/java/game/WordBank.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader(FilePath.HangMan));
                 
-                String ranword = "";
-                while((ranword = reader.readLine()) != null)
-                {
+                String ranword;
+                while((ranword = reader.readLine()) != null) {
                     if(ranword.length() != word.length())
                         continue;
                     boolean contain = false;
-                    for(int i = 0; i < missed.size(); i ++)
-                    {
-                        if(ranword.contains(missed.get(i)))
-                        {
+                    for(int i = 0; i < missed.size(); i ++) {
+                        if(ranword.contains(missed.get(i))) {
                             contain = true;
                             break;
                         }
@@ -98,20 +96,16 @@ public class HangManCheaterCommand extends Command {
                         nomissed.add(ranword);
                 }
             
-                } catch (IOException ioe) {
+            } catch (IOException ioe) {
                 AILogger.errorLog(ioe, e, this.getClass().getName(), "BufferedReader at Checking missed letters.");
             }
             
             //Check if the known position has the same letters
-            for(int i = 0; i < nomissed.size(); i++)
-            {
+            for(int i = 0; i < nomissed.size(); i++) {
                 boolean wrong = true;
-                for(int j = 0; j < wordpo.size(); j++)
-                {
-                    if(!"?".equals(wordpo.get(j)))
-                    {
-                        if(!wordpo.get(j).equals(nomissed.get(i).substring(j, j+1)))
-                        {
+                for(int j = 0; j < wordpo.size(); j++) {
+                    if(!"?".equals(wordpo.get(j))) {
+                        if(!wordpo.get(j).equals(nomissed.get(i).substring(j, j+1))) {
                             wrong = true;
                             break;
                         }
@@ -119,12 +113,13 @@ public class HangManCheaterCommand extends Command {
                             wrong = false;
                     }
                 }
-                if(wrong == false)
-                        result.add(nomissed.get(i));
+                if(!wrong) {
+                    result.add(nomissed.get(i));
+                }
             }
             
             //Print out result
-            String possibleword = "", pages = "\nPages ";
+            String possibleword, pages = "\nPages ";
             
             if(result.isEmpty())
             {

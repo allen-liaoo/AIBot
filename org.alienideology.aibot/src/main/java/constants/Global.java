@@ -7,6 +7,8 @@
 package constants;
 
 import main.AIBot;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -32,6 +34,7 @@ public class Global {
     public final static String B_GAME_DEFAULT = "=help | " + AIBot.getGuilds().size() + " Servers";
     public final static String B_GAME_UPDATE = "\u203C Updating AIBot";
     public final static String B_GAME_FIXING = "\u2049 Fixing AIBot";
+    public final static Color B_COLOR = new Color(93, 199, 210);
     
     //-Bot Links
     public final static String B_DISCORD_BOT = "https://bots.discord.pw/bots/294327785512763392";

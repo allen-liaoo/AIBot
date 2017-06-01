@@ -5,6 +5,7 @@
  */
 package command.music;
 
+import net.dv8tion.jda.core.entities.User;
 import system.AILogger;
 import audio.AudioTrackWrapper;
 import audio.QueueList;
@@ -45,54 +46,47 @@ public class SongCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
+        if(args.length == 0)
+        {
+            try {
+               AudioTrackWrapper nowplaying = AIBot.getGuild(e.getGuild()).getGuildPlayer().getNowPlayingTrack();
+               e.getChannel().sendMessage(trackInfo(e, nowplaying, "Now Playing").build()).queue();
+            } catch (NullPointerException npe) {
+                e.getChannel().sendMessage(Emoji.ERROR + " No song is playing.").queue();
+            }
         }
         else
         {
-            if(args.length == 0)
-            {
-                try {
-                   AudioTrackWrapper nowplaying = AIBot.getGuild(e.getGuild()).getGuildPlayer().getNowPlayingTrack();
-                   e.getChannel().sendMessage(trackInfo(e, nowplaying, "Now Playing").build()).queue();
-                } catch (NullPointerException npe) {
-                    e.getChannel().sendMessage(Emoji.ERROR + " No song is playing.").queue();
-                }
+            QueueList queue = AIBot.getGuild(e.getGuild()).getGuildPlayer().getQueue();
+            AudioTrackWrapper np = AIBot.getGuild(e.getGuild()).getGuildPlayer().getNowPlayingTrack();
+
+            int target = 0;
+            String search = "";
+            if(UtilNum.isInteger(args[0]))
+                target = Integer.parseInt(args[0]);
+            else {
+                for(String s : args) { search += s; }
+                target = queue.find(search);
+                // If return queue from QueueList#find(), then check nowplayingtrack.
+                // Return -1 if nowplayingtrack is the result. If no result, return -2.
+                target = target == -1 ? (np.getTrack().getInfo().title.toLowerCase().contains(search) ? -1 : -2) : target;
             }
-            else
-            {
-                QueueList queue = AIBot.getGuild(e.getGuild()).getGuildPlayer().getQueue();
-                AudioTrackWrapper np = AIBot.getGuild(e.getGuild()).getGuildPlayer().getNowPlayingTrack();
 
-                int target = 0;
-                String search = "";
-                if(UtilNum.isInteger(args[0]))
-                    target = Integer.parseInt(args[0]);
-                else {
-                    for(String s : args) { search += s; }
-                    target = queue.find(search);
-                    // If return queue from QueueList#find(), then check nowplayingtrack.
-                    // Return -1 if nowplayingtrack is the result. If no result, return -2.
-                    target = target == -1 ? (np.getTrack().getInfo().title.toLowerCase().contains(search) ? -1 : -2) : target;
-                }
+            if(target > queue.size()-1) {
+                e.getChannel().sendMessage(Emoji.ERROR + " The position exceeds the range of this queue (" + queue.size() + ").").queue();
+                return;
+            } else if(target == -2) { //No search result
+                e.getChannel().sendMessage(Emoji.ERROR + " No result of " + search + " in the queue.").queue();
+                return;
+            }
 
-                if(target > queue.size()-1)
-                {
-                    e.getChannel().sendMessage(Emoji.ERROR + " The position exceeds the range of this queue (" + queue.size() + ").").queue();
-                    return;
-                } else if(target == -2) { //No search result
-                    e.getChannel().sendMessage(Emoji.ERROR + " No result of " + search + " in the queue.").queue();
-                    return;
-                }
-
-                AudioTrackWrapper songinfo = null;
-                if(target == -1) {
-                    songinfo = np;
-                    e.getChannel().sendMessage(trackInfo(e, songinfo, "Now Playing").build()).queue();
-                } else if(target == -2) {
-                    songinfo = AIBot.getGuild(e.getGuild()).getGuildPlayer().getQueue().get(target);
-                    e.getChannel().sendMessage(trackInfo(e, songinfo, "Queue Song (Position " + target + ")").build()).queue();
-                }
+            AudioTrackWrapper songinfo = null;
+            if(target == -1) {
+                songinfo = np;
+                e.getChannel().sendMessage(trackInfo(e, songinfo, "Now Playing").build()).queue();
+            } else {
+                songinfo = AIBot.getGuild(e.getGuild()).getGuildPlayer().getQueue().get(target);
+                e.getChannel().sendMessage(trackInfo(e, songinfo, "Queue Song (Position " + target + ")").build()).queue();
             }
         }
     }
@@ -105,22 +99,21 @@ public class SongCommand extends Command{
      */
     public EmbedBuilder trackInfo(MessageReceivedEvent e, AudioTrackWrapper track, String title) {
         AudioTrackInfo trackInfo = track.getTrack().getInfo();
-        String trackTime = UtilString.formatDurationToString(track.getTrack().getPosition());
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setAuthor(title, trackInfo.uri, Global.B_AVATAR);
-        embedBuilder.setColor(UtilBot.randomColor());
-        embedBuilder.addField("Song Title:", trackInfo.title, true);
-        embedBuilder.addField("Author:", trackInfo.author, true);
-        embedBuilder.addField("Song Link:", trackInfo.uri, false);
+        String trackTime = "[`"+UtilString.formatDurationToString(track.getTrack().getPosition());
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+            .setAuthor(title, trackInfo.uri, Global.B_AVATAR).setColor(UtilBot.randomColor())
+            .setThumbnail(Global.B_AVATAR).setTimestamp(Instant.now());
+
+        embedBuilder.addField(Emoji.INFORMATION + "Information", "**["+trackInfo.title+"]("+trackInfo.uri+")**\n"
+                +"Uploader `"+trackInfo.author+"` | ID `"+trackInfo.identifier+"`\n"
+                +"Type `"+track.getType().toString()+"` | Stream `"+trackInfo.isStream+"`", true);
+
         if (track.getType() != AudioTrackWrapper.TrackType.RADIO) {
-            trackTime += " / " + UtilString.formatDurationToString(track.getTrack().getDuration());
+            trackTime += "` / `" + UtilString.formatDurationToString(track.getTrack().getDuration()) + "`]";
         }
-        embedBuilder.addField("Song Duration:", trackTime, true);
-        embedBuilder.addField("Track Type:", track.getType().toString(), true);
-        embedBuilder.addField("Stream:", UtilString.VariableToString(null, trackInfo.isStream + "") + "", true);
-        embedBuilder.addField("Requested by:", track.getRequester(), true);
-        embedBuilder.setThumbnail(Global.B_AVATAR);
-        embedBuilder.setTimestamp(Instant.now());
+        embedBuilder.addField(Emoji.STOPWATCH + "Song Duration", trackTime, true)
+            .addField(Emoji.SPY + "Requested by", track.getRequester().toString(), true);
+
         try {
             embedBuilder.setImage(WebScraper.getYouTubeThumbNail(track.getTrack().getInfo().uri));
         } catch (IOException ex) {

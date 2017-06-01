@@ -62,7 +62,7 @@ public class InfoUserCommand extends Command{
         name = user.getName();
         id = user.getId();
         dis = user.getDiscriminator();
-        nickname = member == null ? "N/A" : member.getEffectiveName();
+        nickname = member == null || member.getNickname() == null ? "N/A" : member.getEffectiveName();
 
         /* Status */
         OnlineStatus stat = member == null ? null : member.getOnlineStatus();

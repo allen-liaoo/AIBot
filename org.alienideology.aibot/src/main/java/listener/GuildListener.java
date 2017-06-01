@@ -51,7 +51,8 @@ public class GuildListener extends ListenerAdapter {
                                 + "[GitHub](https://github.com/AlienIdeology/AIBot/) | "
                                 + "[Support Server](https://discordapp.com/invite/EABc8Kc)";
 
-    private HashMap<String, ScheduledThreadPoolExecutor> scheduleLeaver = new HashMap<>();
+    private ScheduledThreadPoolExecutor scheduler = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(0);
+    private HashMap<String, ScheduledFuture> scheduleLeaver = new HashMap<>();
     
     /**
      * Guild listener
@@ -148,8 +149,7 @@ public class GuildListener extends ListenerAdapter {
 
             // Shutdown scheduled leaver if user joined
             if(scheduleLeaver.containsKey(joined.getId())) {
-                scheduleLeaver.get(joined.getId()).shutdownNow();
-                scheduleLeaver.remove(joined.getId());
+                scheduleLeaver.remove(joined.getId()).cancel(true);
             }
         }
     }
@@ -183,28 +183,23 @@ public class GuildListener extends ListenerAdapter {
                     && player.isPlaying()) {
                 player.getPlayer().setPaused(true);
             }
-        } catch (NullPointerException npe) {
+        } catch (NullPointerException ignored) {
 
         }
     }
 
     private void scheduleLeaveVc(Guild guild, VoiceChannel left)
     {
-        ScheduledThreadPoolExecutor sch = (ScheduledThreadPoolExecutor)
-                Executors.newScheduledThreadPool(0);
-
         Runnable leave = () -> {
             GuildPlayer player = AIBot.getGuild(guild).getGuildPlayer();
-            player.stopPlayer();
-            player.disconnect();
+            player.stopPlayer().disconnect();
             player.getTc().sendMessage("~~Five Minutes Later...~~").queue((Message msg) ->
                     msg.editMessage(Emoji.NO + " Left voice channel because no one is listening. ;-;").queueAfter(4, TimeUnit.SECONDS));
-            scheduleLeaver.remove(left.getId());
-            sch.shutdown();
+            scheduleLeaver.remove(left.getId()).cancel(false);
         };
 
-        ScheduledFuture<?> leaver = sch.schedule(leave, 5, TimeUnit.MINUTES);
-        scheduleLeaver.put(left.getId(), sch);
+        ScheduledFuture<?> leaver = scheduler.schedule(leave, 5, TimeUnit.MINUTES);
+        scheduleLeaver.put(left.getId(), leaver);
     }
 
 }

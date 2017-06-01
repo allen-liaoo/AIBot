@@ -61,7 +61,7 @@ public class InfoBotCommand extends Command{
             
             // Identities
             name = bot.getSelfUser().getName();
-            nickname = e.isFromType(ChannelType.PRIVATE) ? "N/A" : e.getGuild().getSelfMember().getEffectiveName();
+            nickname = e.isFromType(ChannelType.PRIVATE) || e.getGuild().getSelfMember().getNickname() == null ? "N/A" : e.getGuild().getSelfMember().getEffectiveName();
             id = user.getId();
             dis = user.getDiscriminator();
 

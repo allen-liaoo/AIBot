@@ -18,6 +18,7 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.ExceptionEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import utility.WebGetter;
+import utility.WebScraper;
 
 /**
  *

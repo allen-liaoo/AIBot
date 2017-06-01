@@ -91,7 +91,7 @@ public class RadioCommand extends Command{
         AIBot.getGuild(e.getGuild()).setTc(e.getTextChannel());
 
         Music.connect(e, false);
-        player.play(link, e.getMember().getEffectiveName(), AudioTrackWrapper.TrackType.RADIO);
+        player.play(link, e.getAuthor(), AudioTrackWrapper.TrackType.RADIO);
 
         //Log
         AILogger.commandLog(e, "FM#loadFM", "Fm loaded");

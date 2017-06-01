@@ -2,13 +2,17 @@
 All notable changes to this project will be documented in this file.
 Log type: Added, Changed, Deprecated, Removed, Fixed, Security
 
-#### [0.3.5] - 2017-05-18 ~ 2017-05-21
+#### [0.3.5] - 2017-05-18 ~ 2017-05-29
 ##### Added
 - AFKCommand for setting AFK status
 - UserWrapper, GlobalWatchDog for AFK status
 - EvalCommand to evaluate java code. Use Nashorn script engine.
 - AvatarCommand, a simple command to get link and attachment of a avatar.
 - ModsCommand for listing and autopin mod(s).
+- AsciiCommand for turning plain text into Ascii Arts.
+##### Fixed
+- Embed message for LyricsCommand, looks better.
+- Divide lyrics sections into embed fields using regexs. 
 
 #### [0.3.4] - 2017-05-7 ~ 2017-05-11
 ##### Added

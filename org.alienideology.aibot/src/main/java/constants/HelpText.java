@@ -135,6 +135,7 @@ public class HelpText {
     */
     public final static String FUN_CMD = 
             "**8ball**\n"
+            + "**ascii**\n"
             + "**face**\n"
             + "**spam**\n"
             //command Group- game
@@ -147,6 +148,7 @@ public class HelpText {
     
     public final static String FUN_DES = 
             "Ask the magic 8ball a question. *\n"
+            + "Plain text to Ascii Arts. *\n"
             + "( ͡° ͜ʖ ͡°) *\n"
             + "Spam yummy spams! *\n"
             //command Group- game
