@@ -1,7 +1,7 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="All Places" />
-    <option name="defaultScopeName" value="All Places" />
-    <option name="SEARCH_SCOPE" value="All Places" />
+    <option name="customScope" value="Module 'J-Cord_main'" />
+    <option name="defaultScopeName" value="Module 'J-Cord_main'" />
+    <option name="SEARCH_SCOPE" value="Module 'J-Cord_main'" />
   </component>
 </application>
