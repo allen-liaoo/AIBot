@@ -1,9 +1,9 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="Directory '... - [J-Cord]'" />
-    <option name="defaultScopeName" value="Directory '... - [J-Cord]'" />
+    <option name="customScope" value="Directory '.../src/main - [J-Cord_main]'" />
+    <option name="defaultScopeName" value="Directory '.../src/main - [J-Cord_main]'" />
     <option name="wholeWordsOnly" value="true" />
     <option name="WHOLE_WORDS_ONLY" value="true" />
-    <option name="SEARCH_SCOPE" value="Directory '... - [J-Cord]'" />
+    <option name="SEARCH_SCOPE" value="Directory '.../src/main - [J-Cord_main]'" />
   </component>
 </application>
