@@ -3,6 +3,7 @@
     <extensionMap>
       <mapping pattern="Event_Hierarchy" type="Markdown" />
       <mapping pattern=".travis.ym" type="PLAIN_TEXT" />
+      <mapping ext="aar" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
 </application>
