@@ -1,4 +1,5 @@
 <code_scheme name="Default">
+  <option name="AUTODETECT_INDENTS" value="false" />
   <MarkdownNavigatorCodeStyleSettings>
     <option name="RIGHT_MARGIN" value="72" />
   </MarkdownNavigatorCodeStyleSettings>
