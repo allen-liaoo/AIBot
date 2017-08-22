@@ -20,6 +20,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  * @author Alien Ideology <alien.ideology at alien.org>
  */
 public class PresenceCommand extends Command {
+
     public final static String HELP = "This command is for setting the bot's nickname, status and game.\n"
                                     + "Command Usage: `" + Prefix.getDefaultPrefix() + "setNick` or `"+ Prefix.getDefaultPrefix() + "setStatus` or `"+ Prefix.getDefaultPrefix() + "setGame`\n"
                                     + "Parameter: `-h | [Status] | [game | default] | null`\n"
@@ -29,9 +30,7 @@ public class PresenceCommand extends Command {
     private String type = "";
     
     public PresenceCommand(String invoke) {
-        if("setStatus".equals(invoke)) type = "status";
-        else if("setGame".equals(invoke)) type = "game";
-        else if("setNick".equals(invoke)) type = "nick";
+        type = invoke;
     }
     
 

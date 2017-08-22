@@ -66,7 +66,7 @@ public class AIBot {
         UtilBot.setUnirestCookie();
         musicStartup();
 
-        String token = PrivateConstant.BOT_BETA_TOKEN;
+        String token = PrivateConstant.BOT_TOKEN;
         isBeta = !token.equals(PrivateConstant.BOT_TOKEN);
 
         for(int i = 0; i < Global.B_SHARDS; i++) {
@@ -308,9 +308,9 @@ public class AIBot {
         
         //Restricted Commands
         commands.put("shutdown", new ShutDownCommand());
-        commands.put("setNick", new PresenceCommand("setNick"));
-        commands.put("setStatus", new PresenceCommand("setStatus"));
-        commands.put("setGame", new PresenceCommand("setGame"));
+        commands.put("setNick", new PresenceCommand("nick"));
+        commands.put("setStatus", new PresenceCommand("status"));
+        commands.put("setGame", new PresenceCommand("game"));
         commands.put("source", new SourceCommand());
         commands.put("log", new LogCommand());
         commands.put("eval", new EvalCommand());

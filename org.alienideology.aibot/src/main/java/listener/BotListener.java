@@ -6,7 +6,6 @@
  */
 package listener;
 
-import net.dv8tion.jda.core.events.ReadyEvent;
 import main.AIBot;
 import utility.UtilBot;
 import java.io.IOException;
@@ -15,10 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.events.ExceptionEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import utility.WebGetter;
-import utility.WebScraper;
 
 /**
  *
@@ -44,7 +39,7 @@ public class BotListener implements Runnable {
         Scanner scanner = new Scanner(System.in);
         while (true)  {
             String input = scanner.nextLine();
-            
+
             //ShutDown
             if (input.equals("shutdown")) {
                 try {

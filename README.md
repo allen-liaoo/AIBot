@@ -1,6 +1,6 @@
 # AIBot 
 A discord bot made in JDA by AlienIdeology (or Ayy™). <br />
-Defualt Prefix: `=`<br />
+Default Prefix: `=`<br />
 ![picture alt](https://cdn.discordapp.com/app-icons/294327785512763392/64c107f7c8c70f14f719ebd3907f1776.jpg )<br />
 
 [Discord Bots Link](https://bots.discord.pw/bots/294327785512763392) <br />

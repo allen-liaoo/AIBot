@@ -37,11 +37,6 @@ public class ShutDownCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
         if(args.length == 0) 
         {
             if(Global.D_ID.equals(e.getAuthor().getId()))
@@ -59,7 +54,7 @@ public class ShutDownCommand extends Command{
                     Logger.getLogger(ShutDownCommand.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            else if(!"-h".equals(args[0])) 
+            else
                 e.getChannel().sendMessage(Emoji.ERROR + " This command is for **Bot Owner** only!").queue();
                 
         }

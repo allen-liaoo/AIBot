@@ -53,7 +53,7 @@ public class SourceCommand extends Command{
                 try{
                     String output = "", file = "";
                     int count = 1, fromOrig = args.length >= 2 ? Integer.parseInt(args[1]) : 0, from = 0,
-                            to = args.length >= 3 ? Integer.parseInt(args[2]) : UtilNum.getLineCount(FilePath.BasePath + args[0]);
+                            to = args.length >= 3 ? Integer.parseInt(args[2]) : UtilNum.getLineCount(args[0]);
                         
                     //Check if fromOrig and to are negative.
                     if(fromOrig < 0)
@@ -72,7 +72,7 @@ public class SourceCommand extends Command{
                     
                             
                     //Read File
-                    FileInputStream fstream = new FileInputStream(FilePath.BasePath + args[0]);
+                    FileInputStream fstream = new FileInputStream(args[0]);
                     BufferedReader br = new BufferedReader(new InputStreamReader(fstream));  
 
                     String s;  

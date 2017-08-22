@@ -59,7 +59,7 @@ public abstract class AISelector<T> {
         this.guild = guild;
     }
 
-    public MessageChannel getchannel() {
+    public MessageChannel getChannel() {
         return channel;
     }
 

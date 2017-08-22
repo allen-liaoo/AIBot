@@ -34,17 +34,11 @@ public class InfoServerCommand extends Command{
         EmbedBuilder embed = super.help(e);
         embed.setTitle("Information Module", null);
         embed.addField("ServerInfo -Help", HELP, true);
-        embed.setFooter("Command Help/Usage", null);
         return embed;
     }
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 1 && "-h".equals(args[0])) {
-            e.getChannel().sendMessage(help(e).build()).queue();
-            return;
-        }
-        
         if(args.length >= 0 || "-m".equals(args[0]))
         {
             Guild guild = e.getGuild();

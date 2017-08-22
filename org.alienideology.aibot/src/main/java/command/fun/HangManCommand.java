@@ -43,9 +43,9 @@ public class HangManCommand extends Command{
 
     @Override
     public void action(String[] args, MessageReceivedEvent e) {
-        if(args.length == 0 || "-h".equals(args[0])) 
+        if(args.length == 0)
         {
-            help(e);
+            e.getChannel().sendMessage(help(e).build());
         }
         
         else if(args.length > 0 && "start".equals(args[0]))

@@ -113,7 +113,12 @@ public class LyricsCommand extends Command{
                 }
             }
         } else {
-            embed.setDescription(lyrics);
+            if (lyrics.length() > 2047) {
+                embed.setDescription(lyrics.substring(0, 2047)+"...");
+                embed.addField("There are more lyrics...", "Link: **["+title+"]("+link+")**", false);
+            } else {
+                embed.setDescription(lyrics);
+            }
         }
 
         return embed;
